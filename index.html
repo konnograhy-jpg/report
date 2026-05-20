@@ -3,522 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>政府標案全自動化發報系統 - 運作流程與架構報告</title>
+    <title>報告書總覽 | 給老闆看的報告書 HTML 專用</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* 全域設定，確保元素寬度計算正確，防止裁切 */
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --primary-color: #2b579a;
-            --secondary-color: #e8f1f5;
-            --text-color: #333333;
-            --border-color: #dddddd;
-            --school-color: #d9534f;
-            --sport-bg: #d9ead3;
-            --sport-text: #274e13;
-            --toilet-bg: #cfe2f3;
-            --toilet-text: #0b5394;
-            --wall-bg: #fce5cd;
-            --wall-text: #783f04;
-            --success-color: #27ae60;
+            --primary: #2b579a;
+            --primary-dark: #1a3a6b;
+            --primary-light: #e8f1f5;
+            --accent: #f0a500;
+            --bg: #0f1923;
+            --surface: #1a2535;
+            --surface2: #202f45;
+            --text: #e8edf5;
+            --text-muted: #8a9ab5;
+            --border: rgba(255,255,255,0.07);
+            --success: #27ae60;
+            --glow: rgba(43, 87, 154, 0.4);
         }
 
         body {
-            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 40px 20px;
+            background-image:
+                radial-gradient(ellipse at 20% 10%, rgba(43,87,154,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(43,87,154,0.10) 0%, transparent 60%);
         }
 
         .container {
-            max-width: 1000px;
-            width: 100%;
-            background-color: #ffffff;
+            max-width: 860px;
             margin: 0 auto;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border-top: 8px solid var(--primary-color);
         }
 
-        h1 {
-            color: var(--primary-color);
+        /* Header */
+        .header {
             text-align: center;
-            margin-top: 0;
-            font-size: 26px;
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 15px;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.6s ease;
         }
 
-        .meta-info {
-            text-align: center;
-            color: #666;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            color: var(--primary-color);
-            border-left: 5px solid var(--primary-color);
-            padding-left: 12px;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        p {
-            margin: 0 0 15px 0;
-            color: #555;
-            font-size: 15px;
-        }
-
-        /* 雲端連結按鈕 */
-        .cloud-btn-container {
-            text-align: center;
-            margin: 20px 0 30px 0;
-        }
-
-        .cloud-btn {
+        .header-badge {
             display: inline-block;
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary), #4a7fd4);
             color: white;
-            padding: 12px 24px;
-            font-weight: bold;
-            border-radius: 6px;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(43,87,154,0.2);
-            transition: background-color 0.2s, transform 0.2s;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
-        .cloud-btn:hover {
-            background-color: #1e3d70;
-            transform: translateY(-1px);
+        .header h1 {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 10px;
+            line-height: 1.3;
         }
 
-        /* 流程圖樣式 - 改為 100% 寬度自適應，防止橫向超出被裁切 */
-        .flow-container {
-            background-color: #fafbfc;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px 15px;
-            margin-bottom: 30px;
+        .header h1 span {
+            background: linear-gradient(135deg, #4a9fff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), #4a7fd4);
+            border-radius: 2px;
+            margin: 20px auto;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease 0.2s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 900;
+            color: #4a9fff;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Section title */
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Report cards */
+        .report-grid {
             display: flex;
             flex-direction: column;
+            gap: 16px;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+
+        .report-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 28px;
+            display: flex;
             align-items: center;
-            width: 100%;
+            gap: 24px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .flow-step {
-            width: 100%;
-            max-width: 800px;
-            background-color: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 8px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            transition: transform 0.2s, border-color 0.2s;
+        .report-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(43,87,154,0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .flow-step:hover {
-            transform: translateY(-1px);
-            border-color: var(--primary-color);
-            box-shadow: 0 4px 10px rgba(43,87,154,0.08);
+        .report-card:hover {
+            border-color: rgba(74, 159, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(43,87,154,0.25), 0 0 0 1px rgba(74,159,255,0.2);
         }
 
-        .flow-step-number {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            text-align: center;
-            line-height: 24px;
-            font-weight: bold;
-            font-size: 13px;
-            margin-right: 10px;
+        .report-card:hover::before {
+            opacity: 1;
         }
 
-        .flow-step-title {
-            font-weight: bold;
-            color: #1a202c;
-            font-size: 15px;
+        .report-card:hover .card-arrow {
+            transform: translateX(4px);
+            color: #4a9fff;
         }
 
-        .flow-step-desc {
-            margin: 5px 0 0 34px;
-            font-size: 13.5px;
-            color: #4a5568;
+        .card-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            box-shadow: 0 4px 16px var(--glow);
         }
 
-        .flow-arrow {
-            color: #a0aec0;
-            font-size: 18px;
-            margin: 1px 0;
-            font-weight: bold;
+        .card-body {
+            flex: 1;
+            min-width: 0;
         }
 
-        /* 模塊詳細解析卡片 */
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
-            .container {
-                padding: 15px;
-            }
-        }
-
-        .card {
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        .card-category {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #4a9fff;
+            margin-bottom: 6px;
         }
 
         .card-title {
-            font-weight: bold;
-            font-size: 15px;
-            color: var(--primary-color);
-            margin-bottom: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .card-meta {
             display: flex;
             align-items: center;
+            gap: 12px;
+            margin-top: 10px;
         }
 
-        .card-title::before {
-            content: "•";
-            color: var(--primary-color);
-            font-size: 24px;
-            margin-right: 8px;
-            line-height: 0;
-        }
-
-        .card p {
-            font-size: 13.5px;
-            margin-bottom: 10px;
-        }
-
-        /* 色彩標註樣式 */
-        .color-legend {
-            background-color: #fafbfc;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        .legend-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 13.5px;
-            font-weight: 500;
-        }
-
-        .legend-item.red {
-            border: 1px solid #f5c2c2;
-            background-color: #fdf2f2;
-            color: var(--school-color);
-        }
-
-        .legend-item.green {
-            border: 1px solid #c2e0b8;
-            background-color: var(--sport-bg);
-            color: var(--sport-text);
-        }
-
-        .legend-item.blue {
-            border: 1px solid #b8daff;
-            background-color: var(--toilet-bg);
-            color: var(--toilet-text);
-        }
-
-        .legend-item.orange {
-            border: 1px solid #fcd5b5;
-            background-color: var(--wall-bg);
-            color: var(--wall-text);
-        }
-
-        .badge {
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 4px;
+        .meta-tag {
             font-size: 11px;
-            margin-right: 8px;
-            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: rgba(43,87,154,0.25);
+            color: #7ab3ff;
+            border: 1px solid rgba(43,87,154,0.3);
+        }
+
+        .card-arrow {
+            font-size: 20px;
+            color: var(--text-muted);
+            transition: all 0.3s;
             flex-shrink: 0;
         }
 
-        .badge-red { background-color: var(--school-color); color: white; }
-        .badge-green { background-color: #6aa84f; color: white; }
-        .badge-blue { background-color: #3d85c6; color: white; }
-        .badge-orange { background-color: #e69138; color: white; }
-
-        /* 表格樣式 */
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 15px;
-            margin-bottom: 30px;
+        /* Empty state */
+        .empty-hint {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 13px;
+            background: var(--surface);
+            border: 1px dashed var(--border);
+            border-radius: 16px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13.5px;
-            min-width: 600px; /* 確保窄螢幕能橫向滾動而不擠壓變形 */
-        }
-
-        th, td {
-            border: 1px solid var(--border-color);
-            padding: 10px 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        tr:nth-child(even) td {
-            background-color: #fafbfc;
-        }
-
+        /* Footer */
         .footer {
             text-align: center;
-            color: #888;
+            margin-top: 50px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
             font-size: 12px;
-            margin-top: 30px;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
+            line-height: 1.8;
         }
 
-        /* 💡 專屬列印/輸出 PDF 優化樣式，徹底防止網頁列印時被裁切 */
-        @media print {
-            body {
-                background-color: #ffffff;
-                padding: 0;
-                margin: 0;
-            }
-            .container {
-                box-shadow: none;
-                padding: 0;
-                border-top: none;
-                max-width: 100%;
-                width: 100%;
-            }
-            .flow-step {
-                page-break-inside: avoid;
-                width: 100%;
-                border-color: #cbd5e0;
-            }
-            .card {
-                page-break-inside: avoid;
-            }
-            table {
-                page-break-inside: auto;
-            }
-            tr {
-                page-break-inside: avoid;
-                page-break-after: auto;
-            }
-            .cloud-btn-container {
-                display: none; /* 列印 PDF 時隱藏按鈕 */
-            }
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 24px; }
+            .report-card { padding: 18px 20px; gap: 16px; }
+            .card-icon { width: 44px; height: 44px; font-size: 20px; }
+            .stats-bar { gap: 20px; }
         }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <h1>💼 政府標案全自動化發報系統</h1>
-    <div class="meta-info">
-        發報系統運作架構與流程報告書（管理決策版） | 報告時間：2026-05-20
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-badge">📁 Report Hub</div>
+        <h1>給老闆看的<span>報告書</span>專區</h1>
+        <div class="divider"></div>
+        <p>點選下方任一報告書，即可開啟完整內容</p>
     </div>
 
-    <p>本報告書旨在向管理階層說明<strong>「政府電子採購網標案全自動化系統」</strong>的整體架構與運作邏輯。本系統成功打通地端與雲端，實現每日自動進行標案搜尋、智慧篩選、色彩排版著色、截圖，並將視覺化報表第一時間推送至 LINE 工作群組，大幅提升標案評估與決策效率。</p>
+    <!-- Stats -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number" id="report-count">1</div>
+            <div class="stat-label">份報告書</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">🟢</div>
+            <div class="stat-label">持續更新中</div>
+        </div>
+    </div>
 
-    <!-- 雲端連結按鈕：老闆在 PDF 中可直接點擊此按鈕連到雲端試算表 -->
-    <div class="cloud-btn-container">
-        <a href="https://docs.google.com/spreadsheets/d/1xPTrVcnw_79bXUGIY8qZcRdgFJI5nuJPa9No5TpiDSg/edit" target="_blank" class="cloud-btn">
-            🔗 點此開啟今日 Google 雲端試算表
+    <!-- Report List -->
+    <div class="section-title">所有報告書</div>
+    <div class="report-grid" id="report-grid">
+
+        <!-- 報告書 01：標案自動化收尋 -->
+        <a href="標案自動化收尋.html" class="report-card" id="report-01">
+            <div class="card-icon">💼</div>
+            <div class="card-body">
+                <div class="card-category">自動化系統</div>
+                <div class="card-title">政府標案全自動化發報系統</div>
+                <div class="card-desc">系統運作架構與流程報告書，涵蓋六大核心流程、色彩著色規範與效益分析。</div>
+                <div class="card-meta">
+                    <span class="meta-tag">📅 2026-05-20</span>
+                    <span class="meta-tag">管理決策版</span>
+                </div>
+            </div>
+            <div class="card-arrow">→</div>
         </a>
+
+        <!-- 未來的報告書會由賽巴斯自動新增在這裡 -->
+
     </div>
 
-    <!-- 1. 流程圖結構 -->
-    <div class="section-title">一、 系統運作六大核心流程</div>
-    <div class="flow-container">
-        <!-- 步驟 1 -->
-        <div class="flow-step">
-            <span class="flow-step-number">1</span>
-            <span class="flow-step-title">自動定時啟動（讀取配置）</span>
-            <div class="flow-step-desc">每日早晨由 Windows 工作排程器定時觸發程式，自動讀取 Obsidian 配置檔的搜尋關鍵字。</div>
-        </div>
-        <div class="flow-arrow">⬇</div>
-        
-        <!-- 步驟 2 -->
-        <div class="flow-step">
-            <span class="flow-step-number">2</span>
-            <span class="flow-step-title">模擬請求政府電子採購網</span>
-            <div class="flow-step-desc">Python 自動發送 HTTP 請求，模擬進階搜尋（精準鎖定「勞務類」標案，免去手動登入查詢）。</div>
-        </div>
-        <div class="flow-arrow">⬇</div>
-
-        <!-- 步驟 3 -->
-        <div class="flow-step">
-            <span class="flow-step-number">3</span>
-            <span class="flow-step-title">地端智慧多維度篩選</span>
-            <div class="flow-step-desc">排除非核心地區（如東部、高屏與離島），限制預算上限，並安全保留未公開金額（空白）的案件。</div>
-        </div>
-        <div class="flow-arrow">⬇</div>
-
-        <!-- 步驟 4 -->
-        <div class="flow-step">
-            <span class="flow-step-number">4</span>
-            <span class="flow-step-title">雲端 Sheets 寫入與金額排序</span>
-            <div class="flow-step-desc">自動於 Google 試算表建立當日日期分頁，將符合條件的標案以「金額由大到小」降序排列寫入。</div>
-        </div>
-        <div class="flow-arrow">⬇</div>
-
-        <!-- 步驟 5 -->
-        <div class="flow-step">
-            <span class="flow-step-number">5</span>
-            <span class="flow-step-title">智慧視覺著色標記</span>
-            <div class="flow-step-desc">系統寫入時自動分析案名，針對學校、設計規劃、景觀運動、室內修繕、防水拉皮套用專屬底色與字體。</div>
-        </div>
-        <div class="flow-arrow">⬇</div>
-
-        <!-- 步驟 6 -->
-        <div class="flow-step">
-            <span class="flow-step-number">6</span>
-            <span class="flow-step-title">自動 Chrome 截圖與 LINE 發送</span>
-            <div class="flow-step-desc">啟動背景 Chrome 瀏覽器對試算表進行網頁截圖，透過 Discord 緩存中轉，以 LINE 機器人推送至群組。</div>
-        </div>
-    </div>
-
-    <!-- 2. 色彩標記規則 -->
-    <div class="section-title">二、 試算表「色彩註記與分類」規範</div>
-    <p>為了使決策者能在手機上用「1秒鐘時間」抓出重點標案，系統寫入雲端時會套用以下著色邏輯：</p>
-    
-    <div class="color-legend">
-        <strong>🎨 標記對照說明表：</strong>
-        <div class="legend-grid">
-            <div class="legend-item red">
-                <span class="badge badge-red">紅字標示</span>
-                <div>
-                    <strong>機關為學校 / 核心規劃案</strong><br>
-                    <span style="font-size: 11px; opacity: 0.9;">關鍵字：小學、中學、大學、設計、監造</span>
-                </div>
-            </div>
-            <div class="legend-item green">
-                <span class="badge badge-green">綠色底色</span>
-                <div>
-                    <strong>景觀與運動設施類</strong><br>
-                    <span style="font-size: 11px; opacity: 0.9;">關鍵字：體育、操場、球場、公園、景觀</span>
-                </div>
-            </div>
-            <div class="legend-item blue">
-                <span class="badge badge-blue">藍色底色</span>
-                <div>
-                    <strong>室內裝修與廁所修繕類</strong><br>
-                    <span style="font-size: 11px; opacity: 0.9;">關鍵字：廁所、浴室、辦公室、教室、整修</span>
-                </div>
-            </div>
-            <div class="legend-item orange">
-                <span class="badge badge-orange">橘色底色</span>
-                <div>
-                    <strong>防水與外牆拉皮工程類</strong><br>
-                    <span style="font-size: 11px; opacity: 0.9;">關鍵字：防水、隔熱、外牆拉皮、漏水工程</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. 詳細功能架構 -->
-    <div class="section-title">三、 系統模塊詳細架構</div>
-    <div class="grid-container">
-        <div class="card">
-            <div class="card-title">1. 地端 Python 抓取與篩選模組</div>
-            <p><strong>自動化查詢</strong>：繞過繁瑣網頁點選，秒級獲取 PCC 採購網數據。</p>
-            <p><strong>地區過濾</strong>：排除雙北、宜花東、高屏、離島等，聚焦核心業務地區。</p>
-            <p><strong>容錯處理</strong>：對於金額未公開案件，程式自動補 0 放行，保證關鍵設計案不漏失。</p>
-        </div>
-        <div class="card">
-            <div class="card-title">2. Google Sheets API 雲端排版模組</div>
-            <p><strong>自動排序</strong>：打破網頁亂序狀態，高預算案置頂呈現。</p>
-            <p><strong>局部字體美化</strong>：C欄內所有「核心關鍵字（如：設計/監造）」會執行局部文字標紅、加粗，其餘內容維持原樣。</p>
-            <p><strong>自適應排版</strong>：動態調整欄位寬度、開啟自動換行，確保行動端文字不重疊。</p>
-        </div>
-    </div>
-
-    <!-- 4. 效益分析 -->
-    <div class="section-title">四、 人工 vs 全自動化效益對比</div>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th>指標項目</th>
-                    <th>人工操作流程 (手動整理)</th>
-                    <th>全自動化發報系統 (Python)</th>
-                    <th>系統綜合效益</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>每日耗費時間</strong></td>
-                    <td>每日手動查詢、複製、排版、對色、截圖，約需 30 ~ 45 分鐘。</td>
-                    <td>系統定時於背景自動執行，完全不耗費人力時間。</td>
-                    <td style="color: var(--success-color); font-weight: bold;">⌛ 人力時間節省 100%</td>
-                </tr>
-                <tr>
-                    <td><strong>排序與比對精準度</strong></td>
-                    <td>逐筆複製容易遺漏，手動計算金額與對色常有失誤。</td>
-                    <td>程式碼嚴格執行地區過濾與預算降序排列，精準度 100%。</td>
-                    <td style="color: var(--success-color); font-weight: bold;">🎯 杜絕人為錯誤與缺漏</td>
-                </tr>
-                <tr>
-                    <td><strong>行動端決策體驗</strong></td>
-                    <td>需開啟電腦登入雲端硬碟，縮放畫面查看小字格。</td>
-                    <td>手機 LINE 群組直收高品質彩色圖表，一眼看出今日主攻案件。</td>
-                    <td style="color: var(--success-color); font-weight: bold;">📱 手機 1 秒掌握重大商機</td>
-                </tr>
-                <tr>
-                    <td><strong>系統參數調整</strong></td>
-                    <td>需重新教育訓練、手動修改複製規則。</td>
-                    <td>直接於 Obsidian 配置檔修改關鍵字，系統下次執行自動套用。</td>
-                    <td style="color: var(--success-color); font-weight: bold;">⚙️ 零程式基礎即可輕鬆維護</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+    <!-- Footer -->
     <div class="footer">
-        © 2026 政府標案全自動化發報系統 - 版權所有<br>
-        <i>報告內附之雲端試算表連結為即時動態網址，支援各種平台點擊讀取。</i>
+        © 2026 給老闆看的報告書 HTML 專用<br>
+        由賽巴斯自動維護 · 每次新增報告書時自動更新此首頁
     </div>
-</div>
 
+</div>
 </body>
 </html>
