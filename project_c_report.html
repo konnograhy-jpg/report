@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>政府電子採購網 ─ 標案自動化收尋 C 專案 (網頁版) 技術移交與架構報告書</title>
+    <!-- 載入 Google Fonts 提升排版質感 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --brand-primary: #4f46e5;
+            --brand-primary-light: #e0e7ff;
+            --brand-secondary: #7c3aed;
+            --brand-success: #10b981;
+            --brand-warning: #f59e0b;
+            --brand-danger: #ef4444;
+            --border-color: #e2e8f0;
+            --sidebar-width: 280px;
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --font-family: 'Outfit', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* 暗色模式定義 */
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --brand-primary-light: #312e81;
+            --border-color: #334155;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* 導覽側邊欄 */
+        aside {
+            width: var(--sidebar-width);
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.65rem 1rem;
+            border-radius: var(--border-radius-sm);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: var(--brand-primary-light);
+            color: var(--brand-primary);
+            border-left-color: var(--brand-primary);
+        }
+
+        .nav-item svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+            flex-shrink: 0;
+        }
+
+        .aside-footer {
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--border-color);
+        }
+
+        .author-tag {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* 主要內容區域 */
+        main {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 2.5rem 3.5rem;
+            max-width: 1240px;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        header {
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--brand-primary-light);
+            color: var(--brand-primary);
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: 2.15rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.75px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* 區段容器 */
+        .section-content {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 卡片元件 */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 1.75rem;
+            margin-bottom: 1.75rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--brand-primary);
+        }
+
+        .card-title svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* 網格系統 */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 警示框 */
+        .alert {
+            padding: 1.25rem;
+            border-radius: var(--border-radius-md);
+            border-left: 4px solid transparent;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .alert-info {
+            background-color: #eff6ff;
+            border-left-color: #3b82f6;
+            color: #1e3a8a;
+        }
+        [data-theme="dark"] .alert-info {
+            background-color: #1e3a8a30;
+            color: #bfdbfe;
+        }
+
+        .alert-warning {
+            background-color: #fffbeb;
+            border-left-color: var(--brand-warning);
+            color: #78350f;
+        }
+        [data-theme="dark"] .alert-warning {
+            background-color: #78350f30;
+            color: #fde68a;
+        }
+
+        .alert-danger {
+            background-color: #fef2f2;
+            border-left-color: var(--brand-danger);
+            color: #7f1d1d;
+        }
+        [data-theme="dark"] .alert-danger {
+            background-color: #7f1d1d30;
+            color: #fecaca;
+        }
+
+        .alert svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        /* 流程步驟設計 */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            position: relative;
+            padding-left: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .flow-container::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 9px;
+            width: 2px;
+            background-color: var(--border-color);
+        }
+
+        .flow-step {
+            position: relative;
+        }
+
+        .flow-step::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 6px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--bg-card);
+            border: 3px solid var(--brand-primary);
+            z-index: 2;
+        }
+
+        .flow-step.success::before {
+            border-color: var(--brand-success);
+        }
+
+        .flow-step-header {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .flow-step-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* 技術標籤 */
+        .tech-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.75rem;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 0.25rem;
+        }
+
+        .keyword-badge {
+            display: inline-block;
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: 'Fira Code', monospace;
+            font-weight: 500;
+            margin: 0.15rem;
+        }
+        [data-theme="dark"] .keyword-badge {
+            background-color: #991b1b40;
+            color: #fca5a5;
+        }
+
+        /* 列表設計 */
+        ul.custom-list, ol.custom-list {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        ul.custom-list li, ol.custom-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        strong {
+            color: var(--text-primary);
+        }
+
+        /* 表格設計 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--bg-primary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        tr:hover {
+            background-color: rgba(79, 70, 229, 0.02);
+        }
+
+        /* 程式碼區塊 */
+        pre {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            padding: 1.25rem;
+            border-radius: var(--border-radius-md);
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.88rem;
+            margin: 1rem 0;
+            border: 1px solid #334155;
+            position: relative;
+        }
+
+        pre code {
+            font-family: inherit;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1e293b;
+            padding: 0.5rem 1rem;
+            border-top-left-radius: var(--border-radius-md);
+            border-top-right-radius: var(--border-radius-md);
+            border-bottom: 1px solid #334155;
+            font-size: 0.8rem;
+            font-family: sans-serif;
+            color: #94a3b8;
+            margin-top: 1rem;
+            margin-bottom: -1rem;
+        }
+
+        /* 數據看板 */
+        .stat-number {
+            font-size: 2.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* 脈衝動態點 */
+        .badge-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--brand-success);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        /* 切換區塊選單 */
+        .tab-menu {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1.75rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-size: 0.92rem;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            color: var(--brand-primary);
+            border-bottom-color: var(--brand-primary);
+            font-weight: 600;
+        }
+
+        /* 模擬主機終端機樣式 */
+        .terminal-mockup {
+            background-color: #0b0f19;
+            border: 1px solid #1e293b;
+            border-radius: var(--border-radius-md);
+            padding: 1.25rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: #38bdf8;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .terminal-dot.red { background-color: #ef4444; }
+        .terminal-dot.yellow { background-color: #f59e0b; }
+        .terminal-dot.green { background-color: #10b981; }
+
+        .terminal-title {
+            color: #64748b;
+            margin-left: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .term-log {
+            color: #e2e8f0;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .term-success { color: #4ade80; }
+        .term-warning { color: #facc15; }
+        .term-error { color: #f87171; }
+        .term-cmd { color: #38bdf8; font-weight: bold; }
+
+        /* 試算表界面模擬 */
+        .sheet-mockup {
+            border: 1px solid #cbd5e1;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            font-size: 0.85rem;
+            background-color: #ffffff;
+            color: #334155;
+            box-shadow: var(--shadow-sm);
+        }
+        [data-theme="dark"] .sheet-mockup {
+            background-color: #1e293b;
+            border-color: #475569;
+            color: #cbd5e1;
+        }
+
+        .sheet-tab {
+            background-color: #15803d;
+            color: #ffffff;
+            padding: 0.4rem 1rem;
+            font-weight: bold;
+            font-size: 0.75rem;
+            display: inline-block;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .sheet-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        .sheet-table th {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        [data-theme="dark"] .sheet-table th {
+            background-color: #334155;
+            border-color: #475569;
+            color: #cbd5e1;
+        }
+
+        .sheet-table td {
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem;
+            vertical-align: middle;
+        }
+        [data-theme="dark"] .sheet-table td {
+            border-color: #475569;
+        }
+
+        .sheet-school-highlight {
+            color: #dc2626 !important;
+            font-weight: bold;
+        }
+        .sheet-bg-sport {
+            background-color: #e2f0d9 !important;
+        }
+        [data-theme="dark"] .sheet-bg-sport {
+            background-color: #2e3e29 !important;
+        }
+        
+        .sheet-bg-toilet {
+            background-color: #ddebf7 !important;
+        }
+        [data-theme="dark"] .sheet-bg-toilet {
+            background-color: #20354a !important;
+        }
+
+        /* 手機模擬器樣式 */
+        .phone-mockup {
+            border: 12px solid #0f172a;
+            border-radius: 36px;
+            max-width: 380px;
+            background-color: #f1f5f9;
+            box-shadow: var(--shadow-lg);
+            margin: 1.5rem auto;
+            overflow: hidden;
+            position: relative;
+        }
+        [data-theme="dark"] .phone-mockup {
+            border-color: #334155;
+            background-color: #0f172a;
+        }
+
+        .phone-notch {
+            width: 130px;
+            height: 18px;
+            background-color: #0f172a;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        [data-theme="dark"] .phone-notch {
+            background-color: #334155;
+        }
+
+        .phone-content {
+            padding: 2.5rem 1rem 1.5rem 1rem;
+            max-height: 580px;
+            overflow-y: auto;
+        }
+
+        .phone-header {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .phone-card {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 0.85rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.8rem;
+        }
+        [data-theme="dark"] .phone-card {
+            background-color: #1e293b;
+            border-color: #334155;
+        }
+
+        /* 首頁推薦標案的網頁渲染卡片畫面 */
+        .rec-card-rendered {
+            border-left: 5px solid var(--brand-success);
+            border-radius: var(--border-radius-md);
+            padding: 1.25rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left-width: 6px;
+            border-left-color: var(--brand-success);
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .rec-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .rec-tag-school {
+            background-color: #fee2e2;
+            color: #dc2626;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+        }
+        [data-theme="dark"] .rec-tag-school {
+            background-color: #7f1d1d40;
+            color: #fca5a5;
+        }
+
+        .rec-budget-rendered {
+            font-weight: bold;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .rec-title-rendered {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .rec-detail-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background-color: var(--bg-primary);
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            aside {
+                width: 100%;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 1.5rem;
+            }
+
+            main {
+                margin-left: 0;
+                padding: 1.75rem 1.25rem;
+                width: 100%;
+            }
+
+            .logo-area {
+                margin-bottom: 1rem;
+            }
+
+            .nav-links {
+                display: none; /* 小螢幕主要靠上方 tab 選單導覽 */
+            }
+        }
+
+        /* 瀏覽器視窗與下午比對差異網頁版模擬樣式 */
+        .browser-window {
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            background-color: var(--bg-card);
+            box-shadow: var(--shadow-lg);
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .browser-bar {
+            background-color: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        [data-theme="dark"] .browser-bar {
+            background-color: #1e293b;
+            border-color: #334155;
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 0.35rem;
+        }
+
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .browser-dot.red { background-color: #ef4444; }
+        .browser-dot.yellow { background-color: #f59e0b; }
+        .browser-dot.green { background-color: #10b981; }
+
+        .browser-address-bar {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 0.2rem 0.75rem;
+            font-size: 0.75rem;
+            color: #64748b;
+            font-family: monospace;
+            flex-grow: 1;
+            text-align: left;
+        }
+        [data-theme="dark"] .browser-address-bar {
+            background-color: #0f172a;
+            border-color: #475569;
+            color: #94a3b8;
+        }
+
+        .diff-web-container {
+            padding: 1.5rem;
+            background-color: var(--bg-primary);
+        }
+
+        .diff-section-box {
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.25rem;
+            background-color: var(--bg-card);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .diff-section-title {
+            padding: 0.65rem 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .diff-section-title.added {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        .diff-section-title.modified {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+        .diff-section-title.removed {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+        }
+
+        .diff-item-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            font-size: 0.85rem;
+        }
+        .diff-item-table th, .diff-item-table td {
+            padding: 0.6rem 0.85rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .diff-item-table th {
+            background-color: var(--bg-primary);
+            font-weight: 600;
+        }
+        
+        .diff-budget-old {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            font-size: 0.75rem;
+        }
+        
+        .diff-budget-new {
+            color: #10b981;
+            font-weight: 700;
+        }
+        
+        .strikethrough-text {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 側邊導覽列 -->
+    <aside>
+        <div>
+            <div class="logo-area">
+                <div class="logo-icon">C</div>
+                <div>
+                    <div class="logo-text">Tender Auto C</div>
+                    <div class="author-tag" style="margin-top: 2px;">技術移交報告書</div>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li><a class="nav-item active" onclick="switchSection('summary')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    專案概覽與統計
+                </a></li>
+                <li><a class="nav-item" onclick="switchSection('keywords')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    檢索關鍵字與篩選邏輯
+                </a></li>
+                <li><a class="nav-item" onclick="switchSection('pipeline')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H17m0 0V4m0 0h4m-8 4v8m-4-4h8"></path></svg>
+                    工作管線與流程
+                </a></li>
+                <li><a class="nav-item" onclick="switchSection('scheduler')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    自動排程設定
+                </a></li>
+                <li><a class="nav-item" onclick="switchSection('examples')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    6月4日 運行實例展示
+                </a></li>
+                <li><a class="nav-item" onclick="switchSection('principles')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    技術原理與工具
+                </a></li>
+                <li><a class="nav-item" onclick="switchSection('handover')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                    移交與安全規範
+                </a></li>
+            </ul>
+        </div>
+
+        <div class="aside-footer">
+            <button class="theme-toggle-btn" onclick="toggleTheme()">
+                <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                切換深色/淺色
+            </button>
+            <div class="author-tag">
+                <span class="pulse-dot"></span>
+                <span>管家 賽巴斯 (Sebastian) 編寫</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 主要內容區 -->
+    <main>
+        <header>
+            <span class="badge">內部技術移交與說明文件</span>
+            <h1>標案自動化收尋 C 專案 (網頁版)</h1>
+            <p class="subtitle">系統流程、關鍵字規則、排程登錄、技術原理與 6/4 運行實例展示</p>
+        </header>
+
+        <!-- 行動裝置輔助 Tab 選單 -->
+        <div class="tab-menu">
+            <button class="tab-btn active" id="tab-summary" onclick="switchSection('summary')">專案概覽</button>
+            <button class="tab-btn" id="tab-keywords" onclick="switchSection('keywords')">關鍵字配置</button>
+            <button class="tab-btn" id="tab-pipeline" onclick="switchSection('pipeline')">流程管線</button>
+            <button class="tab-btn" id="tab-scheduler" onclick="switchSection('scheduler')">排程設定</button>
+            <button class="tab-btn" id="tab-examples" onclick="switchSection('examples')">6/4實例</button>
+            <button class="tab-btn" id="tab-principles" onclick="switchSection('principles')">技術工具</button>
+            <button class="tab-btn" id="tab-handover" onclick="switchSection('handover')">安全移交</button>
+        </div>
+
+        <!-- 區段 1：專案概覽 -->
+        <section id="sect-summary" class="section-content active">
+            <div class="grid-3">
+                <div class="card" style="padding: 1.25rem;">
+                    <div class="stat-number">2 次 / 日</div>
+                    <div class="stat-label">自動執行排程頻率 (08:30 / 17:40)</div>
+                </div>
+                <div class="card" style="padding: 1.25rem;">
+                    <div class="stat-number">30 天</div>
+                    <div class="stat-label">雲端 HTML 歷史保留天數 (滾動清理)</div>
+                </div>
+                <div class="card" style="padding: 1.25rem;">
+                    <div class="stat-number">Exit 3</div>
+                    <div class="stat-label">下午無異動優雅退出狀態碼</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    專案背景與定位
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    本專案是在先前 A/B 專案的爬蟲與資料結構化整理基礎上，全新升級的<strong>「網頁化自動部署管線」</strong>。
+                    本系統旨在定時監控政府電子採購網勞務類標案，並藉由 Google Sheets API 實現雲端資料共同編輯與標記，接著將數據自動渲染成<strong>雙介面響應式 HTML 報告</strong>，最後透過本地 Git 工具自動推送至 <strong>GitHub Pages 雲端公開網站</strong>。
+                </p>
+                <div class="alert alert-info" style="margin-bottom: 0;">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div>
+                        <strong>重要更新 ─ 網頁跨端實體物理隔離：</strong> 首頁 <code>index.html</code> (管理決策版) 與標案整理明細頁 <code>tenders.html</code> 已實行實體檔案物理隔離。首頁移除了可能暴露的詳細標案網址，並由 <code>tenders.html</code> 作為內部歷史公告入口，加強資訊安全防護。
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    雲端與本地配置狀態
+                </div>
+                <table style="margin-top: 0;">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">配置項目</th>
+                            <th>詳細設定值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>本地主要工作區</strong></td>
+                            <td><code>D:\03.AI\Antigravity\標案自動化收尋C專案(網頁)</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>雲端 HTML 發布目錄</strong></td>
+                            <td><code>D:\03.AI\report</code> (連結至 GitHub <code>report</code> repository)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>本地歷史網頁備份</strong></td>
+                            <td><code>D:\03.AI\標案網頁歷史備份</code> (實施永久保存，程式不自動清理)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Google 試算表 ID</strong></td>
+                            <td><code>1xPTrVcnw_79bXUG... (已依安全規範遮蔽敏感密鑰)</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Git 倉庫對應網址</strong></td>
+                            <td><code>https://github.com/konnograhy-jpg/report.git</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>GitHub Page 預覽網址</strong></td>
+                            <td><a href="https://konnograhy-jpg.github.io/report/" target="_blank">https://konnograhy-jpg.github.io/report/</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 區段 2：檢索關鍵字與篩選邏輯 -->
+        <section id="sect-keywords" class="section-content">
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    1. 政府採購網 Advanced Search 關鍵字對照
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    爬蟲腳本 <code>tender_scraper_api_c.py</code> 在向政府電子採購網發送請求時，會帶入經過 UrlEncode 的 <strong>33 個進階搜尋關鍵字</strong> (以 <code>|</code> 進行邏輯聯集 OR)，檢索勞務類 (RAD_PROCTRG_CATE_3) 標案，並將預算限制在 <strong>1,000 萬台幣以下</strong>。
+                </p>
+                <div style="background-color: var(--bg-primary); padding: 1.25rem; border-radius: var(--border-radius-sm); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem; font-size: 0.95rem;">檢索關鍵字列表 (共 33 個)：</p>
+                    <span class="keyword-badge">設計</span> <span class="keyword-badge">監造</span> <span class="keyword-badge">規劃</span> <span class="keyword-badge">規畫</span> <span class="keyword-badge">工程</span>
+                    <span class="keyword-badge">修繕</span> <span class="keyword-badge">裝修</span> <span class="keyword-badge">整修</span> <span class="keyword-badge">技術服務</span> <span class="keyword-badge">可行性</span>
+                    <span class="keyword-badge">評估</span> <span class="keyword-badge">體育</span> <span class="keyword-badge">運動</span> <span class="keyword-badge">操場</span> <span class="keyword-badge">跑道</span>
+                    <span class="keyword-badge">球場</span> <span class="keyword-badge">箭場</span> <span class="keyword-badge">冰場</span> <span class="keyword-badge">地坪</span> <span class="keyword-badge">廁所</span>
+                    <span class="keyword-badge">公廁</span> <span class="keyword-badge">辦公室</span> <span class="keyword-badge">教室</span> <span class="keyword-badge">室內</span> <span class="keyword-badge">宿舍</span>
+                    <span class="keyword-badge">防水</span> <span class="keyword-badge">隔熱</span> <span class="keyword-badge">外牆</span> <span class="keyword-badge">拉皮</span> <span class="keyword-badge">公園</span>
+                    <span class="keyword-badge">休憩</span> <span class="keyword-badge">遊憩</span> <span class="keyword-badge">遊戲</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                    2. Python 地端二次過濾與著色著重規則
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    標案自 API 撈回後，Python 會執行地端清洗與二次篩選，並在輸出 Google Sheets 與網頁時進行分類上色：
+                </p>
+                <table style="margin-top: 0;">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">分類項目</th>
+                            <th style="width: 30%;">對照關鍵字</th>
+                            <th>顯示效果與著色規則</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>地區排除 (跳過案件)</strong></td>
+                            <td><code>臺北</code>, <code>新北</code>, <code>宜蘭</code>, <code>花蓮</code>, <code>臺東</code>, <code>屏東</code>, <code>高雄</code>, <code>金門</code>, <code>澎湖</code>, <code>馬祖</code>, <code>連江</code>, <code>基隆</code>, <code>花東</code></td>
+                            <td>排除不合適地理區域，<strong>直接過濾不予記錄</strong>。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>機關(學校相關)</strong></td>
+                            <td><code>學校</code>, <code>國小</code>, <code>國中</code>, <code>中學</code>, <code>小學</code>, <code>高中</code>, <code>高職</code>, <code>大學</code>, <code>幼兒園</code> 等</td>
+                            <td>於 Sheet 與 HTML 中，機關名稱以<strong>紅色加粗字體</strong>顯示。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>運動與設施標案</strong></td>
+                            <td><code>體育</code>, <code>運動</code>, <code>操場</code>, <code>跑道</code>, <code>球場</code>, <code>田徑場</code>, <code>公園</code>, <code>步道</code>, <code>地坪</code> 等</td>
+                            <td>於 Sheet 與 HTML 表格中，整列標案以<strong>淺綠色背景 (#e2f0d9)</strong> 標記。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>修繕與廁所標案</strong></td>
+                            <td><code>廁所</code>, <code>公廁</code>, <code>辦公室</code>, <code>教室</code>, <code>室內</code>, <code>修繕</code>, <code>整修</code> 等</td>
+                            <td>於 Sheet 與 HTML 表格中，整列標案以<strong>淺藍色背景 (#ddebf7)</strong> 標記。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>防水外牆標案</strong></td>
+                            <td><code>防水</code>, <code>隔熱</code>, <code>外牆</code>, <code>拉皮</code></td>
+                            <td>於 Sheet 與 HTML 表格中，整列標案以<strong>橘色背景 (#fce4d6)</strong> 標記。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    3. 學校運動類「規劃設計/監造」標案 ─ 特用複合篩選演算法
+                </div>
+                <div class="alert alert-info" style="margin-bottom: 1rem;">
+                    <div>
+                        <strong>三層篩選交集：</strong>
+                        為精準捕捉適合公司投標之標案，系統設有學校運動類特別推薦邏輯，必須同時符合以下三類關鍵字之交集才會被篩選出來：
+                        <div style="margin-top: 0.5rem; font-family: monospace; font-size: 0.9rem;">
+                            <strong>推薦標案</strong> = (<strong>招標機關</strong>包含[學校相關]) <strong>AND</strong> (<strong>案名</strong>包含[體育運動類關鍵字]) <strong>AND</strong> (<strong>案名</strong>包含[設計/監造/規劃])
+                        </div>
+                    </div>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-secondary);">
+                    篩選出來的推薦標案除了會在 Google Sheet 最底端以獨立區塊「🏫 學校運動類標案推薦」列出，也會在產出網頁時，於首頁的上半部分以極具質感的「獨立大卡片」亮眼突出呈現，方便決策層一目了然。
+                </p>
+            </div>
+        </section>
+
+        <!-- 區段 3：工作管線與流程 -->
+        <section id="sect-pipeline" class="section-content">
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    工作管線 (Pipeline) 流程
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    專案的管線核心控制是由 <code>tender_pipeline_master_c.py</code> 主控，流程可區分為三大關卡、六個精細步驟：
+                </p>
+
+                <div class="flow-container">
+                    <div class="flow-step success">
+                        <div class="flow-step-header">步驟 1. PCC 政府採購網爬蟲與資料篩選</div>
+                        <div class="flow-step-desc">
+                            系統定時啟動 <code>tender_scraper_api_c.py</code>，透過網路要求取得政府採購網當日的勞務標案。利用正則表達式篩選出符合條件之標案，剔除不合適分類。
+                        </div>
+                    </div>
+                    <div class="flow-step success">
+                        <div class="flow-step-header">步驟 2. Google Sheets API 雲端比對與寫入</div>
+                        <div class="flow-step-desc">
+                            使用服務帳號憑證（<code>credentials.json</code>）連線至 Master Google 試算表。
+                            如果是<strong>上午 (08:30) 模式</strong>，直接建立全新日期分頁並寫入；如果是<strong>下午 (17:40) 模式</strong>，則會拉取上午寫入之分頁，實施差分比對（Diff）。若下午比對發現無任何新增案件，主程式將以 <strong>Exit Code 3</strong> 中斷執行，不再往下執行網頁渲染與 Git 發布，節省 API 配額與伺服器資源。
+                        </div>
+                    </div>
+                    <div class="flow-step success">
+                        <div class="flow-step-header">步驟 3. 跨裝置響應式 HTML 報告渲染</div>
+                        <div class="flow-step-desc">
+                            主控腳本呼叫 <code>test_screenshot_c.py</code>，將試算表中整理好的今日標案與推薦卡片撈出，編譯為靜態 HTML。
+                            渲染時會對關鍵字進行自動高亮標記，並同步儲存一份於本地永久備份資料夾 <code>D:\標案網頁歷史備份</code> 中。
+                        </div>
+                    </div>
+                    <div class="flow-step success">
+                        <div class="flow-step-header">步驟 4. 網頁物理隔離與手機版版面優化</div>
+                        <div class="flow-step-desc">
+                            HTML 首頁（<code>index.html</code> 管理決策版）與明細頁（<code>tenders.html</code>）實施物理隔離，保護網址鏈接。
+                            響應式設計：寬度小於 768px 時，網頁自動隱藏寬大繁雜的 Table，改以流暢好滑的<strong>「凝聚型卡片直列列表」</strong>呈現，方便老闆在手機上極速過濾與閱讀。
+                        </div>
+                    </div>
+                    <div class="flow-step success">
+                        <div class="flow-step-header">步驟 5. 雲端 30 天滾動清理機制</div>
+                        <div class="flow-step-desc">
+                            程式在每次生成網頁時，會主動掃描雲端 <code>report/tenders/</code> 底下的所有歷史 HTML 報告。凡建立時間大於 30 天之舊報告，程式會自動將其自雲端發布目錄中物理刪除，以落實 Git 倉庫輕量化，而本地的永久備份則不受此清理影響。
+                        </div>
+                    </div>
+                    <div class="flow-step success">
+                        <div class="flow-step-header">步驟 6. 本地 Git 推送與雲端靜態網頁發布</div>
+                        <div class="flow-step-desc">
+                            管線程式最後自動切換至 <code>D:\03.AI\report</code> 目錄，自動執行 <code>git add .</code> ➔ <code>git commit -m "Auto-update..."</code> ➔ <code>git push origin main</code>，將最新渲染之首頁與報告推播至 GitHub Pages。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 區段 4：自動排程設定 -->
+        <section id="sect-scheduler" class="section-content">
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Windows 工作排程器配置規範
+                </div>
+                <p style="margin-bottom: 1.25rem;">
+                    為了確保地端排程在背景執行時，不會因為 Windows 繁體中文路徑 <code>D:\03.AI</code> 產生 Big5 (CP950) 與 UTF-8 編碼衝突，排程設定必須嚴格遵守以下三大鐵則：
+                </p>
+
+                <div class="alert alert-warning">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <div>
+                        <strong>重要！排程登錄三大技術鐵則：</strong>
+                        <ol class="custom-list" style="margin-top: 0.5rem; margin-bottom: 0;">
+                            <li><strong>無感直調模式 (No-Shell Direct Mode)：</strong> 排程 Action 的執行項目必須直接指定 <code>python.exe</code>，絕對不能透過 <code>.bat</code> 批次檔或 <code>cmd.exe</code> 當作媒介，因為 <code>cmd.exe</code> 載入中文路徑時 100% 會因 Big5 解碼失敗而崩潰。</li>
+                            <li><strong>注入 <code>-X utf8</code> 啟動引數：</strong> 在排程引數中，必須將 <code>-X utf8</code> 置於最前，強制 Python 解譯器使用 Unicode 處理所有路徑與 stdout 輸出。</li>
+                            <li><strong>排除重複垃圾排程：</strong> 排程註冊腳本執行前，會強制解註冊所有舊的、拼寫相近的歷史排程，統一命名為唯一的 <code>TenderAutomation_C</code>。</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="code-header">PowerShell 排程註冊核心代碼範本 (setup_tender_task_c.ps1)</div>
+                <pre><code># 1. 建立雙觸發器 (上午 08:30 與 下午 17:40)
+$Trigger1 = New-ScheduledTaskTrigger -Daily -At "08:30"
+$Trigger2 = New-ScheduledTaskTrigger -Daily -At "17:40"
+
+# 2. 建立 Action (直接呼叫 Python 並注入 -X utf8 參數)
+$Action = New-ScheduledTaskAction -Execute $PythonPath `
+            -Argument "-X utf8 `"$ProjectScript`"" `
+            -WorkingDirectory $ProjectDir
+
+# 3. 建立電源與優先級設定 (允許電池執行、有網路時啟動)
+$Settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries `
+            -DontStopIfGoingOnBatteries -StartWhenAvailable -MultipleInstances Parallel
+
+# 4. 以當前使用者身分登錄排程並強制覆蓋
+Register-ScheduledTask -TaskName "TenderAutomation_C" `
+    -Trigger $Trigger1, $Trigger2 -Action $Action -Settings $Settings -Force</code></pre>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    排程屬性規格表
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">排程欄位</th>
+                            <th>設定值</th>
+                            <th>目的與說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>工作名稱 (TaskName)</strong></td>
+                            <td><code>TenderAutomation_C</code></td>
+                            <td>區分原 B 專案，單一專屬排程名稱。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>執行時間 (Triggers)</strong></td>
+                            <td>每日 <code>08:30</code> 及 <code>17:40</code></td>
+                            <td>對應採購網上午與下午的資料發布波段。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>執行帳號 (Principal)</strong></td>
+                            <td>當前登入使用者 (<code>Interactive</code>)</td>
+                            <td>確保讀寫本地 I/O 與調用 Git 能正常通過憑證。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>權限等級 (RunLevel)</strong></td>
+                            <td><code>Highest</code> (以最高管理員權限執行)</td>
+                            <td>確保系統排程擁有建立檔案與背景呼叫的完整權限。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>重疊執行策略</strong></td>
+                            <td><code>Parallel</code></td>
+                            <td>防範前次爬網假死時，阻塞新一輪任務的啟動。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 區段 5：6月4日 運行實例展示 -->
+        <section id="sect-examples" class="section-content">
+            <div class="alert alert-info">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div>
+                    <strong>真實執行實例說明：</strong> 以下數據均取自 **2026 年 6 月 4 日** 系統地端自動執行的真實歷史結果，藉此說明系統的最終產出與顯示樣貌。
+                </div>
+            </div>
+
+            <!-- 範例 1：下午差分比對 -->
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    實例 A：下午差分比對終端機輸出與邏輯結果 (Console Output & Diff Logic)
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    於每日 17:40 執行下午比對時，管線會將政府採購網的最新標案，與當日上午 08:30 寫入 Sheets 的資料進行案號比對，並區分為「新增」、「修改」、「減少」三類異動：
+                </p>
+
+                <div class="terminal-mockup">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">PowerShell - 2026/06/04 10:53 下午比對模式</span>
+                    </div>
+                    <div class="term-log">
+[啟動] C專案 政府電子採購網 全自動爬取與試算表寫入服務
+[解析] 電子採購網公告總符合筆數: 124 筆。
+[篩選] 已排除非核心地區，剩餘有效勞務類標案 76 筆，已完成降序排序。
+[驗證] 正在使用金鑰檔案進行驗證：credentials.json
+[成功] 成功開啟試算表：標案自動化收尋C專案試算表
+<span class="term-cmd">[模式偵測] 偵測到今日上午分頁存在（分頁名稱：2026/6/4）。進入下午比對模式！</span>
+[讀取] 成功自 2026/6/4 讀取 77 列資料。
+[解析] 成功自 Google Sheet 解析出上午標案共 75 筆。
+<span class="term-warning">[比對結果] 新增: 1 筆，修改: 1 筆，減少/撤案: 1 筆。</span>
+[清理] 刪除既有的下午分頁：2026/6/4-下午
+[成功] 成功建立今日下午分頁：2026/6/4-下午 (SheetID: 9948011)
+[成功] 數據寫入完畢！下午比對流程正常結束。
+<span class="term-success">✅ 1. PCC 標案爬網與寫入 Google Sheets 執行成功！</span>
+                    </div>
+                </div>
+
+                <p style="margin-bottom: 0.5rem; font-size: 0.95rem; font-weight: 600;">6/4 下午比對明細對照：</p>
+                <ul class="custom-list">
+                    <li><strong style="color: var(--brand-success);">➕ 下午新增案件 (1 筆)</strong>：新竹縣竹北市公所 ─ 因應新竹縣國土計畫可行性評估案計畫 (預算：9,800,000元)</li>
+                    <li><strong style="color: var(--brand-primary);">📝 下午修改案件 (1 筆)</strong>：台灣中油股份有限公司 ─ 換熱器及塔槽零星清洗修繕工作 (預算變更：100元 ➔ 9,946,000元，資訊標記為藍色背景)</li>
+                    <li><strong style="color: var(--brand-danger);">❌ 下午減少案件/撤案 (1 筆)</strong>：反重力測試機關 ─ 操場地坪整修工程 (上午存在但下午被採購網撤下，於 Sheet 與 HTML 中予以刪除線標記)</li>
+                </ul>
+            </div>
+
+            <!-- 範例 2：學校運動類標案特別推薦 -->
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                    實例 B：HTML 首頁 🏫 學校運動類推薦標案渲染畫面
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    以下為 6/4 系統篩選出的學校運動類推薦標案，於 GitHub Pages 首頁的上半部以醒目的**推薦卡片**呈現的實體外觀：
+                </p>
+
+                <!-- 模擬網頁渲染的卡片 -->
+                <div class="rec-card-rendered">
+                    <div class="rec-card-header">
+                        <span class="rec-tag-school">🏫 招標學校機關</span>
+                        <span class="rec-budget-rendered">預算金額：$1,456,700 元</span>
+                    </div>
+                    <div class="rec-title-rendered">國立埔里高級工業職業學校 ─ 115年度興建半戶外球場工程委託<span style="background-color: #fde68a; padding: 0 2px;">設計</span><span style="background-color: #fde68a; padding: 0 2px;">監造</span>案</div>
+                    <div class="rec-detail-row">
+                        <span><strong>標案案號：</strong>1150307</span>
+                        <span><strong>公告日期：</strong>115/06/04</span>
+                        <span><strong>截止投標：</strong>115/06/10</span>
+                        <span><strong>傳輸次數：</strong>1 次</span>
+                    </div>
+                </div>
+
+                <div class="rec-card-rendered" style="border-left-color: #10b981;">
+                    <div class="rec-card-header">
+                        <span class="rec-tag-school">🏫 招標學校機關</span>
+                        <span class="rec-budget-rendered">預算金額：$471,593 元</span>
+                    </div>
+                    <div class="rec-title-rendered">彰化縣二林鎮中興國民小學 ─ PU跑道整修工程委託<span style="background-color: #fde68a; padding: 0 2px;">設計</span><span style="background-color: #fde68a; padding: 0 2px;">監造</span>技術服務</div>
+                    <div class="rec-detail-row">
+                        <span><strong>標案案號：</strong>1150529</span>
+                        <span><strong>公告日期：</strong>115/06/04</span>
+                        <span><strong>截止投標：</strong>115/06/12</span>
+                        <span><strong>傳輸次數：</strong>1 次</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 範例 3：手機版凝聚卡片 -->
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    實例 C：手機版響應式「凝聚卡片列表」實體畫面 (Mobile Mockup)
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    當老闆使用手機閱讀時（螢幕寬度 $\le 768\text{px}$），系統會自動隱藏橫向寬表格，改用直列式凝聚卡片呈現，確保單手快速滑動與字體清晰度：
+                </p>
+
+                <!-- 手機外殼模擬 -->
+                <div class="phone-mockup">
+                    <div class="phone-notch"></div>
+                    <div class="phone-content">
+                        <div class="phone-header">
+                            <p style="font-weight: 800; font-size: 0.95rem; color: #0f172a;">💼 政府標案整理 (手機版)</p>
+                            <p style="font-size: 0.7rem; color: #64748b;">更新時間：2026/06/04 10:28</p>
+                        </div>
+                        
+                        <!-- 手機卡片 1 -->
+                        <div class="phone-card">
+                            <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+                                <span style="font-weight:bold; color:#ef4444; font-size:0.75rem;">#1 中油公司</span>
+                                <span style="font-weight:bold; color:#0f172a; font-size:0.75rem;">$9,946,000</span>
+                            </div>
+                            <div style="font-weight:500; margin-bottom:4px; line-height: 1.3; background-color:#ddebf7; padding:4px; border-radius:4px;">
+                                SDF1414001 &lt; 換熱器及塔槽零星清洗修繕工作
+                            </div>
+                            <div style="font-size:0.65rem; color:#64748b; border-top:1px dashed #e2e8f0; padding-top:4px; margin-top:4px;">
+                                📅 公告：115/06/04 | 截止：115/06/11 | 傳：3
+                            </div>
+                        </div>
+
+                        <!-- 手機卡片 2 -->
+                        <div class="phone-card">
+                            <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+                                <span style="font-weight:bold; color:#0f172a; font-size:0.75rem;">#2 竹北市公所</span>
+                                <span style="font-weight:bold; color:#0f172a; font-size:0.75rem;">$9,800,000</span>
+                            </div>
+                            <div style="font-weight:500; margin-bottom:4px; line-height: 1.3; padding:4px;">
+                                Newland010603 &lt; 竹北市新訂都市計畫可行性評估案
+                            </div>
+                            <div style="font-size:0.65rem; color:#64748b; border-top:1px dashed #e2e8f0; padding-top:4px; margin-top:4px;">
+                                📅 公告：115/06/04 | 截止：115/06/17 | 傳：1
+                            </div>
+                        </div>
+
+                        <!-- 手機卡片 3 -->
+                        <div class="phone-card">
+                            <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+                                <span style="font-weight:bold; color:#ef4444; font-size:0.75rem;">#32 埔里高工</span>
+                                <span style="font-weight:bold; color:#0f172a; font-size:0.75rem;">$1,456,700</span>
+                            </div>
+                            <div style="font-weight:500; margin-bottom:4px; line-height: 1.3; background-color:#e2f0d9; padding:4px; border-radius:4px;">
+                                1150307 &lt; 興建半戶外球場工程委託<span style="color:#ef4444; font-weight:bold;">設計監造</span>案
+                            </div>
+                            <div style="font-size:0.65rem; color:#64748b; border-top:1px dashed #e2e8f0; padding-top:4px; margin-top:4px;">
+                                📅 公告：115/06/04 | 截止：115/06/10 | 傳：1
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 範例 4：Google Sheets 模擬畫面 -->
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    實例 D：Google Sheets 雲端活頁簿 6/4 寫入畫面模擬 (Spreadsheet UI)
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    以下為地端程式使用 API 自動向 Google 試算表寫入之 6/4 分頁模擬畫面，完美呈現與實體 Sheet 相同的自動標色效果：
+                </p>
+
+                <div class="sheet-mockup">
+                    <div class="sheet-tab">2026/6/4</div>
+                    <div style="overflow-x: auto;">
+                        <table class="sheet-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;">項次</th>
+                                    <th style="width: 140px;">機關名稱</th>
+                                    <th>標案案號 / 標案名稱</th>
+                                    <th style="width: 60px;">傳輸次數</th>
+                                    <th style="width: 80px;">公告日期</th>
+                                    <th style="width: 80px;">截止投標</th>
+                                    <th style="width: 100px;">預算金額</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center;">1</td>
+                                    <td>台灣中油股份有限公司</td>
+                                    <td class="sheet-bg-toilet">SDF1414001<br>換熱器及塔槽零星清洗修繕工作</td>
+                                    <td style="text-align: center;">3</td>
+                                    <td style="text-align: center;">115/06/04</td>
+                                    <td style="text-align: center;">115/06/11</td>
+                                    <td style="text-align: right;">$9,946,000</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">2</td>
+                                    <td>新竹縣竹北市公所</td>
+                                    <td>Newland010603<br>因應新竹縣國土計畫可行性評估案計畫</td>
+                                    <td style="text-align: center;">1</td>
+                                    <td style="text-align: center;">115/06/04</td>
+                                    <td style="text-align: center;">115/06/17</td>
+                                    <td style="text-align: right;">$9,800,000</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">32</td>
+                                    <td class="sheet-school-highlight">國立埔里高級工業職業學校</td>
+                                    <td class="sheet-bg-sport">1150307<br>埔里高工興建半戶外球場工程-委託<span style="color:#ef4444; font-weight:bold;">設計監造</span>案</td>
+                                    <td style="text-align: center;">1</td>
+                                    <td style="text-align: center;">115/06/04</td>
+                                    <td style="text-align: center;">115/06/10</td>
+                                    <td style="text-align: right;">$1,456,700</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 範例 5：下午比對差異網頁版報告展示 -->
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    實例 E：下午比對差異網頁版報告展示 (Afternoon Diff Web Report Mockup)
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    下午比對完成後，若有異動，系統會將異動情形渲染成獨立的「異動通知網頁」（即 <code>tenders_2026_6_4_下午異動_20260604_1053.html</code>），以下為 6/4 下午異動網頁的渲染實體外觀，展示了系統如何將標案以<b>新增（綠）</b>、<b>修改（藍）</b>、<b>撤案（紅）</b>進行區分：
+                </p>
+
+                <!-- 模擬瀏覽器視窗 -->
+                <div class="browser-window">
+                    <div class="browser-bar">
+                        <div class="browser-dots">
+                            <span class="browser-dot red"></span>
+                            <span class="browser-dot yellow"></span>
+                            <span class="browser-dot green"></span>
+                        </div>
+                        <div class="browser-address-bar">https://konnograhy-jpg.github.io/report/tenders/2026_6_4_下午異動_20260604_1053.html</div>
+                    </div>
+                    
+                    <div class="diff-web-container">
+                        <!-- 網頁標頭 -->
+                        <div style="margin-bottom: 1rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; color: var(--text-primary);">
+                            <h3 style="color: var(--brand-primary); font-size: 1.1rem; font-weight: 800;">💼 政府電子採購網 下午異動整理報告 (2026/06/04 10:53)</h3>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">比對基準：比對今日上午 08:30 已記錄標案</p>
+                        </div>
+
+                        <!-- 1. 新增案件 -->
+                        <div class="diff-section-box">
+                            <div class="diff-section-title added">
+                                <span>➕ 下午新增案件 (共 1 筆)</span>
+                                <span style="font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 1px 6px; border-radius: 4px;">New</span>
+                            </div>
+                            <div style="overflow-x: auto;">
+                                <table class="diff-item-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 20%;">機關</th>
+                                            <th style="width: 40%;">標案案號/名稱</th>
+                                            <th style="width: 10%; text-align: center;">傳輸</th>
+                                            <th style="width: 15%; text-align: right;">預算金額</th>
+                                            <th style="width: 15%; text-align: center;">異動類型</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: rgba(16, 185, 129, 0.05); color: var(--text-primary);">
+                                            <td>新竹縣竹北市公所</td>
+                                            <td><strong>Newland010603</strong><br>因應新竹縣國土計畫可行性評估案計畫</td>
+                                            <td style="text-align: center;">1</td>
+                                            <td style="text-align: right; color: var(--brand-success); font-weight: bold;">$9,800,000</td>
+                                            <td style="text-align: center;"><span style="color: #059669; font-weight: bold;">新增</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 2. 修改案件 -->
+                        <div class="diff-section-box">
+                            <div class="diff-section-title modified">
+                                <span>📝 下午修改案件 (共 1 筆)</span>
+                                <span style="font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 1px 6px; border-radius: 4px;">Modified</span>
+                            </div>
+                            <div style="overflow-x: auto;">
+                                <table class="diff-item-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 20%;">機關</th>
+                                            <th style="width: 40%;">標案案號/名稱</th>
+                                            <th style="width: 10%; text-align: center;">傳輸</th>
+                                            <th style="width: 15%; text-align: right;">預算金額</th>
+                                            <th style="width: 15%; text-align: center;">異動類型</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: rgba(59, 130, 246, 0.05); color: var(--text-primary);">
+                                            <td>台灣中油股份有限公司</td>
+                                            <td><strong>SDF1414001</strong><br>換熱器及塔槽零星清洗修繕工作</td>
+                                            <td style="text-align: center;">3</td>
+                                            <td style="text-align: right;">
+                                                <div class="diff-budget-old">$100</div>
+                                                <div class="diff-budget-new">$9,946,000</div>
+                                            </td>
+                                            <td style="text-align: center;"><span style="color: #1d4ed8; font-weight: bold;">金額變更</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 3. 減少案件 -->
+                        <div class="diff-section-box" style="margin-bottom: 0;">
+                            <div class="diff-section-title removed">
+                                <span>❌ 下午減少案件/撤案 (共 1 筆)</span>
+                                <span style="font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 1px 6px; border-radius: 4px;">Removed / Cancelled</span>
+                            </div>
+                            <div style="overflow-x: auto;">
+                                <table class="diff-item-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 20%;">機關</th>
+                                            <th style="width: 40%;">標案案號/名稱</th>
+                                            <th style="width: 10%; text-align: center;">傳輸</th>
+                                            <th style="width: 15%; text-align: right;">預算金額</th>
+                                            <th style="width: 15%; text-align: center;">異動類型</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: rgba(239, 68, 68, 0.03);" class="strikethrough-text">
+                                            <td>反重力測試機關</td>
+                                            <td><strong>1159901</strong><br>操場地坪整修工程</td>
+                                            <td style="text-align: center;">1</td>
+                                            <td style="text-align: right;">$3,000,000</td>
+                                            <td style="text-align: center;"><span style="color: #b91c1c; font-weight: bold;">撤案/刪除</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 區段 6：技術原理與工具 -->
+        <section id="sect-principles" class="section-content">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                        核心執行原理
+                    </div>
+                    <ul class="custom-list">
+                        <li><strong>輕量級 API 網頁爬取：</strong> 爬蟲使用 <code>requests</code> 以原生 HTTP GET/POST 封包直接向政府採購網進行篩選條件查詢，取代了肥大且易出錯的 Selenium 模擬瀏覽器，確保背景執行穩定且快速。</li>
+                        <li><strong>Google Sheet 動態儲存庫：</strong> 利用 Google Sheets 作為地端與雲端的中介資料庫，省去安裝大型 SQL 資料庫的繁瑣，同時方便管理者隨時進入試算表進行人工標註。</li>
+                        <li><strong>差分增量檢查 (Diff-Check)：</strong> 每日下午執行時，系統會先抓取當日上午已寫入的標案案號列表，對最新爬網數據進行差分計算。僅當有「新增標案」時才觸發後續寫表與發布，否則以 <strong>Exit Code 3</strong> 優雅終止，節省 API 額度。</li>
+                        <li><strong>跨裝置響應式渲染：</strong> <code>test_screenshot_c.py</code> 會自動讀取 Excel 數據並重新生成 <code>index.html</code> 與 <code>tenders.html</code>。利用 CSS Media Queries 技術實施桌機 Table 與手機凝聚卡片的無縫變換。</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        使用工具與依賴清單
+                    </div>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                        本專案運作所需的所有地端與雲端工具：
+                    </p>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="tech-pill">🐍 Python 3.11+</span>
+                        <span class="tech-pill">📊 gspread 6.0+</span>
+                        <span class="tech-pill">🌐 bs4 (BeautifulSoup)</span>
+                        <span class="tech-pill">✉️ requests</span>
+                        <span class="tech-pill">🔑 google-auth</span>
+                        <span class="tech-pill">🖥️ Task Scheduler</span>
+                        <span class="tech-pill">🐚 PowerShell 5.1+</span>
+                        <span class="tech-pill">🐙 Git for Windows</span>
+                        <span class="tech-pill">⚡ GitHub Pages</span>
+                    </div>
+                    <div class="alert alert-info" style="padding: 1rem; font-size: 0.85rem; margin-bottom: 0;">
+                        <strong>隔離封裝：</strong> 專案內置 venv 虛擬環境，且在移交包中包含了 <code>packages/</code> 資料夾。此資料夾存放所有依賴的離線 <code>.whl</code> 安裝檔，因此在無外網的環境下，執行 <code>run_all_c.bat</code> 依然能完成全數安裝。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 區段 7：移交與安全規範 -->
+        <section id="sect-handover" class="section-content">
+            <div class="card">
+                <div class="card-title" style="color: var(--brand-danger);">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    地端主機遷移 ── 絕對路徑變更對照表
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    當本專案由目前的 D 槽路徑移交至新主機或新工作路徑（例如：<code>E:\ProjectC_Path</code>）時，<strong>必須手動修改以下三個腳本中的絕對路徑定義</strong>，否則排程與腳本會無法正常啟動：
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">檔案名稱</th>
+                            <th style="width: 20%;">預設行數</th>
+                            <th style="width: 25%;">目前設定值 (D:\03.AI)</th>
+                            <th>移交修改建議</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>tender_pipeline_master_c.py</strong></td>
+                            <td>行 19<br>行 143</td>
+                            <td><code>d:\03.AI\Antigravity\MCP\venv...</code><br><code>D:\03.AI\report</code></td>
+                            <td>更換為新主機上 Python 虛擬環境的實際路徑與本地 Git Page 倉庫資料夾。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>test_screenshot_c.py</strong></td>
+                            <td>行 22<br>行 26<br>行 725</td>
+                            <td><code>D:\03.AI\標案網頁歷史備份</code><br><code>D:\03.AI\report\tenders</code><br><code>D:\03.AI\report\tenders.html</code></td>
+                            <td>更換為新主機的永久備份資料夾、與 Git Report 倉庫對應的路徑。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>setup_tender_task_c.ps1</strong></td>
+                            <td>行 16<br>行 25</td>
+                            <td><code>D:\03.AI\Antigravity\...</code><br><code>D:\03.AI\Antigravity\MCP\venv...</code></td>
+                            <td>更換為此移交包解壓縮後的實際專案根路徑與 python.exe 的絕對路徑。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    Google Cloud 服務憑證權限確認
+                </div>
+                <p style="margin-bottom: 1rem;">
+                    本專案的 Google Sheets API 存取權限依賴專案根目錄底下的 <code>credentials.json</code> 金鑰檔案。
+                </p>
+                <div class="alert alert-info" style="margin-bottom: 0;">
+                    <div>
+                        <strong>授權必做步驟：</strong>
+                        <ol class="custom-list" style="margin-top: 0.5rem; margin-bottom: 0;">
+                            <li>開啟該 <code>credentials.json</code> 檔案，找到 <code>"client_email"</code> 欄位，複製其電子郵件地址（通常為 <code>xxx@xxx.iam.gserviceaccount.com</code>）。</li>
+                            <li>登入 Google Sheets 網頁，開啟目標試算表。</li>
+                            <li>點擊右上角<strong>「共用」</strong>，將複製的服務帳號 email 加入，並給予<strong>「編輯者」</strong>權限，即可確保地端程式正常讀寫雲端數據。</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 深淺色主題切換
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', targetTheme);
+            localStorage.setItem('theme', targetTheme);
+        }
+
+        // 初始化主題
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // 頁面 Tab 切換邏輯
+        function switchSection(sectName) {
+            // 隱藏所有 sections
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(s => s.classList.remove('active'));
+
+            // 移除所有 nav links 與 tabs 的 active 狀態
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+
+            // 顯示目標 section
+            const targetSect = document.getElementById('sect-' + sectName);
+            if (targetSect) targetSect.classList.add('active');
+
+            // 將對應的 nav link 設為 active
+            navItems.forEach(item => {
+                if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(sectName)) {
+                    item.classList.add('active');
+                }
+            });
+
+            // 將對應的 mobile tab 設為 active
+            const targetTab = document.getElementById('tab-' + sectName);
+            if (targetTab) targetTab.classList.add('active');
+
+            // 滾動回頂端
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
