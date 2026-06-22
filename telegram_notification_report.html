@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>標案自動化 C 專案：Telegram 通知回報報告書</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #e0e7ff;
+            --primary-hover: #4338ca;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --neutral: #6b7280;
+            --neutral-light: #f3f4f6;
+            --text-dark: #1f2937;
+            --text-muted: #4b5563;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header Style */
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0) 70%);
+            pointer-events: none;
+        }
+
+        .badge {
+            background-color: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(129, 140, 248, 0.4);
+            color: #e0e7ff;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #c7d2fe;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Tab Switcher */
+        .tabs {
+            display: flex;
+            background-color: #e2e8f0;
+            padding: 5px;
+            border-radius: var(--radius-md);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background-color: var(--card-bg);
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards Layout */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f1f5f9;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        /* Comparison Table Component */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .compare-card {
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .compare-card.bad {
+            background-color: #fffafb;
+            border-color: #fee2e2;
+        }
+
+        .compare-card.good {
+            background-color: #f6fdf9;
+            border-color: #d1fae5;
+        }
+
+        .compare-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+        }
+
+        .compare-card.bad .compare-badge {
+            background-color: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .compare-card.good .compare-badge {
+            background-color: var(--success-light);
+            color: var(--success);
+        }
+
+        .compare-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .compare-list {
+            list-style: none;
+        }
+
+        .compare-list li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        /* Step workflow rendering using CSS instead of external script */
+        .workflow {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            margin: 30px 0;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .workflow {
+                flex-direction: column;
+            }
+        }
+
+        .wf-node {
+            flex: 1;
+            background-color: var(--bg-main);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wf-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .wf-node:nth-child(1) .wf-icon { background-color: #e0f2fe; color: #0284c7; }
+        .wf-node:nth-child(2) .wf-icon { background-color: #d1fae5; color: #059669; }
+        .wf-node:nth-child(3) .wf-icon { background-color: #fef3c7; color: #d97706; }
+        .wf-node:nth-child(4) .wf-icon { background-color: #f3e8ff; color: #7c3aed; }
+
+        .wf-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            color: #1e293b;
+        }
+
+        .wf-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Phone Preview Component */
+        .phone-preview-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .phone {
+            width: 320px;
+            height: 520px;
+            background-color: #0f172a;
+            border: 12px solid #334155;
+            border-radius: 36px;
+            padding: 20px 10px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 18px;
+            background-color: #334155;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            background-image: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            flex: 1;
+            border-radius: 20px;
+            padding: 20px 10px 10px 10px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .tg-header {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .tg-msg {
+            background-color: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            font-size: 0.8rem;
+            color: #f1f5f9;
+            border-left: 4px solid var(--primary);
+            animation: popIn 0.3s ease forwards;
+        }
+
+        .tg-msg.success { border-left-color: var(--success); }
+        .tg-msg.info { border-left-color: var(--neutral); }
+        .tg-msg.danger { border-left-color: var(--danger); }
+
+        .tg-time {
+            font-size: 0.65rem;
+            color: #64748b;
+            text-align: right;
+            margin-top: 6px;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Foolproof Setup Section */
+        .step-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step-block {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background-color: var(--bg-main);
+            border-radius: var(--radius-md);
+            border: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 600px) {
+            .step-block {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .step-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .step-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .code-box {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            border: 1px solid #334155;
+            margin: 10px 0;
+        }
+
+        .highlight-text {
+            background-color: #fef08a;
+            color: #854d0e;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Custom Alert styling */
+        .info-box {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 20px 0;
+            color: #1e40af;
+            font-size: 0.95rem;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Animation trigger button hover */
+        .action-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .action-btn:hover {
+            background-color: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header>
+        <div class="badge">PROPOSAL & DOCUMENTATION</div>
+        <h1>標案自動化 C 專案：Telegram 通知回報報告書</h1>
+        <div class="meta-info">
+            <div class="meta-item">📅 更新日期: 2026-06-22</div>
+            <div class="meta-item">✍️ 撰寫代理: 潘朵拉 (Pandora)</div>
+            <div class="meta-item">👑 呈報對象: 閣下 / 管理決策層 (老闆)</div>
+            <div class="meta-item">🏷️ 版本: v1.1 (整合傻瓜教學版)</div>
+        </div>
+    </header>
+
+    <!-- Tab Switcher -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('concept')">💡 核心觀念與回報原理</button>
+        <button class="tab-btn" onclick="switchTab('setup')">🛠️ 傻瓜式設定與教學</button>
+    </div>
+
+    <!-- Tab 1: Concept & Metaphors -->
+    <div id="concept-content" class="tab-content active">
+        <!-- Section 1: Concept -->
+        <div class="card">
+            <h2>💡 用「寄明信片」來理解自動通知原理</h2>
+            <p>要將標案狀態即時推送到您的手機上，在網頁技術中就像「寄明信片」一樣簡單：</p>
+            
+            <div class="workflow">
+                <div class="wf-node">
+                    <div class="wf-icon">⏰</div>
+                    <div class="wf-title">1. 定時鬧鐘</div>
+                    <div class="wf-desc">電腦設定好每天 08:30 與 17:40 自動喚醒程式</div>
+                </div>
+                <div class="wf-node">
+                    <div class="wf-icon">🌐</div>
+                    <div class="wf-title">2. 資料爬網</div>
+                    <div class="wf-desc">自動前往政府電子採購網抓取並比對今日最新標案</div>
+                </div>
+                <div class="wf-node">
+                    <div class="wf-icon">📝</div>
+                    <div class="wf-title">3. 記錄結果</div>
+                    <div class="wf-desc">程式將標案變更數量記在 status.json 筆記本中</div>
+                </div>
+                <div class="wf-node">
+                    <div class="wf-icon">✉️</div>
+                    <div class="wf-title">4. 寄明信片</div>
+                    <div class="wf-desc">透過 Telegram 郵差，將統計文字瞬間發射至老闆手機</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>簡單來說：</strong> 電腦不需要 24 小時守著通訊軟體，只要在任務做完的那一秒，點擊發送一個網址請求，Telegram 的伺服器就會代為轉發，您的手機就會立即叮咚響起！
+            </div>
+        </div>
+
+        <!-- Section 2: Comparison -->
+        <div class="card">
+            <h2>🏆 為什麼新設計（定時單向）遠比舊設計好？</h2>
+            <p>先前版本系統在測試時曾發生卡死（斷線無回應），我們將舊架構推翻，重新實作了極簡的單向推送：</p>
+
+            <div class="comparison-container">
+                <div class="compare-card bad">
+                    <span class="compare-badge">舊做法（全天候監聽）</span>
+                    <div class="compare-title">❌ 背景常駐監聽模式</div>
+                    <ul class="compare-list">
+                        <li>⚠️ <strong>24小時待命</strong>：程式永遠留在背景執行，極度消耗本機記憶體與電量。</li>
+                        <li>⚠️ <strong>進程打架 (HTTP 409)</strong>：多個監聽小助手同時向 Telegram 要資料，造成互踢搶占，導致程式當機。</li>
+                        <li>⚠️ <strong>高安全漏洞</strong>：機器人必須時刻保持接收狀態，金鑰暴露風險高。</li>
+                    </ul>
+                </div>
+                <div class="compare-card good">
+                    <span class="compare-badge">新做法（定時明信片）</span>
+                    <div class="compare-title">🏆 定時單向通知模式</div>
+                    <ul class="compare-list">
+                        <li>✅ <strong>零背景消耗</strong>：平常完全不佔用 CPU 資源，電腦完全沒有多餘負載。</li>
+                        <li>✅ <strong>100% 穩定避衝突</strong>：任務跑完立即傳送，不互踢，完全沒有多重實例衝突的可能性。</li>
+                        <li>✅ <strong>保險箱隔離</strong>：金鑰獨立存於 <code class="highlight-text">.env</code> 中，程式代碼完全不寫死，符合安全規範。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Notification Visualizer -->
+        <div class="card">
+            <h2>📱 老闆的手機通知長怎樣？</h2>
+            <p>我們特別設計了三種燈號與訊息表情，讓您一眼看清今日標案的變更狀況：</p>
+
+            <div class="phone-preview-container">
+                <div class="phone">
+                    <div class="phone-screen">
+                        <div class="tg-header">💬 Telegram · 標案小助理</div>
+                        
+                        <div class="tg-msg success">
+                            <strong>🔔 上午 08:30 標案完成通知</strong><br>
+                            任務已順利完成。<br>
+                            今日標案總數：<strong>85 個</strong><br>
+                            學校運動標案：<strong>3 個</strong><br>
+                            👉 <a href="https://konnograhy-jpg.github.io/report/tenders.html" style="color: #60a5fa;" target="_blank">點此查看最新網頁圖表</a>
+                            <div class="tg-time">08:30 AM</div>
+                        </div>
+
+                        <div class="tg-msg info">
+                            <strong>ℹ️ 下午 17:40 定時回報</strong><br>
+                            任務完成。比對結果：<strong>今日標案無變更</strong>，無需特別查看網頁。
+                            <div class="tg-time">05:40 PM</div>
+                        </div>
+
+                        <div class="tg-msg danger">
+                            <strong>❌ 系統異常告警</strong><br>
+                            警告：政府電子採購網伺服器拒絕連線 (503 Service Unavailable)。請檢查網路設定。
+                            <div class="tg-time">12:05 PM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 2: Setup Guide -->
+    <div id="setup-content" class="tab-content">
+        <div class="card">
+            <h2>🛠️ 傻瓜式四步設定教學（照著點，一分鐘搞定）</h2>
+            <p>不論是老闆還是助理，都不用看任何程式代碼。只要傻傻地照著下面四步操作，就能把通知機器人部署好！</p>
+
+            <div class="step-container">
+                <!-- Step 1 -->
+                <div class="step-block">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <div class="step-title">向 Telegram 官方領取一個「郵差助理」（機器人）</div>
+                        <div class="step-text">
+                            1. 打開手機的 <strong>Telegram</strong>，在搜尋列輸入：<span class="highlight-text">@BotFather</span>（認明有藍色勾勾的官方帳號）。<br>
+                            2. 點擊開始後，傳送指令：<code>/newbot</code>。<br>
+                            3. 輸入小助理的顯示名字，例如：<code>標案管家</code>。<br>
+                            4. 輸入一個以 bot 結尾的英文ID，例如：<code>MyTenderManager_bot</code>。<br>
+                            5. 成功後，它會回傳一串很長的神祕英數密碼（例如 <code>8852327239:AAHz_...</code>），這就是 <strong>Bot Token（郵差地址）</strong>，請把它複製起來！
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-block">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <div class="step-title">向信箱助理拿您的「收件箱號碼」（Chat ID）</div>
+                        <div class="step-text">
+                            1. 在 Telegram 搜尋列輸入：<span class="highlight-text">@userinfobot</span>。<br>
+                            2. 點擊開始，它會回傳一串純數字（例如 <code>520XXXXXX8</code>），這就是您的 <strong>Chat ID（個人收件箱號碼）</strong>，複製起來！<br>
+                            3. <strong>【超重要關鍵】</strong>：請在 Telegram 中搜尋你剛剛第一步幫機器人取的名字（例如 <code>MyTenderManager_bot</code>），點進去並按下 <strong>「開始 (Start)」</strong>。如果不打招呼，機器人會被防騷擾機制阻擋，無法發信給你！
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-block">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <div class="step-title">把鑰匙鎖進密碼保險箱（設定檔案）</div>
+                        <div class="step-text">
+                            1. 開啟您的電腦專案資料夾 <strong>「標案自動化C專案」</strong>。<br>
+                            2. 找到一個叫做 <code>.env</code> 的檔案，在上面按右鍵，選擇 <strong>「以記事本開啟」</strong>。<br>
+                            3. 把剛才複製的兩個代號貼上去（記得覆蓋等號後面的內容），然後存檔關閉：
+                        </div>
+                        <div class="code-box">
+TELEGRAM_BOT_TOKEN=第一步拿到的Token密碼
+TELEGRAM_CHAT_ID=第二步拿到的ChatID數字
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-block">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <div class="step-title">手動測試與開啟自動鬧鐘</div>
+                        <div class="step-text">
+                            <strong>1. 立刻測試（點兩下）</strong>：<br>
+                            在專案資料夾中，用滑鼠連點兩下 <code>run_all_c.bat</code>。黑色的執行視窗跑完後，您的手機如果「叮咚」一聲收到 Telegram 藍色鈴鐺通知，代表設定完全成功！<br><br>
+                            <strong>2. 註冊定時排程（滑鼠右鍵執行）</strong>：<br>
+                            在專案資料夾中，找到 <code>setup_tender_task_c.ps1</code>。按滑鼠右鍵，選擇 <strong>「用 PowerShell 執行」</strong>。看到綠色視窗顯示 "Successfully registered" 即可關閉。以後每天早晚電腦就會自動跑程式並回報給您了！
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 標案自動化 C 專案研發團隊 & 潘朵拉 (Pandora) 核心系統維護</p>
+    </footer>
+</div>
+
+<script>
+    function switchTab(tabName) {
+        // Reset all buttons and contents
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        // Highlight selected button
+        const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick').includes(tabName));
+        if (activeBtn) activeBtn.classList.add('active');
+
+        // Show selected content
+        const activeContent = document.getElementById(tabName + '-content');
+        if (activeContent) activeContent.classList.add('active');
+    }
+</script>
+</body>
+</html>
