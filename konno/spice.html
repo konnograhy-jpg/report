@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konno專用資料夾 | 世界樹資料庫</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #030712;
+            --surface: rgba(17, 24, 39, 0.7);
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(139, 92, 246, 0.4);
+            --primary: 263, 90%, 65%;
+            --text: #f3f4f6;
+            --muted: #9ca3af;
+            --danger: 350, 89%, 60%;
+        }
+
+        body {
+            font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, var(--bg) 70%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* ── 密碼鎖卡閘 (Password Gate) ── */
+        .auth-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.95);
+            backdrop-filter: blur(24px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 440px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.05);
+        }
+
+        .auth-logo {
+            font-size: 48px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3));
+        }
+
+        .auth-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-subtitle {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 12px;
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid var(--border);
+            color: white;
+            font-size: 15px;
+            text-align: center;
+            letter-spacing: 4px;
+            outline: none;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .auth-input:focus {
+            border-color: hsl(var(--primary));
+            box-shadow: 0 0 0 1px hsl(var(--primary)), 0 0 16px rgba(139, 92, 246, 0.15);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, hsl(var(--primary)), #6d28d9);
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(139, 92, 246, 0.4);
+        }
+
+        .auth-error {
+            color: hsl(var(--danger));
+            font-size: 12px;
+            margin-top: 12px;
+            display: none;
+            font-weight: 500;
+        }
+
+        /* ── 機密內容區 ── */
+        .content-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            display: none;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .content-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--muted);
+            display: none;
+        }
+
+        .back-btn {
+            color: #a78bfa;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            color: #c084fc;
+            text-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
+        }
+
+        .content-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: #f3f4f6;
+        }
+
+        .secret-box {
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 30px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #c084fc;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🔒 密碼驗證鎖 (預設：4869) -->
+    <div id="authOverlay" class="auth-overlay">
+        <div class="auth-card">
+            <div class="auth-logo">🔑</div>
+            <div class="auth-title">Konno 專屬驗證</div>
+            <div class="auth-subtitle">此資料夾已加密，請輸入專屬密鑰以利存取。</div>
+            <input type="password" id="authPassword" class="auth-input" placeholder="••••" autocomplete="current-password" autofocus>
+            <button id="authSubmit" class="auth-btn">確認驗證</button>
+            <div id="authError" class="auth-error">❌ 密碼錯誤，拒絕存取。</div>
+        </div>
+    </div>
+
+    <!-- 頁面返回導覽 -->
+    <div id="pageNav" class="content-header">
+        <span>📂 世界樹資料庫 / Konno專用資料夾</span>
+        <a href="../database_portal.html" class="back-btn">← 返回總門戶</a>
+    </div>
+
+    <!-- 驗證成功後的內容 -->
+    <main id="contentCard" class="content-card">
+        <div class="content-title">🌿 Konno 專用資料夾</div>
+        <p style="color: var(--muted); font-size: 14px;">資料夾加密內容已解密載入</p>
+        <div class="secret-box">
+            🌶️ 香辛料專用
+        </div>
+    </main>
+
+    <script>
+        // 設定 Konno 資料夾的獨立密碼 (預設：4869)
+        const SUB_SECRET = "4869";
+        
+        // ── 串接 Google Apps Script Web App (選填，用於跨裝置記錄訪問) ──
+        const GOOGLE_SCRIPT_URL = ""; 
+
+        const authOverlay = document.getElementById('authOverlay');
+        const authPassword = document.getElementById('authPassword');
+        const authSubmit = document.getElementById('authSubmit');
+        const authError = document.getElementById('authError');
+        const contentCard = document.getElementById('contentCard');
+        const pageNav = document.getElementById('pageNav');
+
+        function checkAuth() {
+            if (sessionStorage.getItem('secure_hub_auth_konno') === 'true') {
+                showContent();
+            }
+        }
+
+        function showContent() {
+            authOverlay.style.display = 'none';
+            contentCard.style.display = 'block';
+            pageNav.style.display = 'flex';
+            
+            // 觸發日誌記錄
+            logAccess("Konno 專用資料夾");
+        }
+
+        function verifyPassword() {
+            if (authPassword.value === SUB_SECRET) {
+                sessionStorage.setItem('secure_hub_auth_konno', 'true');
+                authError.style.display = 'none';
+                showContent();
+            } else {
+                authError.style.display = 'block';
+                authPassword.value = '';
+                authPassword.focus();
+            }
+        }
+
+        // ── 日誌記錄函數 ──
+        function logAccess(pageName) {
+            // 取得當前時間
+            const now = new Date();
+            const timeStr = now.getFullYear() + '/' + 
+                            (now.getMonth() + 1).toString().padStart(2, '0') + '/' + 
+                            now.getDate().toString().padStart(2, '0') + ' ' + 
+                            now.getHours().toString().padStart(2, '0') + ':' + 
+                            now.getMinutes().toString().padStart(2, '0') + ':' + 
+                            now.getSeconds().toString().padStart(2, '0');
+
+            // 1. 本地記錄計數與日誌 (跨頁面共用)
+            let visitCounts = JSON.parse(localStorage.getItem('yggdrasil_visit_counts') || '{}');
+            visitCounts[pageName] = (visitCounts[pageName] || 0) + 1;
+            localStorage.setItem('yggdrasil_visit_counts', JSON.stringify(visitCounts));
+
+            // 獲取訪客 IP 與地理位置 (使用 ipapi.co，防阻擋與免 Key)
+            fetch('https://ipapi.co/json/')
+                .then(res => res.json())
+                .then(data => {
+                    const visitorIp = data.ip || "未知 IP";
+                    const visitorLoc = (data.city && data.region) ? `${data.city}, ${data.region}` : "未知位置";
+                    
+                    const logEntry = {
+                        time: timeStr,
+                        page: pageName,
+                        ip: visitorIp,
+                        loc: visitorLoc,
+                        ua: navigator.userAgent.split(' ')[0] // 簡化 UA 顯示
+                    };
+
+                    let accessLogs = JSON.parse(localStorage.getItem('yggdrasil_access_logs') || '[]');
+                    accessLogs.unshift(logEntry); // 最新記錄放在最前面
+                    if (accessLogs.length > 50) accessLogs.pop(); // 最多保存 50 筆
+                    localStorage.setItem('yggdrasil_access_logs', JSON.stringify(accessLogs));
+
+                    // 2. 若配置了 Google Apps Script，則同步上傳至 Google Sheet 實作跨裝置追蹤
+                    if (GOOGLE_SCRIPT_URL) {
+                        fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(logEntry)
+                        }).catch(e => console.log("跨裝置同步失敗:", e));
+                    }
+                })
+                .catch(err => {
+                    // 若獲取 IP 失敗，仍進行基本本地記錄
+                    const logEntry = {
+                        time: timeStr,
+                        page: pageName,
+                        ip: "局域網/離線訪客",
+                        loc: "未知位置",
+                        ua: "Browser"
+                    };
+                    let accessLogs = JSON.parse(localStorage.getItem('yggdrasil_access_logs') || '[]');
+                    accessLogs.unshift(logEntry);
+                    localStorage.setItem('yggdrasil_access_logs', JSON.stringify(accessLogs));
+                });
+        }
+
+        authSubmit.addEventListener('click', verifyPassword);
+        authPassword.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verifyPassword();
+        });
+
+        checkAuth();
+    </script>
+</body>
+</html>

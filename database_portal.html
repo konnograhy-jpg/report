@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界樹資料庫 | Yggdrasil Secure Hub</title>
+    <meta name="description" content="世界樹專案安全資料庫首頁，整合個人加密資料夾，支援獨立密碼鎖與訪客統計。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ── 核心設計系統 ── */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #030712;
+            --surface: rgba(17, 24, 39, 0.7);
+            --surface-hover: rgba(31, 41, 55, 0.8);
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(139, 92, 246, 0.4);
+            
+            --primary: 263, 90%, 65%;      /* Purple */
+            --accent: 38, 92%, 50%;       /* Amber */
+            --success: 142, 70%, 45%;     /* Emerald */
+            --danger: 350, 89%, 60%;      /* Crimson */
+            
+            --text: #f3f4f6;
+            --muted: #9ca3af;
+            --glass-bg: rgba(10, 15, 30, 0.7);
+            --glass-blur: 16px;
+        }
+
+        body {
+            font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+            background: radial-gradient(circle at 50% 0%, #171026 0%, var(--bg) 75%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* ── 密碼鎖卡閘 (Password Gate) ── */
+        .auth-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.95);
+            backdrop-filter: blur(24px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .auth-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 24px;
+            width: 90%;
+            max-width: 440px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 92, 246, 0.05);
+            transform: scale(0.95);
+            opacity: 0;
+            animation: cardEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardEntrance {
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .auth-logo {
+            font-size: 48px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3));
+        }
+
+        .auth-title {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-subtitle {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .auth-input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 12px;
+            background: rgba(3, 7, 18, 0.6);
+            border: 1px solid var(--border);
+            color: white;
+            font-size: 15px;
+            text-align: center;
+            letter-spacing: 4px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .auth-input:focus {
+            border-color: var(--border-hover);
+            box-shadow: 0 0 0 1px var(--border-hover), 0 0 16px rgba(139, 92, 246, 0.15);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, hsl(var(--primary)), #6d28d9);
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(139, 92, 246, 0.4);
+        }
+
+        .auth-error {
+            color: hsl(var(--danger));
+            font-size: 12px;
+            margin-top: 12px;
+            display: none;
+            font-weight: 500;
+        }
+
+        /* ── 頂部導覽列 (Topbar) ── */
+        .topbar {
+            background: rgba(3, 7, 18, 0.7);
+            backdrop-filter: blur(var(--glass-blur));
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topbar-logo {
+            font-size: 20px;
+        }
+
+        .topbar-title {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .topbar-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            background: rgba(167, 139, 250, 0.1);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            color: #c084fc;
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .topbar-dot {
+            width: 8px; height: 8px;
+            background: #c084fc;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        /* ── 儀表板看板 (Dashboard Header) ── */
+        .hero {
+            padding: 60px 24px 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-welcome {
+            font-size: 13px;
+            font-weight: 700;
+            color: #c084fc;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 40%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* ── 工具控制列 (Toolbar) ── */
+        .control-panel {
+            max-width: 1000px;
+            margin: 0 auto 30px;
+            width: 100%;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--border-hover);
+            box-shadow: 0 0 12px rgba(139, 92, 246, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        /* ── 資料庫展示清單 (Database Grid) ── */
+        .db-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 24px 30px;
+        }
+
+        .db-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .db-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .db-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-hover);
+            background: var(--surface-hover);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 0 20px rgba(139, 92, 246, 0.05);
+        }
+
+        .db-item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(167, 139, 250, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            border: 1px solid rgba(167, 139, 250, 0.2);
+        }
+
+        .db-item-icon.purple { background: rgba(167, 139, 250, 0.1); border-color: rgba(167, 139, 250, 0.2); color: #c084fc; }
+
+        .db-item-main {
+            min-width: 0;
+        }
+
+        .db-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .db-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .db-badge.purple { background: rgba(167, 139, 250, 0.15); color: #e9d5ff; border: 1px solid rgba(167, 139, 250, 0.2); }
+
+        .db-date {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .db-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text);
+        }
+
+        .db-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .db-item-action {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            transition: all 0.3s;
+        }
+
+        .db-item:hover .db-item-action {
+            background: hsl(var(--primary));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+            transform: translateX(3px);
+        }
+
+        /* ── 統計數據面板 (Visitor Stats Card) ── */
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            width: 100%;
+            padding: 0 24px;
+        }
+
+        .stats-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .stats-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #ffffff, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .stats-item {
+            background: rgba(3, 7, 18, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s;
+        }
+
+        .stats-item:hover {
+            border-color: var(--border-hover);
+            background: rgba(3, 7, 18, 0.6);
+        }
+
+        .stats-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stats-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .stats-desc {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .stats-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #c084fc;
+            font-family: 'Outfit', sans-serif;
+            text-shadow: 0 0 10px rgba(167, 139, 250, 0.2);
+        }
+
+        /* ── 空白預留卡片 ── */
+        .placeholder-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 13px;
+            gap: 8px;
+            text-align: center;
+        }
+
+        .placeholder-icon {
+            font-size: 24px;
+            opacity: 0.5;
+        }
+
+        /* ── 無搜尋結果顯示 ── */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            border: 1px dashed var(--border);
+            border-radius: 16px;
+            color: var(--muted);
+            display: none;
+        }
+
+        .empty-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        /* ── 底部版權宣告 (Footer) ── */
+        .footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 24px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.8;
+            background: rgba(3, 7, 18, 0.4);
+        }
+
+        /* ── 動畫與響應式細節 ── */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        @media (max-width: 600px) {
+            .db-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+                justify-items: center;
+            }
+            .db-item-meta {
+                justify-content: center;
+            }
+            .db-item-action {
+                display: none;
+            }
+            .hero h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🔒 密碼驗證鎖 (密碼：4869) -->
+    <div id="authOverlay" class="auth-overlay">
+        <div class="auth-card">
+            <div class="auth-logo">🌿</div>
+            <div class="auth-title">世界樹資料庫安全通道</div>
+            <div class="auth-subtitle">請輸入世界樹密鑰以進行身份安全驗證。</div>
+            <div class="auth-input-group">
+                <input type="password" id="authPassword" class="auth-input" placeholder="••••" autocomplete="current-password" autofocus>
+                <div id="authError" class="auth-error">❌ 驗證失敗，密碼錯誤。</div>
+            </div>
+            <button id="authSubmit" class="auth-btn">確認驗證</button>
+        </div>
+    </div>
+
+    <!-- 頂部導覽列 -->
+    <div class="topbar">
+        <div class="topbar-brand">
+            <span class="topbar-logo">🌿</span>
+            <span class="topbar-title">YGGDRASIL DATABASE</span>
+        </div>
+        <div class="topbar-status">
+            <div class="topbar-dot"></div>
+            <span>安全加密通道</span>
+        </div>
+    </div>
+
+    <!-- Hero 標頭 -->
+    <header class="hero">
+        <div class="hero-welcome">Yggdrasil Secure Hub</div>
+        <h1>世界樹資料庫</h1>
+        <p>收錄個人加密資料夾與敏感備份檔案，並搭載即時訪問人數統計，保障您的資訊隱私。</p>
+    </header>
+
+    <!-- 工具欄（搜尋） -->
+    <section class="control-panel">
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="搜尋加密資料夾或關鍵字...">
+        </div>
+    </section>
+
+    <!-- 資料庫清單 -->
+    <main class="db-container">
+        <div class="db-grid" id="dbGrid">
+            
+            <!-- 📁 Konno專用資料夾 -->
+            <a href="konno/spice.html" class="db-item" data-title="konno專用資料夾 香辛料專用">
+                <div class="db-item-icon purple">📂</div>
+                <div class="db-item-main">
+                    <div class="db-item-meta">
+                        <span class="db-badge purple">專用資料夾</span>
+                        <span class="db-date">2026-06-27</span>
+                    </div>
+                    <div class="db-title">Konno 專用資料夾</div>
+                    <div class="db-desc">🔒 已加密。包含 Konno 專屬配置與香辛料專用機密內容，需進行二次密碼驗證。</div>
+                </div>
+                <div class="db-item-action">→</div>
+            </a>
+
+            <!-- 預留未來空間卡片 -->
+            <div class="placeholder-card">
+                <span class="placeholder-icon">＋</span>
+                <div>若有其他需上鎖之 HTML 網頁或資料夾，可依樣建立並在此註冊。</div>
+            </div>
+
+            <!-- 搜尋無結果狀態 -->
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <div>查無相符的加密資料夾，請更換關鍵字重新搜尋。</div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 📊 統計數據區塊 -->
+    <section class="stats-container">
+        <div class="stats-card">
+            <div class="stats-title">📊 頁面點閱與訪問統計 (Visit Statistics)</div>
+            <div class="stats-grid">
+                
+                <!-- 主頁統計 -->
+                <div class="stats-item">
+                    <div class="stats-info">
+                        <span class="stats-label">🌿 世界樹資料庫主頁</span>
+                        <span class="stats-desc">通道開啟次數</span>
+                    </div>
+                    <div class="stats-value" id="main-visit-val">0</div>
+                </div>
+
+                <!-- Konno資料夾統計 -->
+                <div class="stats-item">
+                    <div class="stats-info">
+                        <span class="stats-label">📂 Konno 專用資料夾</span>
+                        <span class="stats-desc">內容解密次數</span>
+                    </div>
+                    <div class="stats-value" id="konno-visit-val">0</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部資訊 -->
+    <footer class="footer">
+        © 2026 世界樹資料庫<br>
+        由賽巴斯自動維護與更新
+    </footer>
+
+    <!-- ── 互動功能腳本 (JavaScript) ── -->
+    <script>
+        // === 1. 密碼驗證邏輯 (密碼：4869) ===
+        const SECRET_HASH = "4869"; 
+        const GOOGLE_SCRIPT_URL = ""; 
+
+        const authOverlay = document.getElementById('authOverlay');
+        const authPassword = document.getElementById('authPassword');
+        const authSubmit = document.getElementById('authSubmit');
+        const authError = document.getElementById('authError');
+
+        function checkAuth() {
+            if (sessionStorage.getItem('secure_hub_auth_yggdrasil') === 'true') {
+                authOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    authOverlay.style.display = 'none';
+                    onAuthSuccess();
+                }, 500);
+            }
+        }
+
+        function verifyPassword() {
+            if (authPassword.value === SECRET_HASH) {
+                sessionStorage.setItem('secure_hub_auth_yggdrasil', 'true');
+                authError.style.display = 'none';
+                authOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    authOverlay.style.display = 'none';
+                    onAuthSuccess();
+                }, 500);
+            } else {
+                authError.style.display = 'block';
+                authPassword.value = '';
+                authPassword.focus();
+            }
+        }
+
+        // 驗證成功後載入數據並記錄主頁訪問
+        function onAuthSuccess() {
+            logAccess("世界樹資料庫主頁");
+            loadStats();
+        }
+
+        authSubmit.addEventListener('click', verifyPassword);
+        authPassword.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verifyPassword();
+        });
+
+        // ── 記錄本頁面訪問 ──
+        function logAccess(pageName) {
+            // 防止重複在同一次 session 內一直洗主頁紀錄
+            if (pageName === "世界樹資料庫主頁" && sessionStorage.getItem('main_page_logged') === 'true') {
+                return;
+            }
+            if (pageName === "世界樹資料庫主頁") {
+                sessionStorage.setItem('main_page_logged', 'true');
+            }
+
+            const now = new Date();
+            const timeStr = now.getFullYear() + '/' + 
+                            (now.getMonth() + 1).toString().padStart(2, '0') + '/' + 
+                            now.getDate().toString().padStart(2, '0') + ' ' + 
+                            now.getHours().toString().padStart(2, '0') + ':' + 
+                            now.getMinutes().toString().padStart(2, '0') + ':' + 
+                            now.getSeconds().toString().padStart(2, '0');
+
+            // 讀寫本地計數
+            let visitCounts = JSON.parse(localStorage.getItem('yggdrasil_visit_counts') || '{}');
+            visitCounts[pageName] = (visitCounts[pageName] || 0) + 1;
+            localStorage.setItem('yggdrasil_visit_counts', JSON.stringify(visitCounts));
+
+            loadStats(); // 重新渲染數字
+
+            // 同步到 Google Sheets Web App (若配置，支援跨裝置統計)
+            if (GOOGLE_SCRIPT_URL) {
+                fetch('https://ipapi.co/json/')
+                    .then(res => res.json())
+                    .then(data => {
+                        const logEntry = {
+                            time: timeStr,
+                            page: pageName,
+                            ip: data.ip || "未知 IP",
+                            loc: (data.city && data.region) ? `${data.city}, ${data.region}` : "未知位置",
+                            ua: navigator.userAgent.split(' ')[0]
+                        };
+                        fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(logEntry)
+                        });
+                    }).catch(e => {});
+            }
+        }
+
+        // ── 渲染訪問統計數值 ──
+        function loadStats() {
+            const visitCounts = JSON.parse(localStorage.getItem('yggdrasil_visit_counts') || '{}');
+            
+            const mainCount = visitCounts["世界樹資料庫主頁"] || 0;
+            const konnoCount = visitCounts["Konno 專用資料夾"] || 0;
+
+            document.getElementById('main-visit-val').innerText = mainCount;
+            document.getElementById('konno-visit-val').innerText = konnoCount;
+        }
+
+        // 頁面載入時檢查驗證狀態
+        checkAuth();
+
+
+        // === 2. 搜尋功能 ===
+        const searchInput = document.getElementById('searchInput');
+        const dbItems = Array.from(document.querySelectorAll('.db-item'));
+        const emptyState = document.getElementById('emptyState');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            dbItems.forEach(item => {
+                const titleText = item.dataset.title.toLowerCase();
+                if (titleText.includes(query)) {
+                    item.style.display = 'grid';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (visibleCount === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
