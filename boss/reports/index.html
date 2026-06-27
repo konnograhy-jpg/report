@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yz小秘書發布區</title>
-    <meta name="description" content="yz小秘書公告與報告發布總目錄區。">
+    <title>總報告目錄書</title>
+    <meta name="description" content="收錄自動化發報系統、C專案技術移交、Telegram通知等核心技術與移交報告書。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg: #0a0f1e;
-            --surface: #111827;
-            --surface2: #1a2236;
+            --bg: #0b0f19;
+            --surface: #121826;
+            --surface2: #1e2638;
             --border: rgba(255,255,255,0.08);
             --blue: #3b82f6;
             --blue-dark: #1d4ed8;
             --blue-glow: rgba(59,130,246,0.3);
             --text: #f1f5f9;
             --muted: #64748b;
-            --accent: #ec4899;
+            --accent: #f59e0b;
         }
 
         body {
@@ -34,7 +34,7 @@
 
         /* ── 頂部導覽列 ── */
         .topbar {
-            background: rgba(17,24,39,0.95);
+            background: rgba(18,24,38,0.95);
             border-bottom: 1px solid var(--border);
             padding: 14px 32px;
             display: flex;
@@ -46,12 +46,21 @@
             z-index: 100;
         }
 
-        .topbar-dot {
-            width: 10px; height: 10px;
+        .back-btn {
+            text-decoration: none;
+            font-size: 13px;
+            color: #93c5fd;
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.25);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
             background: var(--blue);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--blue);
-            animation: pulse 2s infinite;
+            color: white;
         }
 
         .topbar-title {
@@ -59,6 +68,7 @@
             font-weight: 700;
             color: var(--text);
             letter-spacing: 0.5px;
+            margin-left: 10px;
         }
 
         .topbar-count {
@@ -71,45 +81,17 @@
             border-radius: 20px;
         }
 
-        /* ── Hero 區塊 ── */
+        /* ── Hero ── */
         .hero {
             text-align: center;
-            padding: 70px 20px 50px;
+            padding: 60px 20px 40px;
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -100px; left: 50%;
-            transform: translateX(-50%);
-            width: 600px; height: 400px;
-            background: radial-gradient(ellipse, rgba(59,130,246,0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(59,130,246,0.1);
-            border: 1px solid rgba(59,130,246,0.25);
-            color: #93c5fd;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 6px 18px;
-            border-radius: 20px;
-            margin-bottom: 24px;
         }
 
         .hero h1 {
-            font-size: 42px;
+            font-size: 38px;
             font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             background: linear-gradient(135deg, #f1f5f9 30%, #93c5fd 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -117,11 +99,11 @@
         }
 
         .hero p {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--muted);
             max-width: 480px;
             margin: 0 auto;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         /* ── 主內容 ── */
@@ -174,18 +156,17 @@
             border-radius: 20px;
             overflow: hidden;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .report-card:hover {
             border-color: rgba(59,130,246,0.5);
-            box-shadow: 0 0 0 1px rgba(59,130,246,0.2), 0 12px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
             transform: translateY(-3px);
         }
 
         .card-accent-bar {
             height: 4px;
-            background: linear-gradient(90deg, var(--accent), #f43f5e);
+            background: linear-gradient(90deg, var(--blue), #818cf8);
             width: 100%;
         }
 
@@ -201,12 +182,12 @@
             height: 56px;
             flex-shrink: 0;
             border-radius: 16px;
-            background: linear-gradient(135deg, #be185d, #ec4899);
+            background: linear-gradient(135deg, var(--blue-dark), var(--blue));
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 26px;
-            box-shadow: 0 4px 20px rgba(236,72,153,0.3);
+            box-shadow: 0 4px 20px var(--blue-glow);
         }
 
         .card-content {
@@ -219,8 +200,7 @@
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 1px;
-            text-transform: uppercase;
-            color: #f472b6;
+            color: #60a5fa;
             margin-bottom: 6px;
         }
 
@@ -262,10 +242,10 @@
             border-color: rgba(245,158,11,0.2);
         }
 
-        .tag-pill.pink {
-            background: rgba(236,72,153,0.12);
-            color: #fbcfe8;
-            border-color: rgba(236,72,153,0.2);
+        .tag-pill.success {
+            background: rgba(16,185,129,0.12);
+            color: #a7f3d0;
+            border-color: rgba(16,185,129,0.2);
         }
 
         .tag-pill.visit {
@@ -294,7 +274,6 @@
         .report-card:hover .card-arrow-btn {
             background: var(--blue);
             color: white;
-            box-shadow: 0 4px 16px var(--blue-glow);
         }
 
         /* ── Footer ── */
@@ -304,15 +283,9 @@
             border-top: 1px solid var(--border);
             color: var(--muted);
             font-size: 12px;
-            line-height: 2;
         }
 
         /* ── Animations ── */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
         .fade-in { animation: fadeIn 0.5s ease both; }
         .fade-up { animation: fadeUp 0.6s ease both; }
         .delay-1 { animation-delay: 0.1s; }
@@ -320,13 +293,13 @@
         .delay-3 { animation-delay: 0.3s; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 600px) {
             .hero h1 { font-size: 28px; }
             .card-inner { padding: 18px 20px; gap: 14px; }
             .card-icon-wrap { width: 46px; height: 46px; font-size: 22px; }
-            .card-name { font-size: 16px; }
+            .card-name { font-size: 15px; }
         }
     </style>
 </head>
@@ -334,64 +307,81 @@
 
 <!-- 頂部導覽列 -->
 <div class="topbar fade-in">
-    <div class="topbar-dot"></div>
-    <div class="topbar-title">📁 yz小秘書發布區</div>
-    <div class="topbar-count" id="topbar-count-label">共 2 個入口 | 👁️ 點閱次數：<span id="visit-count-val">0</span> 次</div>
+    <a href="../index.html" class="back-btn">⬅️ 返回小秘書發布區</a>
+    <div class="topbar-title">總報告目錄書</div>
+    <div class="topbar-count">共 3 份報告 | 👁️ 點閱次數：<span id="visit-count-val">0</span> 次</div>
 </div>
 
 <!-- Hero -->
 <div class="hero fade-in delay-1">
-    <div class="hero-eyebrow">📢 Publishing Center</div>
-    <h1>yz小秘書<br>發布區</h1>
-    <p>提供標案公告整理與系統報告書目錄，點選卡片即可進入。</p>
+    <h1>總報告目錄書</h1>
+    <p>收錄自動化發報系統架構、C專案移交記錄與Telegram回報機制報告書。</p>
 </div>
 
 <!-- 主內容 -->
 <div class="main">
-
     <div class="section-header fade-up delay-2">
-        <div class="section-label">置頂發布入口</div>
+        <div class="section-label">所有報告書</div>
         <div class="section-line"></div>
-        <div class="section-num">2 / 2</div>
+        <div class="section-num">3 / 3</div>
     </div>
 
     <div class="report-list">
 
-        <!-- ★ 置頂 01: 政府標案公告整理專區 (即時看板) ★ -->
-        <a href="tenders.html" class="report-card fade-up delay-2" id="report-tenders" data-page="政府標案公告整理">
+        <!-- ★ 報告書 01 ★ -->
+        <a href="標案自動化收尋.html" class="report-card fade-up delay-2" id="report-01" data-page="政府標案全自動化發報系統">
             <div class="card-accent-bar"></div>
             <div class="card-inner">
-                <div class="card-icon-wrap">📅</div>
+                <div class="card-icon-wrap">💼</div>
                 <div class="card-content">
-                    <div class="card-tag">即時看板 (Live)</div>
-                    <div class="card-name">政府標案公告整理專區</div>
-                    <div class="card-desc">收錄每日全自動搜尋出的最新標案，以及下午比對異動的分析報告。</div>
+                    <div class="card-tag">自動化系統</div>
+                    <div class="card-name">政府標案全自動化發報系統</div>
+                    <div class="card-desc">系統運作架構與流程報告書，涵蓋六大核心流程、色彩著色規範、效益分析對比。</div>
                     <div class="card-footer">
-                        <span class="tag-pill pink">📌 置頂釘選</span>
-                        <span class="tag-pill pink">📅 每日自動更新</span>
-                        <span class="tag-pill visit" data-badge="政府標案公告整理">👁️ <span class="val">0</span> 次</span>
-                    </div>
-                </div>
-                <div class="card-arrow-btn" style="background: rgba(236,72,153,0.1); border-color: rgba(236,72,153,0.2); color: #f472b6;">→</div>
-            </div>
-        </a>
-
-        <!-- ★ 02: 總報告目錄書 (子資料夾) ★ -->
-        <a href="reports/index.html" class="report-card fade-up delay-3" id="report-catalog" data-page="總報告目錄書">
-            <div class="card-accent-bar" style="background: linear-gradient(90deg, var(--blue), #818cf8);"></div>
-            <div class="card-inner">
-                <div class="card-icon-wrap" style="background: linear-gradient(135deg, var(--blue-dark), var(--blue)); box-shadow: 0 4px 20px var(--blue-glow);">📁</div>
-                <div class="card-content">
-                    <div class="card-tag" style="color: #60a5fa;">子目錄</div>
-                    <div class="card-name">總報告目錄書</div>
-                    <div class="card-desc">收錄全自動發報系統架構書、C專案技術移交報告書與Telegram通知回報報告書。</div>
-                    <div class="card-footer">
-                        <span class="tag-pill">📂 子資料夾</span>
-                        <span class="tag-pill">共 3 份報告</span>
-                        <span class="tag-pill visit" data-badge="總報告目錄書">👁️ <span class="val">0</span> 次</span>
+                        <span class="tag-pill">📅 2026-05-20</span>
+                        <span class="tag-pill">管理決策版</span>
+                        <span class="tag-pill visit" data-badge="政府標案全自動化發報系統">👁️ <span class="val">0</span> 次</span>
                     </div>
                 </div>
                 <div class="card-arrow-btn">→</div>
+            </div>
+        </a>
+
+        <!-- ★ 報告書 02 (C專案移交版) ★ -->
+        <a href="project_c_report.html" class="report-card fade-up delay-3" id="report-02" data-page="C專案技術移交報告書">
+            <div class="card-accent-bar" style="background: linear-gradient(90deg, var(--accent), #f59e0b);"></div>
+            <div class="card-inner">
+                <div class="card-icon-wrap" style="background: linear-gradient(135deg, #b45309, var(--accent)); box-shadow: 0 4px 20px rgba(245,158,11,0.3);">🏫</div>
+                <div class="card-content">
+                    <div class="card-tag" style="color: #fbbf24;">自動化系統 C</div>
+                    <div class="card-name">政府標案自動化收尋 C 專案技術移交報告書</div>
+                    <div class="card-desc">本機路徑遷移、Windows 工作排程器登錄、PCC 關鍵字篩選、下午差分比對邏輯與 6/4 實例展示。</div>
+                    <div class="card-footer">
+                        <span class="tag-pill accent">📅 2026-06-09</span>
+                        <span class="tag-pill accent">技術移交版</span>
+                        <span class="tag-pill visit" data-badge="C專案技術移交報告書">👁️ <span class="val">0</span> 次</span>
+                    </div>
+                </div>
+                <div class="card-arrow-btn" style="background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.2); color: #fbbf24;">→</div>
+            </div>
+        </a>
+
+        <!-- ★ 報告書 03 (C專案Telegram通知版) ★ -->
+        <a href="telegram_notification_report.html" class="report-card fade-up delay-3" id="report-03" data-page="Telegram通知回報報告書">
+            <div class="card-accent-bar" style="background: linear-gradient(90deg, #10b981, #34d399);"></div>
+            <div class="card-inner">
+                <div class="card-icon-wrap" style="background: linear-gradient(135deg, #047857, #10b981); box-shadow: 0 4px 20px rgba(16,185,129,0.3);">💬</div>
+                <div class="card-content">
+                    <div class="card-tag" style="color: #34d399;">自動化系統 C (通知增設)</div>
+                    <div class="card-name">政府標案自動化 C 專案 Telegram 通知回報報告書</div>
+                    <div class="card-desc">本機排程結合 Telegram API 的極簡單向通知機制，包含郵差比喻、運作流程、三色燈號，以及傻瓜式四步設定教學。</div>
+                    <div class="card-footer">
+                        <span class="tag-pill success">📅 2026-06-22</span>
+                        <span class="tag-pill success">管理與部署版</span>
+                        <span class="tag-pill visit" data-badge="Telegram通知回報報告書">👁️ <span class="val">0</span> 次</span>
+                    </div>
+                </div>
+                <div class="card-arrow-btn" style="background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.2); color: #34d399;">→</div>
             </div>
         </a>
 
@@ -400,13 +390,12 @@
 
 <!-- Footer -->
 <div class="footer fade-in delay-3">
-    © 2026 yz小秘書發布區<br>
-    由賽巴斯自動維護
+    © 2026 總報告目錄書 · 由賽巴斯自動維護
 </div>
 
 <!-- ── 訪問追蹤與統計腳本 ── -->
 <script>
-    const currentPage = "yz小秘書發布區";
+    const currentPage = "總報告目錄書";
 
     // 1. 紀錄目前頁面點閱
     function logPageVisit(page) {
@@ -424,7 +413,7 @@
         const currentCount = visitCounts[currentPage] || 0;
         document.getElementById('visit-count-val').innerText = currentCount;
 
-        // 更新各入口的點閱數
+        // 更新各個報告的點閱數
         const badges = document.querySelectorAll('.tag-pill.visit');
         badges.forEach(badge => {
             const pageName = badge.getAttribute('data-badge');
@@ -445,7 +434,6 @@
         });
     });
 
-    // 載入執行
     logPageVisit(currentPage);
     refreshStats();
 </script>
