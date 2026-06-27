@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="世界樹專案安全資料庫 AI 任務交辦與工作交接區，整合賽巴斯、雅爾貝德、潘朵拉、夏堤雅四個區域。">
+    <title>AI 任務交辦與工作交接區 | Yggdrasil Handover Hub</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            
+            --accent-purple: #c084fc;
+            --accent-blue: #38bdf8;
+            --accent-green: #34d399;
+            --accent-pink: #f472b6;
+            
+            --glow-purple: rgba(192, 132, 252, 0.1);
+            --glow-blue: rgba(56, 189, 248, 0.1);
+            --glow-green: rgba(52, 211, 153, 0.1);
+            --glow-pink: rgba(244, 114, 182, 0.1);
+            
+            --glass-blur: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 50% 0%, #1c152c 0%, var(--bg-color) 70%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Back button styling */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-purple);
+            transform: translateX(-3px);
+        }
+
+        /* Header Style */
+        header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 40%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .view-stat {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+        /* 4 Grid Columns for AIs */
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .ai-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(var(--glass-blur));
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            min-height: 480px;
+        }
+
+        /* Distinct glow on hover for different AIs */
+        .ai-card.sebastian:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--glow-purple);
+            transform: translateY(-4px);
+        }
+        .ai-card.albedo:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--glow-blue);
+            transform: translateY(-4px);
+        }
+        .ai-card.pandora:hover {
+            border-color: var(--accent-green);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--glow-green);
+            transform: translateY(-4px);
+        }
+        .ai-card.shalltear:hover {
+            border-color: var(--accent-pink);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--glow-pink);
+            transform: translateY(-4px);
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 1.25rem;
+        }
+
+        .ai-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sebastian .ai-avatar { background: rgba(192, 132, 252, 0.1); color: var(--accent-purple); border-color: rgba(192, 132, 252, 0.2); }
+        .albedo .ai-avatar { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); border-color: rgba(56, 189, 248, 0.2); }
+        .pandora .ai-avatar { background: rgba(52, 211, 153, 0.1); color: var(--accent-green); border-color: rgba(52, 211, 153, 0.2); }
+        .shalltear .ai-avatar { background: rgba(244, 114, 182, 0.1); color: var(--accent-pink); border-color: rgba(244, 114, 182, 0.2); }
+
+        .ai-identity {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-name {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        .ai-role {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Handover Tasks Area */
+        .task-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .task-item {
+            position: relative;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            font-size: 0.88rem;
+        }
+
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.4rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .task-date {
+            font-weight: 600;
+        }
+
+        .task-status {
+            font-size: 0.7rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .status-done { background: rgba(52, 211, 153, 0.15); color: var(--accent-green); border: 1px solid rgba(52, 211, 153, 0.2); }
+        .status-pending { background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); border: 1px solid rgba(192, 132, 252, 0.2); }
+        .status-idle { background: rgba(255, 255, 255, 0.05); color: var(--text-secondary); }
+
+        .task-desc {
+            color: var(--text-primary);
+            line-height: 1.5;
+            word-break: break-all;
+        }
+
+        .task-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-align: center;
+            opacity: 0.6;
+            border: 1px dashed rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem 1rem;
+            margin-top: 1rem;
+        }
+
+        .task-empty-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer styling */
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--card-border);
+            padding-top: 1.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 992px) {
+            .ai-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .ai-card {
+                min-height: 400px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .ai-grid {
+                grid-template-columns: 1fr;
+            }
+            body {
+                padding: 1.5rem 1rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="../database_portal.html" class="back-btn">⬅️ 返回世界樹資料庫</a>
+
+    <header>
+        <h1>AI 任務交辦與工作交接區</h1>
+        <p class="subtitle">Yggdrasil AI Handover Hub • 專案多代理人交接門戶</p>
+        <p class="view-stat">
+            👁️ 本頁面已被觀看 <span id="view-count" style="font-weight: 600; color: var(--accent-purple);">1</span> 次
+        </p>
+    </header>
+
+    <!-- Main Grid for 4 AIs -->
+    <main class="ai-grid">
+        
+        <!-- 🟣 賽巴斯區 (Sebastian) -->
+        <section class="ai-card sebastian">
+            <div class="ai-header">
+                <div class="ai-avatar">🎩</div>
+                <div class="ai-identity">
+                    <span class="ai-name">賽巴斯</span>
+                    <span class="ai-role">Butler / Manager</span>
+                </div>
+            </div>
+            <ul class="task-list">
+                <li class="task-item">
+                    <div class="task-meta">
+                        <span class="task-date">2026-06-27</span>
+                        <span class="task-status status-done">已完成</span>
+                    </div>
+                    <div class="task-desc">
+                        1. 📊 製作「股票指數報告」多日與全期對比網頁並註冊至世界樹資料庫。<br>
+                        2. 📝 新增 `GitHub_HTML上傳SOP.md` 規則：所有上傳至 Git/GitHub 的 HTML 頁面，必須強制包含「觀看人數功能（localStorage）」與「製作者標記（由萬能管家賽巴斯製作）」。
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 🔵 雅爾貝德區 (Albedo) -->
+        <section class="ai-card albedo">
+            <div class="ai-header">
+                <div class="ai-avatar">🤍</div>
+                <div class="ai-identity">
+                    <span class="ai-name">雅爾貝德</span>
+                    <span class="ai-role">Overseer / Security</span>
+                </div>
+            </div>
+            <div class="task-list">
+                <div class="task-empty">
+                    <span class="task-empty-icon">📁</span>
+                    <span>目前無未完成或待辦的交接事項</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🟢 潘朵拉區 (Pandora) -->
+        <section class="ai-card pandora">
+            <div class="ai-header">
+                <div class="ai-avatar">🎭</div>
+                <div class="ai-identity">
+                    <span class="ai-name">潘朵拉</span>
+                    <span class="ai-role">Actor / Deployment</span>
+                </div>
+            </div>
+            <div class="task-list">
+                <div class="task-empty">
+                    <span class="task-empty-icon">📁</span>
+                    <span>目前無未完成或待辦的交接事項</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 💗 夏堤雅區 (Shalltear) -->
+        <section class="ai-card shalltear">
+            <div class="ai-header">
+                <div class="ai-avatar">🌹</div>
+                <div class="ai-identity">
+                    <span class="ai-name">夏堤雅</span>
+                    <span class="ai-role">Vampire / Media</span>
+                </div>
+            </div>
+            <div class="task-list">
+                <div class="task-empty">
+                    <span class="task-empty-icon">📁</span>
+                    <span>目前無未完成或待辦的交接事項</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        © 2026 世界樹資料庫 AI 任務交辦系統<br>
+        🎩 由萬能管家賽巴斯 (Sebastian) 製作與自動化上載
+    </footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Handle view count for AI handover page
+        let views = localStorage.getItem('ai_handover_views') || 0;
+        views = parseInt(views) + 1;
+        localStorage.setItem('ai_handover_views', views);
+        document.getElementById('view-count').innerText = views;
+    });
+</script>
+</body>
+</html>
