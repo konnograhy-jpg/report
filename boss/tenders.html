@@ -282,7 +282,7 @@
 <div class="topbar fade-in">
     <div class="topbar-dot"></div>
     <div class="topbar-title">💼 標案整理公告專區</div>
-    <div class="topbar-count">共 24 份更新</div>
+    <div class="topbar-count">共 24 份更新 | 👁️ 點閱次數：<span id="visit-count-val">0</span> 次</div>
 </div>
 
 <!-- Hero -->
@@ -550,6 +550,29 @@
     © 2026 標案整理公告專區<br>
     由賽巴斯自動維護 · 每日搜尋比對後自動同步更新
 </div>
+
+<!-- ── 訪問追蹤與統計腳本 ── -->
+<script>
+    const currentPage = "政府標案公告整理";
+
+    // 1. 紀錄目前頁面點閱
+    function logPageVisit(page) {
+        let visitCounts = JSON.parse(localStorage.getItem('yggdrasil_visit_counts') || '{}');
+        visitCounts[page] = (visitCounts[page] || 0) + 1;
+        localStorage.setItem('yggdrasil_visit_counts', JSON.stringify(visitCounts));
+        return visitCounts;
+    }
+
+    // 2. 更新畫面顯示
+    function refreshStats() {
+        const visitCounts = JSON.parse(localStorage.getItem('yggdrasil_visit_counts') || '{}');
+        const currentCount = visitCounts[currentPage] || 0;
+        document.getElementById('visit-count-val').innerText = currentCount;
+    }
+
+    logPageVisit(currentPage);
+    refreshStats();
+</script>
 
 </body>
 </html>
