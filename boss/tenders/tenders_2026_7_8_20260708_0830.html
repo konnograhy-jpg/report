@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>政府標案公告整理 - 2026/07/08 08:30</title>
+    <meta name="total-tenders" content="60">
+    <meta name="rec-tenders" content="4">
+    <meta name="sheet-title" content="2026/7/8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            padding: 24px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+        }
+        header {
+            margin-bottom: 24px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 16px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 900;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .update-time {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        .back-btn-portal:hover {
+            background: #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+        
+        /* 表格樣式 (電腦版) */
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+            word-break: break-all;
+        }
+        th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #334155;
+            text-align: center;
+        }
+        
+        .col-idx { width: 5%; text-align: center; }
+        .col-agency { width: 18%; }
+        .col-name { width: 43%; }
+        .col-trans { width: 6%; text-align: center; }
+        .col-date-pub { width: 9%; text-align: center; }
+        .col-date-end { width: 9%; text-align: center; }
+        .col-budget { width: 10%; text-align: right; }
+
+        .school-red {
+            color: #dc2626 !important;
+            font-weight: 700;
+        }
+        .bg-sport { background-color: #e2f0d9 !important; }
+        .bg-toilet { background-color: #ddebf7 !important; }
+        .bg-wall { background-color: #fce4d6 !important; }
+        .hl-red-bold {
+            color: #dc2626;
+            font-weight: 700;
+        }
+        
+        /* 推薦標案卡片樣式 */
+        .rec-section {
+            margin-top: 40px;
+        }
+        .rec-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: #1e3a8a;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 5px solid #1e3a8a;
+            padding-left: 10px;
+        }
+        .rec-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .rec-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 6px solid #10b981;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .rec-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+        .rec-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .rec-badge-agency {
+            font-size: 12px;
+            font-weight: 700;
+            color: #dc2626;
+            background: #fee2e2;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .rec-budget {
+            font-size: 13px;
+            font-weight: 500;
+            color: #475569;
+        }
+        .rec-tender-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .rec-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 12px;
+            color: #64748b;
+            background: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+        .rec-detail-item strong {
+            color: #475569;
+        }
+        .no-rec-message {
+            color: #64748b;
+            font-style: italic;
+            background: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* 手機版凝聚卡片列表 */
+        .mobile-tender-list {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .container {
+                padding: 16px;
+                border-radius: 12px;
+            }
+            .table-responsive {
+                display: none;
+            }
+            .mobile-tender-list {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 30px;
+            }
+            .mobile-tender-row {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 12px;
+                font-size: 13px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+            }
+            .mobile-row-meta {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 6px;
+                font-size: 12px;
+            }
+            .mobile-row-idx {
+                background: rgba(0, 0, 0, 0.05);
+                color: #475569;
+                font-weight: 700;
+                padding: 1px 5px;
+                border-radius: 4px;
+                font-size: 11px;
+            }
+            .mobile-row-agency {
+                font-weight: 700;
+                margin-left: 6px;
+                margin-right: auto;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 170px;
+            }
+            .mobile-row-budget {
+                font-weight: 700;
+                color: #0f172a;
+                white-space: nowrap;
+            }
+            .mobile-row-name {
+                font-weight: 500;
+                color: #1e293b;
+                margin-bottom: 6px;
+                line-height: 1.4;
+                word-break: break-all;
+            }
+            .mobile-row-dates {
+                font-size: 11px;
+                color: #64748b;
+                border-top: 1px dashed rgba(0,0,0,0.08);
+                padding-top: 6px;
+                margin-top: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 12px; border-bottom: 1px dashed rgba(0,0,0,0.06); padding-bottom: 8px;">
+                <div style="display: flex; gap: 8px; margin-bottom: 6px;">
+                    <a href="../tenders.html" class="back-btn-portal" style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #475569; text-decoration: none; font-weight: 700; background: #e2e8f0; padding: 4px 10px; border-radius: 6px; transition: background 0.2s;">⬅️ 返回標案列表</a>
+                    <a href="../../database_portal.html" class="back-btn-portal" style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #475569; text-decoration: none; font-weight: 700; background: #e2e8f0; padding: 4px 10px; border-radius: 6px; transition: background 0.2s;">🌿 返回世界樹資料庫</a>
+                </div>
+                <div style="font-size: 12px; color: #64748b; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                    👁️ 點閱次數：<span id="visit-count-val" style="color: #1e3a8a; font-weight: 800;">0</span> 次
+                </div>
+            </div>
+            <h1>💼 政府標案公告整理</h1>
+            <div class="update-time">🕒 更新時間：2026/07/08 08:30 (2026/7/8 分頁)</div>
+        </header>
+
+        <!-- 學校運動類推薦區塊 -->
+        <div class="rec-section" style="margin-top: 0; margin-bottom: 30px;">
+            <div class="rec-title">🏫 學校運動類標案推薦</div>
+            <div class="rec-grid">
+                <div class="rec-card">
+                    <div class="rec-card-header">
+                        <span class="rec-badge-agency">新竹市東區青草湖國民小學</span>
+                        <span class="rec-budget">預算金額：<strong>843,077</strong></span>
+                    </div>
+                    <div class="rec-tender-name">C115009 < 新竹市青草湖國小<span class="hl-red-bold">操場</span><span class="hl-red-bold">跑道</span>及周邊設施整建委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>採購</div>
+                    <div class="rec-details">
+                        <span class="rec-detail-item"><strong>項次：</strong>1</span>
+                        <span class="rec-detail-item"><strong>公告日期：</strong>115/07/08</span>
+                        <span class="rec-detail-item"><strong>截止投標：</strong>115/07/14</span>
+                        <span class="rec-detail-item"><strong>傳輸次數：</strong>1</span>
+                    </div>
+                </div>
+                <div class="rec-card">
+                    <div class="rec-card-header">
+                        <span class="rec-badge-agency">苗栗縣三義鄉鯉魚國民小學</span>
+                        <span class="rec-budget">預算金額：<strong>828,246</strong></span>
+                    </div>
+                    <div class="rec-tender-name">1150143523A < 115年度苗栗縣三義鄉鯉魚國民小學風雨<span class="hl-red-bold">球場</span>新建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                    <div class="rec-details">
+                        <span class="rec-detail-item"><strong>項次：</strong>2</span>
+                        <span class="rec-detail-item"><strong>公告日期：</strong>115/07/08</span>
+                        <span class="rec-detail-item"><strong>截止投標：</strong>115/07/16</span>
+                        <span class="rec-detail-item"><strong>傳輸次數：</strong>1</span>
+                    </div>
+                </div>
+                <div class="rec-card">
+                    <div class="rec-card-header">
+                        <span class="rec-badge-agency">苗栗縣竹南鎮新南國民小學</span>
+                        <span class="rec-budget">預算金額：<strong>772,645</strong></span>
+                    </div>
+                    <div class="rec-tender-name">SN1150010 < 115年度新南國小<span class="hl-red-bold">運動</span>場地整建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">技術服務</span></div>
+                    <div class="rec-details">
+                        <span class="rec-detail-item"><strong>項次：</strong>3</span>
+                        <span class="rec-detail-item"><strong>公告日期：</strong>115/07/08</span>
+                        <span class="rec-detail-item"><strong>截止投標：</strong>115/07/13</span>
+                        <span class="rec-detail-item"><strong>傳輸次數：</strong>1</span>
+                    </div>
+                </div>
+                <div class="rec-card">
+                    <div class="rec-card-header">
+                        <span class="rec-badge-agency">苗栗縣立苗栗國民中學</span>
+                        <span class="rec-budget">預算金額：<strong>260,050</strong></span>
+                    </div>
+                    <div class="rec-tender-name">11505 < 115年4月豪雨災後<span class="hl-red-bold">操場</span>復建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></div>
+                    <div class="rec-details">
+                        <span class="rec-detail-item"><strong>項次：</strong>4</span>
+                        <span class="rec-detail-item"><strong>公告日期：</strong>115/07/08</span>
+                        <span class="rec-detail-item"><strong>截止投標：</strong>115/07/13</span>
+                        <span class="rec-detail-item"><strong>傳輸次數：</strong>1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-idx">項次</th>
+                        <th class="col-agency">機關名稱</th>
+                        <th class="col-name">標案案號 / 標案名稱</th>
+                        <th class="col-trans">傳輸<br>次數</th>
+                        <th class="col-date-pub">公告日期</th>
+                        <th class="col-date-end">截止投標</th>
+                        <th class="col-budget">預算金額</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-idx">1</td>
+                        <td class="col-agency ">台灣電力股份有限公司輸變電工程處中區施工處</td>
+                        <td class="col-name ">6551500016 <<br>「<span class="hl-red-bold">工程</span>圖說」影印、掃描、彙裝及圖面製作、複製第二原圖工作</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/22</td>
+                        <td class="col-budget">9,009,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">2</td>
+                        <td class="col-agency ">財團法人中華民國對外貿易發展協會</td>
+                        <td class="col-name ">2026C1001043 <<br>115年提升臺灣產業國際形象計畫「美國SEMA汽車零配件展台灣精品館<span class="hl-red-bold">設計</span>與裝潢」招標案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/20</td>
+                        <td class="col-budget">7,350,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">3</td>
+                        <td class="col-agency ">交通部運輸研究所</td>
+                        <td class="col-name ">IOT-115-ICB012 <<br>人工智慧號誌控制精進-模型精進、實驗場域<span class="hl-red-bold">規劃</span>及驗測工具實測</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/21</td>
+                        <td class="col-budget">5,500,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">4</td>
+                        <td class="col-agency ">苗栗縣政府</td>
+                        <td class="col-name ">115162 <<br>苗栗縣歷史建築通霄神社社務所(含參道)及拜殿緊急搶修<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案暨工作報告書案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/20</td>
+                        <td class="col-budget">5,100,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">5</td>
+                        <td class="col-agency ">國立歷史博物館</td>
+                        <td class="col-name ">115034 <<br>女性藝術展展場<span class="hl-red-bold">設計</span>施作案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/21</td>
+                        <td class="col-budget">5,050,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">6</td>
+                        <td class="col-agency ">雲林縣環境保護局</td>
+                        <td class="col-name bg-toilet">115-075 <<br>雲林縣環保局新辦公廳舍與周邊空品淨化區裝置藝術<span class="hl-red-bold">設計</span>設置及串聯活動案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/21</td>
+                        <td class="col-budget">5,000,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">7</td>
+                        <td class="col-agency ">國家運動科學中心</td>
+                        <td class="col-name bg-sport">115-01-010 <<br>115年度<span class="hl-red-bold">運動</span>數據資料標準制定與示範推動計畫</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/21</td>
+                        <td class="col-budget">5,000,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">8</td>
+                        <td class="col-agency ">台灣中油股份有限公司探採研究所</td>
+                        <td class="col-name ">FEB1514001 <<br>火山型地熱探勘井鑽井<span class="hl-red-bold">設計</span>與技術研討</td>
+                        <td class="col-trans">3</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/15</td>
+                        <td class="col-budget">4,929,600</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">9</td>
+                        <td class="col-agency school-red">國立臺灣大學醫學院附設醫院癌醫中心分院</td>
+                        <td class="col-name bg-toilet">AH150240 <<br>臺大癌醫中心分院古亭<span class="hl-red-bold">宿舍</span>管理及清潔勞務委外服務作業</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/20</td>
+                        <td class="col-budget">4,320,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">10</td>
+                        <td class="col-agency ">苗栗縣政府</td>
+                        <td class="col-name ">115163 <<br>「苑裡濱海水環境暨藝文廊道營造計畫」委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/22</td>
+                        <td class="col-budget">3,460,182</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">11</td>
+                        <td class="col-agency ">經濟部地質調查及礦業管理中心</td>
+                        <td class="col-name ">B115083 (更正公告) <<br>宜蘭花蓮地熱潛能區調查先期<span class="hl-red-bold">評估</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">3,000,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">12</td>
+                        <td class="col-agency ">國家鐵道博物館籌備處</td>
+                        <td class="col-name ">11505141 <<br>國定古蹟臺北機廠組立工場再利用(第一階段)<span class="hl-red-bold">工程</span>工作報告書委託專業服務</td>
+                        <td class="col-trans">3</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">3,000,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">13</td>
+                        <td class="col-agency ">苗栗縣政府</td>
+                        <td class="col-name ">115165 <<br>因應氣候變遷縣市管河川及排水整體改善計畫-西湖溪長通橋下游二號堤防新建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/20</td>
+                        <td class="col-budget">2,936,849</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">14</td>
+                        <td class="col-agency ">苗栗縣政府</td>
+                        <td class="col-name ">115166 <<br>因應氣候變遷縣市管河川及排水整體改善計畫-西湖溪晶通堤防新建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/20</td>
+                        <td class="col-budget">2,454,744</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">15</td>
+                        <td class="col-agency school-red">國立臺灣大學</td>
+                        <td class="col-name ">1150502 <<br>自動岩屑樣本處理系統<span class="hl-red-bold">設計</span></td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/15</td>
+                        <td class="col-budget">2,200,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">16</td>
+                        <td class="col-agency ">嘉義縣環境保護局</td>
+                        <td class="col-name bg-toilet">115CY59 (更正公告) <<br>嘉義縣廚餘全循環中心擴建委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>及興辦事業計畫變更案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/17</td>
+                        <td class="col-budget">1,800,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">17</td>
+                        <td class="col-agency ">苗栗縣政府</td>
+                        <td class="col-name ">115164 <<br>「福德橋上下游堤防延長<span class="hl-red-bold">工程</span>」委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>工作案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/20</td>
+                        <td class="col-budget">1,771,227</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">18</td>
+                        <td class="col-agency ">臺中市政府原住民族事務委員會</td>
+                        <td class="col-name bg-toilet">TIPC115018 <<br>臺中市政府原住民族事務委員會<span class="hl-red-bold">辦公室</span>搬遷勞務採購案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">1,499,500</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">19</td>
+                        <td class="col-agency ">衛生福利部食品藥物管理署</td>
+                        <td class="col-name ">115TFDA-DF-052 <<br>「管制藥品製藥工廠戶外水箱<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>」</td>
+                        <td class="col-trans">3</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/21</td>
+                        <td class="col-budget">1,447,380</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">20</td>
+                        <td class="col-agency school-red">國立玉里高級中學</td>
+                        <td class="col-name bg-toilet">115014 <<br>115學年度第1學期學生<span class="hl-red-bold">宿舍</span>伙食委外勞務採購</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/20</td>
+                        <td class="col-budget">1,440,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">21</td>
+                        <td class="col-agency school-red">國立中正大學</td>
+                        <td class="col-name bg-toilet">CCU-1507-017 <<br>「學人<span class="hl-red-bold">宿舍</span>區自來水改善<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span>」</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/17</td>
+                        <td class="col-budget">1,381,474</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">22</td>
+                        <td class="col-agency ">交通部觀光署北海岸及觀音山國家風景區管理處</td>
+                        <td class="col-name bg-sport">115051 <<br>基隆和平島<span class="hl-red-bold">公園</span>暨停車場委託營運移轉(OT)案優先定約委託專業服務案</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">1,380,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">23</td>
+                        <td class="col-agency ">臺中市養護工程處</td>
+                        <td class="col-name bg-sport">115B-030 <<br>115年度臺中市共融<span class="hl-red-bold">公園</span>改善統包<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/20</td>
+                        <td class="col-budget">1,373,376</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">24</td>
+                        <td class="col-agency ">台灣電力股份有限公司卓蘭發電廠</td>
+                        <td class="col-name bg-toilet">2571500009 <<br>卓蘭發電廠控制大樓部分空間<span class="hl-red-bold">裝修</span><span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">技術服務</span>工作</td>
+                        <td class="col-trans">3</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/16</td>
+                        <td class="col-budget">1,365,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">25</td>
+                        <td class="col-agency ">苗栗縣政府</td>
+                        <td class="col-name ">115109f <<br>苗栗縣政府115年度「執行農地利用綜合<span class="hl-red-bold">規劃</span>計畫」案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">1,350,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">26</td>
+                        <td class="col-agency ">經濟部產業園區管理局</td>
+                        <td class="col-name ">11521208 (更正公告) <<br>白埔科技產業園區先導計畫委託<span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">1,200,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">27</td>
+                        <td class="col-agency ">衛生福利部食品藥物管理署</td>
+                        <td class="col-name ">115TFDA-FS-404 <<br>115年度「營養標示加標『添加糖』項目<span class="hl-red-bold">可行性</span><span class="hl-red-bold">評估</span>研析」</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/15</td>
+                        <td class="col-budget">1,200,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">28</td>
+                        <td class="col-agency ">彰化縣福興鄉公所</td>
+                        <td class="col-name ">115032 <<br>115年彰化縣福興鄉沿海路道路拓寬改善<span class="hl-red-bold">工程</span>興辦事業計畫委託勞務採購案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">1,000,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">29</td>
+                        <td class="col-agency ">國立臺灣博物館</td>
+                        <td class="col-name ">NTM11512b <<br>「115年桃園國際機場臺灣之窗展示<span class="hl-red-bold">設計</span>製作案」</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">900,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">30</td>
+                        <td class="col-agency school-red">新竹市東區青草湖國民小學</td>
+                        <td class="col-name bg-sport">C115009 <<br>新竹市青草湖國小<span class="hl-red-bold">操場</span><span class="hl-red-bold">跑道</span>及周邊設施整建委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>採購</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">843,077</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">31</td>
+                        <td class="col-agency ">臺南市南區區公所</td>
+                        <td class="col-name bg-sport">1150113S <<br>臺南市南區龍崗國民小學通學散步道建置計畫委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span></td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">830,993</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">32</td>
+                        <td class="col-agency school-red">苗栗縣三義鄉鯉魚國民小學</td>
+                        <td class="col-name bg-sport">1150143523A <<br>115年度苗栗縣三義鄉鯉魚國民小學風雨<span class="hl-red-bold">球場</span>新建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/16</td>
+                        <td class="col-budget">828,246</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">33</td>
+                        <td class="col-agency school-red">新竹市立三民國民中學</td>
+                        <td class="col-name bg-toilet">smjh1150707 <<br>115學年度全校<span class="hl-red-bold">廁所</span>清潔委外辦理勞務採購</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/16</td>
+                        <td class="col-budget">792,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">34</td>
+                        <td class="col-agency school-red">國立臺灣師範大學</td>
+                        <td class="col-name bg-toilet">NC211506293 <<br>和平校區Ⅰ樂智樓增設電梯<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/21</td>
+                        <td class="col-budget">790,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">35</td>
+                        <td class="col-agency school-red">苗栗縣竹南鎮新南國民小學</td>
+                        <td class="col-name bg-sport">SN1150010 <<br>115年度新南國小<span class="hl-red-bold">運動</span>場地整建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">772,645</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">36</td>
+                        <td class="col-agency ">南投縣埔里鎮公所</td>
+                        <td class="col-name bg-toilet">115118 <<br>小埔社段185-2559地號公共<span class="hl-red-bold">廁所</span>及周邊設施設置<span class="hl-red-bold">工程</span>-委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span></td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">761,200</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">37</td>
+                        <td class="col-agency ">新竹市政府</td>
+                        <td class="col-name ">1150211 <<br>「115-116年新竹市客家文化推廣計畫」委託<span class="hl-red-bold">規劃</span>執行案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/15</td>
+                        <td class="col-budget">750,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">38</td>
+                        <td class="col-agency ">農業部農田水利署</td>
+                        <td class="col-name bg-toilet">TY115D005 <<br>農田水利署桃園管理處大坡分站等5處<span class="hl-red-bold">修繕</span><span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/23</td>
+                        <td class="col-budget">734,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">39</td>
+                        <td class="col-agency ">核能安全委員會</td>
+                        <td class="col-name ">NSC11505033L <<br>「115年國家海域放射性物質擴散預警及安全<span class="hl-red-bold">評估</span>技術國際研討會」勞務採購案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/15</td>
+                        <td class="col-budget">730,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">40</td>
+                        <td class="col-agency ">桃園市觀音區公所</td>
+                        <td class="col-name ">115-31 <<br>「2026台灣<span class="hl-red-bold">設計</span>展在桃園」觀音區公所接駁專車租賃勞務採購</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">728,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">41</td>
+                        <td class="col-agency ">苗栗縣竹南鎮公所</td>
+                        <td class="col-name bg-toilet">1150701-1 <<br>「115年度苗栗縣全面提升<span class="hl-red-bold">公廁</span>品質改善計畫」竹南鎮<span class="hl-red-bold">公廁</span><span class="hl-red-bold">修繕</span><span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/15</td>
+                        <td class="col-budget">707,910</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">42</td>
+                        <td class="col-agency ">農業部林業及自然保育署阿里山林業鐵路及文化資產管理處</td>
+                        <td class="col-name bg-toilet">115-122-38-2-1 <<br>林鐵營運物料管理中心及周邊改善<span class="hl-red-bold">工程</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/21</td>
+                        <td class="col-budget">703,340</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">43</td>
+                        <td class="col-agency school-red">新竹市北區北門國民小學</td>
+                        <td class="col-name bg-toilet">bmps1150630 <<br>115年度改善無障礙校園環境計畫委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>（含請照）<span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">3</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">702,724</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">44</td>
+                        <td class="col-agency ">臺南市政府環境保護局</td>
+                        <td class="col-name bg-sport">11530703 <<br>115年臺南市東區清潔隊停車場興建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">681,778</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">45</td>
+                        <td class="col-agency ">衛生福利部社會及家庭署</td>
+                        <td class="col-name bg-toilet">C115010 (更正公告) <<br>115年台灣國家婦女館<span class="hl-red-bold">室內</span>機更換及結構補強<span class="hl-red-bold">修繕</span><span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span>、<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/27</td>
+                        <td class="col-budget">588,040</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">46</td>
+                        <td class="col-agency school-red">臺中市神岡區岸裡國民小學</td>
+                        <td class="col-name bg-toilet">olps11505 <<br>岸裡國小專科<span class="hl-red-bold">教室</span>興建<span class="hl-red-bold">工程</span>公共藝術教育推廣專業服務採購案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">582,291</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">47</td>
+                        <td class="col-agency school-red">國立臺灣師範大學</td>
+                        <td class="col-name bg-toilet">NC211506100221 <<br>公館校區理學大樓D棟中庭窗戶<span class="hl-red-bold">整修</span><span class="hl-red-bold">工程</span><span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">550,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">48</td>
+                        <td class="col-agency ">新竹縣新豐鄉公所</td>
+                        <td class="col-name bg-sport">PUMO-1150106D <<br>新豐鄉後營區野戰<span class="hl-red-bold">公園</span>環境改善<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/16</td>
+                        <td class="col-budget">484,615</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">49</td>
+                        <td class="col-agency ">南投縣家畜疾病防治所</td>
+                        <td class="col-name bg-sport">1150806004E <<br>埔里寵物健康<span class="hl-red-bold">運動</span><span class="hl-red-bold">公園</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">426,639</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">50</td>
+                        <td class="col-agency ">臺灣土地銀行股份有限公司</td>
+                        <td class="col-name bg-toilet">115-D043-082 <<br>草屯分行電梯汰換採購委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/16</td>
+                        <td class="col-budget">422,100</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">51</td>
+                        <td class="col-agency ">新竹縣政府文化局</td>
+                        <td class="col-name bg-wall">C115094 <<br>演藝廳2樓露台<span class="hl-red-bold">防水</span>、排水改善<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">411,505</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">52</td>
+                        <td class="col-agency ">台灣電力股份有限公司協和發電廠</td>
+                        <td class="col-name bg-toilet">3601500077 <<br>原禮樂煉銅廠大門保全崗哨零星<span class="hl-red-bold">整修</span>工作</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/20</td>
+                        <td class="col-budget">290,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">53</td>
+                        <td class="col-agency ">國立臺灣美術館</td>
+                        <td class="col-name ">115080 <<br>115年度國立臺灣美術館典藏目錄版面<span class="hl-red-bold">設計</span>與印製藝文採購案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/15</td>
+                        <td class="col-budget">270,000</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">54</td>
+                        <td class="col-agency school-red">苗栗縣立苗栗國民中學</td>
+                        <td class="col-name bg-sport">11505 <<br>115年4月豪雨災後<span class="hl-red-bold">操場</span>復建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">260,050</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">55</td>
+                        <td class="col-agency ">嘉義縣政府</td>
+                        <td class="col-name bg-toilet">115FM333 <<br>嘉義縣科學教育中心楊柳颱風復建<span class="hl-red-bold">工程</span>北回一館太陽館及北回二館太空教育館委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>工作採購案</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/14</td>
+                        <td class="col-budget">242,810</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">56</td>
+                        <td class="col-agency school-red">南投縣仁愛鄉親愛國民小學</td>
+                        <td class="col-name bg-toilet">115-03-179-003L <<br>115年度親愛國小暨萬大分校改善教師<span class="hl-red-bold">宿舍</span>計畫委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span>服務</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/16</td>
+                        <td class="col-budget">221,429</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">57</td>
+                        <td class="col-agency school-red">國立羅東高級中學</td>
+                        <td class="col-name bg-toilet">11518 <<br>115年一般無障礙改善<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/15</td>
+                        <td class="col-budget">177,681</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">58</td>
+                        <td class="col-agency ">桃園市政府體育局</td>
+                        <td class="col-name bg-sport">115034 <<br>桃園市親子及樂齡<span class="hl-red-bold">運動</span>科技館委託營運管理案</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/13</td>
+                        <td class="col-budget">0元</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">59</td>
+                        <td class="col-agency school-red">桃園市桃園區建國國民小學</td>
+                        <td class="col-name bg-sport">114020303 <<br>115學年溫水游<span class="hl-red-bold">泳池</span>委託經營管理</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/29</td>
+                        <td class="col-budget">0元</td>
+                    </tr>
+                    <tr>
+                        <td class="col-idx">60</td>
+                        <td class="col-agency ">嘉義縣新港鄉公所</td>
+                        <td class="col-name bg-sport">11524 <<br>嘉義縣新港鄉大興路示範街區人行環境改造計畫委託<span class="hl-red-bold">規畫</span>測設<span class="hl-red-bold">監造</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/08</td>
+                        <td class="col-date-end">115/07/21</td>
+                        <td class="col-budget">未公開</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 3. 手機版凝聚型卡片列表 -->
+        <div class="mobile-tender-list">
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#1</span>
+                    <span class="mobile-row-agency ">台灣電力股份有限公司輸變電工程處中區施工處</span>
+                    <span class="mobile-row-budget">預算金額：9,009,000</span>
+                </div>
+                <div class="mobile-row-name">6551500016 < 「<span class="hl-red-bold">工程</span>圖說」影印、掃描、彙裝及圖面製作、複製第二原圖工作</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/22 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#2</span>
+                    <span class="mobile-row-agency ">財團法人中華民國對外貿易發展協會</span>
+                    <span class="mobile-row-budget">預算金額：7,350,000</span>
+                </div>
+                <div class="mobile-row-name">2026C1001043 < 115年提升臺灣產業國際形象計畫「美國SEMA汽車零配件展台灣精品館<span class="hl-red-bold">設計</span>與裝潢」招標案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/20 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#3</span>
+                    <span class="mobile-row-agency ">交通部運輸研究所</span>
+                    <span class="mobile-row-budget">預算金額：5,500,000</span>
+                </div>
+                <div class="mobile-row-name">IOT-115-ICB012 < 人工智慧號誌控制精進-模型精進、實驗場域<span class="hl-red-bold">規劃</span>及驗測工具實測</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/21 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#4</span>
+                    <span class="mobile-row-agency ">苗栗縣政府</span>
+                    <span class="mobile-row-budget">預算金額：5,100,000</span>
+                </div>
+                <div class="mobile-row-name">115162 < 苗栗縣歷史建築通霄神社社務所(含參道)及拜殿緊急搶修<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案暨工作報告書案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/20 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#5</span>
+                    <span class="mobile-row-agency ">國立歷史博物館</span>
+                    <span class="mobile-row-budget">預算金額：5,050,000</span>
+                </div>
+                <div class="mobile-row-name">115034 < 女性藝術展展場<span class="hl-red-bold">設計</span>施作案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/21 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#6</span>
+                    <span class="mobile-row-agency ">雲林縣環境保護局</span>
+                    <span class="mobile-row-budget">預算金額：5,000,000</span>
+                </div>
+                <div class="mobile-row-name">115-075 < 雲林縣環保局新辦公廳舍與周邊空品淨化區裝置藝術<span class="hl-red-bold">設計</span>設置及串聯活動案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/21 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#7</span>
+                    <span class="mobile-row-agency ">國家運動科學中心</span>
+                    <span class="mobile-row-budget">預算金額：5,000,000</span>
+                </div>
+                <div class="mobile-row-name">115-01-010 < 115年度<span class="hl-red-bold">運動</span>數據資料標準制定與示範推動計畫</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/21 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#8</span>
+                    <span class="mobile-row-agency ">台灣中油股份有限公司探採研究所</span>
+                    <span class="mobile-row-budget">預算金額：4,929,600</span>
+                </div>
+                <div class="mobile-row-name">FEB1514001 < 火山型地熱探勘井鑽井<span class="hl-red-bold">設計</span>與技術研討</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/15 | 傳：3
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#9</span>
+                    <span class="mobile-row-agency school-red">國立臺灣大學醫學院附設醫院癌醫中心分院</span>
+                    <span class="mobile-row-budget">預算金額：4,320,000</span>
+                </div>
+                <div class="mobile-row-name">AH150240 < 臺大癌醫中心分院古亭<span class="hl-red-bold">宿舍</span>管理及清潔勞務委外服務作業</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/20 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#10</span>
+                    <span class="mobile-row-agency ">苗栗縣政府</span>
+                    <span class="mobile-row-budget">預算金額：3,460,182</span>
+                </div>
+                <div class="mobile-row-name">115163 < 「苑裡濱海水環境暨藝文廊道營造計畫」委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/22 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#11</span>
+                    <span class="mobile-row-agency ">經濟部地質調查及礦業管理中心</span>
+                    <span class="mobile-row-budget">預算金額：3,000,000</span>
+                </div>
+                <div class="mobile-row-name">B115083 (更正公告) < 宜蘭花蓮地熱潛能區調查先期<span class="hl-red-bold">評估</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#12</span>
+                    <span class="mobile-row-agency ">國家鐵道博物館籌備處</span>
+                    <span class="mobile-row-budget">預算金額：3,000,000</span>
+                </div>
+                <div class="mobile-row-name">11505141 < 國定古蹟臺北機廠組立工場再利用(第一階段)<span class="hl-red-bold">工程</span>工作報告書委託專業服務</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：3
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#13</span>
+                    <span class="mobile-row-agency ">苗栗縣政府</span>
+                    <span class="mobile-row-budget">預算金額：2,936,849</span>
+                </div>
+                <div class="mobile-row-name">115165 < 因應氣候變遷縣市管河川及排水整體改善計畫-西湖溪長通橋下游二號堤防新建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/20 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#14</span>
+                    <span class="mobile-row-agency ">苗栗縣政府</span>
+                    <span class="mobile-row-budget">預算金額：2,454,744</span>
+                </div>
+                <div class="mobile-row-name">115166 < 因應氣候變遷縣市管河川及排水整體改善計畫-西湖溪晶通堤防新建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/20 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#15</span>
+                    <span class="mobile-row-agency school-red">國立臺灣大學</span>
+                    <span class="mobile-row-budget">預算金額：2,200,000</span>
+                </div>
+                <div class="mobile-row-name">1150502 < 自動岩屑樣本處理系統<span class="hl-red-bold">設計</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/15 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#16</span>
+                    <span class="mobile-row-agency ">嘉義縣環境保護局</span>
+                    <span class="mobile-row-budget">預算金額：1,800,000</span>
+                </div>
+                <div class="mobile-row-name">115CY59 (更正公告) < 嘉義縣廚餘全循環中心擴建委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>及興辦事業計畫變更案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/17 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#17</span>
+                    <span class="mobile-row-agency ">苗栗縣政府</span>
+                    <span class="mobile-row-budget">預算金額：1,771,227</span>
+                </div>
+                <div class="mobile-row-name">115164 < 「福德橋上下游堤防延長<span class="hl-red-bold">工程</span>」委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>工作案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/20 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#18</span>
+                    <span class="mobile-row-agency ">臺中市政府原住民族事務委員會</span>
+                    <span class="mobile-row-budget">預算金額：1,499,500</span>
+                </div>
+                <div class="mobile-row-name">TIPC115018 < 臺中市政府原住民族事務委員會<span class="hl-red-bold">辦公室</span>搬遷勞務採購案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#19</span>
+                    <span class="mobile-row-agency ">衛生福利部食品藥物管理署</span>
+                    <span class="mobile-row-budget">預算金額：1,447,380</span>
+                </div>
+                <div class="mobile-row-name">115TFDA-DF-052 < 「管制藥品製藥工廠戶外水箱<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>」</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/21 | 傳：3
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#20</span>
+                    <span class="mobile-row-agency school-red">國立玉里高級中學</span>
+                    <span class="mobile-row-budget">預算金額：1,440,000</span>
+                </div>
+                <div class="mobile-row-name">115014 < 115學年度第1學期學生<span class="hl-red-bold">宿舍</span>伙食委外勞務採購</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/20 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#21</span>
+                    <span class="mobile-row-agency school-red">國立中正大學</span>
+                    <span class="mobile-row-budget">預算金額：1,381,474</span>
+                </div>
+                <div class="mobile-row-name">CCU-1507-017 < 「學人<span class="hl-red-bold">宿舍</span>區自來水改善<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span>」</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/17 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#22</span>
+                    <span class="mobile-row-agency ">交通部觀光署北海岸及觀音山國家風景區管理處</span>
+                    <span class="mobile-row-budget">預算金額：1,380,000</span>
+                </div>
+                <div class="mobile-row-name">115051 < 基隆和平島<span class="hl-red-bold">公園</span>暨停車場委託營運移轉(OT)案優先定約委託專業服務案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#23</span>
+                    <span class="mobile-row-agency ">臺中市養護工程處</span>
+                    <span class="mobile-row-budget">預算金額：1,373,376</span>
+                </div>
+                <div class="mobile-row-name">115B-030 < 115年度臺中市共融<span class="hl-red-bold">公園</span>改善統包<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/20 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#24</span>
+                    <span class="mobile-row-agency ">台灣電力股份有限公司卓蘭發電廠</span>
+                    <span class="mobile-row-budget">預算金額：1,365,000</span>
+                </div>
+                <div class="mobile-row-name">2571500009 < 卓蘭發電廠控制大樓部分空間<span class="hl-red-bold">裝修</span><span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">技術服務</span>工作</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/16 | 傳：3
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#25</span>
+                    <span class="mobile-row-agency ">苗栗縣政府</span>
+                    <span class="mobile-row-budget">預算金額：1,350,000</span>
+                </div>
+                <div class="mobile-row-name">115109f < 苗栗縣政府115年度「執行農地利用綜合<span class="hl-red-bold">規劃</span>計畫」案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#26</span>
+                    <span class="mobile-row-agency ">經濟部產業園區管理局</span>
+                    <span class="mobile-row-budget">預算金額：1,200,000</span>
+                </div>
+                <div class="mobile-row-name">11521208 (更正公告) < 白埔科技產業園區先導計畫委託<span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#27</span>
+                    <span class="mobile-row-agency ">衛生福利部食品藥物管理署</span>
+                    <span class="mobile-row-budget">預算金額：1,200,000</span>
+                </div>
+                <div class="mobile-row-name">115TFDA-FS-404 < 115年度「營養標示加標『添加糖』項目<span class="hl-red-bold">可行性</span><span class="hl-red-bold">評估</span>研析」</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/15 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#28</span>
+                    <span class="mobile-row-agency ">彰化縣福興鄉公所</span>
+                    <span class="mobile-row-budget">預算金額：1,000,000</span>
+                </div>
+                <div class="mobile-row-name">115032 < 115年彰化縣福興鄉沿海路道路拓寬改善<span class="hl-red-bold">工程</span>興辦事業計畫委託勞務採購案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#29</span>
+                    <span class="mobile-row-agency ">國立臺灣博物館</span>
+                    <span class="mobile-row-budget">預算金額：900,000</span>
+                </div>
+                <div class="mobile-row-name">NTM11512b < 「115年桃園國際機場臺灣之窗展示<span class="hl-red-bold">設計</span>製作案」</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#30</span>
+                    <span class="mobile-row-agency school-red">新竹市東區青草湖國民小學</span>
+                    <span class="mobile-row-budget">預算金額：843,077</span>
+                </div>
+                <div class="mobile-row-name">C115009 < 新竹市青草湖國小<span class="hl-red-bold">操場</span><span class="hl-red-bold">跑道</span>及周邊設施整建委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>採購</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#31</span>
+                    <span class="mobile-row-agency ">臺南市南區區公所</span>
+                    <span class="mobile-row-budget">預算金額：830,993</span>
+                </div>
+                <div class="mobile-row-name">1150113S < 臺南市南區龍崗國民小學通學散步道建置計畫委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#32</span>
+                    <span class="mobile-row-agency school-red">苗栗縣三義鄉鯉魚國民小學</span>
+                    <span class="mobile-row-budget">預算金額：828,246</span>
+                </div>
+                <div class="mobile-row-name">1150143523A < 115年度苗栗縣三義鄉鯉魚國民小學風雨<span class="hl-red-bold">球場</span>新建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/16 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#33</span>
+                    <span class="mobile-row-agency school-red">新竹市立三民國民中學</span>
+                    <span class="mobile-row-budget">預算金額：792,000</span>
+                </div>
+                <div class="mobile-row-name">smjh1150707 < 115學年度全校<span class="hl-red-bold">廁所</span>清潔委外辦理勞務採購</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/16 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#34</span>
+                    <span class="mobile-row-agency school-red">國立臺灣師範大學</span>
+                    <span class="mobile-row-budget">預算金額：790,000</span>
+                </div>
+                <div class="mobile-row-name">NC211506293 < 和平校區Ⅰ樂智樓增設電梯<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/21 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#35</span>
+                    <span class="mobile-row-agency school-red">苗栗縣竹南鎮新南國民小學</span>
+                    <span class="mobile-row-budget">預算金額：772,645</span>
+                </div>
+                <div class="mobile-row-name">SN1150010 < 115年度新南國小<span class="hl-red-bold">運動</span>場地整建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#36</span>
+                    <span class="mobile-row-agency ">南投縣埔里鎮公所</span>
+                    <span class="mobile-row-budget">預算金額：761,200</span>
+                </div>
+                <div class="mobile-row-name">115118 < 小埔社段185-2559地號公共<span class="hl-red-bold">廁所</span>及周邊設施設置<span class="hl-red-bold">工程</span>-委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#37</span>
+                    <span class="mobile-row-agency ">新竹市政府</span>
+                    <span class="mobile-row-budget">預算金額：750,000</span>
+                </div>
+                <div class="mobile-row-name">1150211 < 「115-116年新竹市客家文化推廣計畫」委託<span class="hl-red-bold">規劃</span>執行案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/15 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#38</span>
+                    <span class="mobile-row-agency ">農業部農田水利署</span>
+                    <span class="mobile-row-budget">預算金額：734,000</span>
+                </div>
+                <div class="mobile-row-name">TY115D005 < 農田水利署桃園管理處大坡分站等5處<span class="hl-red-bold">修繕</span><span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/23 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#39</span>
+                    <span class="mobile-row-agency ">核能安全委員會</span>
+                    <span class="mobile-row-budget">預算金額：730,000</span>
+                </div>
+                <div class="mobile-row-name">NSC11505033L < 「115年國家海域放射性物質擴散預警及安全<span class="hl-red-bold">評估</span>技術國際研討會」勞務採購案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/15 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#40</span>
+                    <span class="mobile-row-agency ">桃園市觀音區公所</span>
+                    <span class="mobile-row-budget">預算金額：728,000</span>
+                </div>
+                <div class="mobile-row-name">115-31 < 「2026台灣<span class="hl-red-bold">設計</span>展在桃園」觀音區公所接駁專車租賃勞務採購</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#41</span>
+                    <span class="mobile-row-agency ">苗栗縣竹南鎮公所</span>
+                    <span class="mobile-row-budget">預算金額：707,910</span>
+                </div>
+                <div class="mobile-row-name">1150701-1 < 「115年度苗栗縣全面提升<span class="hl-red-bold">公廁</span>品質改善計畫」竹南鎮<span class="hl-red-bold">公廁</span><span class="hl-red-bold">修繕</span><span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/15 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#42</span>
+                    <span class="mobile-row-agency ">農業部林業及自然保育署阿里山林業鐵路及文化資產管理處</span>
+                    <span class="mobile-row-budget">預算金額：703,340</span>
+                </div>
+                <div class="mobile-row-name">115-122-38-2-1 < 林鐵營運物料管理中心及周邊改善<span class="hl-red-bold">工程</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/21 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#43</span>
+                    <span class="mobile-row-agency school-red">新竹市北區北門國民小學</span>
+                    <span class="mobile-row-budget">預算金額：702,724</span>
+                </div>
+                <div class="mobile-row-name">bmps1150630 < 115年度改善無障礙校園環境計畫委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>（含請照）<span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：3
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#44</span>
+                    <span class="mobile-row-agency ">臺南市政府環境保護局</span>
+                    <span class="mobile-row-budget">預算金額：681,778</span>
+                </div>
+                <div class="mobile-row-name">11530703 < 115年臺南市東區清潔隊停車場興建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#45</span>
+                    <span class="mobile-row-agency ">衛生福利部社會及家庭署</span>
+                    <span class="mobile-row-budget">預算金額：588,040</span>
+                </div>
+                <div class="mobile-row-name">C115010 (更正公告) < 115年台灣國家婦女館<span class="hl-red-bold">室內</span>機更換及結構補強<span class="hl-red-bold">修繕</span><span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span>、<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/27 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#46</span>
+                    <span class="mobile-row-agency school-red">臺中市神岡區岸裡國民小學</span>
+                    <span class="mobile-row-budget">預算金額：582,291</span>
+                </div>
+                <div class="mobile-row-name">olps11505 < 岸裡國小專科<span class="hl-red-bold">教室</span>興建<span class="hl-red-bold">工程</span>公共藝術教育推廣專業服務採購案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#47</span>
+                    <span class="mobile-row-agency school-red">國立臺灣師範大學</span>
+                    <span class="mobile-row-budget">預算金額：550,000</span>
+                </div>
+                <div class="mobile-row-name">NC211506100221 < 公館校區理學大樓D棟中庭窗戶<span class="hl-red-bold">整修</span><span class="hl-red-bold">工程</span><span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#48</span>
+                    <span class="mobile-row-agency ">新竹縣新豐鄉公所</span>
+                    <span class="mobile-row-budget">預算金額：484,615</span>
+                </div>
+                <div class="mobile-row-name">PUMO-1150106D < 新豐鄉後營區野戰<span class="hl-red-bold">公園</span>環境改善<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/16 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#49</span>
+                    <span class="mobile-row-agency ">南投縣家畜疾病防治所</span>
+                    <span class="mobile-row-budget">預算金額：426,639</span>
+                </div>
+                <div class="mobile-row-name">1150806004E < 埔里寵物健康<span class="hl-red-bold">運動</span><span class="hl-red-bold">公園</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#50</span>
+                    <span class="mobile-row-agency ">臺灣土地銀行股份有限公司</span>
+                    <span class="mobile-row-budget">預算金額：422,100</span>
+                </div>
+                <div class="mobile-row-name">115-D043-082 < 草屯分行電梯汰換採購委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/16 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-wall">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#51</span>
+                    <span class="mobile-row-agency ">新竹縣政府文化局</span>
+                    <span class="mobile-row-budget">預算金額：411,505</span>
+                </div>
+                <div class="mobile-row-name">C115094 < 演藝廳2樓露台<span class="hl-red-bold">防水</span>、排水改善<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#52</span>
+                    <span class="mobile-row-agency ">台灣電力股份有限公司協和發電廠</span>
+                    <span class="mobile-row-budget">預算金額：290,000</span>
+                </div>
+                <div class="mobile-row-name">3601500077 < 原禮樂煉銅廠大門保全崗哨零星<span class="hl-red-bold">整修</span>工作</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/20 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row ">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#53</span>
+                    <span class="mobile-row-agency ">國立臺灣美術館</span>
+                    <span class="mobile-row-budget">預算金額：270,000</span>
+                </div>
+                <div class="mobile-row-name">115080 < 115年度國立臺灣美術館典藏目錄版面<span class="hl-red-bold">設計</span>與印製藝文採購案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/15 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#54</span>
+                    <span class="mobile-row-agency school-red">苗栗縣立苗栗國民中學</span>
+                    <span class="mobile-row-budget">預算金額：260,050</span>
+                </div>
+                <div class="mobile-row-name">11505 < 115年4月豪雨災後<span class="hl-red-bold">操場</span>復建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#55</span>
+                    <span class="mobile-row-agency ">嘉義縣政府</span>
+                    <span class="mobile-row-budget">預算金額：242,810</span>
+                </div>
+                <div class="mobile-row-name">115FM333 < 嘉義縣科學教育中心楊柳颱風復建<span class="hl-red-bold">工程</span>北回一館太陽館及北回二館太空教育館委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>工作採購案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/14 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#56</span>
+                    <span class="mobile-row-agency school-red">南投縣仁愛鄉親愛國民小學</span>
+                    <span class="mobile-row-budget">預算金額：221,429</span>
+                </div>
+                <div class="mobile-row-name">115-03-179-003L < 115年度親愛國小暨萬大分校改善教師<span class="hl-red-bold">宿舍</span>計畫委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span>服務</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/16 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#57</span>
+                    <span class="mobile-row-agency school-red">國立羅東高級中學</span>
+                    <span class="mobile-row-budget">預算金額：177,681</span>
+                </div>
+                <div class="mobile-row-name">11518 < 115年一般無障礙改善<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/15 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#58</span>
+                    <span class="mobile-row-agency ">桃園市政府體育局</span>
+                    <span class="mobile-row-budget">預算金額：0元</span>
+                </div>
+                <div class="mobile-row-name">115034 < 桃園市親子及樂齡<span class="hl-red-bold">運動</span>科技館委託營運管理案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/13 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#59</span>
+                    <span class="mobile-row-agency school-red">桃園市桃園區建國國民小學</span>
+                    <span class="mobile-row-budget">預算金額：0元</span>
+                </div>
+                <div class="mobile-row-name">114020303 < 115學年溫水游<span class="hl-red-bold">泳池</span>委託經營管理</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/29 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#60</span>
+                    <span class="mobile-row-agency ">嘉義縣新港鄉公所</span>
+                    <span class="mobile-row-budget">預算金額：未公開</span>
+                </div>
+                <div class="mobile-row-name">11524 < 嘉義縣新港鄉大興路示範街區人行環境改造計畫委託<span class="hl-red-bold">規畫</span>測設<span class="hl-red-bold">監造</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/08 | 截止：115/07/21 | 傳：1
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ── 訪問追蹤與統計腳本 ── -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePath = window.location.pathname;
+            const filename = pagePath.substring(pagePath.lastIndexOf('/') + 1) || 'default_tender';
+            const pageKey = "tender_page_" + filename.replace(/\./g, '_');
+            
+            // 1. 紀錄目前頁面點閱
+            let visitCounts = JSON.parse(localStorage.getItem('yggdrasil_visit_counts') || '{}');
+            visitCounts[pageKey] = (visitCounts[pageKey] || 0) + 1;
+            localStorage.setItem('yggdrasil_visit_counts', JSON.stringify(visitCounts));
+            
+            // 2. 更新畫面顯示
+            document.getElementById('visit-count-val').innerText = visitCounts[pageKey];
+        });
+    </script>
+</body>
+</html>
