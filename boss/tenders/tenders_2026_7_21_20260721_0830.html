@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>政府標案公告整理 - 2026/07/21 08:30</title>
+    <meta name="total-tenders" content="38">
+    <meta name="rec-tenders" content="0">
+    <meta name="sheet-title" content="2026/7/21">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            padding: 24px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+        }
+        header {
+            margin-bottom: 24px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 16px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 900;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .update-time {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        .back-btn-portal:hover {
+            background: #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+        
+        /* 表格樣式 (電腦版) */
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+            word-break: break-all;
+        }
+        th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #334155;
+            text-align: center;
+        }
+        
+        .col-idx { width: 5%; text-align: center; }
+        .col-agency { width: 18%; }
+        .col-name { width: 43%; }
+        .col-trans { width: 6%; text-align: center; }
+        .col-date-pub { width: 9%; text-align: center; }
+        .col-date-end { width: 9%; text-align: center; }
+        .col-budget { width: 10%; text-align: right; }
+
+        .school-red {
+            color: #dc2626 !important;
+            font-weight: 700;
+        }
+        .bg-sport { background-color: #e2f0d9 !important; }
+        .bg-toilet { background-color: #ddebf7 !important; }
+        .bg-wall { background-color: #fce4d6 !important; }
+        .hl-red-bold {
+            color: #dc2626;
+            font-weight: 700;
+        }
+        
+        /* 推薦標案卡片樣式 */
+        .rec-section {
+            margin-top: 40px;
+        }
+        .rec-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: #1e3a8a;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 5px solid #1e3a8a;
+            padding-left: 10px;
+        }
+        .rec-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .rec-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 6px solid #10b981;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .rec-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+        .rec-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .rec-badge-agency {
+            font-size: 12px;
+            font-weight: 700;
+            color: #dc2626;
+            background: #fee2e2;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .rec-budget {
+            font-size: 13px;
+            font-weight: 500;
+            color: #475569;
+        }
+        .rec-tender-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .rec-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 12px;
+            color: #64748b;
+            background: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+        .rec-detail-item strong {
+            color: #475569;
+        }
+        .no-rec-message {
+            color: #64748b;
+            font-style: italic;
+            background: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* 手機版凝聚卡片列表 */
+        .mobile-tender-list {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            .container {
+                padding: 16px;
+                border-radius: 12px;
+            }
+            .table-responsive {
+                display: none;
+            }
+            .mobile-tender-list {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 30px;
+            }
+            .mobile-tender-row {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 12px;
+                font-size: 13px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+            }
+            .mobile-row-meta {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 6px;
+                font-size: 12px;
+            }
+            .mobile-row-idx {
+                background: rgba(0, 0, 0, 0.05);
+                color: #475569;
+                font-weight: 700;
+                padding: 1px 5px;
+                border-radius: 4px;
+                font-size: 11px;
+            }
+            .mobile-row-agency {
+                font-weight: 700;
+                margin-left: 6px;
+                margin-right: auto;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 170px;
+            }
+            .mobile-row-budget {
+                font-weight: 700;
+                color: #0f172a;
+                white-space: nowrap;
+            }
+            .mobile-row-name {
+                font-weight: 500;
+                color: #1e293b;
+                margin-bottom: 6px;
+                line-height: 1.4;
+                word-break: break-all;
+            }
+            .mobile-row-dates {
+                font-size: 11px;
+                color: #64748b;
+                border-top: 1px dashed rgba(0,0,0,0.08);
+                padding-top: 6px;
+                margin-top: 4px;
+            }
+        }
+
+        /* 懸停手型指針與效果 */
+        [data-url] {
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        tr[data-url]:hover {
+            background-color: #f1f5f9 !important;
+        }
+
+        /* 彈窗 Modal 樣式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            width: 90%;
+            max-width: 480px;
+            padding: 24px;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .modal-body {
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .modal-tender-info {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 8px;
+            word-break: break-all;
+        }
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+        .modal-btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .modal-btn-cancel {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        .modal-btn-cancel:hover {
+            background: #e2e8f0;
+        }
+        .modal-btn-confirm {
+            background: #1e3a8a;
+            color: #ffffff;
+        }
+        .modal-btn-confirm:hover {
+            background: #1d4ed8;
+        }
+        .modal-btn:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 12px; border-bottom: 1px dashed rgba(0,0,0,0.06); padding-bottom: 8px;">
+                <div style="display: flex; gap: 8px; margin-bottom: 6px;">
+                    <a href="../tenders.html" class="back-btn-portal" style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #475569; text-decoration: none; font-weight: 700; background: #e2e8f0; padding: 4px 10px; border-radius: 6px; transition: background 0.2s;">⬅️ 返回標案列表</a>
+                    <a href="../../database_portal.html" class="back-btn-portal" style="display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #475569; text-decoration: none; font-weight: 700; background: #e2e8f0; padding: 4px 10px; border-radius: 6px; transition: background 0.2s;">🌿 返回世界樹資料庫</a>
+                </div>
+                <div style="font-size: 12px; color: #64748b; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                    👁️ 點閱次數：<span id="visit-count-val" style="color: #1e3a8a; font-weight: 800;">0</span> 次
+                </div>
+            </div>
+            <h1>💼 政府標案公告整理</h1>
+            <div class="update-time">🕒 更新時間：2026/07/21 08:30 (2026/7/21 分頁)</div>
+        </header>
+
+        <!-- 學校運動類推薦區塊 -->
+        <div class="rec-section" style="margin-top: 0; margin-bottom: 30px;">
+            <div class="rec-title">🏫 學校運動類標案推薦</div>
+            <div class="no-rec-message">今日無符合條件之推薦標案。</div>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-idx">項次</th>
+                        <th class="col-agency">機關名稱</th>
+                        <th class="col-name">標案案號 / 標案名稱</th>
+                        <th class="col-trans">傳輸<br>次數</th>
+                        <th class="col-date-pub">公告日期</th>
+                        <th class="col-date-end">截止投標</th>
+                        <th class="col-budget">預算金額</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkyOTU=">
+                        <td class="col-idx">1</td>
+                        <td class="col-agency ">南投縣水里鄉公所</td>
+                        <td class="col-name ">115DU1902 <<br>115年度(第2次)水里鄉公共<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案(開口契約)</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/08/05</td>
+                        <td class="col-budget">9,817,500</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkyMjQ=">
+                        <td class="col-idx">2</td>
+                        <td class="col-agency ">台灣電力股份有限公司第三核能發電廠</td>
+                        <td class="col-name ">3521500143 <<br>核三廠大修期間一、二號機水下攝影及FME作業<span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/08/03</td>
+                        <td class="col-budget">6,292,524</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkyNTQ=">
+                        <td class="col-idx">3</td>
+                        <td class="col-agency ">臺南市下營區公所</td>
+                        <td class="col-name bg-sport">hsia1153004 <<br>下營區人本環境建置及城鄉風貌營造委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>(開口契約)</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">6,000,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyODAwODc=">
+                        <td class="col-idx">4</td>
+                        <td class="col-agency ">國立臺灣圖書館</td>
+                        <td class="col-name ">NTL-cci115009 <<br>淨零轉型計畫-委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>採購案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/08/03</td>
+                        <td class="col-budget">5,740,560</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk4NDE=">
+                        <td class="col-idx">5</td>
+                        <td class="col-agency ">台灣中油股份有限公司探採研究所</td>
+                        <td class="col-name ">FEB1514001 <<br>火山型地熱探勘井鑽井<span class="hl-red-bold">設計</span>與技術研討</td>
+                        <td class="col-trans">4</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/08/03</td>
+                        <td class="col-budget">4,929,600</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzg5OTY=">
+                        <td class="col-idx">6</td>
+                        <td class="col-agency ">國立傳統藝術中心</td>
+                        <td class="col-name ">1152215 (更正公告) <<br>115年重塑民間劇場-外臺歌仔戲2.0交流匯演硬體設備暨周邊活動<span class="hl-red-bold">規畫</span>執行</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/08/03</td>
+                        <td class="col-budget">4,900,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk5MTE=">
+                        <td class="col-idx">7</td>
+                        <td class="col-agency ">苗栗縣政府</td>
+                        <td class="col-name ">115172 <<br>2027台灣燈會在苗栗友好城市燈區<span class="hl-red-bold">設計</span>製作及佈展管理</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/08/03</td>
+                        <td class="col-budget">2,500,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk5MDQ=">
+                        <td class="col-idx">8</td>
+                        <td class="col-agency school-red">國立岡山高級農工職業學校</td>
+                        <td class="col-name bg-sport">115C-10 <<br><span class="hl-red-bold">室內</span>溫水游<span class="hl-red-bold">泳池</span>ROT案前置作業委託專業服務</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/31</td>
+                        <td class="col-budget">2,300,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk1Mjk=">
+                        <td class="col-idx">9</td>
+                        <td class="col-agency ">雲林縣政府</td>
+                        <td class="col-name ">1152A10044 <<br>雲林縣管區域排水番薯厝大排<span class="hl-red-bold">規劃</span>檢討</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/08/04</td>
+                        <td class="col-budget">1,885,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyODAwMTg=">
+                        <td class="col-idx">10</td>
+                        <td class="col-agency ">臺中市就業服務處</td>
+                        <td class="col-name ">E1150716-1 <<br>臺中市政府豐原就業服務站搬遷新址委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/08/03</td>
+                        <td class="col-budget">1,824,679</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkzMjY=">
+                        <td class="col-idx">11</td>
+                        <td class="col-agency school-red">國立中興大學</td>
+                        <td class="col-name bg-toilet">115TJ015 <<br>115年男女生<span class="hl-red-bold">宿舍</span>預約維護開口契約(冷氣)</td>
+                        <td class="col-trans">5</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">1,798,965</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk3MDg=">
+                        <td class="col-idx">12</td>
+                        <td class="col-agency ">彰化縣醫師公會健康台灣深耕計畫健康管理中心</td>
+                        <td class="col-name ">chma004 <<br>115年度AI Care深耕計畫實證效益<span class="hl-red-bold">評估</span>委託案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/30</td>
+                        <td class="col-budget">1,480,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk1MTE=">
+                        <td class="col-idx">13</td>
+                        <td class="col-agency ">苗栗縣政府</td>
+                        <td class="col-name bg-sport">115115f <<br>苗栗縣竹南火車站東站停車場及商業設施促參都市計畫個案變更委託<span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">1,425,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk4MTU=">
+                        <td class="col-idx">14</td>
+                        <td class="col-agency ">臺南市政府體育局</td>
+                        <td class="col-name ">TNS1150616 <<br>2026第15屆臺南市巨人盃全國青棒錦標賽委託<span class="hl-red-bold">規劃</span>執行勞務採購案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">1,400,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzY5MjU=">
+                        <td class="col-idx">15</td>
+                        <td class="col-agency ">內政部國家公園署太魯閣國家公園管理處</td>
+                        <td class="col-name bg-sport">1159043 (更正公告) <<br>「太魯閣國家<span class="hl-red-bold">公園</span>兩棲爬蟲類專書出版暨推廣計畫」採購案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/29</td>
+                        <td class="col-budget">1,300,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzc3OTI=">
+                        <td class="col-idx">16</td>
+                        <td class="col-agency ">新竹縣新埔鎮公所</td>
+                        <td class="col-name ">115-A06 (更正公告) <<br>115年度新竹縣大墩山休閒農業場域服務優化計畫委託<span class="hl-red-bold">規劃</span>執行案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/27</td>
+                        <td class="col-budget">1,200,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk2NzA=">
+                        <td class="col-idx">17</td>
+                        <td class="col-agency ">農業部水產試驗所</td>
+                        <td class="col-name ">115A038-C <<br>115年魚探機資源<span class="hl-red-bold">評估</span>創新應用</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">1,200,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzg3NDc=">
+                        <td class="col-idx">18</td>
+                        <td class="col-agency ">中央研究院</td>
+                        <td class="col-name bg-wall">BTRC11503034E <<br>115年度建築物<span class="hl-red-bold">外牆</span>清洗採購案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/27</td>
+                        <td class="col-budget">1,000,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzc3OTU=">
+                        <td class="col-idx">19</td>
+                        <td class="col-agency ">新竹縣新埔鎮公所</td>
+                        <td class="col-name ">115-A05 (更正公告) <<br>115年度新竹縣照門休閒農業場域服務優化計畫委託<span class="hl-red-bold">規劃</span>執行案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/27</td>
+                        <td class="col-budget">1,000,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkxMDg=">
+                        <td class="col-idx">20</td>
+                        <td class="col-agency school-red">新竹縣尖石鄉新光國民小學</td>
+                        <td class="col-name bg-toilet">HK1150511 <<br>新竹縣新光國小115年度教師<span class="hl-red-bold">宿舍</span>改善<span class="hl-red-bold">工程</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>勞務採購</td>
+                        <td class="col-trans">4</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/30</td>
+                        <td class="col-budget">852,331</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyODAwNTY=">
+                        <td class="col-idx">21</td>
+                        <td class="col-agency ">台灣自來水股份有限公司第五區管理處</td>
+                        <td class="col-name ">WR11505010085 <<br>嘉義科學園區送水管-二期專管<span class="hl-red-bold">工程</span>近高鐵施工影響<span class="hl-red-bold">評估</span>報告委託<span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/08/04</td>
+                        <td class="col-budget">840,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk4NjE=">
+                        <td class="col-idx">22</td>
+                        <td class="col-agency ">彰化縣大村鄉公所</td>
+                        <td class="col-name bg-sport">115-11941 <<br>115年度彰化縣大村鄉第二屆社區<span class="hl-red-bold">運動</span>會—「躍動大村．社區共融<span class="hl-red-bold">運動</span>會」暨志工表揚活動</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">800,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk1NzI=">
+                        <td class="col-idx">23</td>
+                        <td class="col-agency ">臺南市關廟區公所</td>
+                        <td class="col-name bg-sport">115072001 <<br>臺南市關廟區中正路(文衡路-南雄路)人行道改善<span class="hl-red-bold">工程</span>委外<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">770,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk5Njg=">
+                        <td class="col-idx">24</td>
+                        <td class="col-agency school-red">國立員林高級中學</td>
+                        <td class="col-name bg-toilet">115-16 <<br>樸質樓新建無障礙電梯<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">578,486</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk3NjU=">
+                        <td class="col-idx">25</td>
+                        <td class="col-agency ">國防部政治作戰局</td>
+                        <td class="col-name ">115HS11100412800280 <<br>文化營區A棟九樓公共區域整建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span>、<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/27</td>
+                        <td class="col-budget">575,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzc0Njg=">
+                        <td class="col-idx">26</td>
+                        <td class="col-agency school-red">國立嘉義女子高級中學</td>
+                        <td class="col-name bg-toilet">11507A7 <<br>污水及排水系統建置改善及車棚<span class="hl-red-bold">整修</span><span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>服務案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/30</td>
+                        <td class="col-budget">554,851</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkzMTY=">
+                        <td class="col-idx">27</td>
+                        <td class="col-agency ">農業部種苗改良繁殖場</td>
+                        <td class="col-name ">115A033-C <<br>「黃花蝴蝶蘭生成式AI育種輔助分析技術<span class="hl-red-bold">規劃</span>」勞務委託案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">550,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk4NzY=">
+                        <td class="col-idx">28</td>
+                        <td class="col-agency ">苗栗縣頭份市公所</td>
+                        <td class="col-name bg-toilet">115D015 <<br>頭份市公所預備行政辦公大樓<span class="hl-red-bold">公廁</span>改善<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/29</td>
+                        <td class="col-budget">531,615</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk4ODk=">
+                        <td class="col-idx">29</td>
+                        <td class="col-agency school-red">美和學校財團法人美和科技大學</td>
+                        <td class="col-name ">11522 <<br>USR成效<span class="hl-red-bold">評估</span>導入社會投資報酬率(SROI)諮詢輔導計畫</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/24</td>
+                        <td class="col-budget">500,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyODAwMjA=">
+                        <td class="col-idx">30</td>
+                        <td class="col-agency school-red">國立臺灣師範大學</td>
+                        <td class="col-name bg-toilet">NC211507151251 <<br>公館校區理學院大樓D201、D203、D205實驗室<span class="hl-red-bold">整修</span><span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">430,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk5MDg=">
+                        <td class="col-idx">31</td>
+                        <td class="col-agency ">桃園市政府體育局</td>
+                        <td class="col-name bg-sport">115039 <<br>115年桃園市政府<span class="hl-red-bold">體育</span>局促進民間參與公共建設案例實地參訪暨促參實務課程講習</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/29</td>
+                        <td class="col-budget">422,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk2ODQ=">
+                        <td class="col-idx">32</td>
+                        <td class="col-agency school-red">雲林縣莿桐鄉饒平國民小學</td>
+                        <td class="col-name bg-toilet">C115002 <<br>雲林縣饒平國小115年度改善無障礙校園環境計畫（新建無障礙電梯<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>）</td>
+                        <td class="col-trans">2</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">400,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk1MjU=">
+                        <td class="col-idx">33</td>
+                        <td class="col-agency school-red">彰化縣伸港鄉伸東國民小學</td>
+                        <td class="col-name bg-toilet">sdes11507 <<br>彰化縣伸東國小115年度後棟<span class="hl-red-bold">教室</span>無障礙電梯<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/28</td>
+                        <td class="col-budget">367,325</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk1NTQ=">
+                        <td class="col-idx">34</td>
+                        <td class="col-agency ">雲林縣褒忠鄉公所</td>
+                        <td class="col-name ">115A008 <<br>雲林縣褒忠鄉神主牌新建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/27</td>
+                        <td class="col-budget">247,380</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkyNDU=">
+                        <td class="col-idx">35</td>
+                        <td class="col-agency school-red">臺中市立新社高級中學</td>
+                        <td class="col-name bg-toilet">1150720 <<br>115年度弘揚樓西側<span class="hl-red-bold">廁所</span><span class="hl-red-bold">整修</span><span class="hl-red-bold">工程</span><span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span></td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/27</td>
+                        <td class="col-budget">238,627</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk0NTg=">
+                        <td class="col-idx">36</td>
+                        <td class="col-agency ">臺中市太平區公所</td>
+                        <td class="col-name bg-sport">115-D22 <<br>115年度臺中市太平區光華里麗園<span class="hl-red-bold">公園</span>增設照明設備(裝飾燈飾)</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/29</td>
+                        <td class="col-budget">220,000</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkzNDA=">
+                        <td class="col-idx">37</td>
+                        <td class="col-agency school-red">國立清華大學</td>
+                        <td class="col-name bg-toilet">YHT11507-01 <<br>綜三館6FC區及7FC區<span class="hl-red-bold">廁所</span><span class="hl-red-bold">整修</span><span class="hl-red-bold">工程</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/07/29</td>
+                        <td class="col-budget">203,938</td>
+                    </tr>
+                    <tr data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkyOTI=">
+                        <td class="col-idx">38</td>
+                        <td class="col-agency ">苗栗縣南庄鄉公所</td>
+                        <td class="col-name bg-toilet">115-029 <<br>115年災後復建<span class="hl-red-bold">工程</span>（委託<span class="hl-red-bold">設計</span>、<span class="hl-red-bold">監造</span>）開口契約-第二案</td>
+                        <td class="col-trans">1</td>
+                        <td class="col-date-pub">115/07/21</td>
+                        <td class="col-date-end">115/08/03</td>
+                        <td class="col-budget">100,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 3. 手機版凝聚型卡片列表 -->
+        <div class="mobile-tender-list">
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkyOTU=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#1</span>
+                    <span class="mobile-row-agency ">南投縣水里鄉公所</span>
+                    <span class="mobile-row-budget">預算金額：9,817,500</span>
+                </div>
+                <div class="mobile-row-name">115DU1902 < 115年度(第2次)水里鄉公共<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案(開口契約)</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/08/05 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkyMjQ=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#2</span>
+                    <span class="mobile-row-agency ">台灣電力股份有限公司第三核能發電廠</span>
+                    <span class="mobile-row-budget">預算金額：6,292,524</span>
+                </div>
+                <div class="mobile-row-name">3521500143 < 核三廠大修期間一、二號機水下攝影及FME作業<span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/08/03 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkyNTQ=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#3</span>
+                    <span class="mobile-row-agency ">臺南市下營區公所</span>
+                    <span class="mobile-row-budget">預算金額：6,000,000</span>
+                </div>
+                <div class="mobile-row-name">hsia1153004 < 下營區人本環境建置及城鄉風貌營造委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>(開口契約)</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyODAwODc=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#4</span>
+                    <span class="mobile-row-agency ">國立臺灣圖書館</span>
+                    <span class="mobile-row-budget">預算金額：5,740,560</span>
+                </div>
+                <div class="mobile-row-name">NTL-cci115009 < 淨零轉型計畫-委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>採購案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/08/03 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk4NDE=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#5</span>
+                    <span class="mobile-row-agency ">台灣中油股份有限公司探採研究所</span>
+                    <span class="mobile-row-budget">預算金額：4,929,600</span>
+                </div>
+                <div class="mobile-row-name">FEB1514001 < 火山型地熱探勘井鑽井<span class="hl-red-bold">設計</span>與技術研討</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/08/03 | 傳：4
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzg5OTY=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#6</span>
+                    <span class="mobile-row-agency ">國立傳統藝術中心</span>
+                    <span class="mobile-row-budget">預算金額：4,900,000</span>
+                </div>
+                <div class="mobile-row-name">1152215 (更正公告) < 115年重塑民間劇場-外臺歌仔戲2.0交流匯演硬體設備暨周邊活動<span class="hl-red-bold">規畫</span>執行</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/08/03 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk5MTE=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#7</span>
+                    <span class="mobile-row-agency ">苗栗縣政府</span>
+                    <span class="mobile-row-budget">預算金額：2,500,000</span>
+                </div>
+                <div class="mobile-row-name">115172 < 2027台灣燈會在苗栗友好城市燈區<span class="hl-red-bold">設計</span>製作及佈展管理</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/08/03 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk5MDQ=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#8</span>
+                    <span class="mobile-row-agency school-red">國立岡山高級農工職業學校</span>
+                    <span class="mobile-row-budget">預算金額：2,300,000</span>
+                </div>
+                <div class="mobile-row-name">115C-10 < <span class="hl-red-bold">室內</span>溫水游<span class="hl-red-bold">泳池</span>ROT案前置作業委託專業服務</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/31 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk1Mjk=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#9</span>
+                    <span class="mobile-row-agency ">雲林縣政府</span>
+                    <span class="mobile-row-budget">預算金額：1,885,000</span>
+                </div>
+                <div class="mobile-row-name">1152A10044 < 雲林縣管區域排水番薯厝大排<span class="hl-red-bold">規劃</span>檢討</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/08/04 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyODAwMTg=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#10</span>
+                    <span class="mobile-row-agency ">臺中市就業服務處</span>
+                    <span class="mobile-row-budget">預算金額：1,824,679</span>
+                </div>
+                <div class="mobile-row-name">E1150716-1 < 臺中市政府豐原就業服務站搬遷新址委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/08/03 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkzMjY=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#11</span>
+                    <span class="mobile-row-agency school-red">國立中興大學</span>
+                    <span class="mobile-row-budget">預算金額：1,798,965</span>
+                </div>
+                <div class="mobile-row-name">115TJ015 < 115年男女生<span class="hl-red-bold">宿舍</span>預約維護開口契約(冷氣)</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：5
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk3MDg=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#12</span>
+                    <span class="mobile-row-agency ">彰化縣醫師公會健康台灣深耕計畫健康管理中心</span>
+                    <span class="mobile-row-budget">預算金額：1,480,000</span>
+                </div>
+                <div class="mobile-row-name">chma004 < 115年度AI Care深耕計畫實證效益<span class="hl-red-bold">評估</span>委託案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/30 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk1MTE=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#13</span>
+                    <span class="mobile-row-agency ">苗栗縣政府</span>
+                    <span class="mobile-row-budget">預算金額：1,425,000</span>
+                </div>
+                <div class="mobile-row-name">115115f < 苗栗縣竹南火車站東站停車場及商業設施促參都市計畫個案變更委託<span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk4MTU=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#14</span>
+                    <span class="mobile-row-agency ">臺南市政府體育局</span>
+                    <span class="mobile-row-budget">預算金額：1,400,000</span>
+                </div>
+                <div class="mobile-row-name">TNS1150616 < 2026第15屆臺南市巨人盃全國青棒錦標賽委託<span class="hl-red-bold">規劃</span>執行勞務採購案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzY5MjU=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#15</span>
+                    <span class="mobile-row-agency ">內政部國家公園署太魯閣國家公園管理處</span>
+                    <span class="mobile-row-budget">預算金額：1,300,000</span>
+                </div>
+                <div class="mobile-row-name">1159043 (更正公告) < 「太魯閣國家<span class="hl-red-bold">公園</span>兩棲爬蟲類專書出版暨推廣計畫」採購案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/29 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzc3OTI=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#16</span>
+                    <span class="mobile-row-agency ">新竹縣新埔鎮公所</span>
+                    <span class="mobile-row-budget">預算金額：1,200,000</span>
+                </div>
+                <div class="mobile-row-name">115-A06 (更正公告) < 115年度新竹縣大墩山休閒農業場域服務優化計畫委託<span class="hl-red-bold">規劃</span>執行案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/27 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk2NzA=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#17</span>
+                    <span class="mobile-row-agency ">農業部水產試驗所</span>
+                    <span class="mobile-row-budget">預算金額：1,200,000</span>
+                </div>
+                <div class="mobile-row-name">115A038-C < 115年魚探機資源<span class="hl-red-bold">評估</span>創新應用</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-wall" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzg3NDc=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#18</span>
+                    <span class="mobile-row-agency ">中央研究院</span>
+                    <span class="mobile-row-budget">預算金額：1,000,000</span>
+                </div>
+                <div class="mobile-row-name">BTRC11503034E < 115年度建築物<span class="hl-red-bold">外牆</span>清洗採購案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/27 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzc3OTU=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#19</span>
+                    <span class="mobile-row-agency ">新竹縣新埔鎮公所</span>
+                    <span class="mobile-row-budget">預算金額：1,000,000</span>
+                </div>
+                <div class="mobile-row-name">115-A05 (更正公告) < 115年度新竹縣照門休閒農業場域服務優化計畫委託<span class="hl-red-bold">規劃</span>執行案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/27 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkxMDg=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#20</span>
+                    <span class="mobile-row-agency school-red">新竹縣尖石鄉新光國民小學</span>
+                    <span class="mobile-row-budget">預算金額：852,331</span>
+                </div>
+                <div class="mobile-row-name">HK1150511 < 新竹縣新光國小115年度教師<span class="hl-red-bold">宿舍</span>改善<span class="hl-red-bold">工程</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>勞務採購</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/30 | 傳：4
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyODAwNTY=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#21</span>
+                    <span class="mobile-row-agency ">台灣自來水股份有限公司第五區管理處</span>
+                    <span class="mobile-row-budget">預算金額：840,000</span>
+                </div>
+                <div class="mobile-row-name">WR11505010085 < 嘉義科學園區送水管-二期專管<span class="hl-red-bold">工程</span>近高鐵施工影響<span class="hl-red-bold">評估</span>報告委託<span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/08/04 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk4NjE=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#22</span>
+                    <span class="mobile-row-agency ">彰化縣大村鄉公所</span>
+                    <span class="mobile-row-budget">預算金額：800,000</span>
+                </div>
+                <div class="mobile-row-name">115-11941 < 115年度彰化縣大村鄉第二屆社區<span class="hl-red-bold">運動</span>會—「躍動大村．社區共融<span class="hl-red-bold">運動</span>會」暨志工表揚活動</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk1NzI=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#23</span>
+                    <span class="mobile-row-agency ">臺南市關廟區公所</span>
+                    <span class="mobile-row-budget">預算金額：770,000</span>
+                </div>
+                <div class="mobile-row-name">115072001 < 臺南市關廟區中正路(文衡路-南雄路)人行道改善<span class="hl-red-bold">工程</span>委外<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk5Njg=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#24</span>
+                    <span class="mobile-row-agency school-red">國立員林高級中學</span>
+                    <span class="mobile-row-budget">預算金額：578,486</span>
+                </div>
+                <div class="mobile-row-name">115-16 < 樸質樓新建無障礙電梯<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk3NjU=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#25</span>
+                    <span class="mobile-row-agency ">國防部政治作戰局</span>
+                    <span class="mobile-row-budget">預算金額：575,000</span>
+                </div>
+                <div class="mobile-row-name">115HS11100412800280 < 文化營區A棟九樓公共區域整建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span>、<span class="hl-red-bold">設計</span>及<span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/27 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzc0Njg=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#26</span>
+                    <span class="mobile-row-agency school-red">國立嘉義女子高級中學</span>
+                    <span class="mobile-row-budget">預算金額：554,851</span>
+                </div>
+                <div class="mobile-row-name">11507A7 < 污水及排水系統建置改善及車棚<span class="hl-red-bold">整修</span><span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>服務案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/30 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkzMTY=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#27</span>
+                    <span class="mobile-row-agency ">農業部種苗改良繁殖場</span>
+                    <span class="mobile-row-budget">預算金額：550,000</span>
+                </div>
+                <div class="mobile-row-name">115A033-C < 「黃花蝴蝶蘭生成式AI育種輔助分析技術<span class="hl-red-bold">規劃</span>」勞務委託案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk4NzY=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#28</span>
+                    <span class="mobile-row-agency ">苗栗縣頭份市公所</span>
+                    <span class="mobile-row-budget">預算金額：531,615</span>
+                </div>
+                <div class="mobile-row-name">115D015 < 頭份市公所預備行政辦公大樓<span class="hl-red-bold">公廁</span>改善<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/29 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk4ODk=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#29</span>
+                    <span class="mobile-row-agency school-red">美和學校財團法人美和科技大學</span>
+                    <span class="mobile-row-budget">預算金額：500,000</span>
+                </div>
+                <div class="mobile-row-name">11522 < USR成效<span class="hl-red-bold">評估</span>導入社會投資報酬率(SROI)諮詢輔導計畫</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/24 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyODAwMjA=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#30</span>
+                    <span class="mobile-row-agency school-red">國立臺灣師範大學</span>
+                    <span class="mobile-row-budget">預算金額：430,000</span>
+                </div>
+                <div class="mobile-row-name">NC211507151251 < 公館校區理學院大樓D201、D203、D205實驗室<span class="hl-red-bold">整修</span><span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk5MDg=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#31</span>
+                    <span class="mobile-row-agency ">桃園市政府體育局</span>
+                    <span class="mobile-row-budget">預算金額：422,000</span>
+                </div>
+                <div class="mobile-row-name">115039 < 115年桃園市政府<span class="hl-red-bold">體育</span>局促進民間參與公共建設案例實地參訪暨促參實務課程講習</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/29 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk2ODQ=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#32</span>
+                    <span class="mobile-row-agency school-red">雲林縣莿桐鄉饒平國民小學</span>
+                    <span class="mobile-row-budget">預算金額：400,000</span>
+                </div>
+                <div class="mobile-row-name">C115002 < 雲林縣饒平國小115年度改善無障礙校園環境計畫（新建無障礙電梯<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>）</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：2
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk1MjU=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#33</span>
+                    <span class="mobile-row-agency school-red">彰化縣伸港鄉伸東國民小學</span>
+                    <span class="mobile-row-budget">預算金額：367,325</span>
+                </div>
+                <div class="mobile-row-name">sdes11507 < 彰化縣伸東國小115年度後棟<span class="hl-red-bold">教室</span>無障礙電梯<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/28 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row " data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk1NTQ=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#34</span>
+                    <span class="mobile-row-agency ">雲林縣褒忠鄉公所</span>
+                    <span class="mobile-row-budget">預算金額：247,380</span>
+                </div>
+                <div class="mobile-row-name">115A008 < 雲林縣褒忠鄉神主牌新建<span class="hl-red-bold">工程</span>委託<span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span><span class="hl-red-bold">技術服務</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/27 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkyNDU=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#35</span>
+                    <span class="mobile-row-agency school-red">臺中市立新社高級中學</span>
+                    <span class="mobile-row-budget">預算金額：238,627</span>
+                </div>
+                <div class="mobile-row-name">1150720 < 115年度弘揚樓西側<span class="hl-red-bold">廁所</span><span class="hl-red-bold">整修</span><span class="hl-red-bold">工程</span><span class="hl-red-bold">規劃</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span></div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/27 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-sport" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzk0NTg=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#36</span>
+                    <span class="mobile-row-agency ">臺中市太平區公所</span>
+                    <span class="mobile-row-budget">預算金額：220,000</span>
+                </div>
+                <div class="mobile-row-name">115-D22 < 115年度臺中市太平區光華里麗園<span class="hl-red-bold">公園</span>增設照明設備(裝飾燈飾)</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/29 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkzNDA=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#37</span>
+                    <span class="mobile-row-agency school-red">國立清華大學</span>
+                    <span class="mobile-row-budget">預算金額：203,938</span>
+                </div>
+                <div class="mobile-row-name">YHT11507-01 < 綜三館6FC區及7FC區<span class="hl-red-bold">廁所</span><span class="hl-red-bold">整修</span><span class="hl-red-bold">工程</span><span class="hl-red-bold">設計</span><span class="hl-red-bold">監造</span>案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/07/29 | 傳：1
+                </div>
+            </div>
+            <div class="mobile-tender-row bg-toilet" data-url="https://web.pcc.gov.tw/prkms/urlSelector/common/tpam?pk=NzEyNzkyOTI=">
+                <div class="mobile-row-meta">
+                    <span class="mobile-row-idx">#38</span>
+                    <span class="mobile-row-agency ">苗栗縣南庄鄉公所</span>
+                    <span class="mobile-row-budget">預算金額：100,000</span>
+                </div>
+                <div class="mobile-row-name">115-029 < 115年災後復建<span class="hl-red-bold">工程</span>（委託<span class="hl-red-bold">設計</span>、<span class="hl-red-bold">監造</span>）開口契約-第二案</div>
+                <div class="mobile-row-dates">
+                    📅 公告：115/07/21 | 截止：115/08/03 | 傳：1
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ── 訪問追蹤與統計腳本 ── -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pagePath = window.location.pathname;
+            const filename = pagePath.substring(pagePath.lastIndexOf('/') + 1) || 'default_tender';
+            const pageKey = "tender_page_" + filename.replace(/\./g, '_');
+            
+            // 1. 紀錄目前頁面點閱
+            let visitCounts = JSON.parse(localStorage.getItem('yggdrasil_visit_counts') || '{}');
+            visitCounts[pageKey] = (visitCounts[pageKey] || 0) + 1;
+            localStorage.setItem('yggdrasil_visit_counts', JSON.stringify(visitCounts));
+            
+            // 2. 更新畫面顯示
+            document.getElementById('visit-count-val').innerText = visitCounts[pageKey];
+        });
+
+        // ── 彈窗確認模組邏輯 ──
+        document.addEventListener('DOMContentLoaded', () => {
+            // 建立 Modal DOM 節點並加入 body
+            const modalHtml = `
+                <div id="tender-modal" class="modal-overlay">
+                    <div class="modal-card">
+                        <div class="modal-title">🔗 開啟招標公告頁面</div>
+                        <div class="modal-body">
+                            您即將前往政府電子採購網查看該標案的詳細公告：
+                            <div id="modal-tender-name" class="modal-tender-info"></div>
+                        </div>
+                        <div class="modal-actions">
+                            <button id="modal-cancel-btn" class="modal-btn modal-btn-cancel">取消</button>
+                            <button id="modal-confirm-btn" class="modal-btn modal-btn-confirm">前往公告</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+            const modal = document.getElementById('tender-modal');
+            const modalTenderName = document.getElementById('modal-tender-name');
+            const cancelBtn = document.getElementById('modal-cancel-btn');
+            const confirmBtn = document.getElementById('modal-confirm-btn');
+            let targetUrl = '';
+
+            const showModal = (tenderName, url) => {
+                if (!url) return;
+                targetUrl = url;
+                modalTenderName.innerText = tenderName;
+                modal.classList.add('active');
+            };
+
+            const hideModal = () => {
+                modal.classList.remove('active');
+                targetUrl = '';
+            };
+
+            // 監聽有設定 data-url 的元素點擊事件
+            document.addEventListener('click', (e) => {
+                const clickable = e.target.closest('[data-url]');
+                if (clickable) {
+                    const url = clickable.getAttribute('data-url');
+                    let tenderName = '';
+                    
+                    if (clickable.classList.contains('rec-card')) {
+                        tenderName = clickable.querySelector('.rec-tender-name').innerText;
+                    } else if (clickable.tagName === 'TR') {
+                        const nameTd = clickable.querySelector('.col-name');
+                        const agencyTd = clickable.querySelector('.col-agency');
+                        tenderName = `${agencyTd ? agencyTd.innerText.trim() : ''} - ${nameTd ? nameTd.innerText.replace(/<<\s*/, '').trim() : ''}`;
+                    } else if (clickable.classList.contains('mobile-tender-row')) {
+                        const nameDiv = clickable.querySelector('.mobile-row-name');
+                        const agencySpan = clickable.querySelector('.mobile-row-agency');
+                        tenderName = `${agencySpan ? agencySpan.innerText.trim() : ''} - ${nameDiv ? nameDiv.innerText.trim() : ''}`;
+                    } else {
+                        tenderName = clickable.innerText || '未命名標案';
+                    }
+                    
+                    showModal(tenderName, url);
+                }
+            });
+
+            cancelBtn.addEventListener('click', hideModal);
+            confirmBtn.addEventListener('click', () => {
+                if (targetUrl) {
+                    window.open(targetUrl, '_blank');
+                }
+                hideModal();
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
