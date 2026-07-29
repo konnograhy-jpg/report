@@ -347,6 +347,13 @@
         .modal-btn-confirm:hover {
             background: #1d4ed8;
         }
+        .modal-btn-history {
+            background: #0284c7;
+            color: #ffffff;
+        }
+        .modal-btn-history:hover {
+            background: #0369a1;
+        }
         .modal-btn:active {
             transform: scale(0.97);
         }
@@ -1239,6 +1246,7 @@
                         </div>
                         <div class="modal-actions">
                             <button id="modal-cancel-btn" class="modal-btn modal-btn-cancel">取消</button>
+                            <button id="modal-history-btn" class="modal-btn modal-btn-history">📊 過去決標紀錄</button>
                             <button id="modal-confirm-btn" class="modal-btn modal-btn-confirm">前往公告</button>
                         </div>
                     </div>
@@ -1249,19 +1257,26 @@
             const modal = document.getElementById('tender-modal');
             const modalTenderName = document.getElementById('modal-tender-name');
             const cancelBtn = document.getElementById('modal-cancel-btn');
+            const historyBtn = document.getElementById('modal-history-btn');
             const confirmBtn = document.getElementById('modal-confirm-btn');
             let targetUrl = '';
+            let currentAgency = '';
+            let currentTenderName = '';
 
-            const showModal = (tenderName, url) => {
+            const showModal = (agency, tenderName, url) => {
                 if (!url) return;
                 targetUrl = url;
-                modalTenderName.innerText = tenderName;
+                currentAgency = agency;
+                currentTenderName = tenderName;
+                modalTenderName.innerText = agency ? `${agency} - ${tenderName}` : tenderName;
                 modal.classList.add('active');
             };
 
             const hideModal = () => {
                 modal.classList.remove('active');
                 targetUrl = '';
+                currentAgency = '';
+                currentTenderName = '';
             };
 
             // 監聽有設定 data-url 的元素點擊事件
@@ -1269,27 +1284,39 @@
                 const clickable = e.target.closest('[data-url]');
                 if (clickable) {
                     const url = clickable.getAttribute('data-url');
+                    let agency = '';
                     let tenderName = '';
                     
                     if (clickable.classList.contains('rec-card')) {
-                        tenderName = clickable.querySelector('.rec-tender-name').innerText;
+                        const agencyEl = clickable.querySelector('.rec-badge-agency');
+                        const nameEl = clickable.querySelector('.rec-tender-name');
+                        agency = agencyEl ? agencyEl.innerText.trim() : '';
+                        tenderName = nameEl ? nameEl.innerText.trim() : '';
                     } else if (clickable.tagName === 'TR') {
                         const nameTd = clickable.querySelector('.col-name');
                         const agencyTd = clickable.querySelector('.col-agency');
-                        tenderName = `${agencyTd ? agencyTd.innerText.trim() : ''} - ${nameTd ? nameTd.innerText.replace(/<<\s*/, '').trim() : ''}`;
+                        agency = agencyTd ? agencyTd.innerText.trim() : '';
+                        tenderName = nameTd ? nameTd.innerText.replace(/<<\s*/, '').trim() : '';
                     } else if (clickable.classList.contains('mobile-tender-row')) {
                         const nameDiv = clickable.querySelector('.mobile-row-name');
                         const agencySpan = clickable.querySelector('.mobile-row-agency');
-                        tenderName = `${agencySpan ? agencySpan.innerText.trim() : ''} - ${nameDiv ? nameDiv.innerText.trim() : ''}`;
+                        agency = agencySpan ? agencySpan.innerText.trim() : '';
+                        tenderName = nameDiv ? nameDiv.innerText.trim() : '';
                     } else {
                         tenderName = clickable.innerText || '未命名標案';
                     }
                     
-                    showModal(tenderName, url);
+                    showModal(agency, tenderName, url);
                 }
             });
 
             cancelBtn.addEventListener('click', hideModal);
+            historyBtn.addEventListener('click', () => {
+                const agencyParam = encodeURIComponent(currentAgency || '');
+                const tenderParam = encodeURIComponent(currentTenderName || '');
+                window.open(`tender_analysis_prototype.html?agency=${agencyParam}&tender=${tenderParam}`, '_blank');
+                hideModal();
+            });
             confirmBtn.addEventListener('click', () => {
                 if (targetUrl) {
                     window.open(targetUrl, '_blank');
