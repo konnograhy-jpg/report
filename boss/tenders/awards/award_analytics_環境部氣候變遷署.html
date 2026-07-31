@@ -1,0 +1,3719 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】環境部氣候變遷署 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">環境部氣候變遷署</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">177 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">177 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">19 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">16 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 6 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">國立臺灣大學</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">4 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (4 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[115BA023]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">二氧化碳捕捉後封存場址開發政策環境影響評估及其審查配套與社會溝通計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/06/01</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA023" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=115BA023" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113BA033-1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">113年社區調適策略及建立風險評估操作指引專案計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/07/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA033-1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113BA033-1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114BA004]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">二氧化碳捕捉後封存場址開發政策環境影響評估</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/04/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA004" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114BA004" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113BA033]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">113年社區調適策略及建立風險評估操作指引專案計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/08</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA033" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113BA033" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">財團法人工業技術研究院</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">3 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (3 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[115BB001]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">國家淨零路徑整合評估專案計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/03/25</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BB001" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=115BB001" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114BA030]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114-115年度氫氟碳化物管制策略規劃計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/08/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA030" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114BA030" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">規劃</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113BA013]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">長期淨零路徑與環境效益整合評估</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/04/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA013" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113BA013" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鑫造室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">3 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (3 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114BC003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">舊財政大樓前棟7、8樓辦公廳舍整修暨原辦公空間調整工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/12/26</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BC003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114BC003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112BC501]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/08/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BC501" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112BC501" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112BC501-1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">「舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程」第1次契約變更採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/05/20</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BC501-1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112BC501-1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#4</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">愷奕國際展覽設計有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-4')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-4" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[115BA004]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">環境部115年淨零城市展策展暨淨零轉型論壇規劃執行計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/02/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA004" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=115BA004" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">規劃</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113BA007]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">環境部淨零城市展策展暨淨零轉型論壇規劃執行計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/02/15</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA007" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113BA007" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">規劃</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#5</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">黃聖吉建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-5')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-5" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114BA032]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">環境部氣候變遷署舊財政大樓前棟7、8樓辦公廳舍整修暨原辦公空間調整工程委託規劃設計監造服務案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/06/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA032" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114BA032" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112ED002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">環境部氣候變遷署舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程委託規劃設計監造服務案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/26</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112ED002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112ED002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#6</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">工井營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-6')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-6" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112BC501]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/08/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BC501" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112BC501" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113BD002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">辦公廳舍老舊廁所整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/08/01</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BD002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113BD002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#7</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">環興科技股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-7')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-7" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[115BA032]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">國家二氧化碳移除(CDR)潛力評估先期專案計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/07/21</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA032" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=115BA032" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#8</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">民視文化事業股份有限公司 (Taiwan Television Technology Co., Ltd.)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-8')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-8" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114BA034]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年國際經貿與氣候變遷政策交互影響評估計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/08/13</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA034" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114BA034" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#9</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">麗水策略整合行銷有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-9')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-9" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114BA034]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年國際經貿與氣候變遷政策交互影響評估計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/08/13</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA034" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114BA034" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#10</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">陳澤修建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-10')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-10" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114BA032]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">環境部氣候變遷署舊財政大樓前棟7、8樓辦公廳舍整修暨原辦公空間調整工程委託規劃設計監造服務案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/06/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA032" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114BA032" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#11</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鄉平設計室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-11')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-11" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112BC501]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/08/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BC501" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112BC501" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#12</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">遠璟室內裝修企業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-12')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-12" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112BC501]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/08/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BC501" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112BC501" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#13</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">良程室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-13')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-13" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112BC501]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/08/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BC501" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112BC501" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#14</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">永鈞室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-14')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-14" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113BD002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">辦公廳舍老舊廁所整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/08/01</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BD002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113BD002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#15</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">中原大學</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-15')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-15" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113BA033]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">113年社區調適策略及建立風險評估操作指引專案計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/08</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA033" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113BA033" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#16</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">光洋波斯特國際展覽股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-16')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-16" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113BA007]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">環境部淨零城市展策展暨淨零轉型論壇規劃執行計畫</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/02/15</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA007" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113BA007" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">規劃</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (19 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>115BA036</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left font-weight-bold">115年氣候變遷調適熱暴露指標評估工作計畫</td>
+            <td>2026/07/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">評估</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA036" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA036" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>115BA032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">國家二氧化碳移除(CDR)潛力評估先期專案計畫</td>
+            <td>2026/07/21</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td><span class="kw-tag">評估</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>115BA023</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">二氧化碳捕捉後封存場址開發政策環境影響評估及其審查配套與社會溝通計畫</td>
+            <td>2026/06/01</td>
+            <td class="text-left">國立臺灣大學</td>
+            <td><span class="kw-tag">評估</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>115BB001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">國家淨零路徑整合評估專案計畫</td>
+            <td>2026/03/25</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td><span class="kw-tag">評估</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BB001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BB001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>115BA004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">環境部115年淨零城市展策展暨淨零轉型論壇規劃執行計畫</td>
+            <td>2026/02/23</td>
+            <td class="text-left">愷奕國際展覽設計有限公司</td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>114BC003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">舊財政大樓前棟7、8樓辦公廳舍整修暨原辦公空間調整工程採購案</td>
+            <td>2025/12/26</td>
+            <td class="text-left">鑫造室內裝修有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BC003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BC003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>114BA034</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">114年國際經貿與氣候變遷政策交互影響評估計畫</td>
+            <td>2025/08/13</td>
+            <td class="text-left">民視文化事業股份有限公司 (Taiwan Television Technology Co., Ltd.), 麗水策略整合行銷有限公司</td>
+            <td><span class="kw-tag">評估</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA034" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA034" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>114BA030</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">114-115年度氫氟碳化物管制策略規劃計畫</td>
+            <td>2025/08/12</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA030" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA030" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>113BA033-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">113年社區調適策略及建立風險評估操作指引專案計畫</td>
+            <td>2025/07/24</td>
+            <td class="text-left">國立臺灣大學</td>
+            <td><span class="kw-tag">評估</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA033-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA033-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>114BA032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">環境部氣候變遷署舊財政大樓前棟7、8樓辦公廳舍整修暨原辦公空間調整工程委託規劃設計監造服務案</td>
+            <td>2025/06/18</td>
+            <td class="text-left">黃聖吉建築師事務所, 陳澤修建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>114BA004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">二氧化碳捕捉後封存場址開發政策環境影響評估</td>
+            <td>2025/04/02</td>
+            <td class="text-left">國立臺灣大學</td>
+            <td><span class="kw-tag">評估</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>114BA002</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">環境部114年淨零城市展策展暨淨零轉型論壇規劃執行計畫</td>
+            <td>2024/12/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>112BC501</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程採購案</td>
+            <td>2024/08/30</td>
+            <td class="text-left">鄉平設計室內裝修有限公司, 遠璟室內裝修企業有限公司, 工井營造有限公司, 良程室內裝修有限公司, 鑫造室內裝修有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BC501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112BC501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>113BD002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">辦公廳舍老舊廁所整修工程採購案</td>
+            <td>2024/08/01</td>
+            <td class="text-left">永鈞室內裝修有限公司, 工井營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BD002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BD002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>113BA033</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">113年社區調適策略及建立風險評估操作指引專案計畫</td>
+            <td>2024/07/08</td>
+            <td class="text-left">國立臺灣大學, 中原大學</td>
+            <td><span class="kw-tag">評估</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA033" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA033" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>112BC501-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">「舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程」第1次契約變更採購案</td>
+            <td>2024/05/20</td>
+            <td class="text-left">鑫造室內裝修有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BC501-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112BC501-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>113BA013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">長期淨零路徑與環境效益整合評估</td>
+            <td>2024/04/22</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td><span class="kw-tag">評估</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>113BA007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">環境部淨零城市展策展暨淨零轉型論壇規劃執行計畫</td>
+            <td>2024/02/15</td>
+            <td class="text-left">愷奕國際展覽設計有限公司, 光洋波斯特國際展覽股份有限公司</td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>112ED002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">環境部氣候變遷署舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程委託規劃設計監造服務案</td>
+            <td>2023/10/26</td>
+            <td class="text-left">黃聖吉建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112ED002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112ED002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (177 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>115BA036</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">115年氣候變遷調適熱暴露指標評估工作計畫</td>
+            <td>2026/07/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA036" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA036" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>115BA028</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年運輸業溫室氣體盤查、碳足跡建立及減量對策推動計畫</td>
+            <td>2026/07/28</td>
+            <td class="text-left">景丰科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>114BA026-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年低碳永續家園暨強化村⾥低碳⾏動計畫</td>
+            <td>2026/07/27</td>
+            <td class="text-left">財團法人環境資源研究發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA026-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA026-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>115BC002</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">環境部氣候變遷署電動車(含電動樁)財物採購案</td>
+            <td>2026/07/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BC002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BC002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>115BA032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國家二氧化碳移除(CDR)潛力評估先期專案計畫</td>
+            <td>2026/07/21</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>115BZ005</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">氣候調適綠蔭倍增及社會溝通推動計畫</td>
+            <td>2026/07/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BZ005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BZ005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>115BA035</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年推動我國氣候變遷調適行動計畫及策略研析專案工作</td>
+            <td>2026/07/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA035" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA035" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>115BA024</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國家氣候治理開放平臺試點專案工作計畫</td>
+            <td>2026/07/06</td>
+            <td class="text-left">智庫驅動股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA024" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA024" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>115BA029</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年精進自願性產品碳足跡標籤制度工作計畫</td>
+            <td>2026/07/06</td>
+            <td class="text-left">財團法人環境永續發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA029" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA029" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>114BC002-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">舊財政大樓會議室（含多功能講堂）視訊系統及影音設備建置財物統包（含安裝）採購案第1次契約變更</td>
+            <td>2026/07/01</td>
+            <td class="text-left">圓方科技股份有限公司 (Hypernet Co., Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BC002-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BC002-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>115BA037</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115-116年地方保水降溫調適政策推動與韌性設施檢核機制建構計畫</td>
+            <td>2026/06/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA037" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA037" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>115BA031</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度氣候變遷調適議題研析及議合推進計畫</td>
+            <td>2026/06/30</td>
+            <td class="text-left">驅動力管理顧問有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA031" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA031" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>115BA027</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">社區驅動之淨零永續發展推動試辦計畫</td>
+            <td>2026/06/23</td>
+            <td class="text-left">國立臺灣海洋大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>115BA030</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度碳定價跨域交流暨認知深化計畫</td>
+            <td>2026/06/22</td>
+            <td class="text-left">民視文化事業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA030" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA030" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>115BA017</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">產品溫室氣體排放強度建立及申報系統計畫</td>
+            <td>2026/06/18</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA017" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA017" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>115BA033</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年低碳社區公民電廠種子培訓暨推動計畫</td>
+            <td>2026/06/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA033" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA033" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>115BA021</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">環評溫室氣體增量抵換審查及多元抵換推動計畫</td>
+            <td>2026/06/17</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>115BA025</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年因應高低溫行動策進推廣計畫</td>
+            <td>2026/06/17</td>
+            <td class="text-left">社團法人臺灣防災產業協會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA025" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA025" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>114BA037-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114BA037-2</td>
+            <td>2026/06/11</td>
+            <td class="text-left">環輿科技股份有限公司 (Environmental & GeoInformatic Technology Co. Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA037-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA037-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>115BA020</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">碳足跡排放係數審查建置、電力係數精進與資料庫維運計畫</td>
+            <td>2026/06/09</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>115BA019</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體減量額度管理系統維護及功能擴充計畫</td>
+            <td>2026/06/09</td>
+            <td class="text-left">池安量子資安股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA019" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA019" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>114BA026-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年低碳永續家園暨強化村里低碳行動計畫</td>
+            <td>2026/06/08</td>
+            <td class="text-left">財團法人環境資源研究發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA026-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA026-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>115BA016</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國際碳信用機制研析計畫</td>
+            <td>2026/06/04</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA016" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA016" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>115BA026</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度推動產業綠色數位轉型計畫</td>
+            <td>2026/06/01</td>
+            <td class="text-left">台北市電腦商業同業公會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA026" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA026" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>115BA023</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">二氧化碳捕捉後封存場址開發政策環境影響評估及其審查配套與社會溝通計畫</td>
+            <td>2026/06/01</td>
+            <td class="text-left">國立臺灣大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>115BA022</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度氣候變遷素養精進及調查推廣計畫</td>
+            <td>2026/05/19</td>
+            <td class="text-left">社團法人臺灣環境解說與自然教育協會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA022" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA022" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>115BB005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">提升氣候變遷識能及精進推廣計畫</td>
+            <td>2026/05/19</td>
+            <td class="text-left">財團法人台灣產業服務基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BB005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BB005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>115BA007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">產品碳洩漏管理與公眾溝通計畫</td>
+            <td>2026/05/13</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>115BZ004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">推展氣候公約與國際氣候合作治理計畫</td>
+            <td>2026/05/12</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BZ004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BZ004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>115BA015</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年辦理自願性產品碳足跡標籤審查及管理專案計畫</td>
+            <td>2026/05/11</td>
+            <td class="text-left">財團法人環境與發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>115BB004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">我國溫室氣體總量管制與排放交易（ETS）體系建構與先期推動計畫</td>
+            <td>2026/05/11</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BB004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BB004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>115BA014</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">碳市場國際合作與企業能力建構計畫</td>
+            <td>2026/05/06</td>
+            <td class="text-left">永智顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA014" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA014" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>115BA013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體自願減量交易推動計畫</td>
+            <td>2026/05/04</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>115BZ003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">碳費徵收及自主減量計畫推動管理計畫</td>
+            <td>2026/04/21</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BZ003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BZ003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>115BC001-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度行政事務工作服務第1次契約變更</td>
+            <td>2026/04/20</td>
+            <td class="text-left">優等管理顧問有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BC001-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BC001-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>115BA018</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">115年度促進產業淨零及數位轉型推動計畫</td>
+            <td>2026/04/20</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA018" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA018" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>115BB002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">碳費制度深化運作與產業減量政策整合支援計畫</td>
+            <td>2026/04/20</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BB002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BB002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>115BA008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">因應氣候變遷冷卻行動及我國住商溫室氣體減量推動計畫</td>
+            <td>2026/04/10</td>
+            <td class="text-left">財團法人台灣產業服務基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>115BA010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體自願減量制度精進與自然碳匯碳能量培力</td>
+            <td>2026/04/09</td>
+            <td class="text-left">國立臺灣大學, 財團法人環境資源研究發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>115BA011</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體排放量盤查登錄與管理制度推動計畫</td>
+            <td>2026/04/07</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA011" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA011" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>115BA009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體排放量盤查登錄、查核及輔導計畫</td>
+            <td>2026/03/31</td>
+            <td class="text-left">新系環境技術有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>115BZ002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">碳費徵收對象自主減量計畫執行進度查核及管理計畫</td>
+            <td>2026/03/31</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BZ002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BZ002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>115BZ001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國家溫室氣體減量政策推動執行成效管考及部門減量行動方案成果彙編專案工作計畫</td>
+            <td>2026/03/26</td>
+            <td class="text-left">財團法人台灣綜合研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BZ001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BZ001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>44</td>
+            <td><code>115BA002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年至116年溫室氣體認證與查驗制度研析及監督管理工作計畫</td>
+            <td>2026/03/26</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>45</td>
+            <td><code>115BA006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">地方溫室氣體減量策略研析及輔導專案計畫</td>
+            <td>2026/03/25</td>
+            <td class="text-left">財團法人台灣產業服務基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>46</td>
+            <td><code>115BB001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國家淨零路徑整合評估專案計畫</td>
+            <td>2026/03/25</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BB001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BB001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>47</td>
+            <td><code>115BA004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">環境部115年淨零城市展策展暨淨零轉型論壇規劃執行計畫</td>
+            <td>2026/02/23</td>
+            <td class="text-left">愷奕國際展覽設計有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>48</td>
+            <td><code>115BA001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年推動社區因應氣候風險調適工作計畫</td>
+            <td>2026/02/13</td>
+            <td class="text-left">國立臺灣大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>49</td>
+            <td><code>115BA003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">碳捕捉利用及封存CCUS減碳旗艦行動計畫推動及管理</td>
+            <td>2026/02/12</td>
+            <td class="text-left">財團法人台灣綜合研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BA003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BA003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>50</td>
+            <td><code>115BD002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">鐵砧山碳捕存跨部會試驗計畫-二氧化碳封存模擬第三方驗證計畫</td>
+            <td>2026/02/12</td>
+            <td class="text-left">國立臺灣大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BD002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BD002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>51</td>
+            <td><code>114BA033-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">淨零家園社區培力與組織發展計畫第1次契約變更</td>
+            <td>2026/01/20</td>
+            <td class="text-left">社團法⼈社區⼤學全國促進會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA033-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA033-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>52</td>
+            <td><code>113BA035-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">推動溫室氣體自主減量制度管理計畫第2次契約變更</td>
+            <td>2026/01/16</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA035-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA035-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>53</td>
+            <td><code>114BA012-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年推動我國氣候變遷調適行動計畫及策略研析專案工作第1次契約變更</td>
+            <td>2025/12/29</td>
+            <td class="text-left">景丰科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA012-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA012-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>54</td>
+            <td><code>114BC003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">舊財政大樓前棟7、8樓辦公廳舍整修暨原辦公空間調整工程採購案</td>
+            <td>2025/12/26</td>
+            <td class="text-left">鑫造室內裝修有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BC003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BC003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>55</td>
+            <td><code>115BE001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度辦公廳舍委外清潔維護勞務採購案</td>
+            <td>2025/12/26</td>
+            <td class="text-left">展新環保工程股份有限公司, 浙福有限公司, 台灣身心障礙人福利促進協會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BE001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BE001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>56</td>
+            <td><code>114BA040</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度全球資訊網系統維運暨擴增案</td>
+            <td>2025/12/24</td>
+            <td class="text-left">義聯電資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA040" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA040" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>57</td>
+            <td><code>114BA039</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度電腦、網路及資安維護案</td>
+            <td>2025/12/12</td>
+            <td class="text-left">宏碁雲架構服務股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA039" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA039" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>58</td>
+            <td><code>115BD001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度氣候署新聞輿情蒐報服務案</td>
+            <td>2025/12/11</td>
+            <td class="text-left">潤利艾克曼國際事業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BD001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BD001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>59</td>
+            <td><code>114BC002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">舊財政大樓會議室（含多功能講堂）視訊系統及影音設備建置財物統包（含安裝）採購案</td>
+            <td>2025/12/10</td>
+            <td class="text-left">圓方科技股份有限公司 (Hypernet Co.,Ltd.), Hypernet Co.,Ltd.</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BC002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BC002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>60</td>
+            <td><code>115BC001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度行政事務工作服務</td>
+            <td>2025/12/10</td>
+            <td class="text-left">五及資源整合股份有限公司, 鴻達資源開發事業有限公司, 優等管理顧問有限公司, 泉馨資訊有限公司, 天廈服務有限公司, 元大科技管理顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=115BC001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115BC001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>61</td>
+            <td><code>114BA007-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年自願性產品碳足跡標籤審查專案工作計畫第1次契約變更</td>
+            <td>2025/12/03</td>
+            <td class="text-left">財團法人環境與發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA007-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA007-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>62</td>
+            <td><code>114BA036</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年輔導地方政府推動氣候變遷調適暨抗高溫調適策略研析專案工作計畫</td>
+            <td>2025/11/19</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA036" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA036" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>63</td>
+            <td><code>114BZ001-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國家減碳新目標治理及社會溝通推動計畫第1次契約變更</td>
+            <td>2025/11/13</td>
+            <td class="text-left">財團法人台灣綜合研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BZ001-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BZ001-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>64</td>
+            <td><code>114BA005-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國際碳定價機制與我國產業因應對策研析後續擴充</td>
+            <td>2025/11/10</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA005-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA005-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>65</td>
+            <td><code>114BD007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">2025 TCCF PITCHING 提案大會活動計畫</td>
+            <td>2025/10/17</td>
+            <td class="text-left">文化內容策進院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BD007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BD007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>66</td>
+            <td><code>114BA038</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">氣候變遷因應法之財務機制研析及行政支援計畫</td>
+            <td>2025/10/14</td>
+            <td class="text-left">財團法人台灣綜合研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA038" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA038" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>67</td>
+            <td><code>114BA037</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年啟動抗高溫調適行動演練及強化高溫防護機制計畫</td>
+            <td>2025/09/02</td>
+            <td class="text-left">環輿科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA037" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA037" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>68</td>
+            <td><code>114BA026</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年低碳永續家園暨強化村里低碳行動計畫</td>
+            <td>2025/08/26</td>
+            <td class="text-left">環資國際有限公司, 財團法人環境資源研究發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA026" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA026" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>69</td>
+            <td><code>114BA034</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年國際經貿與氣候變遷政策交互影響評估計畫</td>
+            <td>2025/08/13</td>
+            <td class="text-left">民視文化事業股份有限公司 (Taiwan Television Technology Co., Ltd.), 麗水策略整合行銷有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA034" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA034" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>70</td>
+            <td><code>114BA030</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度氫氟碳化物管制策略規劃計畫</td>
+            <td>2025/08/12</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA030" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA030" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>71</td>
+            <td><code>114BA035</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">碳捕捉後封存(CCS)法規建置及價值鏈研析計畫</td>
+            <td>2025/08/07</td>
+            <td class="text-left">國立臺灣大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA035" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA035" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>72</td>
+            <td><code>114BZ002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國家溫室氣體清冊報告編撰、統計與精進專案計畫</td>
+            <td>2025/08/07</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BZ002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BZ002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>73</td>
+            <td><code>114BE003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年至115年碳費委託金融機構代收服務作業計畫</td>
+            <td>2025/08/04</td>
+            <td class="text-left">臺灣銀行股份有限公司, 中國信託商業銀行股份有限公司, 玉山商業銀行股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BE003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BE003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>74</td>
+            <td><code>113BA033-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年社區調適策略及建立風險評估操作指引專案計畫</td>
+            <td>2025/07/24</td>
+            <td class="text-left">國立臺灣大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA033-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA033-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>75</td>
+            <td><code>114BD006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年自願性產品碳足跡核定標示推廣策略研析計畫</td>
+            <td>2025/07/14</td>
+            <td class="text-left">財團法人環境永續發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BD006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BD006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>76</td>
+            <td><code>114BA033</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">淨零家園社區培力與組織發展計畫</td>
+            <td>2025/07/07</td>
+            <td class="text-left">社團法人社區大學全國促進會, 長慧環境科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA033" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA033" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>77</td>
+            <td><code>114BA024</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度溫室氣體業務系統集中驗證平台建置案</td>
+            <td>2025/07/02</td>
+            <td class="text-left">全景軟體股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA024" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA024" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>78</td>
+            <td><code>114BA029</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">環評增量抵換來源之車輛汰換減量效益媒合及宣傳推廣專案工作計畫</td>
+            <td>2025/06/27</td>
+            <td class="text-left">環資國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA029" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA029" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>79</td>
+            <td><code>114BA032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">環境部氣候變遷署舊財政大樓前棟7、8樓辦公廳舍整修暨原辦公空間調整工程委託規劃設計監造服務案</td>
+            <td>2025/06/18</td>
+            <td class="text-left">黃聖吉建築師事務所, 陳澤修建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>80</td>
+            <td><code>114BA028</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">碳捕捉後封存推動管理策略及法規建置計畫</td>
+            <td>2025/06/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>81</td>
+            <td><code>114BD005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度溫室氣體減量策略研析及衝擊因應計畫</td>
+            <td>2025/06/02</td>
+            <td class="text-left">財團法人環境永續發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BD005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BD005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>82</td>
+            <td><code>114BA023</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度氣候變遷素養架構發展及調查計畫</td>
+            <td>2025/05/23</td>
+            <td class="text-left">社團法人臺灣環境解說與自然教育協會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>83</td>
+            <td><code>114BA014</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">精進溫室氣體排放量盤查登錄與管理制度推動計畫</td>
+            <td>2025/05/16</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA014" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA014" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>84</td>
+            <td><code>114BA020</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">產品溫室氣體排放強度建立及碳邊境調整機制推動計畫</td>
+            <td>2025/05/16</td>
+            <td class="text-left">環科工程顧問股份有限公司, 環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>85</td>
+            <td><code>114BA025</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年推動抗高溫行動工作計畫</td>
+            <td>2025/05/16</td>
+            <td class="text-left">社團法人臺灣防災產業協會, 和昱國際永續有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA025" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA025" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>86</td>
+            <td><code>114BA016</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體排放量盤查登錄及查驗管制、查核及增量抵換專案工作計畫</td>
+            <td>2025/05/16</td>
+            <td class="text-left">新系環境技術有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA016" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA016" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>87</td>
+            <td><code>114BA019</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">運輸業溫室氣體盤查、碳足跡建立及減量對策推動計畫</td>
+            <td>2025/05/15</td>
+            <td class="text-left">財團法人工業技術研究院, 財團法人中華經濟研究院, 景丰科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA019" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA019" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>88</td>
+            <td><code>114BD004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">低碳永續家園評等認證現勘及行政作業服務案</td>
+            <td>2025/05/15</td>
+            <td class="text-left">環資國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BD004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BD004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>89</td>
+            <td><code>113BA008-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年推動地方政府氣候變遷調適專案工作計畫第2次契約變更</td>
+            <td>2025/05/15</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA008-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA008-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>90</td>
+            <td><code>114BZ001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國家減碳新目標治理及社會溝通推動計畫</td>
+            <td>2025/05/15</td>
+            <td class="text-left">財團法人台灣綜合研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BZ001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BZ001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>91</td>
+            <td><code>114BA022</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">我國因應氣候變遷冷卻行動推動計畫</td>
+            <td>2025/05/12</td>
+            <td class="text-left">環穎永續發展科技股份有限公司, 財團法人台灣產業服務基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA022" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA022" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>92</td>
+            <td><code>114BA021</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年低碳社區公民電廠種子培訓暨推動計畫</td>
+            <td>2025/05/07</td>
+            <td class="text-left">社團法人台灣綠能公益發展協會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>93</td>
+            <td><code>114BA013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年碳費徵收對象減量技術研析及推動專案工作計畫</td>
+            <td>2025/04/30</td>
+            <td class="text-left">新系環境技術有限公司, 財團法人環境永續發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>94</td>
+            <td><code>114BA015</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體減量額度管理系統服務擴充及精進計畫</td>
+            <td>2025/04/29</td>
+            <td class="text-left">池安量子資安股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>95</td>
+            <td><code>114BA018</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">氣候變遷調適政策推動與都市韌性設施推廣計畫</td>
+            <td>2025/04/29</td>
+            <td class="text-left">國立臺北科技大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA018" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA018" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>96</td>
+            <td><code>114BA017</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年溫室氣體總量管制及排放交易制度建置先期計畫</td>
+            <td>2025/04/23</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA017" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA017" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>97</td>
+            <td><code>114BA005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國際碳定價機制與我國產業因應對策研析</td>
+            <td>2025/04/23</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>98</td>
+            <td><code>114BA006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">氣候變遷教育推廣及地方政府溫室氣體減量執行方案輔導計畫</td>
+            <td>2025/04/22</td>
+            <td class="text-left">財團法人環境資源研究發展基金會, 財團法人台灣產業服務基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>99</td>
+            <td><code>113BA035-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">推動溫室氣體自主減量制度管理計畫第1次契約變更</td>
+            <td>2025/04/21</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA035-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA035-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>100</td>
+            <td><code>114BA012</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年推動我國氣候變遷調適行動計畫及策略研析專案工作</td>
+            <td>2025/04/18</td>
+            <td class="text-left">景丰科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA012" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA012" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>101</td>
+            <td><code>114BA011</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">碳費徵收制度推動及管理計畫</td>
+            <td>2025/04/18</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA011" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA011" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>102</td>
+            <td><code>114BA027</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">推動巴黎協定國際減碳合作及碳資產經營管理架構</td>
+            <td>2025/04/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>103</td>
+            <td><code>114BA009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年深度節能診斷輔導計畫</td>
+            <td>2025/04/07</td>
+            <td class="text-left">財團法人工業技術研究院, 財團法人台灣產業服務基金會, 思能科技股份有限公司, 億鴻系統科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>104</td>
+            <td><code>114BA004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">二氧化碳捕捉後封存場址開發政策環境影響評估</td>
+            <td>2025/04/02</td>
+            <td class="text-left">國立臺灣大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>105</td>
+            <td><code>114BA008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「氣候公約發展與國際氣候規範研析因應」計畫</td>
+            <td>2025/03/26</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>106</td>
+            <td><code>114BA007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年自願性產品碳足跡標籤審查專案工作計畫</td>
+            <td>2025/03/21</td>
+            <td class="text-left">財團法人環境與發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>107</td>
+            <td><code>114BA010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體排放管理國際交流合作計畫</td>
+            <td>2025/03/21</td>
+            <td class="text-left">永智顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>108</td>
+            <td><code>114BA003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">氣候淨零願景路徑整合評析專案計畫</td>
+            <td>2025/03/11</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>109</td>
+            <td><code>113BA034-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-114年建立產品碳足跡排放係數專案工作計畫第1次契約變更</td>
+            <td>2025/02/24</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA034-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA034-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>110</td>
+            <td><code>114BA001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體碳信用機制研析執行計畫</td>
+            <td>2025/02/04</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>111</td>
+            <td><code>113BA005-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體階段管制目標執行檢討及法規相關方案管制考核專案計畫第2次契約變更</td>
+            <td>2025/01/21</td>
+            <td class="text-left">財團法人台灣綜合研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA005-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA005-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>112</td>
+            <td><code>114BE001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度辦公廳舍委外清潔維護勞務採購案</td>
+            <td>2024/12/31</td>
+            <td class="text-left">浙福有限公司, 新美電器工程有限公司, 興明有限公司, 潔麗佳有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BE001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BE001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>113</td>
+            <td><code>113BA010-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年低碳永續家園暨強化村里低碳行動計畫第1次契約變更</td>
+            <td>2024/12/20</td>
+            <td class="text-left">環資國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA010-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA010-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>114</td>
+            <td><code>114BC001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度行政事務工作服務</td>
+            <td>2024/12/20</td>
+            <td class="text-left">天下服務有限公司, 熠恆實業, 亞奇人力資源有限公司, 資懿管理顧問有限公司 (Ziyi Management Consulting Co., Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BC001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BC001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>115</td>
+            <td><code>114BD003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度氣候署新聞輿情蒐報服務案</td>
+            <td>2024/12/11</td>
+            <td class="text-left">潤利艾克曼國際事業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BD003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BD003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>116</td>
+            <td><code>114BA002</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">環境部114年淨零城市展策展暨淨零轉型論壇規劃執行計畫</td>
+            <td>2024/12/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BA002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BA002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>117</td>
+            <td><code>113BA003-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年自願性產品碳足跡標籤審查專案工作計畫第2次契約變更</td>
+            <td>2024/11/27</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA003-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA003-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>118</td>
+            <td><code>113BA035</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">推動溫室氣體自主減量制度管理計畫</td>
+            <td>2024/11/21</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA035" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA035" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>119</td>
+            <td><code>113BD003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">氣候變遷與人權指引精進研析專案計畫</td>
+            <td>2024/11/20</td>
+            <td class="text-left">國立臺北大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BD003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BD003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>120</td>
+            <td><code>113BA009-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國家溫室氣體清冊報告編輯、研析精進及應用專案計畫</td>
+            <td>2024/11/15</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA009-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA009-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>121</td>
+            <td><code>113BD005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">台灣氣候行動系列論壇</td>
+            <td>2024/11/08</td>
+            <td class="text-left">台北市電腦商業同業公會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BD005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BD005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>122</td>
+            <td><code>114BD002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-114年度電腦、網路及資安維護案</td>
+            <td>2024/11/07</td>
+            <td class="text-left">宏碁雲架構服務股份有限公司 (Acer e-Enabling Data Center Incorporated)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BD002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BD002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>123</td>
+            <td><code>113BA001-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">我國淨零轉型執行管理與推動社會對話第1次契約變更</td>
+            <td>2024/11/06</td>
+            <td class="text-left">財團法人台灣綜合研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA001-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA001-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>124</td>
+            <td><code>113BA036</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-114年度全球資訊網系統維運暨擴增案</td>
+            <td>2024/10/30</td>
+            <td class="text-left">義聯電資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA036" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA036" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>125</td>
+            <td><code>114BD001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年氣候變遷法規政策推動研議計畫</td>
+            <td>2024/10/14</td>
+            <td class="text-left">麗水策略整合行銷有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=114BD001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114BD001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>126</td>
+            <td><code>113BA011-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">推動溫室氣體自願性減量市場及增量抵換專案計畫第1次契約變更</td>
+            <td>2024/09/16</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA011-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA011-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>127</td>
+            <td><code>113BA034</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-114年建立產品碳足跡排放係數專案工作計畫</td>
+            <td>2024/09/10</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA034" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA034" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>128</td>
+            <td><code>113BA029-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年溫室氣體盤查登錄制度及排放量管理應用工作計畫第1次契約變更</td>
+            <td>2024/09/06</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA029-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA029-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>129</td>
+            <td><code>113BA017-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年鋼鐵業及鋁業產品溫室氣體排放強度調查及效能標準計畫第1次契約變更</td>
+            <td>2024/09/06</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA017-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA017-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>130</td>
+            <td><code>112BC501</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程採購案</td>
+            <td>2024/08/30</td>
+            <td class="text-left">鄉平設計室內裝修有限公司, 遠璟室內裝修企業有限公司, 工井營造有限公司, 良程室內裝修有限公司, 鑫造室內裝修有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BC501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112BC501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>131</td>
+            <td><code>113BA002-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年國家氣候變遷調適計畫推動及策略研析專案⼯作第1次契約變更</td>
+            <td>2024/08/29</td>
+            <td class="text-left">景丰科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA002-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA002-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>132</td>
+            <td><code>113BD002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">辦公廳舍老舊廁所整修工程採購案</td>
+            <td>2024/08/01</td>
+            <td class="text-left">永鈞室內裝修有限公司, 工井營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BD002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BD002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>133</td>
+            <td><code>113BA003-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年自願性產品碳足跡標籤審查專案工作計畫第1次契約變更</td>
+            <td>2024/07/08</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA003-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA003-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>134</td>
+            <td><code>113BA033</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年社區調適策略及建立風險評估操作指引專案計畫</td>
+            <td>2024/07/08</td>
+            <td class="text-left">國立臺灣大學, 中原大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA033" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA033" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>135</td>
+            <td><code>113BA032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113至114年溫室氣體認證及查驗管理制度精進計畫</td>
+            <td>2024/07/05</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>136</td>
+            <td><code>113BA029</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年溫室氣體盤查登錄制度及排放量管理應用工作計畫</td>
+            <td>2024/07/05</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA029" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA029" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>137</td>
+            <td><code>113BA030</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">我國住商溫室氣體減量推廣研析專案工作計畫</td>
+            <td>2024/06/13</td>
+            <td class="text-left">財團法人台灣產業服務基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA030" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA030" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>138</td>
+            <td><code>113BA031</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年建立車輛溫室氣體效能標準相關管制措施專案計畫</td>
+            <td>2024/06/13</td>
+            <td class="text-left">景丰科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA031" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA031" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>139</td>
+            <td><code>113BA026</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體減量額度管理系統建置計畫</td>
+            <td>2024/06/04</td>
+            <td class="text-left">池安量子資安股份有限公司, 關貿網路股份有限公司, 中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA026" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA026" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>140</td>
+            <td><code>113BA025</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">淨零生活轉型政策輕推理論之推動與研析</td>
+            <td>2024/05/31</td>
+            <td class="text-left">國立臺灣大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA025" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA025" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>141</td>
+            <td><code>113BA027</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">氣候變遷與淨零排放素養調查與推廣應用計畫</td>
+            <td>2024/05/28</td>
+            <td class="text-left">社團法人臺灣環境解說與自然教育協會, 逢甲大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>142</td>
+            <td><code>113BA024</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">推動氣候變遷因應法第37條產品碳足跡標籤制度專案工作計畫</td>
+            <td>2024/05/28</td>
+            <td class="text-left">財團法人環境與發展基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA024" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA024" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>143</td>
+            <td><code>113BA028</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">環評增量抵換來源之車輛汰換減量效益媒合專案工作計畫</td>
+            <td>2024/05/22</td>
+            <td class="text-left">環資國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>144</td>
+            <td><code>112BC501-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程」第1次契約變更採購案</td>
+            <td>2024/05/20</td>
+            <td class="text-left">鑫造室內裝修有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BC501-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112BC501-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>145</td>
+            <td><code>113BA020</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年半導體業、薄膜電晶體液晶顯示器業及其他電子產品業溫室氣體排放強度調查及效能標準研訂計畫</td>
+            <td>2024/05/09</td>
+            <td class="text-left">新系環境技術有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>146</td>
+            <td><code>113BA012</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">氣候公約協商進展與國際氣候行動研析因應</td>
+            <td>2024/05/09</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA012" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA012" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>147</td>
+            <td><code>113BA021</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年碳封存法規建置及管理制度計畫</td>
+            <td>2024/05/09</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>148</td>
+            <td><code>113BA022</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年煉油業、石化業及人纖業產品溫室氣體排放強度調查及效能標準研訂計畫</td>
+            <td>2024/05/09</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA022" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA022" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>149</td>
+            <td><code>113BA018</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度溫室氣體減量管理機制國際交流合作計畫</td>
+            <td>2024/05/09</td>
+            <td class="text-left">永智顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA018" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA018" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>150</td>
+            <td><code>113BA008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年推動地方政府氣候變遷調適專案工作計畫</td>
+            <td>2024/05/02</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>151</td>
+            <td><code>113BA011</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">推動溫室氣體自願性減量市場及增量抵換專案計畫</td>
+            <td>2024/05/01</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA011" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA011" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>152</td>
+            <td><code>113BA019</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年水泥業、玻璃業及造紙業產品溫室氣體排放強度調查及效能標準研訂計畫</td>
+            <td>2024/05/01</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA019" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA019" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>153</td>
+            <td><code>113BA010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年低碳永續家園暨強化村里低碳行動計畫</td>
+            <td>2024/04/24</td>
+            <td class="text-left">環資國際有限公司, 逢甲大學</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>154</td>
+            <td><code>113BA017</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年鋼鐵業及鋁業產品溫室氣體排放強度調查及效能標準研訂計畫</td>
+            <td>2024/04/24</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA017" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA017" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>155</td>
+            <td><code>113BA013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">長期淨零路徑與環境效益整合評估</td>
+            <td>2024/04/22</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>156</td>
+            <td><code>113BA014</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">氣候變遷教育推廣及地方減量輔導專案計畫</td>
+            <td>2024/04/19</td>
+            <td class="text-left">財團法人台灣產業服務基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA014" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA014" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>157</td>
+            <td><code>113BA016</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國際碳定價制度效益及碳邊境調整機制與產業衝擊研析計畫</td>
+            <td>2024/04/09</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA016" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA016" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>158</td>
+            <td><code>113BA015</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">碳費徵收及自主減量機制研訂計畫</td>
+            <td>2024/04/09</td>
+            <td class="text-left">環興科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>159</td>
+            <td><code>113BA009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">國家溫室氣體清冊報告編輯、研析精進及應用專案計畫</td>
+            <td>2024/04/01</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>160</td>
+            <td><code>113BA002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年國家氣候變遷調適計畫推動及策略研析專案工作</td>
+            <td>2024/04/01</td>
+            <td class="text-left">景丰科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>161</td>
+            <td><code>113BA004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年氣候變遷調適-病媒蚊變遷與推估計畫</td>
+            <td>2024/03/18</td>
+            <td class="text-left">財團法人國家衛生研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>162</td>
+            <td><code>113BA005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">溫室氣體階段管制目標執行檢討及法規相關方案管制考核專案計畫</td>
+            <td>2024/02/29</td>
+            <td class="text-left">財團法人台灣綜合研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>163</td>
+            <td><code>113BA003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年自願性產品碳足跡標籤審查專案工作計畫</td>
+            <td>2024/02/15</td>
+            <td class="text-left">財團法人工業技術研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>164</td>
+            <td><code>113BA007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">環境部淨零城市展策展暨淨零轉型論壇規劃執行計畫</td>
+            <td>2024/02/15</td>
+            <td class="text-left">愷奕國際展覽設計有限公司, 光洋波斯特國際展覽股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>165</td>
+            <td><code>112EA003-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「112-113年度電腦、網路及資安維護」採購案第2次契約變更</td>
+            <td>2024/01/30</td>
+            <td class="text-left">宏碁雲架構服務股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112EA003-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112EA003-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>166</td>
+            <td><code>113BC001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度行政事務工作服務</td>
+            <td>2024/01/29</td>
+            <td class="text-left">凡立橙股份有限公司, 優思達企業有限公司, 熠恆實業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BC001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BC001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>167</td>
+            <td><code>113BA001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">我國淨零轉型執行管理與推動社會對話</td>
+            <td>2024/01/23</td>
+            <td class="text-left">財團法人台灣綜合研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BA001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BA001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>168</td>
+            <td><code>111A287-3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「111年低碳永續家園暨強化村里低碳行動計畫」第2次契約變更</td>
+            <td>2023/12/28</td>
+            <td class="text-left">環資國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=111A287-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111A287-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>169</td>
+            <td><code>112AA125-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「112年度溫室氣體盤查及查驗管理機制精進工作計畫」第2次契約變更</td>
+            <td>2023/11/14</td>
+            <td class="text-left">環科工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112AA125-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112AA125-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>170</td>
+            <td><code>112BD602</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「環境部氣候變遷署舊財政大樓8樓辦公桌椅等廢棄物清運勞務」採購案</td>
+            <td>2023/11/14</td>
+            <td class="text-left">薪名環保有限公司, 金沙環保有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BD602" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112BD602" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>171</td>
+            <td><code>112BD601</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-113年新聞輿情蒐報服務採購案</td>
+            <td>2023/11/14</td>
+            <td class="text-left">潤利艾克曼國際事業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112BD601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112BD601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>172</td>
+            <td><code>113BD001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-115年計程車客運服務暨車資e化服務案</td>
+            <td>2023/11/09</td>
+            <td class="text-left">台灣大車隊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=113BD001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113BD001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>173</td>
+            <td><code>112ED002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">環境部氣候變遷署舊財政大樓8樓辦公廳舍整修暨2、7樓辦公空間調整工程委託規劃設計監造服務案</td>
+            <td>2023/10/26</td>
+            <td class="text-left">黃聖吉建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112ED002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112ED002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>174</td>
+            <td><code>112EA002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「擴大溫室氣體自願減量專案執行成效及推廣作業」專案工作計畫</td>
+            <td>2023/10/06</td>
+            <td class="text-left">財團法人中華經濟研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112EA002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112EA002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>175</td>
+            <td><code>112ED001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度行政事務工作服務採購案</td>
+            <td>2023/09/14</td>
+            <td class="text-left">天廈服務有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112ED001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112ED001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>176</td>
+            <td><code>112EE002</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112年度行政事務工作服務</td>
+            <td>2023/09/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112EE002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112EE002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>177</td>
+            <td><code>112EA004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">環境部氣候變遷署全球資訊網系統建置案</td>
+            <td>2023/08/30</td>
+            <td class="text-left">義聯電資訊股份有限公司, 英丰寶資訊股份有限公司, 凌網科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.23.1&job_number=112EA004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112EA004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-07-31 08:33:06 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
