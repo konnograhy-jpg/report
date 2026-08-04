@@ -52,8 +52,10 @@ export default async function handler(req, res) {
     });
 
     const result = await upstream.json().catch(() => ({ error: 'invalid_upstream_response' }));
+    console.log('[submit-bid upstream response]:', upstream.status, JSON.stringify(result));
     return res.status(upstream.status).json(result);
   } catch (err) {
+    console.error('[submit-bid upstream error]:', err.message);
     return res.status(500).json({
       error: 'upstream_connect_failed',
       message: err.message || '無法連線至毅築端點'

@@ -461,10 +461,15 @@
                         <span style="font-size:11px;">GitHub Pages 為純靜態託管。請於 Vercel 產生的正式網址開啟本頁即可順利連線！</span>
                     `;
                 } else {
+                    const extraInfo = [];
+                    if (resData.upstreamStatus) extraInfo.push(`upstreamStatus: ${resData.upstreamStatus}`);
+                    if (resData.upstreamCode) extraInfo.push(`upstreamCode: ${resData.upstreamCode}`);
+                    const extraStr = extraInfo.length ? `<br><span style="font-size:11px;color:#fca5a5;">【安全診斷資訊】${extraInfo.join(' | ')}</span>` : '';
+
                     statusMsg.className = "toast-msg toast-error";
                     statusMsg.innerHTML = `
                         ⚠️ <strong>連線失敗 (${response.status})</strong><br>
-                        <span style="font-size:11px;">${resData.message || resData.error || '無法完成連線'}</span>
+                        <span style="font-size:11px;">${resData.message || resData.error || '無法完成連線'}</span>${extraStr}
                     `;
                 }
             } catch (err) {
