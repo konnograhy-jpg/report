@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 投標登記 API 連線測試頁 | 標案自動化 C 專案</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a78bfa, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 6px;
+        }
+
+        .notice-box {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 28px;
+        }
+
+        .notice-title {
+            color: #c4b5fd;
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notice-list {
+            list-style: disc inside;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #f1f5f9;
+        }
+
+        .tender-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .tender-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tender-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.25);
+        }
+
+        .tender-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .tender-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #f8fafc;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .tender-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .btn-test-trigger {
+            margin-top: 14px;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #7c3aed, #3b82f6);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-test-trigger:hover {
+            opacity: 0.9;
+        }
+
+        /* Modal Design */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 520px;
+            padding: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        .modal-tender-title {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            background: #0f172a;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            margin-bottom: 18px;
+            word-break: break-all;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            background: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            color: #f8fafc;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-select:focus {
+            border-color: var(--accent-purple);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-modal {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.15s ease;
+        }
+
+        .btn-cancel {
+            background: #334155;
+            color: #cbd5e1;
+        }
+
+        .btn-cancel:hover {
+            background: #475569;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        .toast-msg {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .toast-info { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #93c5fd; }
+        .toast-success { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+        .toast-warning { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #fde047; }
+        .toast-error { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.3); color: #fca5a5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="header-title">🧪 標案自動化 C 專案 — API 連線獨立測試頁</h1>
+            <div class="header-subtitle">本頁面為 [獨立連線測試專用]，不影響任何正式標案日報。</div>
+        </header>
+
+        <div class="notice-box">
+            <div class="notice-title">💡 連線測試說明</div>
+            <ul class="notice-list">
+                <li><strong>對接流程</strong>：前端 UI ➔ 本專案 Serverless API (<code>/api/submit-bid</code>) ➔ 毅築標案管理端點 ➔ Supabase 資料庫。</li>
+                <li><strong>隱私實名自動映射</strong>：選單選擇稱號（<code>吳設計師</code> / <code>江設計師</code> / <code>林設計師</code>），傳出時背景自動對應為實名（<code>吳誌軒</code> / <code>江明鴻</code> / <code>林宏明</code>）。</li>
+                <li><strong>重複登記驗證</strong>：相同案號第一次送出返回 <code>201 Created</code>（建立成功）；第二次送出返回 <code>409 Duplicate</code>（防重複拒絕）。</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">📋 測試用標案清單 (點擊進行對接測試)</h2>
+        <div class="tender-grid">
+            <!-- 測試標案 1 -->
+            <div class="tender-card" data-id="TEST-20260804-001" data-name="[TEST-20260804-001] 臺中市政府水利局 — 115年度水文觀測設施維護及改善工程" data-agency="臺中市政府水利局">
+                <span class="tender-badge">測試案號 #001</span>
+                <div class="tender-name">臺中市政府水利局 — 115年度水文觀測設施維護及改善工程</div>
+                <div class="tender-meta"><strong>招標機關：</strong>臺中市政府水利局</div>
+                <div class="tender-meta"><strong>預算金額：</strong>NT$ 12,000,000</div>
+                <button class="btn-test-trigger">🎯 點此登記【我要投標】</button>
+            </div>
+
+            <!-- 測試標案 2 -->
+            <div class="tender-card" data-id="TEST-20260804-002" data-name="[TEST-20260804-002] 苗栗縣政府文化觀光局 — 歷史建築苗栗舊火車站修復設計委託案" data-agency="苗栗縣政府文化觀光局">
+                <span class="tender-badge">測試案號 #002</span>
+                <div class="tender-name">苗栗縣政府文化觀光局 — 歷史建築苗栗舊火車站修復設計委託案</div>
+                <div class="tender-meta"><strong>招標機關：</strong>苗栗縣政府文化觀光局</div>
+                <div class="tender-meta"><strong>預算金額：</strong>NT$ 8,500,000</div>
+                <button class="btn-test-trigger">🎯 點此登記【我要投標】</button>
+            </div>
+
+            <!-- 測試標案 3 -->
+            <div class="tender-card" data-id="TEST-20260804-003" data-name="[TEST-20260804-003] 雲林縣政府 — 雲林縣立體育館整體結構安全耐震補強規劃" data-agency="雲林縣政府">
+                <span class="tender-badge">測試案號 #003</span>
+                <div class="tender-name">雲林縣政府 — 雲林縣立體育館整體結構安全耐震補強規劃</div>
+                <div class="tender-meta"><strong>招標機關：</strong>雲林縣政府</div>
+                <div class="tender-meta"><strong>預算金額：</strong>NT$ 15,200,000</div>
+                <button class="btn-test-trigger">🎯 點此登記【我要投標】</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 投標 Modal 視窗 -->
+    <div id="tender-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title">🎯 正式登記投標意向 (測試用)</div>
+            </div>
+            
+            <div id="modal-tender-name" class="modal-tender-title">-[標案名稱]-</div>
+
+            <div class="form-group">
+                <label class="form-label">🎯 請選擇責任設計師：</label>
+                <select id="designer-select" class="form-select">
+                    <option value="吳設計師">吳設計師 (吳誌軒)</option>
+                    <option value="江設計師">江設計師 (江明鴻)</option>
+                    <option value="林設計師">林設計師 (林宏明)</option>
+                </select>
+            </div>
+
+            <div id="bid-status-message" class="toast-msg toast-info"></div>
+
+            <div class="modal-actions">
+                <button id="modal-cancel-btn" class="btn-modal btn-cancel">取消</button>
+                <button id="modal-bid-submit" class="btn-modal btn-submit">發送連線登記 (測試)</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const designerRealNameMap = {
+            "吳設計師": "吳誌軒",
+            "江設計師": "江明鴻",
+            "林設計師": "林宏明"
+        };
+
+        const modal = document.getElementById('tender-modal');
+        const modalTenderName = document.getElementById('modal-tender-name');
+        const designerSelect = document.getElementById('designer-select');
+        const cancelBtn = document.getElementById('modal-cancel-btn');
+        const submitBtn = document.getElementById('modal-bid-submit');
+        const statusMsg = document.getElementById('bid-status-message');
+
+        let currentTender = { id: '', name: '', agency: '' };
+
+        document.querySelectorAll('.tender-card').forEach(card => {
+            card.addEventListener('click', () => {
+                currentTender = {
+                    id: card.getAttribute('data-id'),
+                    name: card.getAttribute('data-name'),
+                    agency: card.getAttribute('data-agency')
+                };
+                modalTenderName.innerText = currentTender.name;
+                statusMsg.style.display = 'none';
+                modal.classList.add('active');
+            });
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        submitBtn.addEventListener('click', async () => {
+            const selectedTitle = designerSelect.value;
+            const realName = designerRealNameMap[selectedTitle] || selectedTitle;
+
+            const payload = {
+                tender_id: currentTender.id,
+                tender_name: currentTender.name,
+                agency_name: currentTender.agency,
+                designer_name: realName
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "⏳ 發送中...";
+            statusMsg.className = "toast-msg toast-info";
+            statusMsg.style.display = 'block';
+            statusMsg.innerHTML = `⏳ 正在連線中繼 API (/api/submit-bid)...`;
+
+            try {
+                const response = await fetch('/api/submit-bid', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const resData = await response.json().catch(() => ({}));
+
+                if (response.status === 201) {
+                    statusMsg.className = "toast-msg toast-success";
+                    statusMsg.innerHTML = `
+                        ✅ <strong>[測試成功] 投標案件已建立！</strong><br>
+                        <strong>案號：</strong>${payload.tender_id}<br>
+                        <strong>機關：</strong>${payload.agency_name}<br>
+                        <strong>責任設計師：</strong>${selectedTitle} (${realName})<br>
+                        <span style="font-size:11px;">(已成功建立至毅築標案管理系統)</span>
+                    `;
+                } else if (response.status === 409 || resData.error === 'duplicate_tender_id') {
+                    statusMsg.className = "toast-msg toast-warning";
+                    statusMsg.innerHTML = `
+                        ⚠️ <strong>[測試去重成功] 此標案已建立過！</strong><br>
+                        <span style="font-size:12px;">此案號 (${payload.tender_id}) 已登記於系統，拒絕重複寫入 (HTTP 409)。</span>
+                    `;
+                } else if (response.status === 503) {
+                    statusMsg.className = "toast-msg toast-warning";
+                    statusMsg.innerHTML = `
+                        ⚙️ <strong>[未配置連線] Server端尚未設定秘密</strong><br>
+                        <span style="font-size:11px;">訊息：${resData.message || '請至 Vercel Dashboard 設定 PANDORA_IMPORT_HMAC_SECRET'}</span>
+                    `;
+                } else if (response.status === 404) {
+                    statusMsg.className = "toast-msg toast-error";
+                    statusMsg.innerHTML = `
+                        ⚠️ <strong>[環境注意] 找不到 /api/submit-bid (404)</strong><br>
+                        <span style="font-size:11px;">GitHub Pages 為純靜態託管。請於 Vercel 產生的正式網址開啟本頁即可順利連線！</span>
+                    `;
+                } else {
+                    statusMsg.className = "toast-msg toast-error";
+                    statusMsg.innerHTML = `
+                        ⚠️ <strong>連線失敗 (${response.status})</strong><br>
+                        <span style="font-size:11px;">${resData.message || resData.error || '無法完成連線'}</span>
+                    `;
+                }
+            } catch (err) {
+                statusMsg.className = "toast-msg toast-error";
+                statusMsg.innerHTML = `
+                    ⚠️ <strong>網路或網域連線失敗</strong><br>
+                    <span style="font-size:11px;">${err.message || '請確認是否於 Vercel 環境測試'}</span>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "發送連線登記 (測試)";
+            }
+        });
+    </script>
+</body>
+</html>

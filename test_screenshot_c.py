@@ -1134,37 +1134,37 @@ def main():
 
                         if (response.status === 201) {
                             statusMsg.innerHTML = `
-                                ✅ <strong>[測試用] 投標意向已成功登記！</strong><br>
+                                ✅ <strong>投標意向登記成功！</strong><br>
                                 <strong>機關：</strong>${cleanPayload.agency_name}<br>
                                 <strong>標案：</strong>${cleanPayload.tender_name}<br>
                                 <strong>責任設計師：</strong>${selectedDesignerTitle} (${realName})<br>
-                                <span style="font-size:11px; color:#15803d;">(已成功建立於毅築案件管理系統)</span>
+                                <span style="font-size:11px; color:#15803d;">(已成功連線建立於毅築案件管理系統)</span>
                             `;
                         } else if (response.status === 409 || resData.error === 'duplicate_tender_id') {
                             statusMsg.innerHTML = `
-                                ⚠️ <strong>[測試用] 此標案已建立過！</strong><br>
-                                <span style="font-size:12px; color:#b45309;">此案號 (${tenderId}) 已登記於系統中，請至毅築標案管理操作。</span>
+                                ⚠️ <strong>此標案已建立過！</strong><br>
+                                <span style="font-size:12px; color:#b45309;">案號 (${tenderId}) 已登記於系統，請至毅築標案管理操作。</span>
                             `;
                         } else if (response.status === 503) {
                             statusMsg.innerHTML = `
-                                ⚙️ <strong>[測試用] 端點尚未開啟或金鑰配置中</strong><br>
+                                ⚙️ <strong>連線金鑰設定中</strong><br>
                                 <span style="font-size:11px; color:#6b7280;">訊息：${resData.message || resData.error || 'Server not configured'}</span>
                             `;
                         } else if (response.status === 404) {
                             statusMsg.innerHTML = `
-                                ⚠️ <strong>[測試用] 找不到 Serverless API Route (404)</strong><br>
-                                <span style="font-size:11px; color:#dc2626;">因 GitHub Pages 為純靜態託管，無法執行 Node.js API。<br>請改於 C 專案之 Vercel 網址開啟，或設定完整 Vercel API Endpoint。</span>
+                                ⚠️ <strong>連線提示 (404)</strong><br>
+                                <span style="font-size:11px; color:#dc2626;">GitHub Pages 為純靜態託管。請於 Vercel 正式網址開啟即可連線！</span>
                             `;
                         } else {
                             statusMsg.innerHTML = `
-                                ⚠️ <strong>[測試用] 登記投標失敗 (${response.status})</strong><br>
+                                ⚠️ <strong>登記投標失敗 (${response.status})</strong><br>
                                 <span style="font-size:11px; color:#dc2626;">${resData.message || resData.error || '無法完成連線'}</span>
                             `;
                         }
                     } catch (err) {
                         statusMsg.innerHTML = `
-                            ⚠️ <strong>[測試用] 連線異常</strong><br>
-                            <span style="font-size:11px; color:#dc2626;">${err.message || '請確認是否於 Vercel 環境執行或網路配置'}</span>
+                            ⚠️ <strong>連線異常</strong><br>
+                            <span style="font-size:11px; color:#dc2626;">${err.message || '請確認是否於 Vercel 環境執行'}</span>
                         `;
                     } finally {
                         bidSubmitBtn.disabled = false;
