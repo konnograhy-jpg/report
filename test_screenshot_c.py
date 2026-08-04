@@ -1150,6 +1150,11 @@ def main():
                                 ⚙️ <strong>[測試用] 端點尚未開啟或金鑰配置中</strong><br>
                                 <span style="font-size:11px; color:#6b7280;">訊息：${resData.message || resData.error || 'Server not configured'}</span>
                             `;
+                        } else if (response.status === 404) {
+                            statusMsg.innerHTML = `
+                                ⚠️ <strong>[測試用] 找不到 Serverless API Route (404)</strong><br>
+                                <span style="font-size:11px; color:#dc2626;">因 GitHub Pages 為純靜態託管，無法執行 Node.js API。<br>請改於 C 專案之 Vercel 網址開啟，或設定完整 Vercel API Endpoint。</span>
+                            `;
                         } else {
                             statusMsg.innerHTML = `
                                 ⚠️ <strong>[測試用] 登記投標失敗 (${response.status})</strong><br>
@@ -1159,7 +1164,7 @@ def main():
                     } catch (err) {
                         statusMsg.innerHTML = `
                             ⚠️ <strong>[測試用] 連線異常</strong><br>
-                            <span style="font-size:11px; color:#dc2626;">${err.message || '請確認網路或 API 配置'}</span>
+                            <span style="font-size:11px; color:#dc2626;">${err.message || '請確認是否於 Vercel 環境執行或網路配置'}</span>
                         `;
                     } finally {
                         bidSubmitBtn.disabled = false;
