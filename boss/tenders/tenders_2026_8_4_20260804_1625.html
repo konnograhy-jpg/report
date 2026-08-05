@@ -1460,6 +1460,12 @@
                                 <strong>責任設計師：</strong>${selectedDesignerTitle} (${realName})<br>
                                 <span style="font-size:11px; color:#15803d;">(已成功建立於毅築案件管理系統)</span>
                             `;
+                        } else if (resData.error === 'tender_already_assigned') {
+                            const assignedDesigner = resData.assignedDesigner || '其他設計師';
+                            statusMsg.innerHTML = `
+                                ⚠️ <strong>[測試用] 此標案目前已有人承接</strong><br>
+                                <span style="font-size:12px; color:#b45309;">此案目前由 ${assignedDesigner} 承接，請先討論；若原承接人放棄，請在毅築標案系統刪除案件後再重新登記。</span>
+                            `;
                         } else if (response.status === 409 || resData.error === 'duplicate_tender_id') {
                             statusMsg.innerHTML = `
                                 ⚠️ <strong>[測試用] 此標案已建立過！</strong><br>
