@@ -11,3 +11,8 @@ test('test tender page explains that another designer currently holds the tender
   assert.match(page, /目前由/);
   assert.match(page, /請先討論/);
 });
+
+test('test tender page derives a stable tender ID rather than a time-based fallback', () => {
+  assert.match(page, /new URL\(targetUrl\)\.searchParams\.get\('pk'\)/);
+  assert.doesNotMatch(page, /TENDER-" \+ Math\.floor\(Date\.now\(\) \/ 1000\)/);
+});

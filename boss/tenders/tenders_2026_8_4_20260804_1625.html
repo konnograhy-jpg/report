@@ -1421,13 +1421,21 @@
                     const realName = designerRealNameMap[selectedDesignerTitle] || selectedDesignerTitle;
                     const fullTenderTitle = modalTenderName.innerText;
                     
-                    // 嘗試從標案名稱抽離案號
+                    // 採購網 pk 是同一公告在這張日報內可重複取得的穩定識別；禁止用時間戳製造假案號。
                     let tenderId = "";
-                    const idMatch = fullTenderTitle.match(/\[([A-Za-z0-9\-_]+)\]/);
-                    if (idMatch) {
-                        tenderId = idMatch[1];
-                    } else {
-                        tenderId = "TENDER-" + Math.floor(Date.now() / 1000);
+                    try {
+                        tenderId = new URL(targetUrl).searchParams.get('pk') || "";
+                    } catch (_) {
+                        // targetUrl 異常時改由頁面已呈現的方括號案號作為受控備援。
+                    }
+                    if (!tenderId) {
+                        const idMatch = fullTenderTitle.match(/\[([A-Za-z0-9\-_]+)\]/);
+                        tenderId = idMatch ? idMatch[1] : "";
+                    }
+                    if (!tenderId) {
+                        statusMsg.style.display = 'block';
+                        statusMsg.innerHTML = '⚠️ <strong>[測試用] 找不到穩定案號，為避免重複建案已停止送件。</strong>';
+                        return;
                     }
 
                     const cleanPayload = {
