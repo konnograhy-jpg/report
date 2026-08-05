@@ -16,3 +16,7 @@ test('test tender page derives a stable tender ID rather than a time-based fallb
   assert.match(page, /new URL\(targetUrl\)\.searchParams\.get\('pk'\)/);
   assert.doesNotMatch(page, /TENDER-" \+ Math\.floor\(Date\.now\(\) \/ 1000\)/);
 });
+
+test('test tender page shows the stable tender ID used for each acceptance or assignment conflict', () => {
+  assert.match(page, /穩定標案識別：\$\{tenderId\}/);
+});
