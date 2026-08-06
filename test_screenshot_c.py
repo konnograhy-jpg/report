@@ -1101,13 +1101,27 @@ def main():
                     const realName = designerRealNameMap[selectedDesignerTitle] || selectedDesignerTitle;
                     const fullTenderTitle = modalTenderName.innerText;
                     
-                    // 嘗試從標案名稱抽離案號
+                    // 穩定案號提取：優先抽離 [案號]，次優先抽離 data-url 中的 pk 參數，禁止使用時間戳作為 fallback
                     let tenderId = "";
                     const idMatch = fullTenderTitle.match(/\[([A-Za-z0-9\-_]+)\]/);
                     if (idMatch) {
                         tenderId = idMatch[1];
-                    } else {
-                        tenderId = "TENDER-" + Math.floor(Date.now() / 1000);
+                    } else if (targetUrl) {
+                        try {
+                            const parsedUrl = new URL(targetUrl, window.location.href);
+                            const pkVal = parsedUrl.searchParams.get('pk');
+                            if (pkVal) {
+                                tenderId = 'pk_' + pkVal.replace(/[^A-Za-z0-9\-_]/g, '');
+                            }
+                        } catch (e) {
+                            console.warn("無法解析 URL pk 參數:", e);
+                        }
+                    }
+
+                    if (!tenderId) {
+                        statusMsg.style.display = 'block';
+                        statusMsg.innerHTML = `⚠️ <strong>無法送出登記</strong><br><span style="font-size:11px; color:#dc2626;">此標案缺少穩定案號或採購網 pk 識別碼，停止送件。</span>`;
+                        return;
                     }
 
                     const cleanPayload = {
@@ -1117,11 +1131,11 @@ def main():
                         designer_name: realName
                     };
 
-                    console.log("[正式登記投標 Payload (測試用)]", cleanPayload);
+                    console.log("[正式登記投標 Payload]", cleanPayload);
                     bidSubmitBtn.disabled = true;
-                    bidSubmitBtn.innerText = "⏳ 正在傳送 (測試用)...";
+                    bidSubmitBtn.innerText = "⏳ 正在傳送登記...";
                     statusMsg.style.display = 'block';
-                    statusMsg.innerHTML = `⏳ 正在連線 Serverless API 轉發中... <span style="font-size:10px; color:#d97706; background:#fef3c7; padding:1px 4px; border-radius:3px;">[測試用 API]</span>`;
+                    statusMsg.innerHTML = `⏳ 正在連線 Serverless API 轉發中...`;
 
                     try {
                         const response = await fetch('/api/submit-bid', {
@@ -1135,15 +1149,17 @@ def main():
                         if (response.status === 201) {
                             statusMsg.innerHTML = `
                                 ✅ <strong>投標意向登記成功！</strong><br>
+                                <strong>案號：</strong>${cleanPayload.tender_id}<br>
                                 <strong>機關：</strong>${cleanPayload.agency_name}<br>
                                 <strong>標案：</strong>${cleanPayload.tender_name}<br>
                                 <strong>責任設計師：</strong>${selectedDesignerTitle} (${realName})<br>
                                 <span style="font-size:11px; color:#15803d;">(已成功連線建立於毅築案件管理系統)</span>
                             `;
-                        } else if (response.status === 409 || resData.error === 'duplicate_tender_id') {
+                        } else if (response.status === 409 || resData.error === 'duplicate_tender_id' || resData.error === 'tender_already_assigned') {
+                            const assignedName = resData.designer_name ? `【${resData.designer_name}】` : '其他設計師';
                             statusMsg.innerHTML = `
-                                ⚠️ <strong>此標案已建立過！</strong><br>
-                                <span style="font-size:12px; color:#b45309;">案號 (${tenderId}) 已登記於系統，請至毅築標案管理操作。</span>
+                                ⚠️ <strong>此標案已由 ${assignedName} 承接！</strong><br>
+                                <span style="font-size:12px; color:#b45309;">案號 (${tenderId}) 已登記於系統，請先討論。<br><small>(前承接人在毅築刪除後即可釋放重新登記)</small></span>
                             `;
                         } else if (response.status === 503) {
                             statusMsg.innerHTML = `
@@ -1153,12 +1169,17 @@ def main():
                         } else if (response.status === 404) {
                             statusMsg.innerHTML = `
                                 ⚠️ <strong>連線提示 (404)</strong><br>
-                                <span style="font-size:11px; color:#dc2626;">GitHub Pages 為純靜態託管。請於 Vercel 正式網址開啟即可連線！</span>
+                                <span style="font-size:11px; color:#dc2626;">找不到 /api/submit-bid Route。請確認是否於 Vercel 網址測試！</span>
                             `;
                         } else {
+                            const extraInfo = [];
+                            if (resData.upstreamStatus) extraInfo.push(`upstreamStatus: ${resData.upstreamStatus}`);
+                            if (resData.upstreamCode) extraInfo.push(`upstreamCode: ${resData.upstreamCode}`);
+                            const extraStr = extraInfo.length ? `<br><span style="font-size:11px; color:#b91c1c;">【安全診斷資訊】${extraInfo.join(' | ')}</span>` : '';
+
                             statusMsg.innerHTML = `
                                 ⚠️ <strong>登記投標失敗 (${response.status})</strong><br>
-                                <span style="font-size:11px; color:#dc2626;">${resData.message || resData.error || '無法完成連線'}</span>
+                                <span style="font-size:11px; color:#dc2626;">${resData.message || resData.error || '無法完成連線'}</span>${extraStr}
                             `;
                         }
                     } catch (err) {
