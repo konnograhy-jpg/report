@@ -1,103 +1,446 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>餐盤先生 — 燒肉拍攝重點與 SOP 指南</title>
-    <!-- Google Fonts & Font Awesome Icons -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <title>公司工作專用門戶 | Company Work Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #0b0c10;
-            --bg-card: rgba(22, 24, 31, 0.75);
-            --bg-card-hover: rgba(30, 33, 45, 0.85);
-            --border-glow: rgba(255, 107, 53, 0.3);
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            
-            --flame-red: #ff3b30;
-            --flame-orange: #ff6b35;
-            --amber-gold: #ffb703;
-            --meat-rose: #ff4757;
-            
-            --text-main: #f1f2f6;
-            --text-muted: #a4b0be;
-            --text-dim: #747d8c;
-            
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
-            --shadow-fire: 0 10px 30px -10px rgba(255, 107, 53, 0.3);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        :root {
+            --bg-dark: #070a12;
+            --surface-card: rgba(17, 24, 39, 0.75);
+            --surface-hover: rgba(31, 41, 55, 0.85);
+            --border-glow: rgba(255, 255, 255, 0.1);
+            --accent-gold: #f59e0b;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
         }
 
         body {
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding-bottom: 60px;
-            background-image: 
-                radial-gradient(circle at 15% 15%, rgba(255, 107, 53, 0.08) 0%, transparent 45%),
-                radial-gradient(circle at 85% 65%, rgba(255, 59, 48, 0.06) 0%, transparent 40%),
-                radial-gradient(circle at 50% 90%, rgba(255, 183, 3, 0.05) 0%, transparent 50%);
-            background-attachment: fixed;
+            color: var(--text-primary);
             min-height: 100vh;
-        }
-
-        /* Ambient Glow Particles Effect */
-        .ambient-header {
+            display: flex;
+            flex-direction: column;
             position: relative;
-            padding: 50px 20px 40px;
-            text-align: center;
-            overflow: hidden;
-            border-bottom: 1px solid var(--border-subtle);
-            background: linear-gradient(180deg, rgba(20, 10, 10, 0.8) 0%, rgba(11, 12, 16, 0) 100%);
+            overflow-x: hidden;
         }
 
-        .ambient-header::before {
-            content: '';
+        /* ── 背景炫光與動態氛圍 ── */
+        .bg-glow-1 {
             position: absolute;
-            top: -50%;
+            top: -150px;
             left: 50%;
             transform: translateX(-50%);
-            width: 600px;
-            height: 300px;
-            background: radial-gradient(ellipse at center, rgba(255, 107, 53, 0.25) 0%, transparent 70%);
-            filter: blur(50px);
+            width: 800px;
+            height: 500px;
+            background: radial-gradient(ellipse, rgba(59, 130, 246, 0.15) 0%, rgba(16, 185, 129, 0.08) 40%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
 
-        .header-content {
+        .bg-glow-2 {
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── 頂部導覽列 ── */
+        .navbar {
             position: relative;
-            z-index: 1;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(7, 10, 18, 0.6);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+        }
+
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ── Hero 標頭區 ── */
+        .hero {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 60px 20px 40px;
             max-width: 900px;
             margin: 0 auto;
         }
 
-        .badge-tag {
+        .hero-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 59, 48, 0.15));
-            border: 1px solid rgba(255, 107, 53, 0.4);
-            color: var(--flame-orange);
-            font-size: 0.85rem;
+            padding: 4px 14px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            color: #fcd34d;
+            font-size: 12px;
             font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 50px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 16px;
-            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ── 核心工作入口網格 ── */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        /* 工作卡片樣式 */
+        .work-card {
+            position: relative;
+            background: var(--surface-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 32px 28px;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            backdrop-filter: blur(16px);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        /* 可點擊卡片懸停效果 */
+        .work-card.active:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 30px rgba(59, 130, 246, 0.15);
+            background: var(--surface-hover);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glow);
+            transition: transform 0.3s ease;
+        }
+
+        .work-card.active:hover .card-icon {
+            transform: scale(1.08);
+        }
+
+        /* 特定卡片圖示色彩 */
+        .icon-tender {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2));
+            color: #fcd34d;
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .icon-yizhu {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+            color: #6ee7b7;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .icon-timeline {
+            background: rgba(100, 116, 139, 0.15);
+            color: #94a3b8;
+            border-color: rgba(100, 116, 139, 0.2);
+        }
+
+        .card-tag {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-active {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .tag-secure {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .tag-disabled {
+            background: rgba(100, 116, 139, 0.2);
+            color: #94a3b8;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            padding-top: 16px;
+            border-top: 1px solid var(--border-glow);
+        }
+
+        .action-arrow {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .work-card.active:hover .action-arrow {
+            background: var(--accent-blue);
+            color: #ffffff;
+            transform: translateX(4px);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+        }
+
+        /* 🔒 未開發/禁用卡片樣式 */
+        .work-card.disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            pointer-events: none;
+            filter: grayscale(0.4);
+            border-style: dashed;
+        }
+
+        /* ── 頁尾 ── */
+        .footer {
+            position: relative;
+            z-index: 10;
+            margin-top: auto;
+            text-align: center;
+            padding: 24px 20px;
+            border-top: 1px solid var(--border-glow);
+            color: var(--text-muted);
+            font-size: 12px;
+            background: rgba(7, 10, 18, 0.8);
+        }
+
+        @media (max-width: 640px) {
+            .navbar { padding: 16px 20px; }
+            .hero h1 { font-size: 28px; }
+            .hero { padding: 40px 16px 24px; }
+            .work-card { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <!-- 頂部導覽列 -->
+    <nav class="navbar">
+        <div class="brand-logo">
+            <div class="brand-icon">🏢</div>
+            <span>COMPANY WORK HUB</span>
+        </div>
+        <div class="nav-status">
+            <div class="status-dot"></div>
+            <span>內部系統正常連線中</span>
+        </div>
+    </nav>
+
+    <!-- Hero 標頭區 -->
+    <header class="hero">
+        <div class="hero-badge">💼 內部工作入口與專案管理 portal</div>
+        <h1>公司工作專用門戶頁面</h1>
+        <p>提供每日標案公告、毅築案件管理系統等核心業務入口，保障內部作業安全與高效銜接。</p>
+    </header>
+
+    <!-- 核心工作入口網格 -->
+    <main class="main-container">
+        <div class="portal-grid">
+
+            <!-- 1. C專案 每日標案公告頁面 (可點擊) -->
+            <a href="boss/tenders.html" class="work-card active">
+                <div class="card-header">
+                    <div class="card-icon icon-tender">💼</div>
+                    <span class="card-tag tag-active">🟢 即時連線中</span>
+                </div>
+                <div class="card-title">
+                    C 專案 每日標案公告專區
+                </div>
+                <div class="card-desc">
+                    每日全自動搜尋全台工程標案，包含【操場跑道】、【運動類標案】與【流標重招專區】精準推薦，並支援登記責任設計師連線轉發。
+                </div>
+                <div class="card-footer">
+                    <span>點擊進入標案公告專區</span>
+                    <div class="action-arrow">→</div>
+                </div>
+            </a>
+
+            <!-- 2. 毅築標案案件管理 (可點擊) -->
+            <a href="https://yizhu-bid-case-manager.vercel.app" target="_blank" rel="noopener noreferrer" class="work-card active">
+                <div class="card-header">
+                    <div class="card-icon icon-yizhu">🏢</div>
+                    <span class="card-tag tag-secure">🔒 安全獨立登入鎖</span>
+                </div>
+                <div class="card-title">
+                    毅築標案案件管理系統
+                </div>
+                <div class="card-desc">
+                    毅築案件庫管理、承接設計師指派與標案狀態追蹤。配備獨立安全身份登入驗證，確保業務數據資料庫防護。
+                </div>
+                <div class="card-footer">
+                    <span>前往毅築案件管理系統</span>
+                    <div class="action-arrow">↗</div>
+                </div>
+            </a>
+
+            <!-- 3. 時間軸系統 (未開發 / 禁用點擊) -->
+            <div class="work-card disabled" aria-disabled="true">
+                <div class="card-header">
+                    <div class="card-icon icon-timeline">⏱️</div>
+                    <span class="card-tag tag-disabled">🚧 尚未開發 (Coming Soon)</span>
+                </div>
+                <div class="card-title">
+                    時間軸系統
+                </div>
+                <div class="card-desc">
+                    規劃中之公司專案歷程與時間軸甘特圖系統，目前尚未開放使用，敬請期待未來升級。
+                </div>
+                <div class="card-footer">
+                    <span style="color: var(--text-muted);">系統開發中 (暫不可點選)</span>
+                    <div class="action-arrow" style="opacity: 0.3;">🔒</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        © 2026 公司工作專用門戶 (Company Work Hub) · 隱私保護與權限隔離機制生效中
+    </footer>
+
+</body>
+</html>
             text-transform: uppercase;
         }
 
