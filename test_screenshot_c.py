@@ -809,8 +809,10 @@ def main():
                 idx_val, agency_val, name_val, trans_val, date_pub_val, date_end_val, budget_val, detail_url = r_item[:8]
 
                 highlighted_name = highlight_keywords(name_val.replace("\n", " ").strip())
-                data_agency_attr = f' data-agency="{agency_val.strip()}"'
-                data_url_attr = f' data-url="{detail_url.strip()}"{data_agency_attr}' if detail_url.strip() else ""
+                clean_url = detail_url.strip() if detail_url else ""
+                clean_agency = agency_val.strip() if agency_val else ""
+                clean_budget = budget_val.strip() if budget_val else ""
+                data_url_attr = f' data-agency="{clean_agency}" data-budget="{clean_budget}"' + (f' data-url="{clean_url}"' if clean_url else '')
 
                 html_content += f"""                <div class="rec-card"{data_url_attr}>
                     <div class="rec-card-header">
@@ -845,8 +847,10 @@ def main():
                 idx_val, agency_val, name_val, trans_val, date_pub_val, date_end_val, budget_val, detail_url = r_item[:8]
 
                 highlighted_name = highlight_keywords(name_val.replace("\n", " ").strip())
-                data_agency_attr = f' data-agency="{agency_val.strip()}"'
-                data_url_attr = f' data-url="{detail_url.strip()}"{data_agency_attr}' if detail_url.strip() else ""
+                clean_url = detail_url.strip() if detail_url else ""
+                clean_agency = agency_val.strip() if agency_val else ""
+                clean_budget = budget_val.strip() if budget_val else ""
+                data_url_attr = f' data-agency="{clean_agency}" data-budget="{clean_budget}"' + (f' data-url="{clean_url}"' if clean_url else '')
                 
                 is_non_school = not any(sk in agency_val for sk in ["學校", "國小", "國中", "中學", "高中", "大學"])
                 agency_display = f"{agency_val} (非學校機關亮點)" if is_non_school else agency_val
@@ -909,9 +913,10 @@ def main():
             name_html = highlight_keywords(name_val).replace("\n", "<br>")
             trans_html = str(trans_val).replace('\n', '<br>')
 
-            # 判斷是否為學校運動類標案以加入超連結，現改為所有案都要有連結
-            data_agency_attr = f' data-agency="{agency_val.strip()}"'
-            data_url_attr = f' data-url="{detail_url.strip()}"{data_agency_attr}' if detail_url.strip() else ""
+            clean_url = detail_url.strip() if detail_url else ""
+            clean_agency = agency_val.strip() if agency_val else ""
+            clean_budget = budget_val.strip() if budget_val else ""
+            data_url_attr = f' data-agency="{clean_agency}" data-budget="{clean_budget}"' + (f' data-url="{clean_url}"' if clean_url else '')
 
             html_content += f"""                    <tr{data_url_attr}>
                         <td class="col-idx">{idx_val}</td>
@@ -946,9 +951,10 @@ def main():
             name_html = highlight_keywords(name_val).replace("\n", " ")
             clean_trans = trans_val.strip().replace('\n', '')
 
-            # 判斷是否為學校運動類標案以加入超連結，現改為所有案都要有連結
-            data_agency_attr = f' data-agency="{agency_val.strip()}"'
-            data_url_attr = f' data-url="{detail_url.strip()}"{data_agency_attr}' if detail_url.strip() else ""
+            clean_url = detail_url.strip() if detail_url else ""
+            clean_agency = agency_val.strip() if agency_val else ""
+            clean_budget = budget_val.strip() if budget_val else ""
+            data_url_attr = f' data-agency="{clean_agency}" data-budget="{clean_budget}"' + (f' data-url="{clean_url}"' if clean_url else '')
 
             html_content += f"""            <div class="mobile-tender-row {bg_cls}"{data_url_attr}>
                 <div class="mobile-row-meta">
@@ -1040,8 +1046,7 @@ def main():
             };
 
             const showModal = (tenderName, url, agency, budget = null) => {
-                if (!url) return;
-                targetUrl = url;
+                targetUrl = url || '';
                 targetAgency = agency || '';
                 targetBudget = budget;
                 modalTenderName.innerText = tenderName;
@@ -1059,10 +1064,11 @@ def main():
                 statusMsg.style.display = 'none';
             };
 
-            // 監聽有設定 data-url 的元素點擊事件
+            // 監聽標案卡片與表格列點擊事件
             document.addEventListener('click', (e) => {
-                const clickable = e.target.closest('[data-url]');
+                const clickable = e.target.closest('[data-url], .rec-card, tr, .mobile-tender-row');
                 if (clickable) {
+                    if (clickable.tagName === 'TR' && clickable.closest('thead')) return;
                     const url = clickable.getAttribute('data-url');
                     const agency = clickable.getAttribute('data-agency') || '';
                     const rawBudget = clickable.getAttribute('data-budget') || '';
