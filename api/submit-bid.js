@@ -28,12 +28,21 @@ export default async function handler(req, res) {
     });
   }
 
-  // 轉換 payload 為標準契約格式（確保無多餘欄位影響簽章）
+  // 轉換 payload 為標準契約格式（包含預算金額 budget，確保無多餘欄位影響簽章）
+  const parseBudget = (val) => {
+    if (val === undefined || val === null || val === '') return null;
+    if (typeof val === 'number') return isNaN(val) ? null : val;
+    const cleaned = String(val).replace(/[^0-9.]/g, '');
+    const num = parseFloat(cleaned);
+    return isNaN(num) ? null : num;
+  };
+
   const cleanPayload = {
     tender_id: String(payload.tender_id).trim(),
     tender_name: String(payload.tender_name).trim(),
     agency_name: String(payload.agency_name).trim(),
-    designer_name: String(payload.designer_name).trim()
+    designer_name: String(payload.designer_name).trim(),
+    budget: parseBudget(payload.budget)
   };
 
   const signature = 'sha256=' + crypto
