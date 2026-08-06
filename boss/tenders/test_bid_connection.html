@@ -412,12 +412,20 @@
             const selectedTitle = designerSelect.value;
             const realName = designerRealNameMap[selectedTitle] || selectedTitle;
 
+            const parseBudgetAmount = (val) => {
+                if (val === undefined || val === null || val === '') return null;
+                if (typeof val === 'number') return isNaN(val) ? null : Math.round(val);
+                const cleaned = String(val).replace(/[^0-9.]/g, '');
+                const num = parseFloat(cleaned);
+                return isNaN(num) ? null : Math.round(num);
+            };
+
             const payload = {
                 tender_id: currentTender.id,
                 tender_name: currentTender.name,
                 agency_name: currentTender.agency,
                 designer_name: realName,
-                budget: currentTender.budget
+                budget_amount: parseBudgetAmount(currentTender.budget)
             };
 
             submitBtn.disabled = true;
