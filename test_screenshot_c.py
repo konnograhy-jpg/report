@@ -91,7 +91,7 @@ def generate_section_html(data, section_type, title_text, header_class):
         # 判斷是否為學校運動類標案以加入超連結，現改為所有案都要有連結
         data_url_attr = ""
         if detail_url.strip():
-            data_url_attr = f' data-url="{detail_url.strip()}"'
+            data_url_attr = f' data-url="{detail_url.strip()}" data-agency="{agency_val}" data-budget="{budget_val}"'
         
         table_rows_html += f"""                    <tr style="{strikethrough_style}"{data_url_attr}>
                         <td class="col-idx">{idx_val}</td>
@@ -926,7 +926,6 @@ def main():
         html_content += """                </tbody>
             </table>
         </div>
-
         <!-- 3. 手機版凝聚型卡片列表 -->
         <div class="mobile-tender-list">
 """
@@ -973,7 +972,7 @@ def main():
         document.addEventListener('DOMContentLoaded', () => {
             const pagePath = window.location.pathname;
             const filename = pagePath.substring(pagePath.lastIndexOf('/') + 1) || 'default_tender';
-            const pageKey = "tender_page_" + filename.replace(/\\./g, '_');
+            const pageKey = "tender_page_" + filename.replace(/\./g, '_');
             
             // 1. 紀錄目前頁面點閱
             let visitCounts = JSON.parse(localStorage.getItem('yggdrasil_visit_counts') || '{}');
@@ -1031,7 +1030,7 @@ def main():
 
             let targetUrl = '';
             let targetAgency = '';
-            let currentExtraData = {};
+            let targetBudget = null;
 
             // 內部對應表：前端顯示稱號 ➔ 後端連線資料庫實名
             const designerRealNameMap = {
@@ -1040,11 +1039,11 @@ def main():
                 "林設計師": "林宏明"
             };
 
-            const showModal = (tenderName, url, agency, extraData = {}) => {
+            const showModal = (tenderName, url, agency, budget = null) => {
                 if (!url) return;
                 targetUrl = url;
                 targetAgency = agency || '';
-                currentExtraData = extraData;
+                targetBudget = budget;
                 modalTenderName.innerText = tenderName;
                 bidPanel.style.display = 'none';
                 statusMsg.style.display = 'none';
@@ -1055,7 +1054,7 @@ def main():
                 modal.classList.remove('active');
                 targetUrl = '';
                 targetAgency = '';
-                currentExtraData = {};
+                targetBudget = null;
                 bidPanel.style.display = 'none';
                 statusMsg.style.display = 'none';
             };
@@ -1066,23 +1065,29 @@ def main():
                 if (clickable) {
                     const url = clickable.getAttribute('data-url');
                     const agency = clickable.getAttribute('data-agency') || '';
+                    const rawBudget = clickable.getAttribute('data-budget') || '';
                     let tenderName = '';
+                    let budgetVal = rawBudget;
                     
                     if (clickable.classList.contains('rec-card')) {
                         tenderName = clickable.querySelector('.rec-tender-name').innerText;
                     } else if (clickable.tagName === 'TR') {
                         const nameTd = clickable.querySelector('.col-name');
                         const agencyTd = clickable.querySelector('.col-agency');
-                        tenderName = `${agencyTd ? agencyTd.innerText.trim() : ''} - ${nameTd ? nameTd.innerText.replace(/<<\\s*/, '').trim() : ''}`;
+                        const budgetTd = clickable.querySelector('.col-budget');
+                        tenderName = `${agencyTd ? agencyTd.innerText.trim() : ''} - ${nameTd ? nameTd.innerText.replace(/<<\s*/, '').trim() : ''}`;
+                        if (!budgetVal && budgetTd) budgetVal = budgetTd.innerText.trim();
                     } else if (clickable.classList.contains('mobile-tender-row')) {
                         const nameDiv = clickable.querySelector('.mobile-row-name');
                         const agencySpan = clickable.querySelector('.mobile-row-agency');
+                        const budgetSpan = clickable.querySelector('.mobile-row-budget');
                         tenderName = `${agencySpan ? agencySpan.innerText.trim() : ''} - ${nameDiv ? nameDiv.innerText.trim() : ''}`;
+                        if (!budgetVal && budgetSpan) budgetVal = budgetSpan.innerText.replace('預算金額：', '').trim();
                     } else {
                         tenderName = clickable.innerText || '未命名標案';
                     }
                     
-                    showModal(tenderName, url, agency);
+                    showModal(tenderName, url, agency, budgetVal);
                 }
             });
 
@@ -1101,7 +1106,67 @@ def main():
                     const realName = designerRealNameMap[selectedDesignerTitle] || selectedDesignerTitle;
                     const fullTenderTitle = modalTenderName.innerText;
                     
-                    // 穩定案號提取：優先抽離 [案號]，次優先抽離 data-url 中的 pk 參數，禁止使用時間戳作為 fallback
+                    let tenderId = "";
+                    const idMatch = fullTenderTitle.match(/\[([A-Za-z0-9\-_]+)\]/);
+                    if (idMatch) {
+                        tenderId = idMatch[1];
+                    } else if (targetUrl) {
+                        try {
+                            const parsedUrl = new URL(targetUrl, window.location.href);
+                            const pkVal = parsedUrl.searchParams.get('pk');
+                            if (pkVal) {
+                                tenderId = 'pk_' + pkVal.replace(/[^A-Za-z0-9\-_]/g, '');
+                            }
+                        } catch (e) {
+                            console.warn("無法解析 URL pk 參數:", e);
+                        }
+                    }
+
+                    if (!tenderId) {
+                        statusMsg.style.display = 'block';
+                        statusMsg.innerHTML = `⚠️ <strong>無法送出登記</strong><br><span style="font-size:11px; color:#dc2626;">此標案缺少穩定案號或採購網 pk 識別碼，停止送件。</span>`;
+                        return;
+                    }
+
+                    const parseBudgetNumber = (raw) => {
+                        if (raw === undefined || raw === null || raw === '') return null;
+                        const cleanStr = String(raw).replace(/[^0-9.]/g, '');
+                        const num = parseFloat(cleanStr);
+                        return isNaN(num) ? null : num;
+                    };
+
+                    const cleanPayload = {
+                        tender_id: tenderId,
+                        tender_name: fullTenderTitle,
+                        agency_name: targetAgency || "全省標案機關",
+                        designer_name: realName,
+                        budget: parseBudgetNumber(targetBudget)
+                    };
+
+                    bidSubmitBtn.disabled = true;
+                    bidSubmitBtn.innerText = "⏳ 正在傳送登記...";
+                    statusMsg.style.display = 'block';
+                    statusMsg.innerHTML = `⏳ 正在連線 Serverless API 轉發中...`;
+
+                    try {
+                        const response = await fetch('/api/submit-bid', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(cleanPayload)
+                        });
+
+                        const resData = await response.json().catch(() => ({}));
+
+                        if (response.status === 201) {
+                            const budgetDisplay = cleanPayload.budget !== null ? `$${cleanPayload.budget.toLocaleString()}` : (targetBudget || '未列出');
+                            statusMsg.innerHTML = `
+                                ✅ <strong>投標意向登記成功！</strong><br>
+                                <strong>案號：</strong>${cleanPayload.tender_id}<br>
+                                <strong>機關：</strong>${cleanPayload.agency_name}<br>
+                                <strong>標案：</strong>${cleanPayload.tender_name}<br>
+                                <strong>預算金額：</strong>${budgetDisplay}<br>
+                                <strong>責任設計師：</strong>${selectedDesignerTitle} (${realName})<br>
+                                <span style="font-size:11px; color:#15803d;">(已成功連線建立於毅築案件管理系統)</span>
                     let tenderId = "";
                     const idMatch = fullTenderTitle.match(/\[([A-Za-z0-9\-_]+)\]/);
                     if (idMatch) {
