@@ -1,0 +1,2413 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】臺中市東勢區新盛國民小學 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">臺中市東勢區新盛國民小學</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">44 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">43 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">25 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">28 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 5 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">粘怡鈞建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">3 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (3 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11303]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新盛國小噪音防制隔音門窗設備改善採購委託規劃設計監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/04/11</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11303" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11303" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11105]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學111年度學校游泳池整建維修委託規劃設計監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/05/09</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11105" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11105" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">技術服務</span><span class="kw-tag">泳池</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11103]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學111年度校園通道鋪面改善計畫委託規劃設計監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/04/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11103" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11103" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">加恆企業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11304-01]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新盛國小噪音防制隔音門窗設備改善工程(第1次契約變更)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/07/10</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11304-01" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11304-01" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11304]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新盛國小噪音防制隔音門窗設備改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/06/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11304" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11304" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">泳碩有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11208]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">112年游泳池機組損壞修復</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/11/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11208" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11208" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">泳池</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11106]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學111年度學校游泳池整建維修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/13</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11106" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11106" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">泳池</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#4</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">丞裕工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-4')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-4" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11104]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學111年度校園通道鋪面改善計畫工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/06/21</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11104" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11104" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ssps11006]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">午餐廚房精進工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/05/05</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11006" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ssps11006" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#5</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">米平方藝術工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-5')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-5" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ssps11009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">109學年度新盛國小公共化幼兒園遊戲場改善計畫工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/06/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ssps11009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ssps11008]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">109學年度新盛國小遊戲場設施改善工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/06/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11008" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ssps11008" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#6</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">睿成營造股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-6')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-6" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11403]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新盛國小114年薇帕颱風及0728豪雨災後復建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/06/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11403" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11403" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#7</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">明享營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-7')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-7" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11403]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新盛國小114年薇帕颱風及0728豪雨災後復建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/06/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11403" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11403" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#8</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">秋森萬工程顧問有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-8')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-8" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11402]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新盛國小114年薇帕颱風及0728豪雨災後復建工程規劃、設計、監造勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/04/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11402" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11402" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#9</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">山川建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-9')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-9" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11303]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新盛國小噪音防制隔音門窗設備改善採購委託規劃設計監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/04/11</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11303" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11303" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#10</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">攸麗雅國際有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-10')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-10" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11302]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市豐原區合作國小、福陽國小、豐村國小、豐東國中暨東勢區新盛國小活動中心新建工程聯合動土典禮採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/03/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11302" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11302" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#11</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">橙希創意行銷有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-11')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-11" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11302]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市豐原區合作國小、福陽國小、豐村國小、豐東國中暨東勢區新盛國小活動中心新建工程聯合動土典禮採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/03/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11302" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11302" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#12</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">夢幻展覽有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-12')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-12" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11302]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市豐原區合作國小、福陽國小、豐村國小、豐東國中暨東勢區新盛國小活動中心新建工程聯合動土典禮採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/03/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11302" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11302" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#13</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">環碩環境工程</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-13')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-13" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11208]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">112年游泳池機組損壞修復</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/11/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11208" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11208" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">泳池</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#14</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">六角亭景觀工程股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-14')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-14" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11205]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學112年非山非市校園鋪面水溝整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11205" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11205" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#15</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">福珈實業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-15')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-15" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11204]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學室外籃球場整建及周邊整建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/06/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11204" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11204" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">球場</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#16</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">世豐土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-16')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-16" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11204]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學室外籃球場整建及周邊整建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/06/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11204" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11204" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">球場</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#17</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">金元順工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-17')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-17" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11204]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學室外籃球場整建及周邊整建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/06/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11204" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11204" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">球場</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#18</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">建樓聯合建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-18')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-18" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11202]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學興建活動中心工程委託規劃設計監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/05/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11202" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11202" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#19</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">嵐建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-19')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-19" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11202]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學興建活動中心工程委託規劃設計監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/05/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11202" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11202" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#20</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">江重宜建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-20')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-20" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11202]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學興建活動中心工程委託規劃設計監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/05/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11202" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11202" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#21</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">常圓室內裝修科技有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-21')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-21" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11111]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學111年度充實體育器材設備採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11111" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11111" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">體育</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#22</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">正永工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-22')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-22" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[SSPS11002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學跑道修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/12/15</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=SSPS11002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">跑道</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#23</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">王新智建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-23')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-23" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ssps11001]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學跑道修繕工程委託規劃設計監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/09/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11001" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ssps11001" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span><span class="kw-tag">跑道</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#24</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">楊文慶建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-24')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-24" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ssps11001]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市東勢區新盛國民小學跑道修繕工程委託規劃設計監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/09/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11001" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ssps11001" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span><span class="kw-tag">跑道</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#25</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">巨匠土木包工業(獨資)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-25')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-25" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ssps11006]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">午餐廚房精進工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/05/05</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11006" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ssps11006" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#26</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">延整開發營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-26')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-26" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ssps11006]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">午餐廚房精進工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/05/05</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11006" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ssps11006" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#27</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">佺誼室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-27')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-27" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ssps11007]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">校史室及教學環境改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/04/26</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11007" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ssps11007" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#28</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">于軒企業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-28')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-28" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ssps11002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市新盛國小110年度推展水域運動推廣計畫財務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/01/28</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ssps11002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (25 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>SSPS11502</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left font-weight-bold">「116年全國原住民族運動會」各競賽種類及項目器材及整備委託專案服務採購</td>
+            <td>2026/09/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>SSPS11403</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新盛國小114年薇帕颱風及0728豪雨災後復建工程</td>
+            <td>2026/06/22</td>
+            <td class="text-left">睿成營造股份有限公司, 明享營造工程有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11403" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11403" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>SSPS11402</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新盛國小114年薇帕颱風及0728豪雨災後復建工程規劃、設計、監造勞務採購</td>
+            <td>2026/04/02</td>
+            <td class="text-left">秋森萬工程顧問有限公司</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>SSPS11304-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新盛國小噪音防制隔音門窗設備改善工程(第1次契約變更)</td>
+            <td>2025/07/10</td>
+            <td class="text-left">加恆企業有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11304-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11304-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>SSPS11304</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新盛國小噪音防制隔音門窗設備改善工程</td>
+            <td>2025/06/03</td>
+            <td class="text-left">加恆企業有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11304" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11304" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>SSPS11303</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新盛國小噪音防制隔音門窗設備改善採購委託規劃設計監造技術服務</td>
+            <td>2025/04/11</td>
+            <td class="text-left">山川建築師事務所, 粘怡鈞建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11303" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11303" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>SSPS11302</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市豐原區合作國小、福陽國小、豐村國小、豐東國中暨東勢區新盛國小活動中心新建工程聯合動土典禮採購</td>
+            <td>2025/03/03</td>
+            <td class="text-left">攸麗雅國際有限公司, 橙希創意行銷有限公司, 夢幻展覽有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11302" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11302" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>SSPS11208</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">112年游泳池機組損壞修復</td>
+            <td>2023/11/24</td>
+            <td class="text-left">環碩環境工程, 泳碩有限公司</td>
+            <td><span class="kw-tag">泳池</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11208" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11208" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>SSPS11205</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學112年非山非市校園鋪面水溝整修工程</td>
+            <td>2023/08/16</td>
+            <td class="text-left">六角亭景觀工程股份有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11205" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11205" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>SSPS11204</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學室外籃球場整建及周邊整建工程</td>
+            <td>2023/06/16</td>
+            <td class="text-left">福珈實業有限公司, 世豐土木包工業, 金元順工程有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">球場</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11204" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11204" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>SSPS11202</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學興建活動中心工程委託規劃設計監造技術服務</td>
+            <td>2023/05/31</td>
+            <td class="text-left">建樓聯合建築師事務所, 嵐建築師事務所, 江重宜建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11202" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11202" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>SSPS11111</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學111年度充實體育器材設備採購</td>
+            <td>2022/09/22</td>
+            <td class="text-left">常圓室內裝修科技有限公司</td>
+            <td><span class="kw-tag">體育</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11111" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11111" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>SSPS11106</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學111年度學校游泳池整建維修工程</td>
+            <td>2022/09/13</td>
+            <td class="text-left">泳碩有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">泳池</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11106" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11106" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>SSPS11109</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學111年度充實體育器材設備採購</td>
+            <td>2022/09/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">體育</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11109" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11109" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>SSPS11107</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學111年度充實體育器材設備採購</td>
+            <td>2022/07/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">體育</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11107" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11107" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>SSPS11104</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學111年度校園通道鋪面改善計畫工程</td>
+            <td>2022/06/21</td>
+            <td class="text-left">丞裕工程有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11104" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11104" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>SSPS11105</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學111年度學校游泳池整建維修委託規劃設計監造技術服務</td>
+            <td>2022/05/09</td>
+            <td class="text-left">粘怡鈞建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">技術服務</span><span class="kw-tag">泳池</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11105" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11105" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>SSPS11103</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學111年度校園通道鋪面改善計畫委託規劃設計監造技術服務</td>
+            <td>2022/04/22</td>
+            <td class="text-left">粘怡鈞建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>SSPS11002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學跑道修繕工程</td>
+            <td>2021/12/15</td>
+            <td class="text-left">正永工程有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">跑道</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>ssps11001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市東勢區新盛國民小學跑道修繕工程委託規劃設計監造技術服務</td>
+            <td>2021/09/30</td>
+            <td class="text-left">王新智建築師事務所, 楊文慶建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span><span class="kw-tag">跑道</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>ssps11009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">109學年度新盛國小公共化幼兒園遊戲場改善計畫工程採購案</td>
+            <td>2021/06/29</td>
+            <td class="text-left">米平方藝術工程有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">遊戲</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>ssps11008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">109學年度新盛國小遊戲場設施改善工程採購案</td>
+            <td>2021/06/03</td>
+            <td class="text-left">米平方藝術工程有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">遊戲</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>ssps11006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">午餐廚房精進工程</td>
+            <td>2021/05/05</td>
+            <td class="text-left">丞裕工程有限公司, 巨匠土木包工業(獨資), 延整開發營造有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>ssps11007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">校史室及教學環境改善工程</td>
+            <td>2021/04/26</td>
+            <td class="text-left">佺誼室內裝修有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>ssps11002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市新盛國小110年度推展水域運動推廣計畫財務採購</td>
+            <td>2021/01/28</td>
+            <td class="text-left">于軒企業有限公司</td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (43 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>SSPS11502</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">「116年全國原住民族運動會」各競賽種類及項目器材及整備委託專案服務採購</td>
+            <td>2026/09/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>SSPS11405</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度戶外教育採購</td>
+            <td>2026/07/02</td>
+            <td class="text-left">獨一旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11405" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11405" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>SSPS11403</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新盛國小114年薇帕颱風及0728豪雨災後復建工程</td>
+            <td>2026/06/22</td>
+            <td class="text-left">睿成營造股份有限公司, 明享營造工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11403" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11403" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>SSPS11402</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新盛國小114年薇帕颱風及0728豪雨災後復建工程規劃、設計、監造勞務採購</td>
+            <td>2026/04/02</td>
+            <td class="text-left">秋森萬工程顧問有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>SSPS11401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度戶外教育、志工旅遊活動採購</td>
+            <td>2025/07/29</td>
+            <td class="text-left">獨一旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>SSPS11304-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新盛國小噪音防制隔音門窗設備改善工程(第1次契約變更)</td>
+            <td>2025/07/10</td>
+            <td class="text-left">加恆企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11304-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11304-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>SSPS11304</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新盛國小噪音防制隔音門窗設備改善工程</td>
+            <td>2025/06/03</td>
+            <td class="text-left">加恆企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11304" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11304" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>SSPS11303</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新盛國小噪音防制隔音門窗設備改善採購委託規劃設計監造技術服務</td>
+            <td>2025/04/11</td>
+            <td class="text-left">山川建築師事務所, 粘怡鈞建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11303" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11303" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>SSPS11302</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市豐原區合作國小、福陽國小、豐村國小、豐東國中暨東勢區新盛國小活動中心新建工程聯合動土典禮採購</td>
+            <td>2025/03/03</td>
+            <td class="text-left">攸麗雅國際有限公司, 橙希創意行銷有限公司, 夢幻展覽有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11302" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11302" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>SSPS11301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度戶外教育活動採購案</td>
+            <td>2024/10/14</td>
+            <td class="text-left">獨一旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>SSPS11210</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度轉型2歲專班充實及改善教學環境設施設備</td>
+            <td>2024/06/07</td>
+            <td class="text-left">皇宇家舒室內裝修有限公司, 佺誼室內裝修有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11210" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11210" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>SSPS11209-3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「112學年度新盛國小戶外教育活動」勞務採購</td>
+            <td>2024/01/12</td>
+            <td class="text-left">獨一旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11209-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11209-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>SSPS11209-1</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112學年度新盛國小戶外教育活動勞務採購</td>
+            <td>2023/12/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11209-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11209-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>SSPS11209</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112學年度新盛國小戶外教育活動勞務採購</td>
+            <td>2023/12/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11209" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11209" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>SSPS11208</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年游泳池機組損壞修復</td>
+            <td>2023/11/24</td>
+            <td class="text-left">環碩環境工程, 泳碩有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11208" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11208" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>SSPS11207</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度全國中小學客家藝文競賽中區初賽場地布置勞務採購</td>
+            <td>2023/09/08</td>
+            <td class="text-left">攸麗雅國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11207" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11207" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>SSPS11205</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學112年非山非市校園鋪面水溝整修工程</td>
+            <td>2023/08/16</td>
+            <td class="text-left">六角亭景觀工程股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11205" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11205" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>SSPS11204</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學室外籃球場整建及周邊整建工程</td>
+            <td>2023/06/16</td>
+            <td class="text-left">福珈實業有限公司, 世豐土木包工業, 金元順工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11204" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11204" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>SSPS11202</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學興建活動中心工程委託規劃設計監造技術服務</td>
+            <td>2023/05/31</td>
+            <td class="text-left">建樓聯合建築師事務所, 嵐建築師事務所, 江重宜建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11202" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11202" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>SSPS11203</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學 112年充實及改善午餐廚房設備</td>
+            <td>2023/05/18</td>
+            <td class="text-left">永源不銹鋼有限公司, 昱臣實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11203" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11203" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>SSPS11201</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學112-113年廚房瓦斯採購</td>
+            <td>2023/01/05</td>
+            <td class="text-left">幸照企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>SSPS11110</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學「改善治安死角」採購</td>
+            <td>2022/09/22</td>
+            <td class="text-left">華峰科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11110" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11110" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>SSPS11111</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學111年度充實體育器材設備採購</td>
+            <td>2022/09/22</td>
+            <td class="text-left">常圓室內裝修科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11111" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11111" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>SSPS11106</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學111年度學校游泳池整建維修工程</td>
+            <td>2022/09/13</td>
+            <td class="text-left">泳碩有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11106" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11106" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>SSPS11109</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學111年度充實體育器材設備採購</td>
+            <td>2022/09/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11109" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11109" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>SSPS11108</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學「推動中小學數位學習精進方案-網路檢測設備」採購</td>
+            <td>2022/08/18</td>
+            <td class="text-left">禾儀企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11108" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11108" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>SSPS11107</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學111年度充實體育器材設備採購</td>
+            <td>2022/07/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11107" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11107" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>SSPS11104</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學111年度校園通道鋪面改善計畫工程</td>
+            <td>2022/06/21</td>
+            <td class="text-left">丞裕工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11104" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11104" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>SSPS11105</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學111年度學校游泳池整建維修委託規劃設計監造技術服務</td>
+            <td>2022/05/09</td>
+            <td class="text-left">粘怡鈞建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11105" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11105" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>SSPS11103</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學111年度校園通道鋪面改善計畫委託規劃設計監造技術服務</td>
+            <td>2022/04/22</td>
+            <td class="text-left">粘怡鈞建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>SSPS11102</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學111年航空噪音改善補助計畫-冷氣更新採購</td>
+            <td>2022/03/28</td>
+            <td class="text-left">新麗電器有限公司, 忠進水電工程社(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11102" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11102" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>SSPS11101</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學校園廣播及總機系統設備採購</td>
+            <td>2022/02/14</td>
+            <td class="text-left">佳音通信有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11101" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11101" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>SSPS11002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學跑道修繕工程</td>
+            <td>2021/12/15</td>
+            <td class="text-left">正永工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>SSPS11004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學夜間照明設施改善計畫</td>
+            <td>2021/12/07</td>
+            <td class="text-left">常圓室內裝修科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>SSPS11003</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學智慧輔助教學設備充實採購案</td>
+            <td>2021/11/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=SSPS11003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SSPS11003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>ssps11001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學跑道修繕工程委託規劃設計監造技術服務</td>
+            <td>2021/09/30</td>
+            <td class="text-left">王新智建築師事務所, 楊文慶建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>ssps11009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">109學年度新盛國小公共化幼兒園遊戲場改善計畫工程採購案</td>
+            <td>2021/06/29</td>
+            <td class="text-left">米平方藝術工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>ssps11008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">109學年度新盛國小遊戲場設施改善工程採購案</td>
+            <td>2021/06/03</td>
+            <td class="text-left">米平方藝術工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>ssps11006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">午餐廚房精進工程</td>
+            <td>2021/05/05</td>
+            <td class="text-left">丞裕工程有限公司, 巨匠土木包工業(獨資), 延整開發營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>ssps11007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">校史室及教學環境改善工程</td>
+            <td>2021/04/26</td>
+            <td class="text-left">佺誼室內裝修有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>ssps10909</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學110-111年度午餐廚房瓦斯採購</td>
+            <td>2021/01/28</td>
+            <td class="text-left">幸照企業有限公司, 港聯瓦斯有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps10909" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps10909" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>ssps11002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市新盛國小110年度推展水域運動推廣計畫財務採購</td>
+            <td>2021/01/28</td>
+            <td class="text-left">于軒企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps11002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps11002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>ssps10908</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市東勢區新盛國民小學109學年度畢業生生活體驗營採購</td>
+            <td>2021/01/06</td>
+            <td class="text-left">離憂國際旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.95&job_number=ssps10908" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ssps10908" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-09-02 08:30:45 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
