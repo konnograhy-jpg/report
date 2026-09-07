@@ -1,0 +1,3925 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】海洋委員會海巡署東部分署 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">海洋委員會海巡署東部分署</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">214 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">209 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">13 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">16 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 1 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">新寔電機工業技師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA115026]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">115-116年第一變電站設備汰換工程委託規劃設計及監造</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/04/27</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115026" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA115026" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA115022]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">115-116年度署區辦公大樓電力系統汰換委託規劃設計及監造</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/02/06</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115022" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA115022" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">品悅室內裝修設計工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA115044]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">第三辦公大樓一樓暨三樓空間整修</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/08/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115044" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA115044" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">駿洋室內裝修設計工程股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA115044]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">第三辦公大樓一樓暨三樓空間整修</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/08/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115044" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA115044" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#4</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">李正宇創意美學室內裝修設計有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-4')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-4" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA115044]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">第三辦公大樓一樓暨三樓空間整修</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/08/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115044" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA115044" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#5</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">中奕室內裝修工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-5')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-5" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA115044]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">第三辦公大樓一樓暨三樓空間整修</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/08/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115044" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA115044" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#6</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">岱木營造股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-6')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-6" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA115044]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">第三辦公大樓一樓暨三樓空間整修</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/08/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115044" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA115044" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#7</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鎧鉅工程顧問有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-7')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-7" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA115026]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">115-116年第一變電站設備汰換工程委託規劃設計及監造</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/04/27</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115026" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA115026" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#8</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">雙盛室內裝修工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-8')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-8" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA114043]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">科學儀器檢測室裝修</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114043" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA114043" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">裝修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#9</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">佛恩室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-9')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-9" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA114043]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">科學儀器檢測室裝修</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114043" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA114043" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">裝修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#10</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">繹芯空間設計室內裝修股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-10')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-10" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA114043]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">科學儀器檢測室裝修</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114043" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA114043" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">裝修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#11</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">東丕營造股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-11')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-11" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[021-C006-CCO-03]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">南沙太平島交通基礎整建工程第3號契約變更</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/09/04</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=021-C006-CCO-03" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=021-C006-CCO-03" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#12</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">建程營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-12')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-12" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA111038]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">「關鍵基礎設施電磁脈衝防護建置計畫」-第二巡防區勤指中心電磁脈衝防護統包工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/01/13</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111038" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA111038" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#13</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">凱頓工程股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-13')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-13" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA111025]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">「關鍵基礎設施電磁脈衝防護建置計畫」-第二巡防區勤指中心電磁脈衝防護工程專案管理(含監造)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/07/08</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111025" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA111025" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">監造</span><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#14</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">杜風工程服務股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-14')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-14" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA111025]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">「關鍵基礎設施電磁脈衝防護建置計畫」-第二巡防區勤指中心電磁脈衝防護工程專案管理(含監造)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/07/08</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111025" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA111025" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">監造</span><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#15</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">泳碩有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-15')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-15" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA110032]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">訓練游泳池改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/07/05</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110032" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA110032" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">泳池</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#16</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">寬鼎開發股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-16')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-16" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[CGA110028]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">109-110年海巡運動鞋之後續擴充</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/04/26</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110028" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=CGA110028" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (13 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>CGA115044</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">第三辦公大樓一樓暨三樓空間整修</td>
+            <td>2026/08/31</td>
+            <td class="text-left">品悅室內裝修設計工程有限公司, 駿洋室內裝修設計工程股份有限公司, 李正宇創意美學室內裝修設計有限公司, 中奕室內裝修工程有限公司, 岱木營造股份有限公司</td>
+            <td><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115044" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115044" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>CGA115038</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">勤務指揮中心設備升級及空間優化專案管理(含監造)技術服務案</td>
+            <td>2026/07/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">監造</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115038" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115038" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>CGA115026</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">115-116年第一變電站設備汰換工程委託規劃設計及監造</td>
+            <td>2026/04/27</td>
+            <td class="text-left">鎧鉅工程顧問有限公司, 新寔電機工業技師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115026" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115026" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>CGA115022</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">115-116年度署區辦公大樓電力系統汰換委託規劃設計及監造</td>
+            <td>2026/02/06</td>
+            <td class="text-left">新寔電機工業技師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115022" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115022" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>CGA114043</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">科學儀器檢測室裝修</td>
+            <td>2025/10/16</td>
+            <td class="text-left">雙盛室內裝修工程有限公司, 佛恩室內裝修有限公司, 繹芯空間設計室內裝修股份有限公司</td>
+            <td><span class="kw-tag">裝修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114043" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114043" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>021-C006-CCO-03</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">南沙太平島交通基礎整建工程第3號契約變更</td>
+            <td>2025/09/04</td>
+            <td class="text-left">東丕營造股份有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=021-C006-CCO-03" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=021-C006-CCO-03" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>CGA114021</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">VR設備及海域遊憩安全VR影片</td>
+            <td>2024/11/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">遊憩</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>CGA112029</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">海域安全教育VR互動遊戲及VR設備</td>
+            <td>2023/08/25</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">遊戲</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112029" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112029" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>CGA111038</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">「關鍵基礎設施電磁脈衝防護建置計畫」-第二巡防區勤指中心電磁脈衝防護統包工程採購案</td>
+            <td>2023/01/13</td>
+            <td class="text-left">建程營造工程有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111038" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111038" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>CGA111025</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">「關鍵基礎設施電磁脈衝防護建置計畫」-第二巡防區勤指中心電磁脈衝防護工程專案管理(含監造)</td>
+            <td>2022/07/08</td>
+            <td class="text-left">凱頓工程股份有限公司, 杜風工程服務股份有限公司</td>
+            <td><span class="kw-tag">監造</span><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111025" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111025" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>CGA111014</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">111-113年海巡運動鞋</td>
+            <td>2021/11/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111014" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111014" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>CGA110032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">訓練游泳池改善工程</td>
+            <td>2021/07/05</td>
+            <td class="text-left">泳碩有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">泳池</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>CGA110028</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">109-110年海巡運動鞋之後續擴充</td>
+            <td>2021/04/26</td>
+            <td class="text-left">寬鼎開發股份有限公司</td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (209 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>CGA115042</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">落地式智慧化海域船舶態勢分析系統</td>
+            <td>2026/09/03</td>
+            <td class="text-left">互動國際數位股份有限公司內湖分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115042" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115042" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>CGA115044</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">第三辦公大樓一樓暨三樓空間整修</td>
+            <td>2026/08/31</td>
+            <td class="text-left">品悅室內裝修設計工程有限公司, 駿洋室內裝修設計工程股份有限公司, 李正宇創意美學室內裝修設計有限公司, 中奕室內裝修工程有限公司, 岱木營造股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115044" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115044" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>CGA115007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">岸際監控系統籌建計畫</td>
+            <td>2026/08/31</td>
+            <td class="text-left">遠傳電信股份有限公司系統整合分公司, 皇輝科技股份有限公司, 昕力資訊股份有限公司 (TPIsoftware Corporation), TPIsoftware Corporation</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>CGA115030</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">勤務指揮中心設備升級及空間優化</td>
+            <td>2026/08/27</td>
+            <td class="text-left">圓方科技股份有限公司 (Hypernet Co., Ltd.), Hypernet Co., Ltd.</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115030" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115030" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>CGA116011</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">目標監控室及研析室優化及維護保養</td>
+            <td>2026/08/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA116011" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA116011" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>CGA116008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">116年工作流程電子表單系統維護</td>
+            <td>2026/08/20</td>
+            <td class="text-left">全鼎資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA116008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA116008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>CGA115040</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115至117年度各式油品(含免貨物稅用油)2年期共同供應契約</td>
+            <td>2026/08/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115040" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115040" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>CGA115014</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">海巡中程無人機建置計畫</td>
+            <td>2026/08/11</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115014" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115014" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>CGA115006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-118年海域目標管理共同作業圖像(COP)平台</td>
+            <td>2026/08/04</td>
+            <td class="text-left">財團法人國家實驗研究院國家高速網路與計算中心</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>CGA115019</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">海巡近程無人機建置計畫</td>
+            <td>2026/08/04</td>
+            <td class="text-left">翔隆航太股份有限公司 (DRAGONFLY UNMANNED AIRCRAFT SYSTEMS CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115019" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115019" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>CGA115036</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-117年安檢勤務服</td>
+            <td>2026/07/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115036" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115036" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>CGA115005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-117年資料庫系統維護</td>
+            <td>2026/07/30</td>
+            <td class="text-left">藍新資訊股份有限公司 (NEWEB INFORMATION CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>CGA115010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">港區監視系統籌建計畫</td>
+            <td>2026/07/30</td>
+            <td class="text-left">遠傳電信股份有限公司系統整合分公司, 神耀科技股份有限公司 (MiTAC Advance Technology Corp.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>CGA116007</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116-117年度有線電視之視聽著作公開播送服務</td>
+            <td>2026/07/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA116007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA116007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>CGA115037</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">機關資料傳輸韌性強化暨發放共用基礎平臺建置計畫-全球資訊網功能新增</td>
+            <td>2026/07/27</td>
+            <td class="text-left">全鼎資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115037" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115037" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>CGA115020</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">紅外線熱影像系統</td>
+            <td>2026/07/24</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>CGA116006</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116-117年度消防巡檢及申報</td>
+            <td>2026/07/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA116006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA116006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>CGA116005</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">「第二檔案庫房HFC-227ea自動消防滅火設備」</td>
+            <td>2026/07/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA116005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA116005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>CGA115038</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">勤務指揮中心設備升級及空間優化專案管理(含監造)技術服務案</td>
+            <td>2026/07/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115038" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115038" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>CGA116004</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">汰新工作流程電子表單系統</td>
+            <td>2026/07/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA116004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA116004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>CGA115046</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">勤務指揮中心官兵備勤暨休息室整建優化</td>
+            <td>2026/07/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115046" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115046" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>CGA115016</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">次世代雷達系統</td>
+            <td>2026/07/07</td>
+            <td class="text-left">三商電腦股份有限公司 (MERCURIES DATA SYSTEMS LTD.), 拚願科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115016" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115016" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>CGA115033</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-117年海巡皮鞋</td>
+            <td>2026/06/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115033" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115033" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>CGA115043</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">區域網路交換器汰新</td>
+            <td>2026/06/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115043" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115043" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>CGA115028</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-117年應勤無線電通信系統維護</td>
+            <td>2026/05/29</td>
+            <td class="text-left">至鴻科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>CGA115035</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">餐廳作業區分電箱及照明設備改善</td>
+            <td>2026/05/25</td>
+            <td class="text-left">寶駿國際企業有限公司, 俊沅企業有限公司, 九泰機電工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115035" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115035" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>CGA115017</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">署區消防設備更新汰換</td>
+            <td>2026/05/22</td>
+            <td class="text-left">佺進企業有限公司, 濱谷機電實業有限公司, 乙捷機電有限公司, 玉鑫消防有限公司, 榮樺科實業有限公司, 泰州消防器材有限公司, 鴻安消防科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115017" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115017" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>CGA115026</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-116年第一變電站設備汰換工程委託規劃設計及監造</td>
+            <td>2026/04/27</td>
+            <td class="text-left">鎧鉅工程顧問有限公司, 新寔電機工業技師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115026" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115026" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>CGA115023</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">電熱水器汰換</td>
+            <td>2026/04/22</td>
+            <td class="text-left">奇銘電機有限公司, 五聯企業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>CGA115034</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">應勤無線電通信系統換裝</td>
+            <td>2026/04/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115034" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115034" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>CGA115032</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度政策文宣廣告投放</td>
+            <td>2026/03/10</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>CGA115013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年海巡任務用車</td>
+            <td>2026/02/24</td>
+            <td class="text-left">電智捷汽車股份有限公司, 和泰汽車股份有限公司, HOTAI MOTOR CO., LTD</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>CGA115018</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-117年資訊安全管理系統(ISMS)委外維護</td>
+            <td>2026/02/23</td>
+            <td class="text-left">創逸科技服務有限公司, 策略數位服務有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115018" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115018" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>CGA115022</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-116年度署區辦公大樓電力系統汰換委託規劃設計及監造</td>
+            <td>2026/02/06</td>
+            <td class="text-left">新寔電機工業技師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115022" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115022" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>CGA115027</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">各辧公大樓止滑地墊</td>
+            <td>2026/01/22</td>
+            <td class="text-left">瑞誠高分子科技有限公司, 偉門工程有限公司, 泓詮國際有限公司, 證豪企業有限公司 (CENTURY CARPETS CO., LTD.), 歌斐木有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>CGA115029</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">署區大門AI車牌辨識系統</td>
+            <td>2026/01/19</td>
+            <td class="text-left">東宜資訊股份有限公司, 宏頂科技股份有限公司, 陞云科技股份有限公司 (AVCLOUD TECHNOLOGY CORPORATION), 研勤科技股份有限公司 (研勤科技股份有限公司), 剛鈺股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115029" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115029" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>CGA115031</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-117年決策與情研系統維護</td>
+            <td>2026/01/16</td>
+            <td class="text-left">坤侑科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115031" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115031" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>CGA114041</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">岸海監偵遙控無人機試辦計畫</td>
+            <td>2026/01/05</td>
+            <td class="text-left">台灣彩光科技股份有限公司, 睿智創新科技股份有限公司 (Rayvatek INC.), 經緯航太科技股份有限公司 (GEOSAT Aerospace & Technology Inc.), 自強工程顧問有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114041" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114041" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>CGA115021</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115-116年公務統計系統維護</td>
+            <td>2025/12/10</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>CGA115012</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年至117年海巡廣域網路電信服務</td>
+            <td>2025/11/18</td>
+            <td class="text-left">新世紀資通股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115012" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115012" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>CGA115015</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度海巡季刊（第127期至第130期）</td>
+            <td>2025/11/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>CGA115003</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115-116年資訊機房不斷電系統設備維護</td>
+            <td>2025/10/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>CGA115009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-116年度署區委商清潔維護</td>
+            <td>2025/10/21</td>
+            <td class="text-left">昇億達國際有限公司, 勁澔實業有限公司, 余隆昌行, 悅垠有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>44</td>
+            <td><code>CGA115004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-116年安檢資訊系統維護</td>
+            <td>2025/10/16</td>
+            <td class="text-left">三商電腦股份有限公司 (MERCURIES DATA SYSTEMS LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>45</td>
+            <td><code>CGA114043</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">科學儀器檢測室裝修</td>
+            <td>2025/10/16</td>
+            <td class="text-left">雙盛室內裝修工程有限公司, 佛恩室內裝修有限公司, 繹芯空間設計室內裝修股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114043" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114043" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>46</td>
+            <td><code>CGA114046</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-116年海巡外套</td>
+            <td>2025/10/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114046" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114046" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>47</td>
+            <td><code>CGA115002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度電信服務</td>
+            <td>2025/10/02</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>48</td>
+            <td><code>CGA115008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-116年度署區委商綠化維護</td>
+            <td>2025/09/23</td>
+            <td class="text-left">茗蓮園藝社, 源益園藝工程行, 勝豐園藝有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA115008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA115008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>49</td>
+            <td><code>CGA114038</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-116年海巡便帽</td>
+            <td>2025/09/16</td>
+            <td class="text-left">日月星開發有限公司, 宏志有限公司, 鴻鼎時代股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114038" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114038" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>50</td>
+            <td><code>021-C006-CCO-03</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">南沙太平島交通基礎整建工程第3號契約變更</td>
+            <td>2025/09/04</td>
+            <td class="text-left">東丕營造股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=021-C006-CCO-03" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=021-C006-CCO-03" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>51</td>
+            <td><code>CGA114045</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年微型攝影機</td>
+            <td>2025/08/25</td>
+            <td class="text-left">信基國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114045" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114045" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>52</td>
+            <td><code>CGA114037</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-116年勤務工作鞋</td>
+            <td>2025/08/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114037" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114037" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>53</td>
+            <td><code>CGA114036</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年海巡雨衣</td>
+            <td>2025/07/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114036" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114036" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>54</td>
+            <td><code>CGA114003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「114-115年海巡配件等4項」採購案</td>
+            <td>2025/07/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>55</td>
+            <td><code>CGA114040</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年度海巡政策宣傳推廣</td>
+            <td>2025/07/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114040" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114040" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>56</td>
+            <td><code>CGA114035</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-116年海巡便服</td>
+            <td>2025/06/11</td>
+            <td class="text-left">新世服有限公司, 新光紡織股份有限公司 (SHINKONG TEXTILE CO., LTD.), 橋登企業股份有限公司, JORDON</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114035" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114035" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>57</td>
+            <td><code>CGA114039</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">大膽島778觀測所固定式紅外線熱影像站臺建置</td>
+            <td>2025/05/21</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114039" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114039" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>58</td>
+            <td><code>CGA114018</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">署區消防設備更新汰換</td>
+            <td>2025/04/10</td>
+            <td class="text-left">鴻安消防科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114018" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114018" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>59</td>
+            <td><code>CGA114005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">海巡網路電話系統與電話交換機系統汰換計畫</td>
+            <td>2025/04/07</td>
+            <td class="text-left">台灣固網股份有限公司, 遠傳電信股份有限公司系統整合分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>60</td>
+            <td><code>CGA114016</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年海巡任務用車</td>
+            <td>2025/04/01</td>
+            <td class="text-left">和泰汽車股份有限公司, Hetai Automobile Co., Ltd</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114016" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114016" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>61</td>
+            <td><code>CGA114027</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114至115年118海巡服務系統保養維護</td>
+            <td>2025/04/01</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>62</td>
+            <td><code>CGA114022</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">數據資料分析職能培訓案</td>
+            <td>2025/03/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114022" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114022" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>63</td>
+            <td><code>CGA114001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">旋翼型無人飛行載具114-116年維護</td>
+            <td>2025/03/05</td>
+            <td class="text-left">神耀科技股份有限公司 (MiTAC Advance Technology Corp.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>64</td>
+            <td><code>CGA114013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-118年海巡雷達系統維護</td>
+            <td>2025/02/06</td>
+            <td class="text-left">三商電腦股份有限公司 (MERCURIES DATA SYSTEMS LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>65</td>
+            <td><code>CGA114015</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年紅外線熱影像系統維護</td>
+            <td>2025/01/16</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>66</td>
+            <td><code>CGA114014</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年公開金鑰基礎建設暨單一簽入系統調整與維護</td>
+            <td>2025/01/08</td>
+            <td class="text-left">全景軟體股份有限公司 (Changing Information Technology Inc.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114014" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114014" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>67</td>
+            <td><code>CGA114030</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年視覺化決策輔助分析系統軟體維護</td>
+            <td>2025/01/07</td>
+            <td class="text-left">坤侑科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114030" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114030" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>68</td>
+            <td><code>CGA114008</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">海巡署目標監控室建置案</td>
+            <td>2024/12/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>69</td>
+            <td><code>CGA114006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-116年全球資訊網維護</td>
+            <td>2024/12/26</td>
+            <td class="text-left">全鼎資訊股份有限公司, 威納科技股份有限公司 (UNIDYNAMIC TECHNOLOGIES CO., LTD.), 桓基科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>70</td>
+            <td><code>CGA114024</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度電信服務</td>
+            <td>2024/12/20</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114024" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114024" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>71</td>
+            <td><code>CGA114023</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114-115年海巡常服</td>
+            <td>2024/12/19</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>72</td>
+            <td><code>CGA114031</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">VR設備</td>
+            <td>2024/12/19</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114031" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114031" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>73</td>
+            <td><code>CGA114032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">東、南部及外離島地區雷達監控系統換裝計畫-雷達操控授權軟體</td>
+            <td>2024/12/17</td>
+            <td class="text-left">三商電腦股份有限公司 (MERCURIES DATA SYSTEMS LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>74</td>
+            <td><code>CGA114009</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">人事管理資訊系統建置計畫</td>
+            <td>2024/12/11</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>75</td>
+            <td><code>CGA114028</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年內網動態目錄系統及電子郵件系統維護</td>
+            <td>2024/12/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>76</td>
+            <td><code>CGA114020</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度署區委商清潔維護</td>
+            <td>2024/11/29</td>
+            <td class="text-left">孟津有限公司, 潤豐清潔事業有限公司, 誠鈦公寓大廈管理維護股份有限公司, 昇億達國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>77</td>
+            <td><code>CGA114021</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">VR設備及海域遊憩安全VR影片</td>
+            <td>2024/11/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>78</td>
+            <td><code>CGA114010</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">「軍職人員招募策略及離退原因分析與因應對策」委託研究</td>
+            <td>2024/11/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>79</td>
+            <td><code>CGA113026</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">CGA113026「113-115年安檢勤務服」</td>
+            <td>2024/10/23</td>
+            <td class="text-left">(SHINKONG TEXTILE CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113026" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113026" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>80</td>
+            <td><code>CGA113029</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-115年各式武器暨彈藥委託支援維修及鑑定協議書</td>
+            <td>2024/09/24</td>
+            <td class="text-left">陸軍後勤指揮部</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113029" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113029" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>81</td>
+            <td><code>CGA114004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度有線及衛星電視之視聽著作公開播送服務</td>
+            <td>2024/09/20</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>82</td>
+            <td><code>CGA114011</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年公文線上簽核系統維護</td>
+            <td>2024/09/06</td>
+            <td class="text-left">叡揚資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114011" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114011" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>83</td>
+            <td><code>CGA114019</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">特別行動支援中心研析室114年度維修保養</td>
+            <td>2024/09/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114019" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114019" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>84</td>
+            <td><code>CGA114002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年資料庫系統維護</td>
+            <td>2024/08/28</td>
+            <td class="text-left">藍新資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA114002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA114002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>85</td>
+            <td><code>CGA113028</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113至115年度各式油品(含免貨物稅用油)2年期共同供應契約</td>
+            <td>2024/08/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>86</td>
+            <td><code>CGA113027</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-113年海巡便服後續擴充</td>
+            <td>2024/08/19</td>
+            <td class="text-left">新世服有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>87</td>
+            <td><code>CGA113021</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年常訓服</td>
+            <td>2024/07/24</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>88</td>
+            <td><code>CGA113012</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年偵蒐裝備籌補計畫-手持式熱顯像儀</td>
+            <td>2024/07/17</td>
+            <td class="text-left">司達實業股份有限公司, 諾格科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113012" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113012" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>89</td>
+            <td><code>CGA113020</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-114年海巡皮鞋</td>
+            <td>2024/07/10</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>90</td>
+            <td><code>CGA113025</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">機關資料傳輸韌性強化暨發放共用基礎平台建置計畫-安檢資訊系統功能新增</td>
+            <td>2024/07/05</td>
+            <td class="text-left">三商電腦股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113025" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113025" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>91</td>
+            <td><code>CGA113018</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年海巡雨衣</td>
+            <td>2024/07/04</td>
+            <td class="text-left">卡洛國際有限公司, 紳嘉國際貿易股份有限公司, 麗黛實業有限公司, 鑫囍創業股份有限公司, 元志國際開發有限公司, Jollify Creative, Ltd.</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113018" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113018" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>92</td>
+            <td><code>CGA113024</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年微型攝影機</td>
+            <td>2024/06/18</td>
+            <td class="text-left">信基國際有限公司, 伯悅有限公司, Top Measure Instrument Company</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113024" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113024" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>93</td>
+            <td><code>CGA113023</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">核心系統Fortinet防火牆汰換</td>
+            <td>2024/06/14</td>
+            <td class="text-left">三商電腦股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>94</td>
+            <td><code>CGA113014</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">固定式及機動式紅外線熱影像系統籌建計畫</td>
+            <td>2024/05/09</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113014" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113014" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>95</td>
+            <td><code>CGA113013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">薪資管理系統移轉建置案</td>
+            <td>2024/01/19</td>
+            <td class="text-left">奕祥資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>96</td>
+            <td><code>CGA113008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年海巡任務用車</td>
+            <td>2024/01/12</td>
+            <td class="text-left">東部汽車股份有限公司台東分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>97</td>
+            <td><code>CGA113017</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年海巡岸際雷達系統維護</td>
+            <td>2024/01/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113017" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113017" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>98</td>
+            <td><code>CGA113011</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年海巡偵搜犬飼料</td>
+            <td>2023/12/28</td>
+            <td class="text-left">台灣皇家寵物食品有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113011" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113011" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>99</td>
+            <td><code>CGA113001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-115年智慧型港區監視系統維護</td>
+            <td>2023/12/27</td>
+            <td class="text-left">遠傳電信股份有限公司系統整合分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>100</td>
+            <td><code>CGA113015</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度署區委商清潔維護案</td>
+            <td>2023/12/21</td>
+            <td class="text-left">永詳科技有限公司, 誠鈦公寓大廈管理維護股份有限公司, 達國實業, 綠葉清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>101</td>
+            <td><code>CGA113019</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-115年海情查詢系統委修</td>
+            <td>2023/12/15</td>
+            <td class="text-left">國家中山科學研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113019" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113019" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>102</td>
+            <td><code>CGA113004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-114年海巡外套</td>
+            <td>2023/12/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>103</td>
+            <td><code>CGA113003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-115年工作流程電子表單系統調整與維護</td>
+            <td>2023/11/06</td>
+            <td class="text-left">全鼎資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>104</td>
+            <td><code>CGA113002</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113-114年公務統計系統維護</td>
+            <td>2023/11/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>105</td>
+            <td><code>CGA113009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度電信服務</td>
+            <td>2023/11/03</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>106</td>
+            <td><code>CGA113006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-114年度署區委商綠化維護</td>
+            <td>2023/10/25</td>
+            <td class="text-left">勝豐園藝有限公司, 雍詮股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>107</td>
+            <td><code>CGA112033</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-114年海巡防曬袖套</td>
+            <td>2023/10/25</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112033" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112033" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>108</td>
+            <td><code>CGA113016</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年至114年海巡廣域網路電信服務</td>
+            <td>2023/10/23</td>
+            <td class="text-left">遠傳電信股份有限公司系統整合分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113016" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113016" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>109</td>
+            <td><code>CGA113010</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年度海巡季刊（第119期至第122期）</td>
+            <td>2023/10/19</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>110</td>
+            <td><code>CGA112034</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">海巡工作體驗360度影片5部拍攝製作</td>
+            <td>2023/10/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112034" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112034" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>111</td>
+            <td><code>CGA113005</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113-114年度消防巡檢及申報</td>
+            <td>2023/09/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>112</td>
+            <td><code>CGA113000</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年「九公厘手槍彈」財物採購案</td>
+            <td>2023/09/20</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA113000" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA113000" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>113</td>
+            <td><code>CGA112019</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「旋翼型無人機試辦計畫」</td>
+            <td>2023/09/04</td>
+            <td class="text-left">仲碩科技股份有限公司, 自強工程顧問有限公司, Strong Engineering Consulting Co.,Ltd.</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112019" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112019" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>114</td>
+            <td><code>CGA112029</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">海域安全教育VR互動遊戲及VR設備</td>
+            <td>2023/08/25</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112029" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112029" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>115</td>
+            <td><code>CGA112027</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-114年勤務工作鞋</td>
+            <td>2023/08/24</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>116</td>
+            <td><code>CGA112031</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">113-114年海巡便帽</td>
+            <td>2023/08/01</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112031" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112031" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>117</td>
+            <td><code>CGA112024</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「112-113年滑扣式腰帶」共同供應契約採購案</td>
+            <td>2023/06/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112024" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112024" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>118</td>
+            <td><code>CGA112032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">7.62公厘普通彈(鍊裝)等2項</td>
+            <td>2023/06/16</td>
+            <td class="text-left">國防部軍備局生產製造中心第205廠</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>119</td>
+            <td><code>CGA112009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-113年安檢勤務服</td>
+            <td>2023/05/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>120</td>
+            <td><code>CGA112005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年偵蒐裝備籌補計畫-夜視鏡採購</td>
+            <td>2023/05/17</td>
+            <td class="text-left">立崴股份有限公司, 國安檢測股份有限公司, 芮凡工程有限公司, 漢武工業有限公司, HANWOOD INDUSTRIES COMPANY LTD</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>121</td>
+            <td><code>CGA112004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">建置環島智慧型岸際監控系統試辦計畫</td>
+            <td>2023/05/09</td>
+            <td class="text-left">遠傳電信股份有限公司系統整合分公司, 中華電信股份有限公司企業客戶分公司, 至鴻科技股份有限公司, 富鴻網股份有限公司, 中投有線電視股份有限公司, CNT CATV CO., LTD</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>122</td>
+            <td><code>CGA112025</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年偵蒐裝備籌補計畫-固定式探照燈</td>
+            <td>2023/05/03</td>
+            <td class="text-left">台灣保華電子有限公司, 信基國際有限公司, 振嘉實業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112025" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112025" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>123</td>
+            <td><code>CGA112023</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年防寒外套</td>
+            <td>2023/04/10</td>
+            <td class="text-left">卡洛國際有限公司, 千瀧興業有限公司, 明煜有限公司, 逸品股份有限公司, 達新國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>124</td>
+            <td><code>CGA112026</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-112年勤務工作鞋後續擴充</td>
+            <td>2023/03/09</td>
+            <td class="text-left">阿瘦實業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112026" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112026" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>125</td>
+            <td><code>CGA112010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-118年財物管理資訊系統建置計畫</td>
+            <td>2023/03/02</td>
+            <td class="text-left">關貿網路股份有限公司, 桓基科技股份有限公司, 敦陽科技股份有限公司, 康大資訊股份有限公司, 拓宇網資股份有限公司, 亞瑟國際資訊有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>126</td>
+            <td><code>CGA111029</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「111-113年海巡配件等4項」採購案</td>
+            <td>2023/03/01</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111029" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111029" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>127</td>
+            <td><code>CGA112016</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">第4停車場發電機汰換</td>
+            <td>2023/02/21</td>
+            <td class="text-left">超立電機股份有限公司, 基嘉水電工程有限公司, 永昶水電工程有限公司, 真光宏遠科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112016" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112016" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>128</td>
+            <td><code>CGA111038</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「關鍵基礎設施電磁脈衝防護建置計畫」-第二巡防區勤指中心電磁脈衝防護統包工程採購案</td>
+            <td>2023/01/13</td>
+            <td class="text-left">建程營造工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111038" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111038" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>129</td>
+            <td><code>CGA112022</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-114年應勤無線電通信系統維護</td>
+            <td>2023/01/05</td>
+            <td class="text-left">至鴻科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112022" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112022" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>130</td>
+            <td><code>CGA112018</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112-114年資訊機房不斷電系統設備維護案</td>
+            <td>2023/01/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112018" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112018" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>131</td>
+            <td><code>CGA112007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-114年安檢資訊系統調整與維護</td>
+            <td>2022/12/27</td>
+            <td class="text-left">三商電腦股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>132</td>
+            <td><code>CGA112012</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-114年人事管理資訊系統調整與維護</td>
+            <td>2022/12/23</td>
+            <td class="text-left">全鼎資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112012" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112012" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>133</td>
+            <td><code>CGA112014</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-114年資訊安全管理系統(ISMS)委外維護</td>
+            <td>2022/12/19</td>
+            <td class="text-left">創逸科技服務有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112014" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112014" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>134</td>
+            <td><code>CGA112021</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112至113年度海巡電話交換系統保養維護</td>
+            <td>2022/12/13</td>
+            <td class="text-left">神通資訊科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>135</td>
+            <td><code>CGA112020</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年海巡岸際雷達系統維修、保養</td>
+            <td>2022/12/09</td>
+            <td class="text-left">艾斯特物聯科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>136</td>
+            <td><code>CGA112006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度電信服務</td>
+            <td>2022/12/01</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>137</td>
+            <td><code>CGA112015</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度署區委商清潔維護</td>
+            <td>2022/11/18</td>
+            <td class="text-left">孟津有限公司, 嘉事維工程有限公司, 誠鈦公寓大廈管理維護股份有限公司, 福生國際實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>138</td>
+            <td><code>CGA111030</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-113年海巡常服</td>
+            <td>2022/11/14</td>
+            <td class="text-left">逸品股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111030" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111030" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>139</td>
+            <td><code>CGA112017</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年公務統計系統維護</td>
+            <td>2022/10/31</td>
+            <td class="text-left">慶捷星資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112017" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112017" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>140</td>
+            <td><code>CGA111036</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年隨身水壺</td>
+            <td>2022/10/20</td>
+            <td class="text-left">鴻鼎時代股份有限公司, 上巨泰有限公司, 葦萱實業有限公司, 君耀企業有限公司, 年威企業有限公司, 冠鳴有限公司, 天稜有限公司, 景忠實業股份有限公司, 朝暘興業有限公司, 亮宏實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111036" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111036" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>141</td>
+            <td><code>CGA112008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-113年海巡偵蒐犬醫療照護</td>
+            <td>2022/10/17</td>
+            <td class="text-left">隆安動物醫院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>142</td>
+            <td><code>CGA112011</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度消防巡檢及申報</td>
+            <td>2022/10/13</td>
+            <td class="text-left">鴻安消防科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112011" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112011" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>143</td>
+            <td><code>CGA112013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度署區委商綠化維護</td>
+            <td>2022/10/11</td>
+            <td class="text-left">雍詮股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>144</td>
+            <td><code>CGA112003</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112-113年度各單位報紙訂閱</td>
+            <td>2022/10/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>145</td>
+            <td><code>CGA111040</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">111年偵蒐裝備籌補計畫-固定式探照燈</td>
+            <td>2022/10/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111040" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111040" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>146</td>
+            <td><code>CGA112001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112-113年度有線及衛星電視之視聽著作公開播送服務</td>
+            <td>2022/10/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA112001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA112001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>147</td>
+            <td><code>CGA111032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「手持式熱顯像儀籌補計畫」第三次後續擴充</td>
+            <td>2022/09/15</td>
+            <td class="text-left">科力航太股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>148</td>
+            <td><code>CGA111027</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111至113年度各式油品(含免貨物稅用油)2年期共同供應契約</td>
+            <td>2022/07/25</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>149</td>
+            <td><code>CGA111035</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">9公厘手槍彈等2項</td>
+            <td>2022/07/11</td>
+            <td class="text-left">國防部軍備局生產製造中心第二0五廠</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111035" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111035" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>150</td>
+            <td><code>CGA111025</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「關鍵基礎設施電磁脈衝防護建置計畫」-第二巡防區勤指中心電磁脈衝防護工程專案管理(含監造)</td>
+            <td>2022/07/08</td>
+            <td class="text-left">凱頓工程股份有限公司, 杜風工程服務股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111025" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111025" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>151</td>
+            <td><code>CGA111021</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-113年海巡便服</td>
+            <td>2022/06/20</td>
+            <td class="text-left">新世服有限公司, 新光紡織股份有限公司, 橋登企業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>152</td>
+            <td><code>CGA111031</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年新式安檢勤務服等3項後續擴充</td>
+            <td>2022/06/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111031" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111031" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>153</td>
+            <td><code>CGA111034</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112-113年海巡偵搜犬醫療照護</td>
+            <td>2022/06/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111034" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111034" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>154</td>
+            <td><code>CGA111026</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">岸際雷達系統備援存取設備建置計畫</td>
+            <td>2022/06/13</td>
+            <td class="text-left">三商電腦股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111026" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111026" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>155</td>
+            <td><code>CGA111033</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">111-113年海巡雨衣</td>
+            <td>2022/06/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111033" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111033" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>156</td>
+            <td><code>CGA111024</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年茶葉禮盒採購案</td>
+            <td>2022/05/19</td>
+            <td class="text-left">日出商店, 寶堂茶行有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111024" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111024" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>157</td>
+            <td><code>CGA111028</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">關鍵基礎設施電磁脈衝防護建置計畫–岸際雷達電磁脈衝防護設施委製</td>
+            <td>2022/05/04</td>
+            <td class="text-left">國家中山科學研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>158</td>
+            <td><code>CGA111018</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">研析室會議影像及麥克風系統</td>
+            <td>2022/04/08</td>
+            <td class="text-left">基匠企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111018" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111018" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>159</td>
+            <td><code>CGA111023</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">手持式熱顯像儀籌補計畫後續擴充</td>
+            <td>2022/04/07</td>
+            <td class="text-left">科力航太股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>160</td>
+            <td><code>CGA111015</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">高倍率望遠鏡籌補計畫</td>
+            <td>2022/03/04</td>
+            <td class="text-left">國祥貿易股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>161</td>
+            <td><code>CGA111005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年會議室影音設備改善案</td>
+            <td>2022/03/03</td>
+            <td class="text-left">彥達科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>162</td>
+            <td><code>CGA111011</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度廚房設備改善案</td>
+            <td>2022/03/03</td>
+            <td class="text-left">鑫璽興業有限公司, 緯成興業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111011" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111011" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>163</td>
+            <td><code>CGA110013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">東、南部及外離島地區雷達監控系統換裝計畫</td>
+            <td>2022/03/02</td>
+            <td class="text-left">三商電腦股份有限公司, 達運光電股份有限公司, 台通光電股份有限公司, 宏碁股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>164</td>
+            <td><code>CGA111019</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「109-111年海巡制服研改計畫」後續擴充</td>
+            <td>2022/02/08</td>
+            <td class="text-left">橋登企業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111019" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111019" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>165</td>
+            <td><code>CGA111020</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-113年各式武器暨彈藥委託支援維修及鑑定協議書</td>
+            <td>2022/01/27</td>
+            <td class="text-left">陸軍後勤指揮部</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>166</td>
+            <td><code>CGA110002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">海巡廣域網路及核心區域網路設備汰換計畫</td>
+            <td>2022/01/20</td>
+            <td class="text-left">遠傳電信股份有限公司, 神通資訊科技股份有限公司, 健訊企業有限公司, 皇輝科技股份有限公司, 中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>167</td>
+            <td><code>CGA111003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-112年勤務工作鞋</td>
+            <td>2022/01/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>168</td>
+            <td><code>CGA111012</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-113年公文線上簽核系統調整與維護</td>
+            <td>2021/12/29</td>
+            <td class="text-left">叡揚資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111012" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111012" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>169</td>
+            <td><code>CGA111017</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">109-111年新式海巡便帽</td>
+            <td>2021/12/23</td>
+            <td class="text-left">鴻鼎時代股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111017" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111017" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>170</td>
+            <td><code>CGA111009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-113年全球資訊網維護</td>
+            <td>2021/12/20</td>
+            <td class="text-left">全鼎資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>171</td>
+            <td><code>CGA111008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-112年電子郵件過濾系統維護</td>
+            <td>2021/12/20</td>
+            <td class="text-left">桓基科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>172</td>
+            <td><code>CGA111001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-113年資料庫系統維護</td>
+            <td>2021/12/16</td>
+            <td class="text-left">藍新資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>173</td>
+            <td><code>CGA111016</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-112年海情查詢系統委修</td>
+            <td>2021/12/13</td>
+            <td class="text-left">國家中山科學研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111016" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111016" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>174</td>
+            <td><code>CGA110042</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">灰色地帶研析室及視覺化決策輔助分析系統契約變更</td>
+            <td>2021/12/10</td>
+            <td class="text-left">基匠企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110042" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110042" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>175</td>
+            <td><code>CGA111004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度電信服務</td>
+            <td>2021/12/09</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>176</td>
+            <td><code>CGA111007</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年勤務客貨車1輛</td>
+            <td>2021/12/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>177</td>
+            <td><code>CGA111013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度署區委商綠化維護</td>
+            <td>2021/11/16</td>
+            <td class="text-left">雍詮股份有限公司, 勝豐園藝有限公司, 百興園藝有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>178</td>
+            <td><code>CGA110024</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">海巡視訊會議系統設備汰換計畫</td>
+            <td>2021/11/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110024" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110024" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>179</td>
+            <td><code>CGA111002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度海巡季刊（第111期至第114期）</td>
+            <td>2021/11/11</td>
+            <td class="text-left">加斌有限公司, 慶名有限公司, 捷徑文化出版事業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>180</td>
+            <td><code>CGA111014</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">111-113年海巡運動鞋</td>
+            <td>2021/11/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111014" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111014" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>181</td>
+            <td><code>CGA110040</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">手持式熱顯像儀籌補計畫後續擴充</td>
+            <td>2021/11/05</td>
+            <td class="text-left">科力航太股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110040" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110040" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>182</td>
+            <td><code>CGA111006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">運用衛星寬頻網路傳送海上勤務資訊系統建置計畫111至112年後續擴充採購</td>
+            <td>2021/11/04</td>
+            <td class="text-left">新達電腦股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>183</td>
+            <td><code>CGA111010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度署區委商清潔維護案</td>
+            <td>2021/11/03</td>
+            <td class="text-left">嘉事維工程有限公司, 誠鈦公寓大廈管理維護股份有限公司, 孟津有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA111010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA111010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>184</td>
+            <td><code>CGA110036</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">灰色地帶研析室及視覺化決策輔助分析系統</td>
+            <td>2021/11/01</td>
+            <td class="text-left">基匠企業有限公司, 華經科技股份有限公司, 遠傳電信股份有限公司系統整合分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110036" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110036" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>185</td>
+            <td><code>CGA110026</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年新式安檢勤務服等3項</td>
+            <td>2021/09/01</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110026" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110026" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>186</td>
+            <td><code>CGA110039</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">東沙及烏坵海域船舶監控資訊偵蒐及後傳整合計畫</td>
+            <td>2021/08/16</td>
+            <td class="text-left">三商電腦股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110039" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110039" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>187</td>
+            <td><code>CGA110033</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">手持式熱顯像儀籌補計畫</td>
+            <td>2021/07/28</td>
+            <td class="text-left">科力航太股份有限公司, 信基國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110033" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110033" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>188</td>
+            <td><code>CGA110038</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">9公厘手槍彈72萬粒</td>
+            <td>2021/07/21</td>
+            <td class="text-left">國防部軍備局</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110038" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110038" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>189</td>
+            <td><code>CGA110032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">訓練游泳池改善工程</td>
+            <td>2021/07/05</td>
+            <td class="text-left">泳碩有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>190</td>
+            <td><code>CGA110034</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">自動化核酸分析儀等4項</td>
+            <td>2021/06/17</td>
+            <td class="text-left">瑞基海洋生物科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110034" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110034" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>191</td>
+            <td><code>CGA110035</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">107-109年資安防護管理中心暨資安服務管理維護後續擴充</td>
+            <td>2021/06/11</td>
+            <td class="text-left">遠傳電信股份有限公司系統整合分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110035" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110035" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>192</td>
+            <td><code>CGA110037</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年度海情查詢系統委修</td>
+            <td>2021/06/10</td>
+            <td class="text-left">國家中山科學研究院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110037" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110037" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>193</td>
+            <td><code>CGA110017</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110至111年海巡岸際雷達系統維修、保養</td>
+            <td>2021/06/04</td>
+            <td class="text-left">艾斯特物聯科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110017" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110017" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>194</td>
+            <td><code>CGA110003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110-119年資安防護系統軟、硬體設備籌建計畫</td>
+            <td>2021/05/25</td>
+            <td class="text-left">遠傳電信股份有限公司系統整合分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>195</td>
+            <td><code>CGA110027</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">雷情資訊系統介接交通部航港局船舶自動辨識系統資料</td>
+            <td>2021/05/11</td>
+            <td class="text-left">三商電腦股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>196</td>
+            <td><code>CGA110020</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110-111年資安防護管理中心暨資安服務管理維護</td>
+            <td>2021/05/05</td>
+            <td class="text-left">遠傳電信股份有限公司系統整合分公司, 安碁資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>197</td>
+            <td><code>CGA110028</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">109-110年海巡運動鞋之後續擴充</td>
+            <td>2021/04/26</td>
+            <td class="text-left">寬鼎開發股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>198</td>
+            <td><code>CGA110029</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">海安11號演習船艦主題微型積木禮盒</td>
+            <td>2021/04/20</td>
+            <td class="text-left">柚子軒網路行銷有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110029" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110029" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>199</td>
+            <td><code>CGA110030</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">海安11號演習船艦主題馬克杯禮盒採購案</td>
+            <td>2021/04/20</td>
+            <td class="text-left">台華陶瓷有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110030" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110030" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>200</td>
+            <td><code>CGA110025</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">108-110年勤務工作鞋採購案後續擴充</td>
+            <td>2021/03/30</td>
+            <td class="text-left">老牛皮國際股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110025" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110025" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>201</td>
+            <td><code>CGA110021</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">資通安全防護監控系統、網路傳輸及終端軟、硬體設施淘汰計畫-110年度伺服器</td>
+            <td>2021/03/12</td>
+            <td class="text-left">凱穩電腦股份有限公司, 神通資訊科技股份有限公司, 元特網路科技有限公司, 大同股份有限公司台中分公司, 智聯服務股份有限公司, 技成科技股份有限公司, 伯仲國際股份有限公司, 台灣恩益禧股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>202</td>
+            <td><code>CGA110001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110-112年網域、電子郵件、公開金鑰基礎建設暨單一簽入系統調整與維護</td>
+            <td>2021/03/05</td>
+            <td class="text-left">全景軟體股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>203</td>
+            <td><code>CGA110008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110-112年工作流程電子表單系統維護</td>
+            <td>2021/02/22</td>
+            <td class="text-left">全鼎資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>204</td>
+            <td><code>CGA110014</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">手持式熱顯像儀12具</td>
+            <td>2021/02/20</td>
+            <td class="text-left">司達實業股份有限公司, 強將實業股份有限公司, 殷敬精密工業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110014" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110014" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>205</td>
+            <td><code>CGA110015</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110-111年多功能複合式影印機</td>
+            <td>2021/02/20</td>
+            <td class="text-left">金儀股份有限公司, 佳能國際股份有限公司, 互盛股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>206</td>
+            <td><code>CGA110023</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">四旋翼小型遙控無人機</td>
+            <td>2021/02/20</td>
+            <td class="text-left">翔隆航太有限公司, 仲碩科技股份有限公司, 動控科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>207</td>
+            <td><code>CGA110019</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">固定式探照燈9具</td>
+            <td>2021/02/20</td>
+            <td class="text-left">振嘉實業社(獨資), 信基國際有限公司, 普維得有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110019" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110019" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>208</td>
+            <td><code>CGA110016</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110至111年海巡寬頻網路及電話交換系統保養維護</td>
+            <td>2021/01/20</td>
+            <td class="text-left">神通資訊科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110016" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110016" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>209</td>
+            <td><code>CGA110022</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">財產及物品盤點系統維護</td>
+            <td>2021/01/05</td>
+            <td class="text-left">敦陽科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.47.1&job_number=CGA110022" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CGA110022" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-09-07 08:30:36 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
