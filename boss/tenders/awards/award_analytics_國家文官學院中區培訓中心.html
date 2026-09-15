@@ -1,0 +1,2792 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】國家文官學院中區培訓中心 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">國家文官學院中區培訓中心</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">50 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">50 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">15 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">41 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 3 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">億達營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">4 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (4 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">信義樓外牆防水修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區宿舍外牆防水工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/11/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">宿舍</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111001-1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍修繕第一次工程變更案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/07</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111001-1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111001-1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111001]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍第二期修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/07/14</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111001" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111001" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">浤綾工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">信義樓外牆防水修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區宿舍外牆防水工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/11/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">宿舍</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">角石土木工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">信義樓外牆防水修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區宿舍外牆防水工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/11/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">宿舍</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#4</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鵬達營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-4')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-4" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍搬遷勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/07/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#5</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">及第搬家貨運有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-5')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-5" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍搬遷勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/07/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#6</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">利德人力派遣搬工企業社</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-6')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-6" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍搬遷勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/07/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#7</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">忠誠搬家貨運有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-7')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-7" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍搬遷勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/07/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#8</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">有志貨運物流有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-8')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-8" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍搬遷勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/07/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#9</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">雙福搬家貨運有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-9')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-9" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍搬遷勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/07/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#10</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">糖果搬家貨運有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-10')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-10" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍搬遷勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/07/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#11</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">隆昇土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-11')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-11" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">信義樓外牆防水修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#12</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">金富丞工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-12')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-12" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">信義樓外牆防水修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#13</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">麗瑋土木包工業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-13')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-13" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">信義樓外牆防水修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#14</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">曜贊營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-14')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-14" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">信義樓外牆防水修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#15</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">東鑫營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-15')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-15" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">信義樓外牆防水修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#16</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">豐逸營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-16')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-16" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區宿舍外牆防水工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/11/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">宿舍</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#17</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">越光照明有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-17')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-17" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111004]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年金城社區學員宿舍流理臺採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/10/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111004" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111004" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#18</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">新欣廚具行</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-18')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-18" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111004]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年金城社區學員宿舍流理臺採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/10/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111004" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111004" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#19</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">祥億興業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-19')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-19" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年金城社區學員宿舍窗簾採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/28</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#20</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">亞典家飾設計有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-20')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-20" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年金城社區學員宿舍窗簾採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/28</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#21</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">優美家裝潢材料有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-21')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-21" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年金城社區學員宿舍窗簾採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/28</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#22</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">敦品窗藝館</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-22')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-22" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年金城社區學員宿舍窗簾採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/28</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#23</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">奕捷企業社</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-23')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-23" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年金城社區學員宿舍窗簾採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/28</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#24</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">九冠室內設計有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-24')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-24" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年金城社區學員宿舍窗簾採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/28</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#25</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鼎昱設計企業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-25')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-25" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年金城社區學員宿舍窗簾採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/28</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#26</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">大享窗簾有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-26')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-26" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年金城社區學員宿舍窗簾採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/28</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#27</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">興震益營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-27')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-27" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111006]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">弘道樓2樓女廁整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/15</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111006" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111006" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#28</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">全慶木器廠</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-28')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-28" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111金城社區學員宿舍家具財物採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#29</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">富林室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-29')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-29" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111金城社區學員宿舍家具財物採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#30</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">德芳木業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-30')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-30" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111金城社區學員宿舍家具財物採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#31</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">薩能家具廠</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-31')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-31" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111002]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111金城社區學員宿舍家具財物採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111002" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111002" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#32</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">辰陞室內裝修工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-32')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-32" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111001]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍第二期修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/07/14</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111001" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111001" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#33</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">薩能家具廠(獨資)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-33')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-33" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110007]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">110年金城社區學員宿舍傢俱財物採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/11/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110007" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110007" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#34</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">穩泰傢俱裝潢行(獨資)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-34')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-34" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110007]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">110年金城社區學員宿舍傢俱財物採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/11/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110007" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110007" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#35</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">金品創新室內裝修設計工作室(獨資)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-35')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-35" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110007]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">110年金城社區學員宿舍傢俱財物採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/11/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110007" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110007" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#36</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鼎泰興土木包工業(獨資)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-36')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-36" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110004]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍第一期修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110004" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110004" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#37</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">錦皓營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-37')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-37" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110004]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍第一期修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110004" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110004" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#38</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">志宏建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-38')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-38" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍修繕工程委託規劃設計暨監造技術服務案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/03/17</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#39</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">簡佑霖建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-39')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-39" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110003]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">金城社區學員宿舍修繕工程委託規劃設計暨監造技術服務案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/03/17</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110003" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110003" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span><span class="kw-tag">宿舍</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#40</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鈺全工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-40')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-40" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[109008]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">信義樓學員宿舍防漏隔熱修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/02/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=109008" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=109008" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#41</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">展朋營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-41')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-41" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[109008]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">信義樓學員宿舍防漏隔熱修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/02/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=109008" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=109008" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (15 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>115005</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left font-weight-bold">園區鋪面改善工程委託設計監造技術服務</td>
+            <td>2026/09/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=115005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>114002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">金城社區學員宿舍搬遷勞務採購案</td>
+            <td>2025/07/23</td>
+            <td class="text-left">鵬達營造有限公司, 及第搬家貨運有限公司, 利德人力派遣搬工企業社, 忠誠搬家貨運有限公司, 有志貨運物流有限公司, 雙福搬家貨運有限公司, 糖果搬家貨運有限公司</td>
+            <td><span class="kw-tag">宿舍</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>112003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">信義樓外牆防水修繕工程</td>
+            <td>2023/10/18</td>
+            <td class="text-left">隆昇土木包工業, 浤綾工程有限公司, 角石土木工程有限公司, 金富丞工程有限公司, 億達營造有限公司, 麗瑋土木包工業有限公司, 曜贊營造有限公司, 東鑫營造工程有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>111009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">金城社區宿舍外牆防水工程</td>
+            <td>2022/11/16</td>
+            <td class="text-left">浤綾工程有限公司, 豐逸營造有限公司, 億達營造有限公司, 角石土木工程有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">宿舍</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>111007</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">金城社區宿舍外牆防水工程</td>
+            <td>2022/11/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">宿舍</span><span class="kw-tag">防水</span><span class="kw-tag">外牆</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>111004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">111年金城社區學員宿舍流理臺採購案</td>
+            <td>2022/10/18</td>
+            <td class="text-left">越光照明有限公司, 新欣廚具行</td>
+            <td><span class="kw-tag">宿舍</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>111003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">111年金城社區學員宿舍窗簾採購案</td>
+            <td>2022/09/28</td>
+            <td class="text-left">祥億興業有限公司, 亞典家飾設計有限公司, 優美家裝潢材料有限公司, 敦品窗藝館, 奕捷企業社, 九冠室內設計有限公司, 鼎昱設計企業有限公司, 大享窗簾有限公司</td>
+            <td><span class="kw-tag">宿舍</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>111006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">弘道樓2樓女廁整修工程</td>
+            <td>2022/09/15</td>
+            <td class="text-left">興震益營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>111001-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">金城社區學員宿舍修繕第一次工程變更案</td>
+            <td>2022/09/07</td>
+            <td class="text-left">億達營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111001-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111001-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>111002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">111金城社區學員宿舍家具財物採購案</td>
+            <td>2022/09/02</td>
+            <td class="text-left">全慶木器廠, 富林室內裝修有限公司, 德芳木業有限公司, 薩能家具廠</td>
+            <td><span class="kw-tag">宿舍</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>111001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">金城社區學員宿舍第二期修繕工程</td>
+            <td>2022/07/14</td>
+            <td class="text-left">辰陞室內裝修工程有限公司, 億達營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>110007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">110年金城社區學員宿舍傢俱財物採購案</td>
+            <td>2021/11/29</td>
+            <td class="text-left">薩能家具廠(獨資), 穩泰傢俱裝潢行(獨資), 金品創新室內裝修設計工作室(獨資)</td>
+            <td><span class="kw-tag">宿舍</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>110004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">金城社區學員宿舍第一期修繕工程</td>
+            <td>2021/08/24</td>
+            <td class="text-left">鼎泰興土木包工業(獨資), 錦皓營造工程有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>110003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">金城社區學員宿舍修繕工程委託規劃設計暨監造技術服務案</td>
+            <td>2021/03/17</td>
+            <td class="text-left">志宏建築師事務所, 簡佑霖建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span><span class="kw-tag">宿舍</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>109008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">信義樓學員宿舍防漏隔熱修繕工程</td>
+            <td>2021/02/18</td>
+            <td class="text-left">鈺全工程有限公司, 展朋營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">宿舍</span><span class="kw-tag">隔熱</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=109008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=109008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (50 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>115005</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">園區鋪面改善工程委託設計監造技術服務</td>
+            <td>2026/09/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=115005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>115001</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">116年度伙食團膳採購案</td>
+            <td>2026/09/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=115001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>115004</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年綠美化維護採購案</td>
+            <td>2026/09/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=115004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>B115002-2</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年繳銷牌照公務車標售(第2次)</td>
+            <td>2026/08/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=B115002-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=B115002-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>B115002</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年繳銷牌照公務車標售</td>
+            <td>2026/07/20</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=B115002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=B115002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>B115001</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年報廢財物變賣標售公告</td>
+            <td>2026/06/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=B115001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=B115001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>114005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年綠美化維護採購案</td>
+            <td>2025/12/08</td>
+            <td class="text-left">寬乘園藝有限公司, 敘式環境管理顧問有限公司, 慕樂景觀有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>114006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年環境清潔維護採購案</td>
+            <td>2025/12/01</td>
+            <td class="text-left">綠人清潔實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>114004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年園區伙食採購案</td>
+            <td>2025/11/20</td>
+            <td class="text-left">周氏蝦捲有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>113002-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年講座接送服務採購案</td>
+            <td>2025/10/21</td>
+            <td class="text-left">中彰車隊有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=113002-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113002-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>113004-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度寢具等物品委外清洗服務採購案</td>
+            <td>2025/10/20</td>
+            <td class="text-left">喆亮洗滌廠</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=113004-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113004-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>B114001</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年報廢財物變賣標售</td>
+            <td>2025/07/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=B114001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=B114001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>114003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年園區共用廚房設備油煙水洗機汰換案</td>
+            <td>2025/07/25</td>
+            <td class="text-left">福勇金屬工業有限公司, 紘福不銹鋼工業有限公司, 緯成興業有限公司, 兩昌股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>114002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">金城社區學員宿舍搬遷勞務採購案</td>
+            <td>2025/07/23</td>
+            <td class="text-left">鵬達營造有限公司, 及第搬家貨運有限公司, 利德人力派遣搬工企業社, 忠誠搬家貨運有限公司, 有志貨運物流有限公司, 雙福搬家貨運有限公司, 糖果搬家貨運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>114001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">文教大樓大廳1號電梯設備更新採購</td>
+            <td>2025/02/03</td>
+            <td class="text-left">台灣三菱電梯股份有限公司台中分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=114001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>113001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年園區伙食採購案</td>
+            <td>2024/12/10</td>
+            <td class="text-left">玉美生技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=113001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>113003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年環境清潔及綠美化維護案</td>
+            <td>2024/11/27</td>
+            <td class="text-left">信實公寓大廈管理維護股份有限公司, 耕深園藝景觀有限公司, 福氣企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=113003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>113002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年講座接送服務採購案</td>
+            <td>2024/10/24</td>
+            <td class="text-left">中彰車隊有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=113002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>B113001</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年報廢財物變賣標售</td>
+            <td>2024/10/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=B113001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=B113001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>113004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度寢具等物品委外清洗服務採購案</td>
+            <td>2024/10/18</td>
+            <td class="text-left">喆亮洗滌廠</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=113004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>112004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度寢具等物品委外清洗服務</td>
+            <td>2024/01/05</td>
+            <td class="text-left">喆亮洗滌廠</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>112001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年園區環境清潔維護採購案</td>
+            <td>2023/12/18</td>
+            <td class="text-left">信實公寓大廈管理維護股份有限公司, 綠地環保事業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>112002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年環境綠美化採購案</td>
+            <td>2023/12/18</td>
+            <td class="text-left">耕深園藝景觀有限公司, 可辰工程有限公司, 松村園藝有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>B112001</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112年奉准報廢財產物品變賣</td>
+            <td>2023/10/20</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=B112001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=B112001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>112003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">信義樓外牆防水修繕工程</td>
+            <td>2023/10/18</td>
+            <td class="text-left">隆昇土木包工業, 浤綾工程有限公司, 角石土木工程有限公司, 金富丞工程有限公司, 億達營造有限公司, 麗瑋土木包工業有限公司, 曜贊營造有限公司, 東鑫營造工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=112003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>111010-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度講座接送服務</td>
+            <td>2023/10/13</td>
+            <td class="text-left">大都會平台科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111010-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111010-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>111010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度講座接送服務</td>
+            <td>2022/12/21</td>
+            <td class="text-left">大都會平台科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>111009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">金城社區宿舍外牆防水工程</td>
+            <td>2022/11/16</td>
+            <td class="text-left">浤綾工程有限公司, 豐逸營造有限公司, 億達營造有限公司, 角石土木工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>111008</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112年度講座接送服務</td>
+            <td>2022/11/11</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>111007</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">金城社區宿舍外牆防水工程</td>
+            <td>2022/11/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>110005-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年辦公廳舍清潔維護案</td>
+            <td>2022/10/20</td>
+            <td class="text-left">綠地環保事業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110005-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110005-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>111004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年金城社區學員宿舍流理臺採購案</td>
+            <td>2022/10/18</td>
+            <td class="text-left">越光照明有限公司, 新欣廚具行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>111003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年金城社區學員宿舍窗簾採購案</td>
+            <td>2022/09/28</td>
+            <td class="text-left">祥億興業有限公司, 亞典家飾設計有限公司, 優美家裝潢材料有限公司, 敦品窗藝館, 奕捷企業社, 九冠室內設計有限公司, 鼎昱設計企業有限公司, 大享窗簾有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>111005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年園區環境美化及清潔維護</td>
+            <td>2022/09/27</td>
+            <td class="text-left">榮華公寓大廈管理維護股份有限公司, 宥霖實業有限公司, 靚采有限公司, 誠鈦公寓大廈管理維護股份有限公司, 茗林有限公司, 凱陞金屬企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>109005-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年人文關懷系列與體驗學習課程接送服務案(後續擴充)</td>
+            <td>2022/09/15</td>
+            <td class="text-left">中聯通運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=109005-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=109005-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>111006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">弘道樓2樓女廁整修工程</td>
+            <td>2022/09/15</td>
+            <td class="text-left">興震益營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>109004-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年寢具洗滌服務案(後續擴充)</td>
+            <td>2022/09/15</td>
+            <td class="text-left">海德洗衣店</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=109004-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=109004-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>111001-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">金城社區學員宿舍修繕第一次工程變更案</td>
+            <td>2022/09/07</td>
+            <td class="text-left">億達營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111001-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111001-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>111002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111金城社區學員宿舍家具財物採購案</td>
+            <td>2022/09/02</td>
+            <td class="text-left">全慶木器廠, 富林室內裝修有限公司, 德芳木業有限公司, 薩能家具廠</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>111001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">金城社區學員宿舍第二期修繕工程</td>
+            <td>2022/07/14</td>
+            <td class="text-left">辰陞室內裝修工程有限公司, 億達營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=111001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>110006</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年園區伙食團膳採購案</td>
+            <td>2022/02/07</td>
+            <td class="text-left">興味有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>110005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年辦公廳舍清潔維護案</td>
+            <td>2021/12/09</td>
+            <td class="text-left">綠地環保事業股份有限公司, 誠鈦公寓大廈管理維護股份有限公司, 綠人清潔實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>110007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年金城社區學員宿舍傢俱財物採購案</td>
+            <td>2021/11/29</td>
+            <td class="text-left">薩能家具廠(獨資), 穩泰傢俱裝潢行(獨資), 金品創新室內裝修設計工作室(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>44</td>
+            <td><code>109003-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年園區環境美化及清潔維護</td>
+            <td>2021/11/05</td>
+            <td class="text-left">昱榆伶綠美化股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=109003-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=109003-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>45</td>
+            <td><code>109004-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年寢具洗滌服務案</td>
+            <td>2021/10/15</td>
+            <td class="text-left">海德洗衣店(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=109004-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=109004-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>46</td>
+            <td><code>109005-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年人文關懷系列與體驗學習課程接送服務案</td>
+            <td>2021/10/08</td>
+            <td class="text-left">中聯通運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=109005-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=109005-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>47</td>
+            <td><code>109002-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度講座接送服務</td>
+            <td>2021/09/17</td>
+            <td class="text-left">元山交通企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=109002-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=109002-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>48</td>
+            <td><code>110004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">金城社區學員宿舍第一期修繕工程</td>
+            <td>2021/08/24</td>
+            <td class="text-left">鼎泰興土木包工業(獨資), 錦皓營造工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>49</td>
+            <td><code>110003</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">金城社區學員宿舍修繕工程委託規劃設計暨監造技術服務案</td>
+            <td>2021/03/17</td>
+            <td class="text-left">志宏建築師事務所, 簡佑霖建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=110003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>50</td>
+            <td><code>109008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">信義樓學員宿舍防漏隔熱修繕工程</td>
+            <td>2021/02/18</td>
+            <td class="text-left">鈺全工程有限公司, 展朋營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=6.4.2.2&job_number=109008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=109008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-09-15 08:30:27 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
