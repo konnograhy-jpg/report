@@ -1,27 +1,24 @@
 {
-  "headers": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive, nosnippet"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/boss",
-      "destination": "/api/view-report?path=tenders.html"
+      "src": "/(.*)",
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet"
+      },
+      "continue": true
     },
     {
-      "source": "/boss/",
-      "destination": "/api/view-report?path=tenders.html"
+      "src": "^/boss(?:/|/index\\.html)?$",
+      "dest": "/api/view-report?path=tenders.html"
     },
     {
-      "source": "/boss/(.*)",
-      "destination": "/api/view-report?path=$1"
+      "src": "^/boss/tenders\\.html$",
+      "dest": "/api/view-report?path=tenders.html"
+    },
+    {
+      "src": "^/boss/(.*)$",
+      "dest": "/api/view-report?path=$1"
     }
   ]
 }
+
