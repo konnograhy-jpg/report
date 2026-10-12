@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】臺中市立光榮國民中學 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">臺中市立光榮國民中學</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">71 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">71 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">12 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">16 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 1 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">全筑營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-114-0520-01]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市光榮國民中學改善無障礙校園環境(新建無障礙電梯)工程採購案(第1次契約變更)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/08/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0520-01" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-114-0520-01" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-114-0520]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市光榮國民中學改善無障礙校園環境(新建無障礙電梯)工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/06/27</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0520" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-114-0520" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">光貿室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-114-1007]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度改善及充實身心障礙資源班設施設備整修工程案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-1007" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-114-1007" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">中部營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-114-0527]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市光榮國民中學伸縮縫修繕工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/07/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0527" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-114-0527" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#4</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鎔燿營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-4')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-4" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-114-0520]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市光榮國民中學改善無障礙校園環境(新建無障礙電梯)工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/06/27</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0520" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-114-0520" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#5</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">台創工程技術顧問有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-5')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-5" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-114-0203]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市立光榮國民中學伸縮縫修繕工程委託規劃設計監造技術服務勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/02/26</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0203" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-114-0203" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#6</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">陳明楠建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-6')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-6" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-114-0203]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市立光榮國民中學伸縮縫修繕工程委託規劃設計監造技術服務勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/02/26</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0203" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-114-0203" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#7</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">泰相建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-7')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-7" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-114-0114]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市光榮國民中學改善無障礙校園環境(新建無障礙電梯)委託規劃設計監造技術服務勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/02/07</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0114" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-114-0114" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#8</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">匯築室內裝修實業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-8')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-8" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-113-1202]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">光榮館前地坪整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/12/20</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-1202" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-113-1202" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">地坪</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#9</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">勤聚營建管理顧問股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-9')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-9" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-113-1202]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">光榮館前地坪整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/12/20</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-1202" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-113-1202" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">地坪</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#10</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">山城營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-10')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-10" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-112-0922]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">勤學樓東側、西側廁所與弘道樓東側廁所改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/09/27</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0922" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-112-0922" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#11</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">國善營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-11')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-11" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-112-0922]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">勤學樓東側、西側廁所與弘道樓東側廁所改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/09/27</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0922" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-112-0922" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#12</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">昶瑋營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-12')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-12" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-112-0922]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">勤學樓東側、西側廁所與弘道樓東側廁所改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/09/27</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0922" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-112-0922" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#13</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">常圓室內裝修科技有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-13')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-13" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-111-0616]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">台中市立光榮國中互動多媒體情境教室改造計畫採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/07/13</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-0616" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-111-0616" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#14</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">僑泰鑫健康事業股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-14')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-14" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-110-0512]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">台中市立光榮國中推動學校划船運動申請器材計畫採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/05/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0512" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-110-0512" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#15</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">欣洸國際有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-15')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-15" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-110-0512]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">台中市立光榮國中推動學校划船運動申請器材計畫採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/05/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0512" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-110-0512" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#16</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">總貿消防工程行(獨資)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-16')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-16" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[krjh-110-0316]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市立光榮國民中學改善消防設備整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/04/26</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0316" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=krjh-110-0316" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (12 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>krjh-115-1007</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left font-weight-bold">弘道樓西側廁所改善工程委託規劃設計監造技術服務採購案</td>
+            <td>2026/10/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-115-1007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-115-1007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>krjh-114-0520-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市光榮國民中學改善無障礙校園環境(新建無障礙電梯)工程採購案(第1次契約變更)</td>
+            <td>2026/08/03</td>
+            <td class="text-left">全筑營造工程有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0520-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0520-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>krjh-114-1007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">114年度改善及充實身心障礙資源班設施設備整修工程案</td>
+            <td>2025/10/23</td>
+            <td class="text-left">光貿室內裝修有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-1007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-1007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>krjh-114-0527</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市光榮國民中學伸縮縫修繕工程採購案</td>
+            <td>2025/07/03</td>
+            <td class="text-left">中部營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0527" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0527" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>krjh-114-0520</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市光榮國民中學改善無障礙校園環境(新建無障礙電梯)工程採購案</td>
+            <td>2025/06/27</td>
+            <td class="text-left">鎔燿營造有限公司, 全筑營造工程有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0520" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0520" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>krjh-114-0203</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市立光榮國民中學伸縮縫修繕工程委託規劃設計監造技術服務勞務採購案</td>
+            <td>2025/02/26</td>
+            <td class="text-left">台創工程技術顧問有限公司, 陳明楠建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0203" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0203" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>krjh-114-0114</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市光榮國民中學改善無障礙校園環境(新建無障礙電梯)委託規劃設計監造技術服務勞務採購案</td>
+            <td>2025/02/07</td>
+            <td class="text-left">泰相建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0114" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0114" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>krjh-113-1202</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">光榮館前地坪整修工程</td>
+            <td>2024/12/20</td>
+            <td class="text-left">匯築室內裝修實業有限公司, 勤聚營建管理顧問股份有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">地坪</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-1202" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-1202" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>krjh-112-0922</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">勤學樓東側、西側廁所與弘道樓東側廁所改善工程</td>
+            <td>2023/09/27</td>
+            <td class="text-left">山城營造工程有限公司, 國善營造有限公司, 昶瑋營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0922" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0922" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>krjh-111-0616</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">台中市立光榮國中互動多媒體情境教室改造計畫採購案</td>
+            <td>2022/07/13</td>
+            <td class="text-left">常圓室內裝修科技有限公司</td>
+            <td><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-0616" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-0616" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>krjh-110-0512</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">台中市立光榮國中推動學校划船運動申請器材計畫採購</td>
+            <td>2021/05/24</td>
+            <td class="text-left">僑泰鑫健康事業股份有限公司, 欣洸國際有限公司</td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0512" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-0512" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>krjh-110-0316</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市立光榮國民中學改善消防設備整修工程</td>
+            <td>2021/04/26</td>
+            <td class="text-left">總貿消防工程行(獨資)</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0316" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-0316" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (71 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>krjh-115-1007</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">弘道樓西側廁所改善工程委託規劃設計監造技術服務採購案</td>
+            <td>2026/10/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-115-1007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-115-1007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>krjh-115-0902</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市立光榮國民中學115學年度增購可調式課桌椅案</td>
+            <td>2026/09/29</td>
+            <td class="text-left">欣美實業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-115-0902" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-115-0902" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>krjh-115-0707</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度學生午餐團膳採購</td>
+            <td>2026/08/17</td>
+            <td class="text-left">昱品美食股份有限公司, 潔達有限公司, 香豪佳食品有限公司, 全富食品有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-115-0707" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-115-0707" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>krjh-115-0630</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度午餐食材-水果類採購案</td>
+            <td>2026/08/04</td>
+            <td class="text-left">來來青果有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-115-0630" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-115-0630" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>krjh-114-0520-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市光榮國民中學改善無障礙校園環境(新建無障礙電梯)工程採購案(第1次契約變更)</td>
+            <td>2026/08/03</td>
+            <td class="text-left">全筑營造工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0520-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0520-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>krjh-115-0608</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度八年級戶外教育隔宿露營活動</td>
+            <td>2026/06/26</td>
+            <td class="text-left">遠流旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-115-0608" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-115-0608" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>krjh-115-0427</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度九年級戶外教育活動</td>
+            <td>2026/06/05</td>
+            <td class="text-left">花翎旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-115-0427" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-115-0427" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>krjh-115-0317</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市立光榮國民中學汰換自強樓老舊電梯案</td>
+            <td>2026/04/14</td>
+            <td class="text-left">六川電梯工業股份有限公司, 佳生工程企業有限公司, 新原機電有限公司 (Xin Yuan Electromechanical Co., Ltd.), 中兆盛機電有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-115-0317" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-115-0317" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>krjh-115-0313</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度學生畢業紀念冊暨個人照相採購案</td>
+            <td>2026/04/13</td>
+            <td class="text-left">亞提斯形象創意有限公司, 瀚磊文化事業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-115-0313" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-115-0313" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>krjh-115-0312</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市立光榮國民中學校園監控系統案</td>
+            <td>2026/04/08</td>
+            <td class="text-left">銘基安全科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-115-0312" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-115-0312" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>krjh-114-1202</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度神戶市大原中學教育旅行採購案</td>
+            <td>2025/12/18</td>
+            <td class="text-left">威力旅行社有限公司 (Wili Travel Service CO.,LTD)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-1202" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-1202" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>krjh-114-1107</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">本校自強樓老舊電梯汰換採購</td>
+            <td>2025/11/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-1107" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-1107" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>krjh-114-1007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度改善及充實身心障礙資源班設施設備整修工程案</td>
+            <td>2025/10/23</td>
+            <td class="text-left">光貿室內裝修有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-1007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-1007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>krjh-114-0919</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度七年級戶外教育活動</td>
+            <td>2025/10/13</td>
+            <td class="text-left">南和觀光旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0919" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0919" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>krjh-114-0714</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度午餐食材-水果類採購案</td>
+            <td>2025/08/06</td>
+            <td class="text-left">來來青果有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0714" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0714" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>krjh-114-0630</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度學生午餐團膳採購</td>
+            <td>2025/07/23</td>
+            <td class="text-left">昱品美食股份有限公司, 香豪佳食品有限公司, 潔達有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0630" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0630" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>krjh-114-0527</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市光榮國民中學伸縮縫修繕工程採購案</td>
+            <td>2025/07/03</td>
+            <td class="text-left">中部營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0527" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0527" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>krjh-114-0520</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市光榮國民中學改善無障礙校園環境(新建無障礙電梯)工程採購案</td>
+            <td>2025/06/27</td>
+            <td class="text-left">鎔燿營造有限公司, 全筑營造工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0520" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0520" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>krjh-114-0602</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">校園電話系統改善及更新案</td>
+            <td>2025/06/25</td>
+            <td class="text-left">銘基安全科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0602" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0602" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>krjh-114-0429</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度八年級戶外教育隔宿露營活動</td>
+            <td>2025/05/22</td>
+            <td class="text-left">遠流旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0429" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0429" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>krjh-114-0327</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度九年級戶外教育活動</td>
+            <td>2025/05/02</td>
+            <td class="text-left">花翎旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0327" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0327" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>krjh-114-0325</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度高中職教育暨國中適性輔導教育博覽會採購案</td>
+            <td>2025/04/17</td>
+            <td class="text-left">永農展覽建築科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0325" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0325" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>krjh-114-0326</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度臺中市國中技藝競賽得獎作品成果展暨表揚大會</td>
+            <td>2025/04/17</td>
+            <td class="text-left">永農展覽建築科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0326" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0326" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>krjh-114-0303</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度學生畢業紀念冊暨個人照相採購案</td>
+            <td>2025/03/27</td>
+            <td class="text-left">亞提斯形象創意有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0303" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0303" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>krjh-114-0203</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市立光榮國民中學伸縮縫修繕工程委託規劃設計監造技術服務勞務採購案</td>
+            <td>2025/02/26</td>
+            <td class="text-left">台創工程技術顧問有限公司, 陳明楠建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0203" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0203" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>krjh-114-0114</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市光榮國民中學改善無障礙校園環境(新建無障礙電梯)委託規劃設計監造技術服務勞務採購案</td>
+            <td>2025/02/07</td>
+            <td class="text-left">泰相建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-114-0114" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-114-0114" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>krjh-113-1202</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">光榮館前地坪整修工程</td>
+            <td>2024/12/20</td>
+            <td class="text-left">匯築室內裝修實業有限公司, 勤聚營建管理顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-1202" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-1202" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>krjh-113-0902</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市立光榮國民中學木製講桌及高腳椅</td>
+            <td>2024/12/05</td>
+            <td class="text-left">楚昕木業有限公司, 拓越資訊有限公司, 宅嶼居工作室</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-0902" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-0902" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>krjh-113-1007</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度七年級戶外教育活動</td>
+            <td>2024/11/01</td>
+            <td class="text-left">南和觀光旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-1007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-1007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>krjh-113-0827</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度臺中市立光榮國民中學七年級與八年級閩南語教科圖書</td>
+            <td>2024/08/27</td>
+            <td class="text-left">真平企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-0827" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-0827" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>krjh-113-0704</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度學生午餐團膳採購</td>
+            <td>2024/08/23</td>
+            <td class="text-left">昱品美食股份有限公司, 潔達有限公司, 香豪佳食品有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-0704" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-0704" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>krjh-113-0814</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度校園數位內容與教學軟體</td>
+            <td>2024/08/15</td>
+            <td class="text-left">鴻綸科技股份有限公司, 智域國際股份有限公司, 晶盛科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-0814" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-0814" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>krjh-113-0730</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度午餐食材-水果類採購案</td>
+            <td>2024/08/05</td>
+            <td class="text-left">來來青果行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-0730" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-0730" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>krjh-113-0709</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市立光榮國民中學消防設備改善案</td>
+            <td>2024/07/23</td>
+            <td class="text-left">宏銳工程企業社, 帛大工程行, 業齊消防安全設備工程有限公司, 世盛消防設備檢修有限公司, 得暉消防工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-0709" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-0709" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>krjh-113-0516</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度學生畢業紀念冊暨個人照相採購案</td>
+            <td>2024/07/04</td>
+            <td class="text-left">瀚磊文化事業有限公司, 美司文化事業股份有限公司, 城堡藝術文化有限公司, 亞提斯形象創意有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-0516" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-0516" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>krjh-113-0530</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度八年級戶外教育隔宿露營活動</td>
+            <td>2024/06/13</td>
+            <td class="text-left">三峰旅行社有限公司, 遠流旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-0530" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-0530" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>krjh-113-0507</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度九年級戶外教育活動</td>
+            <td>2024/05/23</td>
+            <td class="text-left">花翎旅行社股份有限公司, 離憂國際旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-113-0507" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-113-0507" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>krjh-112-1123</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度臺中市推動數位學習典範學校交流參訪</td>
+            <td>2023/11/29</td>
+            <td class="text-left">威力旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-1123" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-1123" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>krjh-112-1025</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度七年級戶外教育活動</td>
+            <td>2023/11/10</td>
+            <td class="text-left">南和觀光旅行社股份有限公司, 離憂國際旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-1025" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-1025" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>krjh-112-0922</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">勤學樓東側、西側廁所與弘道樓東側廁所改善工程</td>
+            <td>2023/09/27</td>
+            <td class="text-left">山城營造工程有限公司, 國善營造有限公司, 昶瑋營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0922" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0922" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>krjh-112-0818</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112 學年度學生午餐團膳採購</td>
+            <td>2023/08/28</td>
+            <td class="text-left">香豪佳食品有限公司, 昱品美食股份有限公司, 潔達有限公司, 飪珍記食品股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0818" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0818" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>krjh-112-0822</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「112學年度第一學期七、八年級閩南語教科書」採購案</td>
+            <td>2023/08/23</td>
+            <td class="text-left">真平企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0822" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0822" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>krjh-112-0815</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度午餐食材-水果類採購案</td>
+            <td>2023/08/16</td>
+            <td class="text-left">來來青果行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0815" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0815" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>44</td>
+            <td><code>krjh-112-0811</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">台中市立光榮國中智慧互動式黑板系統建置採購案</td>
+            <td>2023/08/14</td>
+            <td class="text-left">創源國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0811" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0811" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>45</td>
+            <td><code>krjh-112-0609</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度八年級戶外教育隔宿露營活動</td>
+            <td>2023/08/04</td>
+            <td class="text-left">花翎旅行社股份有限公司, 遠流旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0609" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0609" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>46</td>
+            <td><code>krjh-112-0727</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112學年度學生午餐團膳採購</td>
+            <td>2023/07/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0727" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0727" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>47</td>
+            <td><code>krjh-112-0626</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112學年度學生午餐團膳採購</td>
+            <td>2023/06/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0626" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0626" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>48</td>
+            <td><code>krjh-112-0427</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度九年級戶外教育活動</td>
+            <td>2023/05/12</td>
+            <td class="text-left">南和觀光旅行社股份有限公司, 離憂國際旅行社有限公司, 花翎旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0427" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0427" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>49</td>
+            <td><code>krjh-112-0330</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度學生畢業紀念冊暨個人照相採購案</td>
+            <td>2023/04/11</td>
+            <td class="text-left">億典有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-112-0330" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-112-0330" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>50</td>
+            <td><code>krjh-111-1115</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">台中市立光榮國中「111年校園數位內容及教學軟體」採購案</td>
+            <td>2022/11/16</td>
+            <td class="text-left">翰林教育科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-1115" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-1115" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>51</td>
+            <td><code>krjh-111-1027</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111學年度七年級戶外教育活動</td>
+            <td>2022/10/28</td>
+            <td class="text-left">南和觀光旅行社股份有限公司, 離憂國際旅行社有限公司, 獨一旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-1027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-1027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>52</td>
+            <td><code>krjh-111-1020</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111學年度八年級戶外教育隔宿露營活動</td>
+            <td>2022/10/24</td>
+            <td class="text-left">威力旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-1020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-1020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>53</td>
+            <td><code>krjh-111-1013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111學年度學生畢業紀念冊暨個人照相採購案</td>
+            <td>2022/10/13</td>
+            <td class="text-left">億典有限公司, 唐吉訶德企業有限公司, 黑色調有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-1013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-1013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>54</td>
+            <td><code>krjh-111-0818</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111學年度午餐食材-水果類採購案</td>
+            <td>2022/09/01</td>
+            <td class="text-left">來來青果行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-0818" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-0818" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>55</td>
+            <td><code>krjh-111-0804</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111學年度學生午餐團膳採購</td>
+            <td>2022/08/15</td>
+            <td class="text-left">貝佳實業有限公司, 飪珍記食品股份有限公司, 潔達有限公司, 香豪佳食品有限公司, 佳愛餐盒食品廠, 昱品美食股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-0804" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-0804" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>56</td>
+            <td><code>krjh-111-0628</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111學年度九年級戶外教育活動</td>
+            <td>2022/07/26</td>
+            <td class="text-left">南和觀光旅行社股份有限公司, 離憂國際旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-0628" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-0628" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>57</td>
+            <td><code>krjh-111-0616</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">台中市立光榮國中互動多媒體情境教室改造計畫採購案</td>
+            <td>2022/07/13</td>
+            <td class="text-left">常圓室內裝修科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-0616" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-0616" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>58</td>
+            <td><code>krjh-111-0118</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度八年級戶外教育隔宿露營活動</td>
+            <td>2022/03/08</td>
+            <td class="text-left">威力旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-0118" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-0118" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>59</td>
+            <td><code>krjh-111-0120</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度七年級戶外教育活動</td>
+            <td>2022/02/10</td>
+            <td class="text-left">離憂國際旅行社有限公司, 南和觀光旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-111-0120" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-111-0120" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>60</td>
+            <td><code>krjh-110-1214</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">110學年度八年級戶外教育隔宿露營活動</td>
+            <td>2022/01/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-1214" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-1214" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>61</td>
+            <td><code>krjh-110-1102</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度學生畢業紀念冊暨個人照相採購案</td>
+            <td>2021/11/03</td>
+            <td class="text-left">唐吉訶德企業有限公司, 黑色調有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-1102" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-1102" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>62</td>
+            <td><code>krjh-110-1103</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年春暉輔導團團務交流與典範分享活動</td>
+            <td>2021/11/03</td>
+            <td class="text-left">琳達旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-1103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-1103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>63</td>
+            <td><code>krjh-110-1005</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110 學年度九年級戶外教育活動</td>
+            <td>2021/10/28</td>
+            <td class="text-left">離憂國際旅行社有限公司, 南和觀光旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-1005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-1005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>64</td>
+            <td><code>krjh-110-0803</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度學生午餐團膳採購</td>
+            <td>2021/08/17</td>
+            <td class="text-left">貝佳實業有限公司, 飪珍記食品股份有限公司, 昱品美食股份有限公司, 香豪佳食品有限公司, 佳愛餐盒食品廠</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0803" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-0803" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>65</td>
+            <td><code>krjh-110-0713</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度午餐食材-水果類採購案</td>
+            <td>2021/07/21</td>
+            <td class="text-left">來來青果行(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0713" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-0713" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>66</td>
+            <td><code>krjh-110-0629</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市立光榮國民中學110學年度新型課桌椅採購案</td>
+            <td>2021/07/07</td>
+            <td class="text-left">三弘木業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0629" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-0629" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>67</td>
+            <td><code>krjh-110-0512</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">台中市立光榮國中推動學校划船運動申請器材計畫採購</td>
+            <td>2021/05/24</td>
+            <td class="text-left">僑泰鑫健康事業股份有限公司, 欣洸國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0512" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-0512" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>68</td>
+            <td><code>krjh-110-0330</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">光榮國民中學改善校園數位廣播系統設備採購案</td>
+            <td>2021/05/07</td>
+            <td class="text-left">常圓室內裝修科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0330" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-0330" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>69</td>
+            <td><code>krjh-110-0316</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市立光榮國民中學改善消防設備整修工程</td>
+            <td>2021/04/26</td>
+            <td class="text-left">總貿消防工程行(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0316" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-0316" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>70</td>
+            <td><code>krjh-110-0119</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">109學年度一年級戶外教育活動</td>
+            <td>2021/04/23</td>
+            <td class="text-left">汎洋旅行社股份有限公司, 南和觀光旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-110-0119" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-110-0119" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>71</td>
+            <td><code>krjh-109-1223</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">109學年度二年級戶外教育隔宿露營活動</td>
+            <td>2021/01/08</td>
+            <td class="text-left">千禧旅行社有限公司, 獨一旅行社有限公司, 汎洋旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.6.6&job_number=krjh-109-1223" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=krjh-109-1223" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-10-12 08:31:00 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
