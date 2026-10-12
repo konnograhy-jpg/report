@@ -1358,7 +1358,14 @@ def main():
                     timestamp_key = f"{parts[-2]}_{parts[-1]}"
                     date_part = parts[-2]
                     time_part = parts[-1]
-                    file_time_str = f"{date_part[:4]}/{date_part[4:6]}/{date_part[6:8]} {time_part[:2]}:{time_part[2:]}"
+                    weekdays = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
+                    weekday_str = ""
+                    try:
+                        dt_obj = datetime.strptime(date_part, "%Y%m%d")
+                        weekday_str = f" ({weekdays[dt_obj.weekday()]})"
+                    except Exception:
+                        pass
+                    file_time_str = f"{date_part[:4]}/{date_part[4:6]}/{date_part[6:8]}{weekday_str} {time_part[:2]}:{time_part[2:]}"
                 
                 try:
                     with open(f_path, 'r', encoding='utf-8') as tf:
