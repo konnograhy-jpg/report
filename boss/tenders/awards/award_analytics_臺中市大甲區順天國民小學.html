@@ -1,0 +1,3274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】臺中市大甲區順天國民小學 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">臺中市大甲區順天國民小學</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">54 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">54 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">31 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">45 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 6 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">運杰企業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">5 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (5 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1150417]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小115年校園遊戲場更新改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/05/04</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150417" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1150417" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130705]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">113年度順天國小綜合球場圍籬整建採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/10/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130705" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130705" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">球場</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130704]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小綜合球場整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/09/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130704" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130704" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">球場</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130301]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小113年度校園遊戲場改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/04/15</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130301" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130301" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1110402]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學運動操場及跑道整建工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/05/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110402" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1110402" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">運動</span><span class="kw-tag">操場</span><span class="kw-tag">跑道</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">宏展土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">3 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (3 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130703]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">113年度改善無障礙校園環境計畫-順天國小綜合大樓東側無障礙坡道改善工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/10/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130703" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130703" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130705]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">113年度順天國小綜合球場圍籬整建採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/10/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130705" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130705" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">球場</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1121102]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學附設幼兒園112年度增設2歲專班整建修繕工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/11/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1121102" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1121102" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">拓越資訊有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130603]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小113年度課後照顧班智慧教室設備採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130603" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130603" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1121103]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小112年度智慧教室建置採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/12/06</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1121103" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1121103" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#4</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">駿承營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-4')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-4" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1111101]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年度改善無障礙校園環境計畫-臺中市大甲區順天國民小學綜合大樓無障礙坡道工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/12/15</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1111101" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1111101" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1106]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學綜合大樓B棟校舍耐震補強工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/05/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1106" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1106" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#5</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">張揚東建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-5')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-5" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1110102]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學運動操場及跑道整建工程委託技術服務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/03/07</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110102" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1110102" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span><span class="kw-tag">運動</span><span class="kw-tag">操場</span><span class="kw-tag">跑道</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1108]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學警衛室改建暨圍牆綠美化工程委託技術服務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/06/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1108" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1108" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#6</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">康鼎勤業股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-6')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-6" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1105]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學公共化幼兒園遊戲場改善計畫採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/06/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1105" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1105" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1109]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學兒童遊戲場改善計畫採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/06/09</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1109" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1109" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#7</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">玖樘室內裝修工程行</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-7')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-7" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1150520]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">115年度順天國小科任大樓老舊廁所整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/06/01</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150520" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1150520" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#8</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">群大工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-8')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-8" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1150402]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天創藝享閱空間改造工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/05/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150402" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1150402" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#9</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">華森葳國際教育用品有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-9')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-9" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1150417]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小115年校園遊戲場更新改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/05/04</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150417" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1150417" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#10</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">寶慶鴻國際有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-10')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-10" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1150417]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小115年校園遊戲場更新改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/05/04</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150417" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1150417" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#11</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">三鋭國際有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-11')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-11" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1150417]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小115年校園遊戲場更新改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/05/04</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150417" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1150417" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#12</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">黃銘賢建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-12')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-12" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1141106]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天創藝享閱空間改造工程委託技術服務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/11/14</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141106" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1141106" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#13</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">奕橙室內裝修設計有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-13')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-13" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1141009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小資源班教室整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1141009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#14</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">匯築室內裝修實業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-14')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-14" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1141009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小資源班教室整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1141009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#15</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">禾竺室內裝修工作室</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-15')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-15" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1141009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小資源班教室整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1141009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#16</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">八分室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-16')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-16" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1141009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小資源班教室整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1141009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#17</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">道登室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-17')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-17" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1141009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小資源班教室整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1141009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#18</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">晨森室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-18')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-18" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1141009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小資源班教室整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1141009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#19</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">利奇室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-19')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-19" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1141009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小資源班教室整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1141009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#20</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">禾曜天森室內裝修設計美學有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-20')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-20" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1141009]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小資源班教室整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141009" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1141009" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#21</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">薪動健康科技有限公司 (Woxin Technology Ltd.)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-21')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-21" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1140911]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小附設幼兒園遊戲場防撞牆改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/09/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140911" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1140911" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#22</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">崎昕企業社</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-22')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-22" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1140911]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小附設幼兒園遊戲場防撞牆改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/09/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140911" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1140911" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#23</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">泓育國際有限公司 (Duduzui, Inc.)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-23')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-23" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1140911]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小附設幼兒園遊戲場防撞牆改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/09/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140911" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1140911" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#24</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">洺冠科技有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-24')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-24" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1140911]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度順天國小附設幼兒園遊戲場防撞牆改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/09/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140911" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1140911" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#25</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">福珈實業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-25')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-25" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130704]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小綜合球場整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/09/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130704" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130704" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">球場</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#26</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">復裕工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-26')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-26" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130704]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小綜合球場整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/09/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130704" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130704" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">球場</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#27</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">泰煌土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-27')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-27" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130704]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小綜合球場整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/09/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130704" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130704" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">球場</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#28</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">遠健資訊有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-28')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-28" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130603]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小113年度課後照顧班智慧教室設備採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130603" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130603" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#29</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">宏華資訊科技有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-29')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-29" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130603]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小113年度課後照顧班智慧教室設備採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130603" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130603" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#30</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">禾鑫資訊有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-30')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-30" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130603]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小113年度課後照顧班智慧教室設備採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130603" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130603" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#31</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">晶盛科技股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-31')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-31" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130603]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小113年度課後照顧班智慧教室設備採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130603" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130603" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#32</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">羅佳格建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-32')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-32" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130503]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小綜合球場整修工程委託技術服務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/05/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130503" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130503" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">技術服務</span><span class="kw-tag">球場</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#33</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">寰翰實業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-33')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-33" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130301]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小113年度校園遊戲場改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/04/15</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130301" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130301" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#34</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">東文心教材用品社</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-34')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-34" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1130301]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小113年度校園遊戲場改善採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/04/15</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130301" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1130301" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">遊戲</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#35</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">華禹數位文創有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-35')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-35" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1121103]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">順天國小112年度智慧教室建置採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/12/06</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1121103" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1121103" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#36</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">山城營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-36')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-36" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1110302]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學警衛室改建暨圍牆綠美化工程採購案(第一次修改後)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/04/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110302" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1110302" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#37</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">泓信電器工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-37')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-37" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1110301]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學專科教室冷氣安裝配電及計費系統裝設採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/04/08</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110301" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1110301" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#38</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">宏展土木包工業(獨資)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-38')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-38" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1101101]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學綜合大樓老舊廁所整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/12/10</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1101101" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1101101" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#39</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">築欣營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-39')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-39" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1101101]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學綜合大樓老舊廁所整修工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/12/10</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1101101" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1101101" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#40</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">冠能電機技師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-40')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-40" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1091201]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市中小學電力系統改善工程委託設計監造案(第42群)第二次契約變更</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/07/28</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1091201" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1091201" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#41</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">力金有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-41')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-41" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs11010]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">台中市中小學電力系統改善工程(第42群)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/06/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs11010" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs11010" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#42</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">暐達水電工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-42')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-42" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs11010]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">台中市中小學電力系統改善工程(第42群)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/06/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs11010" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs11010" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#43</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">大圓水電企業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-43')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-43" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs11010]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">台中市中小學電力系統改善工程(第42群)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/06/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs11010" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs11010" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#44</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鼎三土木包工業(獨資)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-44')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-44" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1106]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學綜合大樓B棟校舍耐震補強工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/05/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1106" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1106" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#45</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">駿毅營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-45')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-45" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[stgs1106]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺中市大甲區順天國民小學綜合大樓B棟校舍耐震補強工程採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/05/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1106" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=stgs1106" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (31 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>stgs1151013</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left font-weight-bold">順天國小附設幼兒園115年度改善及充實教學環境設施設備工程委託技術服務採購案</td>
+            <td>2026/10/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1151013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1151013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>stgs1150520</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">115年度順天國小科任大樓老舊廁所整修工程</td>
+            <td>2026/06/01</td>
+            <td class="text-left">玖樘室內裝修工程行</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150520" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1150520" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>stgs1150402</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">順天創藝享閱空間改造工程採購案</td>
+            <td>2026/05/12</td>
+            <td class="text-left">群大工程有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1150402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>stgs1150417</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">順天國小115年校園遊戲場更新改善採購案</td>
+            <td>2026/05/04</td>
+            <td class="text-left">華森葳國際教育用品有限公司, 寶慶鴻國際有限公司, 三鋭國際有限公司, 運杰企業有限公司</td>
+            <td><span class="kw-tag">遊戲</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150417" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1150417" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>stgs1141106</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">順天創藝享閱空間改造工程委託技術服務採購案</td>
+            <td>2025/11/14</td>
+            <td class="text-left">黃銘賢建築師事務所</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141106" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1141106" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>stgs1141009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">114年度順天國小資源班教室整修工程採購案</td>
+            <td>2025/10/22</td>
+            <td class="text-left">奕橙室內裝修設計有限公司, 匯築室內裝修實業有限公司, 禾竺室內裝修工作室, 八分室內裝修有限公司, 道登室內裝修有限公司, 晨森室內裝修有限公司, 利奇室內裝修有限公司, 禾曜天森室內裝修設計美學有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1141009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>stgs1140911</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">114年度順天國小附設幼兒園遊戲場防撞牆改善採購案</td>
+            <td>2025/09/22</td>
+            <td class="text-left">薪動健康科技有限公司 (Woxin Technology Ltd.), 崎昕企業社, 泓育國際有限公司 (Duduzui, Inc.), 洺冠科技有限公司</td>
+            <td><span class="kw-tag">遊戲</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140911" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1140911" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>stgs1140701</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">順天創藝享閱空間改造工程委託技術服務採購案</td>
+            <td>2025/09/01</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1140701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>stgs1130703</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">113年度改善無障礙校園環境計畫-順天國小綜合大樓東側無障礙坡道改善工程採購案</td>
+            <td>2024/10/24</td>
+            <td class="text-left">宏展土木包工業</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130703" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130703" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>stgs1130705</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">113年度順天國小綜合球場圍籬整建採購案</td>
+            <td>2024/10/24</td>
+            <td class="text-left">運杰企業有限公司, 宏展土木包工業</td>
+            <td><span class="kw-tag">球場</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130705" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130705" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>stgs1130704</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">順天國小綜合球場整修工程採購案</td>
+            <td>2024/09/23</td>
+            <td class="text-left">福珈實業有限公司, 復裕工程有限公司, 運杰企業有限公司, 泰煌土木包工業</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">球場</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130704" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130704" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>stgs1130603</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">順天國小113年度課後照顧班智慧教室設備採購案</td>
+            <td>2024/07/03</td>
+            <td class="text-left">遠健資訊有限公司, 宏華資訊科技有限公司, 禾鑫資訊有限公司, 拓越資訊有限公司, 晶盛科技股份有限公司</td>
+            <td><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130603" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130603" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>stgs1130503</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">順天國小綜合球場整修工程委託技術服務採購案</td>
+            <td>2024/05/29</td>
+            <td class="text-left">羅佳格建築師事務所</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">技術服務</span><span class="kw-tag">球場</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130503" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130503" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>stgs1130301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">順天國小113年度校園遊戲場改善採購案</td>
+            <td>2024/04/15</td>
+            <td class="text-left">運杰企業有限公司, 寰翰實業有限公司, 東文心教材用品社</td>
+            <td><span class="kw-tag">遊戲</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>stgs1121103</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">順天國小112年度智慧教室建置採購案</td>
+            <td>2023/12/06</td>
+            <td class="text-left">華禹數位文創有限公司, 拓越資訊有限公司</td>
+            <td><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1121103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1121103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>stgs1121102</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學附設幼兒園112年度增設2歲專班整建修繕工程採購案</td>
+            <td>2023/11/30</td>
+            <td class="text-left">宏展土木包工業</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1121102" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1121102" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>stgs1111101</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">111年度改善無障礙校園環境計畫-臺中市大甲區順天國民小學綜合大樓無障礙坡道工程採購案</td>
+            <td>2022/12/15</td>
+            <td class="text-left">駿承營造有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1111101" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1111101" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>stgs1110901</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">111年度改善無障礙校園環境計畫-臺中市大甲區順天國民小學綜合大樓無障礙坡道工程採購案</td>
+            <td>2022/10/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110901" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110901" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>stgs1110402</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學運動操場及跑道整建工程採購案</td>
+            <td>2022/05/30</td>
+            <td class="text-left">運杰企業有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">運動</span><span class="kw-tag">操場</span><span class="kw-tag">跑道</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>stgs1110302</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學警衛室改建暨圍牆綠美化工程採購案(第一次修改後)</td>
+            <td>2022/04/18</td>
+            <td class="text-left">山城營造工程有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110302" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110302" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>stgs1110301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學專科教室冷氣安裝配電及計費系統裝設採購案</td>
+            <td>2022/04/08</td>
+            <td class="text-left">泓信電器工程有限公司</td>
+            <td><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>stgs1101201</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學警衛室改建暨圍牆綠美化工程採購案</td>
+            <td>2022/03/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1101201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1101201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>stgs1110102</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學運動操場及跑道整建工程委託技術服務採購案</td>
+            <td>2022/03/07</td>
+            <td class="text-left">張揚東建築師事務所</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span><span class="kw-tag">運動</span><span class="kw-tag">操場</span><span class="kw-tag">跑道</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110102" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110102" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>stgs1101101</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學綜合大樓老舊廁所整修工程採購案</td>
+            <td>2021/12/10</td>
+            <td class="text-left">宏展土木包工業(獨資), 築欣營造工程有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1101101" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1101101" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>stgs1091201</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市中小學電力系統改善工程委託設計監造案(第42群)第二次契約變更</td>
+            <td>2021/07/28</td>
+            <td class="text-left">冠能電機技師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1091201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1091201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>stgs11010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">台中市中小學電力系統改善工程(第42群)</td>
+            <td>2021/06/24</td>
+            <td class="text-left">力金有限公司, 暐達水電工程有限公司, 大圓水電企業有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs11010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs11010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>stgs1108</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學警衛室改建暨圍牆綠美化工程委託技術服務採購案</td>
+            <td>2021/06/23</td>
+            <td class="text-left">張揚東建築師事務所</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1108" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1108" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>stgs1105</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學公共化幼兒園遊戲場改善計畫採購案</td>
+            <td>2021/06/23</td>
+            <td class="text-left">康鼎勤業股份有限公司</td>
+            <td><span class="kw-tag">遊戲</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1105" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1105" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>stgs1109</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學兒童遊戲場改善計畫採購案</td>
+            <td>2021/06/09</td>
+            <td class="text-left">康鼎勤業股份有限公司</td>
+            <td><span class="kw-tag">遊戲</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1109" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1109" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>stgs1106</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學綜合大樓B棟校舍耐震補強工程採購案</td>
+            <td>2021/05/03</td>
+            <td class="text-left">駿承營造有限公司, 鼎三土木包工業(獨資), 駿毅營造有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1106" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1106" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>stgs1103</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">臺中市大甲區順天國民小學綜合大樓B棟校舍耐震補強工程</td>
+            <td>2021/03/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (54 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>stgs1151013</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">順天國小附設幼兒園115年度改善及充實教學環境設施設備工程委託技術服務採購案</td>
+            <td>2026/10/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1151013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1151013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>stgs1150731</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小115學年度戶外教育採購案</td>
+            <td>2026/08/04</td>
+            <td class="text-left">信達旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150731" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1150731" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>stgs1150722</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小115學年度午餐水果採購案</td>
+            <td>2026/08/04</td>
+            <td class="text-left">來來青果有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150722" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1150722" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>stgs1150520</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度順天國小科任大樓老舊廁所整修工程</td>
+            <td>2026/06/01</td>
+            <td class="text-left">玖樘室內裝修工程行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150520" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1150520" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>stgs1150402</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天創藝享閱空間改造工程採購案</td>
+            <td>2026/05/12</td>
+            <td class="text-left">群大工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1150402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>stgs1150417</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小115年校園遊戲場更新改善採購案</td>
+            <td>2026/05/04</td>
+            <td class="text-left">華森葳國際教育用品有限公司, 寶慶鴻國際有限公司, 三鋭國際有限公司, 運杰企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1150417" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1150417" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>stgs1141106</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天創藝享閱空間改造工程委託技術服務採購案</td>
+            <td>2025/11/14</td>
+            <td class="text-left">黃銘賢建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141106" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1141106" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>stgs1141009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度順天國小資源班教室整修工程採購案</td>
+            <td>2025/10/22</td>
+            <td class="text-left">奕橙室內裝修設計有限公司, 匯築室內裝修實業有限公司, 禾竺室內裝修工作室, 八分室內裝修有限公司, 道登室內裝修有限公司, 晨森室內裝修有限公司, 利奇室內裝修有限公司, 禾曜天森室內裝修設計美學有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1141009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>stgs1141002</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小114學年度戶外教育採購案</td>
+            <td>2025/10/13</td>
+            <td class="text-left">信達旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1141002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1141002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>stgs1140911</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度順天國小附設幼兒園遊戲場防撞牆改善採購案</td>
+            <td>2025/09/22</td>
+            <td class="text-left">薪動健康科技有限公司 (Woxin Technology Ltd.), 崎昕企業社, 泓育國際有限公司 (Duduzui, Inc.), 洺冠科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140911" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1140911" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>stgs1140701</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">順天創藝享閱空間改造工程委託技術服務採購案</td>
+            <td>2025/09/01</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1140701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>stgs1140601</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國⺠⼩學附設幼兒園114學年度⾷材供應採購案</td>
+            <td>2025/07/17</td>
+            <td class="text-left">美食園事業有限公司, 美麗人生空中超市股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1140601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>stgs1140602</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小114學年度午餐水果採購案</td>
+            <td>2025/06/20</td>
+            <td class="text-left">來來青果有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140602" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1140602" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>stgs1140301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小113年汰舊換新身心障礙學生交通車(附尾門輪椅昇降機)採購案</td>
+            <td>2025/04/21</td>
+            <td class="text-left">成昇實業股份有限公司, 大淯汽車股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1140301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1140301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>stgs1131201</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">順天國小113年汰舊換新身心障礙學生交通車(附尾門輪椅昇降機)採購案</td>
+            <td>2025/01/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1131201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1131201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>stgs1130703</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度改善無障礙校園環境計畫-順天國小綜合大樓東側無障礙坡道改善工程採購案</td>
+            <td>2024/10/24</td>
+            <td class="text-left">宏展土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130703" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130703" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>stgs1130705</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度順天國小綜合球場圍籬整建採購案</td>
+            <td>2024/10/24</td>
+            <td class="text-left">運杰企業有限公司, 宏展土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130705" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130705" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>stgs1130704</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小綜合球場整修工程採購案</td>
+            <td>2024/09/23</td>
+            <td class="text-left">福珈實業有限公司, 復裕工程有限公司, 運杰企業有限公司, 泰煌土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130704" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130704" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>stgs1130901</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">順天國小113學年度戶外教育採購案</td>
+            <td>2024/09/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130901" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130901" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>stgs1130701</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區大甲、文昌、順天、日南國民小學及清水區高美國民小學113學年度午餐團膳聯合採購案</td>
+            <td>2024/07/15</td>
+            <td class="text-left">大新餐盒食品工廠, 吉米食品有限公司, 聯引餐盒廠, 侑芳食品廠</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>stgs1130603</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小113年度課後照顧班智慧教室設備採購案</td>
+            <td>2024/07/03</td>
+            <td class="text-left">遠健資訊有限公司, 宏華資訊科技有限公司, 禾鑫資訊有限公司, 拓越資訊有限公司, 晶盛科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130603" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130603" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>stgs1130504</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國民小學附設幼兒園113學年度食材供應採購案</td>
+            <td>2024/06/28</td>
+            <td class="text-left">美麗人生空中超市股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130504" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130504" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>stgs1130601</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺中市大甲區大甲、文昌、順天、日南國民小學及清水區高美國民小學113學年度午餐團膳聯合採購案</td>
+            <td>2024/06/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>stgs1130602</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小113學年度午餐水果採購案</td>
+            <td>2024/06/18</td>
+            <td class="text-left">來來青果行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130602" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130602" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>stgs1130503</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小綜合球場整修工程委託技術服務採購案</td>
+            <td>2024/05/29</td>
+            <td class="text-left">羅佳格建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130503" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130503" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>stgs1130501</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺中市大甲區大甲、文昌、順天、日南國民小學及清水區高美國民小學113學年度午餐團膳聯合採購案</td>
+            <td>2024/05/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>stgs1130301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小113年度校園遊戲場改善採購案</td>
+            <td>2024/04/15</td>
+            <td class="text-left">運杰企業有限公司, 寰翰實業有限公司, 東文心教材用品社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1130301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1130301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>stgs1121103</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小112年度智慧教室建置採購案</td>
+            <td>2023/12/06</td>
+            <td class="text-left">華禹數位文創有限公司, 拓越資訊有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1121103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1121103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>stgs1121102</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學附設幼兒園112年度增設2歲專班整建修繕工程採購案</td>
+            <td>2023/11/30</td>
+            <td class="text-left">宏展土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1121102" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1121102" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>stgs1121101</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">順天國小112學年度戶外教育採購案</td>
+            <td>2023/11/17</td>
+            <td class="text-left">信達旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1121101" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1121101" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>stgs1121001</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學112學年度戶外教育採購案</td>
+            <td>2023/11/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1121001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1121001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>stgs1120502</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學附設幼兒園112學年度食材供應採購案</td>
+            <td>2023/07/03</td>
+            <td class="text-left">美麗人生空中超市股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1120502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1120502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>stgs1120601</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學112學年度午餐水果採購案</td>
+            <td>2023/06/29</td>
+            <td class="text-left">來來青果行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1120601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1120601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>stgs1111101</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度改善無障礙校園環境計畫-臺中市大甲區順天國民小學綜合大樓無障礙坡道工程採購案</td>
+            <td>2022/12/15</td>
+            <td class="text-left">駿承營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1111101" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1111101" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>stgs1111001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學111學年度戶外教育採購案</td>
+            <td>2022/11/01</td>
+            <td class="text-left">信達旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1111001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1111001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>stgs1110901</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年度改善無障礙校園環境計畫-臺中市大甲區順天國民小學綜合大樓無障礙坡道工程採購案</td>
+            <td>2022/10/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110901" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110901" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>stgs1110701</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學111學年度午餐水果採購案</td>
+            <td>2022/08/01</td>
+            <td class="text-left">來來青果行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>stgs1110402</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學運動操場及跑道整建工程採購案</td>
+            <td>2022/05/30</td>
+            <td class="text-left">運杰企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>stgs1110401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學附設幼兒園111學年度食材供應採購案</td>
+            <td>2022/05/23</td>
+            <td class="text-left">美麗人生空中超市股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>stgs1110302</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學警衛室改建暨圍牆綠美化工程採購案(第一次修改後)</td>
+            <td>2022/04/18</td>
+            <td class="text-left">山城營造工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110302" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110302" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>stgs1110301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學專科教室冷氣安裝配電及計費系統裝設採購案</td>
+            <td>2022/04/08</td>
+            <td class="text-left">泓信電器工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>stgs1101201</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學警衛室改建暨圍牆綠美化工程採購案</td>
+            <td>2022/03/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1101201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1101201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>stgs1110102</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學運動操場及跑道整建工程委託技術服務採購案</td>
+            <td>2022/03/07</td>
+            <td class="text-left">張揚東建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1110102" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1110102" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>44</td>
+            <td><code>stgs1101101</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學綜合大樓老舊廁所整修工程採購案</td>
+            <td>2021/12/10</td>
+            <td class="text-left">宏展土木包工業(獨資), 築欣營造工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1101101" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1101101" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>45</td>
+            <td><code>stgs1101103</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學110學年度戶外教育採購案</td>
+            <td>2021/12/08</td>
+            <td class="text-left">離憂國際旅行社有限公司, 信達旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1101103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1101103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>46</td>
+            <td><code>stgs1091201</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市中小學電力系統改善工程委託設計監造案(第42群)第二次契約變更</td>
+            <td>2021/07/28</td>
+            <td class="text-left">冠能電機技師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1091201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1091201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>47</td>
+            <td><code>stgs1201</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國小附設幼兒園110學年度食材供應採購案</td>
+            <td>2021/07/28</td>
+            <td class="text-left">美麗人生空中超市股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>48</td>
+            <td><code>stgs1202</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學110學年度臺中市政府教育局補助水果採購案</td>
+            <td>2021/07/27</td>
+            <td class="text-left">來來青果行(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1202" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1202" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>49</td>
+            <td><code>stgs11010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">台中市中小學電力系統改善工程(第42群)</td>
+            <td>2021/06/24</td>
+            <td class="text-left">力金有限公司, 暐達水電工程有限公司, 大圓水電企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs11010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs11010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>50</td>
+            <td><code>stgs1108</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學警衛室改建暨圍牆綠美化工程委託技術服務採購案</td>
+            <td>2021/06/23</td>
+            <td class="text-left">張揚東建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1108" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1108" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>51</td>
+            <td><code>stgs1105</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學公共化幼兒園遊戲場改善計畫採購案</td>
+            <td>2021/06/23</td>
+            <td class="text-left">康鼎勤業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1105" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1105" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>52</td>
+            <td><code>stgs1109</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學兒童遊戲場改善計畫採購案</td>
+            <td>2021/06/09</td>
+            <td class="text-left">康鼎勤業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1109" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1109" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>53</td>
+            <td><code>stgs1106</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學綜合大樓B棟校舍耐震補強工程採購案</td>
+            <td>2021/05/03</td>
+            <td class="text-left">駿承營造有限公司, 鼎三土木包工業(獨資), 駿毅營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1106" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1106" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>54</td>
+            <td><code>stgs1103</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺中市大甲區順天國民小學綜合大樓B棟校舍耐震補強工程</td>
+            <td>2021/03/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.87.8.38&job_number=stgs1103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=stgs1103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-10-13 08:31:17 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
