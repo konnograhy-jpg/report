@@ -275,6 +275,403 @@
             from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* ── 標案智慧搜尋系統 ── */
+        .search-section {
+            background: rgba(17, 24, 39, 0.75);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .search-section:focus-within {
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35), 0 0 20px rgba(245, 158, 11, 0.1);
+        }
+
+        .search-bar-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-input-wrap {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon-inside {
+            position: absolute;
+            left: 14px;
+            font-size: 16px;
+            color: var(--muted);
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+
+        .search-input-wrap:focus-within .search-icon-inside {
+            color: var(--accent);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 38px 12px 42px;
+            background: rgba(10, 15, 30, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            background: rgba(10, 15, 30, 0.95);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+        }
+
+        .search-clear-btn {
+            position: absolute;
+            right: 12px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--muted);
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .search-clear-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text);
+        }
+
+        /* 篩選與開關區 */
+        .search-controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* 等標期按鈕 (Pill) */
+        .filter-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+
+        .filter-toggle-btn:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .filter-toggle-btn.active {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: #10b981;
+            color: #34d399;
+            box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+        }
+
+        .filter-toggle-btn .toggle-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #64748b;
+            transition: all 0.2s;
+        }
+
+        .filter-toggle-btn.active .toggle-indicator {
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        /* 快速關鍵字標籤 */
+        .quick-tags-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .quick-tag-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-right: 2px;
+        }
+
+        .quick-tag {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-tag:hover {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.3);
+            color: #fcd34d;
+        }
+
+        /* 搜尋統計列 */
+        .search-stats-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .search-stats-highlight {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .reset-link-btn {
+            background: none;
+            border: none;
+            color: #60a5fa;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+        }
+
+        .reset-link-btn:hover {
+            color: #93c5fd;
+        }
+
+        /* 搜尋結果卡片 */
+        .search-results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .search-tender-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 20px 24px;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .search-tender-card:hover {
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .card-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .agency-pill {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            background: rgba(59, 130, 246, 0.12);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        .agency-pill.school {
+            background: rgba(239, 68, 68, 0.12);
+            color: #f87171;
+            border-color: rgba(239, 68, 68, 0.25);
+        }
+
+        .deadline-pill {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .deadline-pill.active-plenty {
+            background: rgba(16, 185, 129, 0.12);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .deadline-pill.active-urgent {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            animation: pulse 1.8s infinite;
+        }
+
+        .deadline-pill.expired {
+            background: rgba(100, 116, 139, 0.12);
+            color: #94a3b8;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .tender-name-title {
+            font-size: 16px;
+            font-weight: 800;
+            line-height: 1.5;
+            color: var(--text);
+            word-break: break-all;
+        }
+
+        .tender-name-title mark.kw-hl,
+        .agency-pill mark.kw-hl {
+            background: rgba(245, 158, 11, 0.3);
+            color: #fef08a;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 800;
+        }
+
+        .tender-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 8px 16px;
+            padding: 10px 14px;
+            background: rgba(10, 15, 30, 0.5);
+            border-radius: 10px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .meta-item strong {
+            color: #cbd5e1;
+        }
+
+        .meta-budget {
+            color: #fcd34d !important;
+            font-weight: 800;
+        }
+
+        .card-actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .action-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .action-link-btn.btn-pcc {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .action-link-btn.btn-pcc:hover {
+            background: #10b981;
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+
+        .action-link-btn.btn-report {
+            background: rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .action-link-btn.btn-report:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        /* 查無結果卡片 */
+        .no-result-card {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--surface);
+            border: 1px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            color: var(--muted);
+        }
+
+        .no-result-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .no-result-text {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .no-result-sub {
+            font-size: 13px;
+        }
+
     </style>
 </head>
 <body>
@@ -295,315 +692,363 @@
 
 <!-- 主內容 -->
 <div class="main">
+
+    <!-- ── 標案智慧搜尋工具列 ── -->
+    <div class="search-section fade-up">
+        <div class="search-bar-row">
+            <div class="search-input-wrap">
+                <span class="search-icon-inside">🔍</span>
+                <input type="text" id="tender-search-input" class="search-input" placeholder="輸入關鍵字 (可同時搜機關與標案，如: 武崙國小、跑道、體育...)" autocomplete="off">
+                <button type="button" id="search-clear-btn" class="search-clear-btn" title="清除搜尋">✕</button>
+            </div>
+        </div>
+        <div class="search-controls-row">
+            <div class="filter-group">
+                <button type="button" id="filter-active-btn" class="filter-toggle-btn" title="切換：只顯示等標期尚未截止之有效標案">
+                    <span class="toggle-indicator"></span>
+                    <span>⏳ 等標期內 (未截止)</span>
+                    <span id="active-count-badge" style="font-size: 11px; opacity: 0.85;">(計算中)</span>
+                </button>
+            </div>
+            <div class="quick-tags-wrap">
+                <span class="quick-tag-label">熱門快搜：</span>
+                <span class="quick-tag" data-kw="國小">國小</span>
+                <span class="quick-tag" data-kw="跑道">跑道</span>
+                <span class="quick-tag" data-kw="運動">運動</span>
+                <span class="quick-tag" data-kw="廁所">廁所</span>
+                <span class="quick-tag" data-kw="修繕">修繕</span>
+                <span class="quick-tag" data-kw="技術服務">技術服務</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── 搜尋結果專區 (預設隱藏) ── -->
+    <div id="search-results-section" style="display: none;">
+        <div class="search-stats-bar" id="search-stats-bar">
+            <span id="search-stats-text">正在檢索標案...</span>
+            <button type="button" id="search-reset-all" class="reset-link-btn">返回歷史清單</button>
+        </div>
+        <div class="section-header">
+            <div class="section-label">🎯 符合條件的標案清單</div>
+            <div class="section-line"></div>
+        </div>
+        <div id="search-results-list" class="search-results-list">
+            <!-- 搜尋結果動態注入 -->
+        </div>
+    </div>
+
+    <!-- ── 歷史更新公告 (平時顯示，搜尋時隱藏) ── -->
+    <div id="history-section">
     <div class="section-header fade-up">
         <div class="section-label">📅 歷史更新公告 (最新置頂)</div>
         <div class="section-line"></div>
     </div>
 
     <div class="report-list fade-up">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!-- DYNAMIC_TENDERS_START -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!-- DYNAMIC_TENDERS_START -->
         <a href="tenders/tenders_2026_10_21_20261021_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/21 (星期三) 08:30 標案公告整理 (2026/10/21)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 55 筆標案 · 7 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/21 08:30 標案公告整理 (2026/10/21)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 55 筆標案 · 7 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_20_下午_20261020_1740.html" class="report-card fade-up" style="border-left: 4px solid #3b82f6; margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/20 (星期二) 17:40 標案下午更新 (2026/10/20-下午)</div>
-                    <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 2 筆</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/20 17:40 標案下午更新 (2026/10/20-下午)</div>
+            <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 2 筆</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_20_20261020_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/20 (星期二) 08:30 標案公告整理 (2026/10/20)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 49 筆標案 · 8 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/20 08:30 標案公告整理 (2026/10/20)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 49 筆標案 · 8 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_19_下午_20261019_1740.html" class="report-card fade-up" style="border-left: 4px solid #3b82f6; margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/19 (星期一) 17:40 標案下午更新 (2026/10/19-下午)</div>
-                    <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/19 17:40 標案下午更新 (2026/10/19-下午)</div>
+            <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_19_20261019_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/19 (星期一) 08:30 標案公告整理 (2026/10/19)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 44 筆標案 · 9 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/19 08:30 標案公告整理 (2026/10/19)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 44 筆標案 · 9 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_16_下午_20261016_1740.html" class="report-card fade-up" style="border-left: 4px solid #3b82f6; margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/16 (星期五) 17:40 標案下午更新 (2026/10/16-下午)</div>
-                    <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 5 筆</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/16 17:40 標案下午更新 (2026/10/16-下午)</div>
+            <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 5 筆</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_16_20261016_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/16 (星期五) 08:30 標案公告整理 (2026/10/16)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 68 筆標案 · 6 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/16 08:30 標案公告整理 (2026/10/16)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 68 筆標案 · 6 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_15_下午_20261015_1740.html" class="report-card fade-up" style="border-left: 4px solid #3b82f6; margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/15 (星期四) 17:40 標案下午更新 (2026/10/15-下午)</div>
-                    <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 2 筆</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/15 17:40 標案下午更新 (2026/10/15-下午)</div>
+            <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 2 筆</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_15_20261015_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/15 (星期四) 08:30 標案公告整理 (2026/10/15)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 71 筆標案 · 16 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/15 08:30 標案公告整理 (2026/10/15)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 71 筆標案 · 16 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_14_下午_20261014_1740.html" class="report-card fade-up" style="border-left: 4px solid #3b82f6; margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/14 (星期三) 17:40 標案下午更新 (2026/10/14-下午)</div>
-                    <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/14 17:40 標案下午更新 (2026/10/14-下午)</div>
+            <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_14_20261014_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/14 (星期三) 08:30 標案公告整理 (2026/10/14)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 57 筆標案 · 4 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/14 08:30 標案公告整理 (2026/10/14)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 57 筆標案 · 4 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_13_20261013_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/13 (星期二) 08:30 標案公告整理 (2026/10/13)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 56 筆標案 · 9 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/13 08:30 標案公告整理 (2026/10/13)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 56 筆標案 · 9 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_12_下午_20261012_1740.html" class="report-card fade-up" style="border-left: 4px solid #3b82f6; margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/12 (星期一) 17:40 標案下午更新 (2026/10/12-下午)</div>
-                    <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/12 17:40 標案下午更新 (2026/10/12-下午)</div>
+            <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_12_20261012_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/12 (星期一) 08:30 標案公告整理 (2026/10/12)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 50 筆標案 · 3 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/12 08:30 標案公告整理 (2026/10/12)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 50 筆標案 · 3 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_8_20261008_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/08 (星期四) 08:30 標案公告整理 (2026/10/8)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 68 筆標案 · 7 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/08 08:30 標案公告整理 (2026/10/8)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 68 筆標案 · 7 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_7_20261007_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/07 (星期三) 08:30 標案公告整理 (2026/10/7)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 59 筆標案 · 5 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/07 08:30 標案公告整理 (2026/10/7)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 59 筆標案 · 5 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_6_下午_20261006_1740.html" class="report-card fade-up" style="border-left: 4px solid #3b82f6; margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/06 (星期二) 17:40 標案下午更新 (2026/10/6-下午)</div>
-                    <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 2 筆</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/06 17:40 標案下午更新 (2026/10/6-下午)</div>
+            <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 2 筆</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_6_20261006_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/06 (星期二) 08:30 標案公告整理 (2026/10/6)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 56 筆標案 · 6 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/06 08:30 標案公告整理 (2026/10/6)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 56 筆標案 · 6 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_5_20261005_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/05 (星期一) 08:30 標案公告整理 (2026/10/5)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 30 筆標案 · 4 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/05 08:30 標案公告整理 (2026/10/5)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 30 筆標案 · 4 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_2_20261002_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/02 (星期五) 08:30 標案公告整理 (2026/10/2)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 50 筆標案 · 5 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/02 08:30 標案公告整理 (2026/10/2)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 50 筆標案 · 5 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_10_1_20261001_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/10/01 (星期四) 08:30 標案公告整理 (2026/10/1)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 52 筆標案 · 8 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/10/01 08:30 標案公告整理 (2026/10/1)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 52 筆標案 · 8 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_9_30_下午_20260930_1740.html" class="report-card fade-up" style="border-left: 4px solid #3b82f6; margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/09/30 (星期三) 17:40 標案下午更新 (2026/9/30-下午)</div>
-                    <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/09/30 17:40 標案下午更新 (2026/9/30-下午)</div>
+            <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_9_30_20260930_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/09/30 (星期三) 08:30 標案公告整理 (2026/9/30)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 49 筆標案 · 4 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/09/30 08:30 標案公告整理 (2026/9/30)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 49 筆標案 · 4 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_9_29_20260929_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/09/29 (星期二) 08:30 標案公告整理 (2026/9/29)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 39 筆標案 · 12 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/09/29 08:30 標案公告整理 (2026/9/29)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 39 筆標案 · 12 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_9_24_下午_20260924_1740.html" class="report-card fade-up" style="border-left: 4px solid #3b82f6; margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/09/24 (星期四) 17:40 標案下午更新 (2026/9/24-下午)</div>
-                    <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/09/24 17:40 標案下午更新 (2026/9/24-下午)</div>
+            <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_9_24_20260924_0902.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/09/24 (星期四) 09:02 標案公告整理 (2026/9/24)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 73 筆標案 · 15 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/09/24 09:02 標案公告整理 (2026/9/24)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 73 筆標案 · 15 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_9_23_20260923_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/09/23 (星期三) 08:30 標案公告整理 (2026/9/23)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 47 筆標案 · 5 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/09/23 08:30 標案公告整理 (2026/9/23)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 47 筆標案 · 5 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_9_22_下午_20260922_1740.html" class="report-card fade-up" style="border-left: 4px solid #3b82f6; margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/09/22 (星期二) 17:40 標案下午更新 (2026/9/22-下午)</div>
-                    <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.2);">⚡</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/09/22 17:40 標案下午更新 (2026/9/22-下午)</div>
+            <div class="card-desc" style="font-size: 12px;">下午異動 · 新增 0 筆 · 修改 0 筆 · 減少 1 筆</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_9_22_20260922_0927.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/09/22 (星期二) 09:27 標案公告整理 (2026/9/22)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 47 筆標案 · 2 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/09/22 09:27 標案公告整理 (2026/9/22)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 47 筆標案 · 2 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <a href="tenders/tenders_2026_9_21_20260921_0830.html" class="report-card fade-up" style="border-left: 4px solid var(--accent); margin-bottom: 12px;">
-            <div class="card-inner" style="padding: 16px 24px;">
-                <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
-                <div class="card-content">
-                    <div class="card-name" style="font-size: 16px;">2026/09/21 (星期一) 08:30 標案公告整理 (2026/9/21)</div>
-                    <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 34 筆標案 · 5 筆學校運動推薦</div>
-                </div>
-                <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
-            </div>
-        </a>
+    <div class="card-inner" style="padding: 16px 24px;">
+        <div class="card-icon-wrap" style="width: 42px; height: 42px; font-size: 20px; background: linear-gradient(135deg, #d97706, var(--accent)); box-shadow: 0 4px 12px rgba(245,158,11,0.2);">📅</div>
+        <div class="card-content">
+            <div class="card-name" style="font-size: 16px;">2026/09/21 08:30 標案公告整理 (2026/9/21)</div>
+            <div class="card-desc" style="font-size: 12px;">已篩選核心地區 · 34 筆標案 · 5 筆學校運動推薦</div>
+        </div>
+        <div class="card-arrow-btn" style="width: 36px; height: 36px; font-size: 14px;">→</div>
+    </div>
+</a>
         <!-- DYNAMIC_TENDERS_END -->
     </div>
+    </div> <!-- /#history-section -->
 </div>
 
 <!-- Footer -->
@@ -633,6 +1078,249 @@
 
     logPageVisit(currentPage);
     refreshStats();
+</script>
+
+
+<!-- ── 30 天標案搜尋資料庫與即時篩選引擎 ── -->
+<script src="tenders_data.js"></script>
+<script>
+(function() {
+    const searchInput = document.getElementById('tender-search-input');
+    const clearBtn = document.getElementById('search-clear-btn');
+    const filterActiveBtn = document.getElementById('filter-active-btn');
+    const activeCountBadge = document.getElementById('active-count-badge');
+    const searchStatsBar = document.getElementById('search-stats-bar');
+    const searchStatsText = document.getElementById('search-stats-text');
+    const resetAllBtn = document.getElementById('search-reset-all');
+    
+    const searchResultsSection = document.getElementById('search-results-section');
+    const searchResultsList = document.getElementById('search-results-list');
+    const historySection = document.getElementById('history-section');
+    const quickTags = document.querySelectorAll('.quick-tag');
+
+    let filterActiveOnly = false;
+    const tendersDb = window.TENDERS_DATA || [];
+
+    // 文字寬鬆正規化 (全半形、台與臺、學校縮寫等價轉換)
+    function normalize(text) {
+        if (!text) return '';
+        return String(text)
+            .toLowerCase()
+            .replace(/[\uff01-\uff5e]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0xfee0))
+            .replace(/臺/g, '台')
+            .replace(/國民小學/g, '國小')
+            .replace(/國民中學/g, '國中')
+            .replace(/高級中學/g, '高中')
+            .replace(/[\s\-_<（）()、，,]+/g, ' ')
+            .trim();
+    }
+
+    // 民國年截止日解析 (例如: 115/10/28 -> 西元 2026/10/28)
+    function parseMinguoDate(dateStr) {
+        if (!dateStr) return null;
+        const m = String(dateStr).match(/(\d+)[/-](\d+)[/-](\d+)/);
+        if (!m) return null;
+        const year = parseInt(m[1], 10) + 1911;
+        const month = parseInt(m[2], 10) - 1;
+        const day = parseInt(m[3], 10);
+        return new Date(year, month, day, 23, 59, 59);
+    }
+
+    // 計算剩餘天數 (以今日 00:00:00 為基準)
+    function calcRemainingDays(targetDate) {
+        if (!targetDate) return -999;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const end = new Date(targetDate);
+        end.setHours(0, 0, 0, 0);
+        return Math.round((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    }
+
+    // 關鍵字高亮渲染 (包含台/臺等價高亮)
+    function highlightKeywords(rawText, tokens) {
+        if (!rawText || !tokens || tokens.length === 0) return rawText || '';
+        let escapedTokens = tokens.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).filter(Boolean);
+        if (escapedTokens.length === 0) return rawText;
+        
+        let allPatterns = [];
+        escapedTokens.forEach(t => {
+            allPatterns.push(t);
+            if (t.includes('台')) allPatterns.push(t.replace(/台/g, '臺'));
+            if (t.includes('臺')) allPatterns.push(t.replace(/臺/g, '台'));
+            if (t.includes('國小')) allPatterns.push(t.replace(/國小/g, '國民小學'));
+            if (t.includes('國民小學')) allPatterns.push(t.replace(/國民小學/g, '國小'));
+        });
+        const regex = new RegExp(`(${allPatterns.join('|')})`, 'gi');
+        return rawText.replace(regex, '<mark class="kw-hl">$1</mark>');
+    }
+
+    // 核心搜尋過濾
+    function performSearch() {
+        const query = searchInput.value.trim();
+        const normQuery = normalize(query);
+        const tokens = normQuery ? normQuery.split(/\s+/).filter(Boolean) : [];
+
+        // 若無輸入關鍵字 且 未勾選等標期內 -> 還原至原本 30 天歷史卡片
+        if (tokens.length === 0 && !filterActiveOnly) {
+            searchResultsSection.style.display = 'none';
+            historySection.style.display = 'block';
+            clearBtn.style.display = 'none';
+            return;
+        }
+
+        // 開啟搜尋結果模式
+        clearBtn.style.display = query ? 'flex' : 'none';
+        historySection.style.display = 'none';
+        searchResultsSection.style.display = 'block';
+
+        const results = [];
+        let totalActiveInMatch = 0;
+
+        for (let i = 0; i < tendersDb.length; i++) {
+            const item = tendersDb[i];
+            const endDt = parseMinguoDate(item.date_end);
+            const remaining = calcRemainingDays(endDt);
+            const isUnexpired = remaining >= 0;
+
+            // 等標期過濾判斷
+            if (filterActiveOnly && !isUnexpired) {
+                continue;
+            }
+
+            // 關鍵字寬鬆聯集比對 (機關 + 案號名稱 + 預算 + 日期)
+            if (tokens.length > 0) {
+                const normAgency = normalize(item.agency);
+                const normName = normalize(item.name);
+                const normBudget = normalize(item.budget);
+                const normEnd = normalize(item.date_end);
+                const normPub = normalize(item.date_pub);
+
+                const combinedPool = `${normAgency} ${normName} ${normBudget} ${normEnd} ${normPub}`;
+
+                // 所有關鍵字詞必須同時命中 (AND 邏輯)
+                const isMatch = tokens.every(tok => combinedPool.includes(tok));
+                if (!isMatch) {
+                    continue;
+                }
+            }
+
+            if (isUnexpired) totalActiveInMatch++;
+            results.push({ item, remaining, isUnexpired });
+        }
+
+        // 渲染統計文字
+        const countHtml = `找到 <span class="search-stats-highlight">${results.length}</span> 筆符合標案` +
+            (filterActiveOnly ? ` (皆在等標期內)` : ` (其中 <span class="search-stats-highlight">${totalActiveInMatch}</span> 筆在等標期內)`);
+        searchStatsText.innerHTML = countHtml;
+
+        // 查無結果呈現
+        if (results.length === 0) {
+            searchResultsList.innerHTML = `
+                <div class="no-result-card fade-in">
+                    <div class="no-result-icon">🔍</div>
+                    <div class="no-result-text">查無符合條件的標案</div>
+                    <div class="no-result-sub">建議縮短關鍵字、嘗試機關簡稱，或取消「等標期內」篩選試試看。</div>
+                </div>
+            `;
+            return;
+        }
+
+        // 渲染前 120 筆結果卡片
+        const renderList = results.slice(0, 120);
+        let html = '';
+        renderList.forEach(({ item, remaining, isUnexpired }) => {
+            const isSchool = item.agency && (item.agency.includes('國小') || item.agency.includes('國民小學') || item.agency.includes('國中') || item.agency.includes('學校'));
+            const agencyCls = isSchool ? 'agency-pill school' : 'agency-pill';
+
+            let deadlineHtml = '';
+            if (remaining > 3) {
+                deadlineHtml = `<span class="deadline-pill active-plenty">🟢 剩餘 ${remaining} 天 (截止 ${item.date_end})</span>`;
+            } else if (remaining >= 0) {
+                const text = remaining === 0 ? '🟠 今日截止！' : `🟠 倒數 ${remaining} 天！`;
+                deadlineHtml = `<span class="deadline-pill active-urgent">${text} (${item.date_end})</span>`;
+            } else {
+                deadlineHtml = `<span class="deadline-pill expired">⚪ 已截止 (${item.date_end})</span>`;
+            }
+
+            const cleanName = item.name.replace(/^[^\s<]+<\s*/, '');
+            const hlName = highlightKeywords(cleanName, tokens);
+            const hlAgency = highlightKeywords(item.agency, tokens);
+
+            const pccBtn = item.url ? `<a href="${item.url}" target="_blank" rel="noopener" class="action-link-btn btn-pcc">🌐 電子採購網</a>` : '';
+            const reportBtn = item.report_file ? `<a href="${item.report_file}" target="_blank" rel="noopener" class="action-link-btn btn-report">📄 當日報告</a>` : '';
+
+            html += `
+                <div class="search-tender-card fade-up">
+                    <div class="card-top-row">
+                        <span class="${agencyCls}">🏢 ${hlAgency}</span>
+                        ${deadlineHtml}
+                    </div>
+                    <div class="tender-name-title">${hlName}</div>
+                    <div class="tender-meta-grid">
+                        <div class="meta-item"><strong>💰 預算：</strong><span class="meta-budget">NT$ ${item.budget || '未公開'}</span></div>
+                        <div class="meta-item"><strong>📅 公告日期：</strong>${item.date_pub}</div>
+                        <div class="meta-item"><strong>⏳ 截止投標：</strong>${item.date_end}</div>
+                        <div class="meta-item"><strong>🔄 傳輸次數：</strong>${item.trans} 次</div>
+                    </div>
+                    <div class="card-actions-row">
+                        ${reportBtn}
+                        ${pccBtn}
+                    </div>
+                </div>
+            `;
+        });
+
+        if (results.length > 120) {
+            html += `<div style="text-align: center; color: var(--muted); padding: 16px; font-size: 13px;">⚠️ 符合案件較多，僅顯示前 120 筆。請輸入更明確之機關或關鍵字。</div>`;
+        }
+
+        searchResultsList.innerHTML = html;
+    }
+
+    // 事件監聽
+    searchInput.addEventListener('input', performSearch);
+
+    clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchInput.focus();
+        performSearch();
+    });
+
+    filterActiveBtn.addEventListener('click', () => {
+        filterActiveOnly = !filterActiveOnly;
+        if (filterActiveOnly) {
+            filterActiveBtn.classList.add('active');
+        } else {
+            filterActiveBtn.classList.remove('active');
+        }
+        performSearch();
+    });
+
+    resetAllBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        filterActiveOnly = false;
+        filterActiveBtn.classList.remove('active');
+        performSearch();
+    });
+
+    quickTags.forEach(tag => {
+        tag.addEventListener('click', () => {
+            const kw = tag.getAttribute('data-kw');
+            searchInput.value = kw;
+            searchInput.focus();
+            performSearch();
+        });
+    });
+
+    // 統計目前有效等標期標案數量
+    let totalActive = 0;
+    tendersDb.forEach(t => {
+        const dt = parseMinguoDate(t.date_end);
+        if (calcRemainingDays(dt) >= 0) totalActive++;
+    });
+    activeCountBadge.textContent = `(${totalActive}筆有效)`;
+
+})();
 </script>
 
 </body>
