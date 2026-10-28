@@ -1,0 +1,3843 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】衛生福利部南投醫院 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">衛生福利部南投醫院</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">368 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">241 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">10 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">3 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 0 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">高景工程顧問有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Sewage1141212]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">汙水處理場設備修繕工程委託規劃設計與監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/01/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Sewage1141212" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Sewage1141212" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">天際線防火科技有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[FSECS1203]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">R型偵煙探測器及線路汰換採購案委託監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/01/21</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=FSECS1203" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=FSECS1203" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">監造</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">上庭土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Eng11102-113A]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">放腫大樓地磚瑕疵改正工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/09</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Eng11102-113A" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Eng11102-113A" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (10 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>FSECS1150914</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left font-weight-bold">R型消防設備修繕工程委託規劃設計與監造技術服務</td>
+            <td>2026/10/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=FSECS1150914" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=FSECS1150914" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>Sewage0806</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">污水處理系統修繕工程</td>
+            <td>2026/09/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Sewage0806" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Sewage0806" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>Sewage0622</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">污水處理系統汰換暨修繕工程</td>
+            <td>2026/08/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Sewage0622" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Sewage0622" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>Sewage1141212</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">汙水處理場設備修繕工程委託規劃設計與監造技術服務</td>
+            <td>2026/01/30</td>
+            <td class="text-left">高景工程顧問有限公司</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Sewage1141212" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Sewage1141212" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>FSECS1203</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">R型偵煙探測器及線路汰換採購案委託監造技術服務</td>
+            <td>2026/01/21</td>
+            <td class="text-left">天際線防火科技有限公司</td>
+            <td><span class="kw-tag">監造</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=FSECS1203" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=FSECS1203" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>ZRD1921-PDS</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">中正路19、21號宿舍耐震補強工程規劃設計監造委託技術服務案</td>
+            <td>2024/07/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span><span class="kw-tag">宿舍</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=ZRD1921-PDS" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ZRD1921-PDS" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>TP1135400</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">中興院區兒童發展評估及療育中心廁所整修案</td>
+            <td>2024/07/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">整修</span><span class="kw-tag">評估</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=TP1135400" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TP1135400" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>1130718-1</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">本院急診鋼構停車場規劃設計樣式及預算估算</td>
+            <td>2024/07/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1130718-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1130718-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>TPA11307</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">南投醫院各單位環境修繕美化案</td>
+            <td>2024/07/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">修繕</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=TPA11307" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TPA11307" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>Eng11102-113A</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">放腫大樓地磚瑕疵改正工程</td>
+            <td>2024/07/09</td>
+            <td class="text-left">上庭土木包工業</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Eng11102-113A" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Eng11102-113A" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (241 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>115HT-NVR</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">生成式AI護理語音紀錄系統租賃案</td>
+            <td>2026/10/28</td>
+            <td class="text-left">思邁智能股份有限公司 (MaiAgent Co., Ltd.), 長佳智能股份有限公司 (Ever Fortune. AI Co. , Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115HT-NVR" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115HT-NVR" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>FSECS1150914</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">R型消防設備修繕工程委託規劃設計與監造技術服務</td>
+            <td>2026/10/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=FSECS1150914" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=FSECS1150914" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>LIN1150903</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">生物醫療廢棄物再利用委託清除處理採購案</td>
+            <td>2026/10/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150903" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150903" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>116ELEV</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">醫療大樓昇降梯保養維護案</td>
+            <td>2026/10/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=116ELEV" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=116ELEV" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>115WAC</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度空調設備清洗保養案</td>
+            <td>2026/10/20</td>
+            <td class="text-left">欣榮空調工程有限公司, 宜佳居企業社, 上和冷氣空調有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115WAC" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115WAC" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>LIN1150905</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116-117年度婦產科醫療支援採購案</td>
+            <td>2026/10/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150905" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150905" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>LIN1150909</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116-117年度外科醫療支援採購案</td>
+            <td>2026/10/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150909" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150909" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>LIN1150906</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116-117年度乳房外科醫療支援採購案</td>
+            <td>2026/10/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150906" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150906" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>LIN1150908</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116-117年度耳鼻喉科醫療支援(二)採購案</td>
+            <td>2026/10/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150908" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150908" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>LIN1150907</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116-117年度耳鼻喉科醫療支援(一)採購案</td>
+            <td>2026/10/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150907" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150907" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>115CCR-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">心導管衛材乙批(一)採購案</td>
+            <td>2026/10/13</td>
+            <td class="text-left">美敦力醫療產品股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115CCR-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115CCR-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>115O-7</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">骨科衛材乙批(五)採購案</td>
+            <td>2026/10/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115O-7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115O-7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>LIN1150901</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-117肺癌多基因檢測(AmoyDx)代檢採購案</td>
+            <td>2026/10/07</td>
+            <td class="text-left">醫療財團法人病理發展基金會台北病理中心</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150901" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150901" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>115O-5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科衛材乙批(三)採購案</td>
+            <td>2026/10/05</td>
+            <td class="text-left">富怡康生物科技有限公司, 倚暉生技有限公司, 普旌股份有限公司, 勗曜生技醫材有限公司, 君容實業股份有限公司, 歐朗生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115O-5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115O-5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>115CAPEX-24</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">整合式診間報到資訊系統1批採購案</td>
+            <td>2026/10/01</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115CAPEX-24" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115CAPEX-24" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>115TL</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">病房備管機專用標籤開口契約(含設備提供及維護)採購案</td>
+            <td>2026/09/22</td>
+            <td class="text-left">金萬林企業股份有限公司 (KIMFOREST ENTERPRISE CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115TL" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115TL" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>LIN1150801</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">胸腔攝影AI輔助偵測系統租賃</td>
+            <td>2026/09/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150801" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150801" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>115CAPEX-16</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">整合式診間報到資訊系統1批採購案</td>
+            <td>2026/09/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115CAPEX-16" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115CAPEX-16" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>LIN1150902</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116-117肺癌表皮生長因子受體突變(EGFR)代檢採購案</td>
+            <td>2026/09/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150902" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150902" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>Sewage0806</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">污水處理系統修繕工程</td>
+            <td>2026/09/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Sewage0806" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Sewage0806" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>1157RO</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">純水系統維護保養採購案</td>
+            <td>2026/09/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1157RO" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1157RO" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>115NS-1</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">神經外科衛材乙批(一)採購案</td>
+            <td>2026/09/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115NS-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115NS-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>1157WAC-1</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">中央空調冷卻水監控與維護保養採購案</td>
+            <td>2026/09/01</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1157WAC-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1157WAC-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>115CAPEX-15</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">電力輔助護理工作車12台採購案</td>
+            <td>2026/08/19</td>
+            <td class="text-left">長庚醫學科技股份有限公司 (CHANG GUNG MEDICAL TECHNOLOGY CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115CAPEX-15" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115CAPEX-15" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>115CAPEX-10</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">全自動真空蒸氣滅菌鍋1台採購案</td>
+            <td>2026/08/18</td>
+            <td class="text-left">宏霖儀器有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115CAPEX-10" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115CAPEX-10" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>Sewage0622</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">污水處理系統汰換暨修繕工程</td>
+            <td>2026/08/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Sewage0622" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Sewage0622" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>115HC</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115中秋聯歡餐宴服務案</td>
+            <td>2026/08/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115HC" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115HC" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>REP115-16</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">SIEMENS電腦斷層掃描儀管球更新案</td>
+            <td>2026/08/12</td>
+            <td class="text-left">西門子醫療設備股份有限公司 (Siemens Healthcare Limited)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=REP115-16" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=REP115-16" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>115CT-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">電腦斷層掃描儀及雙管注射器維護保養案</td>
+            <td>2026/08/11</td>
+            <td class="text-left">承啟醫系股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115CT-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115CT-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>LIN1150604</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-117年醫療影像傳輸儲存系統維護案</td>
+            <td>2026/07/30</td>
+            <td class="text-left">奇唯科技股份有限公司 (Syspower Corporation)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150604" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150604" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>115CAPEX-13</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">儀器定位系統1組採購案</td>
+            <td>2026/07/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115CAPEX-13" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115CAPEX-13" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>HF114-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114伙食及營養管灌品採購案後續擴充</td>
+            <td>2026/07/28</td>
+            <td class="text-left">周氏蝦捲有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=HF114-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=HF114-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>115CAPEX-09</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">連續式自動染色機1台採購案</td>
+            <td>2026/07/27</td>
+            <td class="text-left">德全儀器有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115CAPEX-09" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115CAPEX-09" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>LIN1150701</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度感染科醫療支援採購案</td>
+            <td>2026/07/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>MED115-14</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">115年Abrysvo藥品採購案</td>
+            <td>2026/07/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED115-14" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED115-14" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>LIN1150602</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-116年度肝膽腸胃科醫療支援採購案</td>
+            <td>2026/07/13</td>
+            <td class="text-left">亞洲大學附屬醫院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150602" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150602" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>LIN1150502</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">整合性個案管理系統暨護理表單功能擴充及軟體維護採購案</td>
+            <td>2026/07/10</td>
+            <td class="text-left">大同醫護股份有限公司 (Tatung Medical & Healthcare Technologies Co., Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>116CAPEX</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年度設備採購公開徵求廠商提供參考資料</td>
+            <td>2026/07/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=116CAPEX" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=116CAPEX" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>LIN1150603</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">急診資料自動彙整報表系統建置服務採購案</td>
+            <td>2026/07/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150603" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150603" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>115NS-2</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">神經外科腦室體外引流組採購案</td>
+            <td>2026/07/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115NS-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115NS-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>115O-3</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">骨科股骨髓內釘組採購案</td>
+            <td>2026/07/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115O-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115O-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>LIN1150301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療被服供應及洗滌委外採購案</td>
+            <td>2026/06/26</td>
+            <td class="text-left">豪潔實業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>115GS-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">外科衛材乙批(一)採購案</td>
+            <td>2026/06/26</td>
+            <td class="text-left">尚弋股份有限公司 (BEAMED INSTRUMENTS CO., LTD.), 健佳生技有限公司, 台灣達孚股份有限公司, 美德國際行銷股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115GS-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115GS-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>44</td>
+            <td><code>115NANT-3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療衛材乙批(三)採購案</td>
+            <td>2026/06/26</td>
+            <td class="text-left">君容實業股份有限公司, 美敦力醫療產品股份有限公司, 巴德股份有限公司 (Bard Pacific Health Care Co., Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115NANT-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115NANT-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>45</td>
+            <td><code>115O-4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科腰椎椎間融合器採購案</td>
+            <td>2026/06/26</td>
+            <td class="text-left">世邦有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115O-4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115O-4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>46</td>
+            <td><code>115O-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科衛材乙批(二)採購案</td>
+            <td>2026/06/26</td>
+            <td class="text-left">安麥迪生技有限公司 (AnMed Biomedical Co., Ltd.), 沛旭生科股份有限公司, 歐朗生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115O-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115O-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>47</td>
+            <td><code>MED115-13</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年T1-201核醫藥品採購案</td>
+            <td>2026/06/25</td>
+            <td class="text-left">臺灣新吉美碩股份有限公司 (GLOBAL MEDICAL SOLUTIONS TAIWAN, LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED115-13" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED115-13" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>48</td>
+            <td><code>1157WAC</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">空調主機冷卻水塔除垢案</td>
+            <td>2026/06/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1157WAC" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1157WAC" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>49</td>
+            <td><code>LIN1150601</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度麻醉科醫療支援採購案</td>
+            <td>2026/06/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>50</td>
+            <td><code>116PET-CT</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">正子電腦斷層掃描系統設備租賃案</td>
+            <td>2026/06/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=116PET-CT" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=116PET-CT" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>51</td>
+            <td><code>LIN1150501</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度感染科醫療支援採購案</td>
+            <td>2026/06/01</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>52</td>
+            <td><code>MED115-09</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">115年藥品乙批(B)採購案</td>
+            <td>2026/05/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED115-09" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED115-09" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>53</td>
+            <td><code>MED115-10</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年TAGRISSO藥品採購案</td>
+            <td>2026/05/28</td>
+            <td class="text-left">裕利股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED115-10" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED115-10" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>54</td>
+            <td><code>KF115-a1</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">民生用品販賣場地標租案</td>
+            <td>2026/05/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=KF115-a1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=KF115-a1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>55</td>
+            <td><code>MED115-11</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">115年BERODUAL藥品採購案</td>
+            <td>2026/05/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED115-11" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED115-11" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>56</td>
+            <td><code>115R-1</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">復健科玻尿酸注射液乙批採購案</td>
+            <td>2026/05/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115R-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115R-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>57</td>
+            <td><code>LIN1150402</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度耳鼻喉科醫療支援(三)採購案</td>
+            <td>2026/05/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>58</td>
+            <td><code>LIN1150302</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">一般事業廢棄物委託清除處理採購案</td>
+            <td>2026/04/30</td>
+            <td class="text-left">進成環保服務有限公司, 環偉實業股份有限公司, 玖如環保科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1150302" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1150302" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>59</td>
+            <td><code>MED115-08</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年Metacu藥品採購案</td>
+            <td>2026/04/15</td>
+            <td class="text-left">旭能醫藥生技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED115-08" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED115-08" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>60</td>
+            <td><code>114FAS</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">R型偵煙探測器及線路更換採購案</td>
+            <td>2026/04/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114FAS" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114FAS" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>61</td>
+            <td><code>MED115-07</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年Mounjaro兩項藥品採購案</td>
+            <td>2026/03/27</td>
+            <td class="text-left">裕利股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED115-07" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED115-07" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>62</td>
+            <td><code>115CAPEX-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">眼科用手術顯微鏡1組採購案</td>
+            <td>2026/03/26</td>
+            <td class="text-left">卡爾蔡司股份有限公司台北分公司, 九和科技股份有限公司, 瑞士商愛爾康大藥廠股份有限公司台灣分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115CAPEX-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115CAPEX-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>63</td>
+            <td><code>114NANT-13</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療用衛材乙批(十三)採購案</td>
+            <td>2026/03/17</td>
+            <td class="text-left">達勝有限公司 (DOUBLE-SUCCESS CO., LTD.), 安頡儀器有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114NANT-13" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114NANT-13" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>64</td>
+            <td><code>115NANT-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療衛材乙批(二)採購案</td>
+            <td>2026/03/16</td>
+            <td class="text-left">長承生技股份有限公司, 詠姮生物科技股份有限公司, 台灣達孚股份有限公司, 靖騰生技有限公司, 唯鼎生醫股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115NANT-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115NANT-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>65</td>
+            <td><code>114NANT-14</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">醫療用衛材乙批(十四)採購案</td>
+            <td>2026/03/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114NANT-14" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114NANT-14" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>66</td>
+            <td><code>115GI-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">腸胃科內視鏡衛材乙批(一)採購案</td>
+            <td>2026/03/11</td>
+            <td class="text-left">台灣達孚股份有限公司, 沐陽生技有限公司, 宇明有限公司, 艾柏生技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115GI-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115GI-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>67</td>
+            <td><code>115O-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科衛材乙批(一)採購案</td>
+            <td>2026/03/11</td>
+            <td class="text-left">君容實業股份有限公司, 寶億生技股份有限公司 (BAUI Biotech Co., Ltd), 百麗醫療產品股份有限公司 (SYNERGY BIOMEDICAL LTD.), 盛頂生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115O-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115O-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>68</td>
+            <td><code>115NANT-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療衛材乙批(一)採購案</td>
+            <td>2026/03/11</td>
+            <td class="text-left">英磊股份有限公司, 豫廣有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115NANT-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115NANT-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>69</td>
+            <td><code>REP11410</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">數位乳房X光攝影系統維護保養案</td>
+            <td>2026/03/04</td>
+            <td class="text-left">友信行股份有限公司 (UNISON COMPANY LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=REP11410" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=REP11410" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>70</td>
+            <td><code>MED115-04</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年XEGVA藥品採購案</td>
+            <td>2026/03/03</td>
+            <td class="text-left">裕利股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED115-04" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED115-04" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>71</td>
+            <td><code>MED115-05</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年Verzenio藥品採購案</td>
+            <td>2026/03/02</td>
+            <td class="text-left">裕利股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED115-05" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED115-05" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>72</td>
+            <td><code>MED115-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年藥品乙批(A)採購案</td>
+            <td>2026/02/11</td>
+            <td class="text-left">裕利股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED115-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED115-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>73</td>
+            <td><code>Sewage1141212</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">汙水處理場設備修繕工程委託規劃設計與監造技術服務</td>
+            <td>2026/01/30</td>
+            <td class="text-left">高景工程顧問有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Sewage1141212" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Sewage1141212" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>74</td>
+            <td><code>FSECS1203</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">R型偵煙探測器及線路汰換採購案委託監造技術服務</td>
+            <td>2026/01/21</td>
+            <td class="text-left">天際線防火科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=FSECS1203" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=FSECS1203" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>75</td>
+            <td><code>114YEP</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年終感恩餐宴</td>
+            <td>2026/01/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114YEP" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114YEP" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>76</td>
+            <td><code>114O-5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科衛材乙批(三)採購案</td>
+            <td>2026/01/14</td>
+            <td class="text-left">歐朗生技有限公司, 元辰國際貿易有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114O-5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114O-5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>77</td>
+            <td><code>LIN1141104</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度婦產科染色體基因及羊水基因晶片檢測委外代檢案</td>
+            <td>2025/12/24</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1141104" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1141104" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>78</td>
+            <td><code>LIN1141105</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">115-116年幽門螺旋桿菌委外代檢採購案</td>
+            <td>2025/12/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1141105" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1141105" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>79</td>
+            <td><code>115UTD</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">UpToDate資料庫採購案</td>
+            <td>2025/12/16</td>
+            <td class="text-left">UpToDate, Inc.</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115UTD" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115UTD" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>80</td>
+            <td><code>LIN1141201</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度兒童心臟科醫療支援採購案</td>
+            <td>2025/12/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1141201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1141201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>81</td>
+            <td><code>LIN1141102</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度放射科醫療支援(一)採購案</td>
+            <td>2025/12/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1141102" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1141102" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>82</td>
+            <td><code>114NANT-9</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">醫療用衛材乙批(九)採購案</td>
+            <td>2025/12/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114NANT-9" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114NANT-9" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>83</td>
+            <td><code>114NYL</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">皮秒雷射儀1台採購案</td>
+            <td>2025/12/05</td>
+            <td class="text-left">曜亞國際股份有限公司 (DYNAMIC MEDICAL TECHNOLOGIES INC.), 膠原科技股份有限公司 (COLLAMATRIX CO., LTD), 沃醫學股份有限公司 (WOH MEDICAL CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114NYL" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114NYL" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>84</td>
+            <td><code>MED114-11</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年Verzenio藥品採購案</td>
+            <td>2025/12/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-11" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-11" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>85</td>
+            <td><code>1146MAMMO-3</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">數位乳房X光攝影巡迴車租賃案</td>
+            <td>2025/11/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1146MAMMO-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1146MAMMO-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>86</td>
+            <td><code>MED114-12</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年核醫兩項藥品(A)採購案</td>
+            <td>2025/11/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-12" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-12" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>87</td>
+            <td><code>REP11412-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療儀器維護保養採購案</td>
+            <td>2025/11/27</td>
+            <td class="text-left">長庚醫學科技股份有限公司 (CHANG GUNG MEDICAL TECHNOLOGY CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=REP11412-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=REP11412-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>88</td>
+            <td><code>MED114-13</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年藥品乙批(B)採購案</td>
+            <td>2025/11/25</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-13" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-13" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>89</td>
+            <td><code>LIN1141103</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115-116年度放射科醫療支援(二)採購案</td>
+            <td>2025/11/20</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1141103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1141103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>90</td>
+            <td><code>114CAPEX-16</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">多功能微創術中彩色超音波掃描系統1組採購案</td>
+            <td>2025/11/18</td>
+            <td class="text-left">台灣達孚股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114CAPEX-16" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114CAPEX-16" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>91</td>
+            <td><code>114EYL</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">鉺雅鉻雷射儀1台採購案</td>
+            <td>2025/11/17</td>
+            <td class="text-left">曜亞國際股份有限公司 (DYNAMIC MEDICAL TECHNOLOGIES INC.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114EYL" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114EYL" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>92</td>
+            <td><code>114GS01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">衛生福利部所屬醫院「114年度腹腔鏡影像系統」聯合採購案</td>
+            <td>2025/11/17</td>
+            <td class="text-left">元佑實業股份有限公司台中分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114GS01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114GS01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>93</td>
+            <td><code>MED114-10</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年Phesgo兩項藥品採購案</td>
+            <td>2025/11/14</td>
+            <td class="text-left">裕利股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-10" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-10" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>94</td>
+            <td><code>NANT11409</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">衛生福利部所屬醫院「114年度『呼吸器』聯合採購案」</td>
+            <td>2025/11/11</td>
+            <td class="text-left">台灣德爾鉻醫療器材有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=NANT11409" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=NANT11409" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>95</td>
+            <td><code>MED114-09</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年藥品乙批(A)採購案</td>
+            <td>2025/10/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-09" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-09" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>96</td>
+            <td><code>114CCR-3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">心導管室衛材乙批(三)採購案</td>
+            <td>2025/10/29</td>
+            <td class="text-left">瑞中亞醫療器材有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114CCR-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114CCR-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>97</td>
+            <td><code>114NANT-12</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療用衛材乙批(十二)採購案</td>
+            <td>2025/10/29</td>
+            <td class="text-left">歐朗生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114NANT-12" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114NANT-12" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>98</td>
+            <td><code>LIN1121004-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">兩院區醫療資訊系統網路及資料連結與通信整合維護案後續擴充</td>
+            <td>2025/10/29</td>
+            <td class="text-left">達群資訊股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1121004-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1121004-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>99</td>
+            <td><code>LIN1141002</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度牙科醫療支援採購案</td>
+            <td>2025/10/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1141002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1141002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>100</td>
+            <td><code>LIN1141001</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">協同作業系統維護</td>
+            <td>2025/10/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1141001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1141001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>101</td>
+            <td><code>114CAPEX-17</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">腹腔鏡器械乙批採購案</td>
+            <td>2025/10/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114CAPEX-17" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114CAPEX-17" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>102</td>
+            <td><code>114GS</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">衛生福利部所屬醫院「114年度腹腔鏡影像系統」聯合採購案</td>
+            <td>2025/09/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114GS" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114GS" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>103</td>
+            <td><code>MED114-08</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年C-13 Urea kit藥品採購案</td>
+            <td>2025/09/17</td>
+            <td class="text-left">普城企業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-08" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-08" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>104</td>
+            <td><code>114R-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">復健科血球細胞分離器(骨髓濃縮)採購案</td>
+            <td>2025/09/15</td>
+            <td class="text-left">君品實業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114R-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114R-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>105</td>
+            <td><code>114HC</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年中秋聯歡餐宴服務案</td>
+            <td>2025/09/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114HC" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114HC" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>106</td>
+            <td><code>MED114-07</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年Tonvasca capsules 2/10mg藥品採購案</td>
+            <td>2025/09/02</td>
+            <td class="text-left">友霖生技醫藥股份有限公司 (Orient Pharma Co., Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-07" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-07" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>107</td>
+            <td><code>1146MAMMO-2</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">數位乳房X光攝影巡迴車租賃案</td>
+            <td>2025/09/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1146MAMMO-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1146MAMMO-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>108</td>
+            <td><code>HF114</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年伙食及營養管灌品採購案</td>
+            <td>2025/08/05</td>
+            <td class="text-left">周氏蝦捲有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=HF114" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=HF114" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>109</td>
+            <td><code>MED114-06-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年LAC-B 2mg藥品採購案</td>
+            <td>2025/08/05</td>
+            <td class="text-left">登詮實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-06-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-06-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>110</td>
+            <td><code>KF114-a1</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">停車場標租案</td>
+            <td>2025/07/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=KF114-a1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=KF114-a1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>111</td>
+            <td><code>11520CC</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">多功能心導管檢查中心設備租賃案</td>
+            <td>2025/07/29</td>
+            <td class="text-left">承啟醫系股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=11520CC" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=11520CC" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>112</td>
+            <td><code>115CAPEX</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度設備採購公開徵求廠商提供參考資料</td>
+            <td>2025/07/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=115CAPEX" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115CAPEX" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>113</td>
+            <td><code>114EMS04</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">心臟超音波掃描儀(含經食道心臟探頭)1組採購案</td>
+            <td>2025/07/25</td>
+            <td class="text-left">群益生醫股份有限公司 (BMT BIOMEDICAL ENGINEERING TECHNOLOGY CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114EMS04" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114EMS04" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>114</td>
+            <td><code>REP11405-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">磁振造影掃描儀保養合約案</td>
+            <td>2025/07/24</td>
+            <td class="text-left">承啟醫系股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=REP11405-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=REP11405-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>115</td>
+            <td><code>1146MAMMO-1</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">數位乳房X光攝影巡迴車租賃案</td>
+            <td>2025/07/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1146MAMMO-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1146MAMMO-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>116</td>
+            <td><code>LIN1140601</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">委託正子電腦斷層掃描(PET-CT)代檢採購案</td>
+            <td>2025/07/09</td>
+            <td class="text-left">亞洲大學附屬醫院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1140601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1140601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>117</td>
+            <td><code>MED114-06</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年LAC-B藥品採購案</td>
+            <td>2025/06/25</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-06" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-06" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>118</td>
+            <td><code>1147US</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">高階彩色超音波掃描儀租賃案</td>
+            <td>2025/06/20</td>
+            <td class="text-left">承啟醫系股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1147US" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1147US" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>119</td>
+            <td><code>LIN1120701-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療被服供應及洗滌委外採購案後續擴充</td>
+            <td>2025/06/17</td>
+            <td class="text-left">豪潔實業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1120701-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1120701-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>120</td>
+            <td><code>114CCR-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">心導管室衛材乙批(二)採購案</td>
+            <td>2025/06/10</td>
+            <td class="text-left">吉生醫療器材有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114CCR-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114CCR-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>121</td>
+            <td><code>113NANT-3</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">醫療衛材乙批(一)採購案</td>
+            <td>2025/06/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NANT-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NANT-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>122</td>
+            <td><code>113NS-7</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">神經外科衛材乙批(二)採購案</td>
+            <td>2025/06/09</td>
+            <td class="text-left">君華有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NS-7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NS-7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>123</td>
+            <td><code>114NS-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">神經外科可調式腦脊髓液分流系統採購案</td>
+            <td>2025/05/28</td>
+            <td class="text-left">普旌股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114NS-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114NS-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>124</td>
+            <td><code>114O-3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科衛材乙批(二)採購案</td>
+            <td>2025/05/28</td>
+            <td class="text-left">威駿生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114O-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114O-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>125</td>
+            <td><code>114O-4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科解剖型肱骨近端A型骨板採購案</td>
+            <td>2025/05/28</td>
+            <td class="text-left">倚暉生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114O-4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114O-4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>126</td>
+            <td><code>114CCR-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">心導管室衛材乙批(一)採購案</td>
+            <td>2025/05/28</td>
+            <td class="text-left">台灣百多力有限公司, 博康醫療器材有限公司, 美敦力醫療產品股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114CCR-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114CCR-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>127</td>
+            <td><code>114GS-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">外科二極體雷射光纖採購案</td>
+            <td>2025/05/28</td>
+            <td class="text-left">英屬維京群島商吉時洋行股份有限公司台灣分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114GS-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114GS-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>128</td>
+            <td><code>114O-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科衛材乙批(一)採購案</td>
+            <td>2025/05/28</td>
+            <td class="text-left">君容實業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114O-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114O-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>129</td>
+            <td><code>113GS-6</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">外科衛材乙批(四)採購案</td>
+            <td>2025/05/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113GS-6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113GS-6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>130</td>
+            <td><code>1146MAMMO</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">數位乳房X光攝影巡迴車租賃案</td>
+            <td>2025/04/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1146MAMMO" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1146MAMMO" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>131</td>
+            <td><code>REP114-17</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">SHIMADZU X光管球更新案</td>
+            <td>2025/04/29</td>
+            <td class="text-left">三綱儀器股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=REP114-17" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=REP114-17" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>132</td>
+            <td><code>REP114-16</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">體外震波碎石機耗材採購案</td>
+            <td>2025/04/29</td>
+            <td class="text-left">弘智企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=REP114-16" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=REP114-16" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>133</td>
+            <td><code>114SPECT</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">核子醫學科SPECT儀器設備租賃案</td>
+            <td>2025/04/29</td>
+            <td class="text-left">承啟醫系股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114SPECT" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114SPECT" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>134</td>
+            <td><code>MED114-02</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年M-M-RⅡ藥品採購案</td>
+            <td>2025/04/24</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-02" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-02" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>135</td>
+            <td><code>REP11413</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">體外震波碎石機定期保養案</td>
+            <td>2025/04/22</td>
+            <td class="text-left">弘智企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=REP11413" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=REP11413" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>136</td>
+            <td><code>MED114-04</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年ZEPZELCA藥品採購案</td>
+            <td>2025/04/21</td>
+            <td class="text-left">久裕企業股份有限公司 (ARICH ENTERPRISE CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-04" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-04" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>137</td>
+            <td><code>114RT-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">放射腫瘤治療儀器設備租賃案</td>
+            <td>2025/04/16</td>
+            <td class="text-left">瓦里安台灣股份有限公司 (Varian Medical Systems Taiwan Co., Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114RT-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114RT-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>138</td>
+            <td><code>114EMS02</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">主動脈內氣球幫浦1台採購案</td>
+            <td>2025/04/02</td>
+            <td class="text-left">華億醫療儀器科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114EMS02" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114EMS02" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>139</td>
+            <td><code>TP1145237</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">呼吸器耗材採購案</td>
+            <td>2025/04/01</td>
+            <td class="text-left">福智美科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=TP1145237" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TP1145237" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>140</td>
+            <td><code>114O-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科脊椎後路固定系統-萬向微創釘採購案</td>
+            <td>2025/04/01</td>
+            <td class="text-left">盛頂生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114O-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114O-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>141</td>
+            <td><code>114R-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">復健科血球細胞分離器採購案</td>
+            <td>2025/04/01</td>
+            <td class="text-left">君品實業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114R-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114R-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>142</td>
+            <td><code>114NANT-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療用衛材乙批(二)採購案</td>
+            <td>2025/04/01</td>
+            <td class="text-left">弘昂生技有限公司, 銀鐸實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114NANT-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114NANT-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>143</td>
+            <td><code>MED114-03</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年Metacu藥品採購案</td>
+            <td>2025/03/26</td>
+            <td class="text-left">旭能醫藥生技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-03" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-03" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>144</td>
+            <td><code>MED114-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年醫療用氣體(醫用二氧化碳鋼瓶)採購案</td>
+            <td>2025/03/25</td>
+            <td class="text-left">正交企業有限公司 (CHENG CHIAO GROUP CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED114-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED114-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>145</td>
+            <td><code>113NS-6</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">神經外科衛材乙批(一)採購案</td>
+            <td>2025/03/24</td>
+            <td class="text-left">寶億生技股份有限公司 (BAUI Biotech Co., Ltd)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NS-6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NS-6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>146</td>
+            <td><code>113NANT-4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療衛材乙批(二)採購案</td>
+            <td>2025/03/24</td>
+            <td class="text-left">飛勝生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NANT-4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NANT-4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>147</td>
+            <td><code>rep11413</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">體外震波碎石機定期保養</td>
+            <td>2025/03/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=rep11413" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=rep11413" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>148</td>
+            <td><code>113MSS-3</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">拋棄式成人呼吸管路組採購案</td>
+            <td>2025/03/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113MSS-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113MSS-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>149</td>
+            <td><code>113O-11</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">骨科衛材乙批(四)採購案</td>
+            <td>2025/03/11</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113O-11" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113O-11" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>150</td>
+            <td><code>TP1142318</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">內視鏡主機維修案</td>
+            <td>2025/03/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=TP1142318" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TP1142318" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>151</td>
+            <td><code>114CAPEX-01</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">心導管室緊急電源用變壓器1組採購案</td>
+            <td>2025/02/17</td>
+            <td class="text-left">超立電機股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114CAPEX-01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114CAPEX-01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>152</td>
+            <td><code>113NANT-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">內科衛材乙批(一)採購案</td>
+            <td>2025/02/07</td>
+            <td class="text-left">榮新儀器有限公司, 瑞中亞醫療器材有限公司, 嘉峰醫療器材有限公司, 沐陽生技有限公司, 威茂股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NANT-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NANT-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>153</td>
+            <td><code>LIN1140101</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年度放射科醫療支援(二)採購案</td>
+            <td>2025/02/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1140101" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1140101" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>154</td>
+            <td><code>113NS-4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">神經外科高黏度脊椎骨水泥採購案</td>
+            <td>2025/02/04</td>
+            <td class="text-left">倚暉生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NS-4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NS-4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>155</td>
+            <td><code>113O-13</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科衛材乙批(六)採購案</td>
+            <td>2025/02/04</td>
+            <td class="text-left">長承生技股份有限公司, 世邦有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113O-13" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113O-13" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>156</td>
+            <td><code>113NANT-5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">醫療衛材乙批(三)採購案</td>
+            <td>2025/02/04</td>
+            <td class="text-left">寶億生技股份有限公司 (BAUI Biotech Co., Ltd)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NANT-5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NANT-5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>157</td>
+            <td><code>113O-12</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科衛材乙批(五)採購案</td>
+            <td>2025/02/04</td>
+            <td class="text-left">世邦有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113O-12" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113O-12" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>158</td>
+            <td><code>113CAPEX-42</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">天井式LED手術燈2台採購案</td>
+            <td>2025/02/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-42" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-42" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>159</td>
+            <td><code>113CCR-8</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">心導管血管內超音波導管及橇型板採購案</td>
+            <td>2025/02/03</td>
+            <td class="text-left">荷商波士頓科技有限公司台灣分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CCR-8" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CCR-8" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>160</td>
+            <td><code>1145RO</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">純水系統維護保養採購案</td>
+            <td>2025/01/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1145RO" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1145RO" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>161</td>
+            <td><code>LIN1131011</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度耳鼻喉科醫療支援(一)採購案</td>
+            <td>2025/01/08</td>
+            <td class="text-left">尚恩親子耳鼻喉科診所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131011" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131011" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>162</td>
+            <td><code>LIN1131101</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度泌尿外科醫療支援採購案</td>
+            <td>2025/01/08</td>
+            <td class="text-left">林紋旭</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131101" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131101" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>163</td>
+            <td><code>LIN1131012</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度耳鼻喉科醫療支援(二)採購案</td>
+            <td>2024/12/31</td>
+            <td class="text-left">吳昭寬</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131012" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131012" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>164</td>
+            <td><code>113CAPEX-35</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">高階彩色超音波1台採購案</td>
+            <td>2024/12/30</td>
+            <td class="text-left">承啟醫系股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-35" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-35" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>165</td>
+            <td><code>REP11310</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">X光機五台維護保養案</td>
+            <td>2024/12/27</td>
+            <td class="text-left">三綱儀器股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=REP11310" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=REP11310" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>166</td>
+            <td><code>114RT-3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">放射腫瘤治療儀器設備短期租賃案</td>
+            <td>2024/12/25</td>
+            <td class="text-left">瓦里安台灣股份有限公司 (Varian Medical Systems Taiwan Co., Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114RT-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114RT-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>167</td>
+            <td><code>LIN1131007</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年度婦產科醫療支援採購案</td>
+            <td>2024/12/24</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131007" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131007" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>168</td>
+            <td><code>113CAPEX-36</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">硬式子宮鏡組1組採購案</td>
+            <td>2024/12/20</td>
+            <td class="text-left">元佑實業股份有限公司台中分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-36" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-36" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>169</td>
+            <td><code>1131218</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">火警探測器及線路更換為R型偵煙探測器公開徵求廠商提供參考資料</td>
+            <td>2024/12/19</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1131218" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1131218" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>170</td>
+            <td><code>113CAPEX-33</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">全自動真空蒸氣滅菌鍋 1台採購案</td>
+            <td>2024/12/19</td>
+            <td class="text-left">宏霖儀器有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-33" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-33" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>171</td>
+            <td><code>LIN1130401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115「環境清潔維護及傳送業務委外」採購案</td>
+            <td>2024/12/17</td>
+            <td class="text-left">毅潔環保股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1130401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1130401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>172</td>
+            <td><code>LIN1131004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度心臟內科醫療支援採購案</td>
+            <td>2024/12/17</td>
+            <td class="text-left">亞洲大學附屬醫院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>173</td>
+            <td><code>LIN1131010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度乳房外科醫療支援採購案</td>
+            <td>2024/12/13</td>
+            <td class="text-left">亞洲大學附屬醫院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>174</td>
+            <td><code>LIN1131009</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度心臟外科醫療支援採購案</td>
+            <td>2024/12/13</td>
+            <td class="text-left">仁愛醫療財團法人大里仁愛醫院, 亞洲大學附屬醫院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131009" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131009" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>175</td>
+            <td><code>MED113-20</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年藥品乙批(C)採購案</td>
+            <td>2024/12/12</td>
+            <td class="text-left">裕利股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED113-20" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED113-20" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>176</td>
+            <td><code>LIN1131105</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年度牙科醫療支援採購案</td>
+            <td>2024/12/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131105" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131105" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>177</td>
+            <td><code>LIN1131008</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-115年度外科醫療支援採購案</td>
+            <td>2024/12/11</td>
+            <td class="text-left">中山醫學大學附設醫院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131008" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131008" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>178</td>
+            <td><code>113CAPEX-28</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">連線型身高體重計及血壓計乙批採購案</td>
+            <td>2024/12/09</td>
+            <td class="text-left">大同醫護股份有限公司 (Tatung Medical & Healthcare Technologies Co., Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-28" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-28" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>179</td>
+            <td><code>113NS-5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">外科衛材乙批(三)採購案</td>
+            <td>2024/12/06</td>
+            <td class="text-left">尚弋股份有限公司, 美德國際行銷股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NS-5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NS-5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>180</td>
+            <td><code>LIN1131102</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年PD-L1免疫組織化學染色體檢測及判讀委外採購案</td>
+            <td>2024/12/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131102" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131102" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>181</td>
+            <td><code>113GS-4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">外科腹腔鏡自固吸收網狀編網(左側)採購案</td>
+            <td>2024/11/26</td>
+            <td class="text-left">邁迪恩企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113GS-4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113GS-4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>182</td>
+            <td><code>113MSR</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">監視系統設備5年租賃(含維護)案</td>
+            <td>2024/11/26</td>
+            <td class="text-left">萬通電信有限公司, 偉沃有限公司, 中投有線電視股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113MSR" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113MSR" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>183</td>
+            <td><code>113R-2</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">復健科氦氖雷射儀一次性使用光纖針採購案</td>
+            <td>2024/11/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113R-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113R-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>184</td>
+            <td><code>LIN1131103</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年度婦產科染色體基因及羊水基因晶片檢測委外代檢案</td>
+            <td>2024/11/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>185</td>
+            <td><code>LIN1131013</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年度耳鼻喉科及聽力師醫療支援採購案</td>
+            <td>2024/11/25</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>186</td>
+            <td><code>113YEP</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年終感恩餐宴</td>
+            <td>2024/11/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113YEP" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113YEP" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>187</td>
+            <td><code>114RT-2</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">放射腫瘤治療儀器設備短期租賃案</td>
+            <td>2024/11/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114RT-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114RT-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>188</td>
+            <td><code>113NS-3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">神經外科腦脊髓液引流組控制閥採購案</td>
+            <td>2024/11/19</td>
+            <td class="text-left">君華有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NS-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NS-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>189</td>
+            <td><code>LIN1130601</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">衛生福利部南投醫院暨草屯療養院救護車勤務委外聯合採購案</td>
+            <td>2024/11/18</td>
+            <td class="text-left">承恩救護車有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1130601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1130601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>190</td>
+            <td><code>LIN1131005</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年度麻醉科醫療支援採購案</td>
+            <td>2024/11/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131005" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131005" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>191</td>
+            <td><code>LIN1131006</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年度牙科醫療支援採購案</td>
+            <td>2024/11/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131006" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131006" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>192</td>
+            <td><code>113CAPEX-25</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">全自動真空蒸氣滅菌鍋 1台採購案</td>
+            <td>2024/11/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-25" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-25" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>193</td>
+            <td><code>113O-7</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">骨科脛骨遠端外側鎖定骨板採購案</td>
+            <td>2024/11/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113O-7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113O-7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>194</td>
+            <td><code>LIN1131002</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年度小兒科醫療支援採購案</td>
+            <td>2024/11/01</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131002" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131002" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>195</td>
+            <td><code>LIN1131001</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年度放射科醫療支援採購案</td>
+            <td>2024/10/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>196</td>
+            <td><code>LIN1131003</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年內科醫療支援採購案</td>
+            <td>2024/10/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1131003" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1131003" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>197</td>
+            <td><code>114RT</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">放射腫瘤治療儀器設備租賃案</td>
+            <td>2024/10/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114RT" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114RT" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>198</td>
+            <td><code>113CAPEX-23</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">連線型身高體重計及血壓計乙批採購案</td>
+            <td>2024/10/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-23" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-23" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>199</td>
+            <td><code>113WAC-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度空調設備清洗保養案</td>
+            <td>2024/10/25</td>
+            <td class="text-left">宜佳居企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113WAC-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113WAC-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>200</td>
+            <td><code>LIN1130901</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">113-116年度次世代基因定序(NGS)委外代檢採購案</td>
+            <td>2024/10/23</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1130901" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1130901" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>201</td>
+            <td><code>MED113-18</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">113年注射用水二項採購案</td>
+            <td>2024/10/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED113-18" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED113-18" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>202</td>
+            <td><code>1123BW-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">生物醫療廢棄物再利用委託清除處理採購案後續擴充</td>
+            <td>2024/10/08</td>
+            <td class="text-left">郁傑科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1123BW-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1123BW-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>203</td>
+            <td><code>113O-6</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科橈骨遠端掌側鎖定骨板採購案</td>
+            <td>2024/10/02</td>
+            <td class="text-left">倚暉生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113O-6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113O-6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>204</td>
+            <td><code>113NS-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">神經外科顱顏骨固定系統採購案</td>
+            <td>2024/10/02</td>
+            <td class="text-left">合碩生技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NS-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NS-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>205</td>
+            <td><code>113R-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">復健科血球細胞分離組(關節注射液)採購案</td>
+            <td>2024/10/02</td>
+            <td class="text-left">萊登生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113R-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113R-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>206</td>
+            <td><code>113CAPEX-21</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">麻醉機1台採購案</td>
+            <td>2024/09/30</td>
+            <td class="text-left">潔昇興業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-21" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-21" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>207</td>
+            <td><code>113CAPEX-18</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">移動式數位X光機1台採購案</td>
+            <td>2024/09/30</td>
+            <td class="text-left">富士軟片醫療產品股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-18" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-18" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>208</td>
+            <td><code>113AC-2</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年度流用款預計採購設備公開徵求廠商提供參考資料</td>
+            <td>2024/09/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113AC-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113AC-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>209</td>
+            <td><code>113WAC</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">空調設備清洗保養案</td>
+            <td>2024/09/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113WAC" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113WAC" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>210</td>
+            <td><code>MED113-17</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年Braftovi藥品採購案</td>
+            <td>2024/09/24</td>
+            <td class="text-left">裕利股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED113-17" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED113-17" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>211</td>
+            <td><code>113CAPEX-15</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">水對水式熱泵主機2台採購案</td>
+            <td>2024/09/24</td>
+            <td class="text-left">翔旺能源有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-15" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-15" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>212</td>
+            <td><code>LIN1130902</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年EGFR委外代檢採購案</td>
+            <td>2024/09/23</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1130902" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1130902" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>213</td>
+            <td><code>CK113-PR1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">第二停車場租賃案</td>
+            <td>2024/09/20</td>
+            <td class="text-left">林朱健</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=CK113-PR1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CK113-PR1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>214</td>
+            <td><code>LIN1130801</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113-114年度神經內科醫療支援採購案</td>
+            <td>2024/09/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1130801" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1130801" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>215</td>
+            <td><code>113CAPEX-12</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">冷卻水塔2台採購案</td>
+            <td>2024/09/03</td>
+            <td class="text-left">上乘機電工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-12" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-12" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>216</td>
+            <td><code>113O-5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科解剖型橈骨頭系統採購案</td>
+            <td>2024/08/28</td>
+            <td class="text-left">韶田股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113O-5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113O-5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>217</td>
+            <td><code>113O-4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科腰椎融合器採購案</td>
+            <td>2024/08/28</td>
+            <td class="text-left">世邦有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113O-4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113O-4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>218</td>
+            <td><code>113GS-3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">外科腹腔鏡自固吸收網狀編網採購案</td>
+            <td>2024/08/28</td>
+            <td class="text-left">邁迪恩企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113GS-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113GS-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>219</td>
+            <td><code>MED113-16</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年CALQUENCE藥品採購案(二)</td>
+            <td>2024/08/27</td>
+            <td class="text-left">裕利股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=MED113-16" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MED113-16" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>220</td>
+            <td><code>LIN1130702</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">醫療照護品質提升研究委託專業服務採購案</td>
+            <td>2024/08/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1130702" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1130702" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>221</td>
+            <td><code>113GI-2</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">腸胃科內視鏡衛材乙批(一)採購案</td>
+            <td>2024/08/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113GI-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113GI-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>222</td>
+            <td><code>TYP1130800</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">南投院區戶外停車場地面整理採購案</td>
+            <td>2024/08/23</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=TYP1130800" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TYP1130800" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>223</td>
+            <td><code>113HC</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">113年中秋聯歡餐宴服務案</td>
+            <td>2024/08/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113HC" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113HC" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>224</td>
+            <td><code>114CAPEX</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年度設備採購公開徵求廠商提供參考資料</td>
+            <td>2024/08/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=114CAPEX" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114CAPEX" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>225</td>
+            <td><code>ZRD1921-PDS</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">中正路19、21號宿舍耐震補強工程規劃設計監造委託技術服務案</td>
+            <td>2024/07/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=ZRD1921-PDS" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ZRD1921-PDS" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>226</td>
+            <td><code>113O-3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">骨科衛材乙批(三)採購案</td>
+            <td>2024/07/31</td>
+            <td class="text-left">沛旭生科股份有限公司, 富乙生技有限公司, 長承生技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113O-3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113O-3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>227</td>
+            <td><code>113NS-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">神經外科腦膜替代物採購案</td>
+            <td>2024/07/31</td>
+            <td class="text-left">博而美國際股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113NS-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113NS-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>228</td>
+            <td><code>113IVUS</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">血管內超音波影像及血流分析系統1組採購案</td>
+            <td>2024/07/31</td>
+            <td class="text-left">荷商波士頓科技有限公司台灣分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113IVUS" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113IVUS" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>229</td>
+            <td><code>TP1135400</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">中興院區兒童發展評估及療育中心廁所整修案</td>
+            <td>2024/07/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=TP1135400" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TP1135400" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>230</td>
+            <td><code>LIN1130701</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年度泌尿外科醫療支援採購案</td>
+            <td>2024/07/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=LIN1130701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=LIN1130701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>231</td>
+            <td><code>113PCPS</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">經皮心肺輔助裝置1台採購案</td>
+            <td>2024/07/30</td>
+            <td class="text-left">瑞中亞醫療器材有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113PCPS" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113PCPS" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>232</td>
+            <td><code>1130718-1</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">本院急診鋼構停車場規劃設計樣式及預算估算</td>
+            <td>2024/07/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1130718-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1130718-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>233</td>
+            <td><code>1130718</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">監視系統設備租賃（含維護）案公開徵求</td>
+            <td>2024/07/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1130718" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1130718" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>234</td>
+            <td><code>113CAPEX-11</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">水對水式熱泵主機2台採購案</td>
+            <td>2024/07/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-11" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-11" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>235</td>
+            <td><code>TPA11307</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">南投醫院各單位環境修繕美化案</td>
+            <td>2024/07/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=TPA11307" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TPA11307" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>236</td>
+            <td><code>1130716</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">污水場維修公開徵求廠商提供參考資料</td>
+            <td>2024/07/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=1130716" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1130716" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>237</td>
+            <td><code>REP11305-03</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">電腦斷層掃描儀及雙管注射器維護保養案</td>
+            <td>2024/07/12</td>
+            <td class="text-left">承啟醫系股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=REP11305-03" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=REP11305-03" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>238</td>
+            <td><code>Eng11102-113A</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">放腫大樓地磚瑕疵改正工程</td>
+            <td>2024/07/09</td>
+            <td class="text-left">上庭土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Eng11102-113A" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Eng11102-113A" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>239</td>
+            <td><code>Eng11102-113B</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">放腫大樓醫療氣體管路瑕疵改正</td>
+            <td>2024/07/09</td>
+            <td class="text-left">全禾企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=Eng11102-113B" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Eng11102-113B" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>240</td>
+            <td><code>113CAPEX-10</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">受信總機及廣撥設備更新採購案</td>
+            <td>2024/07/08</td>
+            <td class="text-left">大和防災股份有限公司, 福華消防工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113CAPEX-10" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113CAPEX-10" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>241</td>
+            <td><code>113INK</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-115年度墨水匣供應採購案</td>
+            <td>2024/06/26</td>
+            <td class="text-left">安禾資訊有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.38&job_number=113INK" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113INK" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-10-28 08:31:54 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
