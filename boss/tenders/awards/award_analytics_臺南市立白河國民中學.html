@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】臺南市立白河國民中學 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">臺南市立白河國民中學</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">55 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">51 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">17 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">14 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 3 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">銘慧營造股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">6 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (6 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1150513]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">白河國中校園鋪面路平改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/05/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1150513" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1150513" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1140401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度補助白河國民中學校園通道鋪面路平改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/05/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1140401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1140304]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">113年度白河國中1122地震災後復建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/03/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140304" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1140304" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1131015]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">113年度教育部補助偏遠地區學校非山非市學校設施設備計畫-白河國中設施整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/10/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1131015" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1131015" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1120321]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">112年度補助國民中小學校園通道鋪面路平改善計畫工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/03/21</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120321" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1120321" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1090928]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺南市立白河國中工藝教室耐震補強工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/01/06</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1090928" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1090928" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">台安國際小客車租賃有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1131023]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年全國中等學校運動會藥檢組藥檢接駁專車(含司機)勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/10/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1131023" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1131023" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1120526]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">112年全國運動會藥檢組9人座接駁專車勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/05/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120526" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1120526" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">尊龍小客車租賃有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1131023]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年全國中等學校運動會藥檢組藥檢接駁專車(含司機)勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/10/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1131023" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1131023" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1120526]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">112年全國運動會藥檢組9人座接駁專車勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/05/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120526" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1120526" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#4</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">和晟營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-4')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-4" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1140401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度補助白河國民中學校園通道鋪面路平改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/05/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1140401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#5</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">國大營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-5')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-5" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1140401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度補助白河國民中學校園通道鋪面路平改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/05/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1140401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#6</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">嘉丞營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-6')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-6" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1140401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度補助白河國民中學校園通道鋪面路平改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/05/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1140401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#7</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">堉憲營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-7')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-7" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1140401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度補助白河國民中學校園通道鋪面路平改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/05/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1140401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#8</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">和碁營造股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-8')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-8" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1140401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度補助白河國民中學校園通道鋪面路平改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/05/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1140401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#9</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">圓成有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-9')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-9" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[11309]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年全國中等學校運動會-藥檢組採樣站場地器具佈置 (包含檢體保存設備) 』財物採購招標</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/10/08</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=11309" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=11309" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#10</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">德順益有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-10')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-10" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[11304]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺南市立白河國中113年度校園冷氣安裝微電改工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/05/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=11304" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=11304" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#11</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">冠曄科技工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-11')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-11" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1121013]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺南市立白河國中112年度校園冷氣安裝微電改工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/19</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1121013" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1121013" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#12</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">展顥國際有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-12')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-12" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1120914]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">112年全國運動會藥檢組採樣站場地佈置及設備採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/09/14</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120914" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1120914" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#13</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">佳政工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-13')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-13" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1101130]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">110年臺南市立白河國民中學中央廚房擴建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/12/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1101130" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1101130" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#14</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">許峰賓建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-14')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-14" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[1100816]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">110年臺南市立白河國民中學中央廚房擴建工程規劃設計監造勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/09/06</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1100816" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=1100816" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (17 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>1151106</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left font-weight-bold">臺南市白河國民中學115年度運動操場及周邊設施整建工程委託設計監造技術服務</td>
+            <td>2026/11/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span><span class="kw-tag">運動</span><span class="kw-tag">操場</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1151106" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1151106" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>1150605</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">臺南市立白河國民中學廁所沖水設備汰換成兩段式沖水裝置</td>
+            <td>2026/06/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1150605" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1150605" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>1150513</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">白河國中校園鋪面路平改善工程</td>
+            <td>2026/05/22</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1150513" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1150513" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>1140401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">114年度補助白河國民中學校園通道鋪面路平改善工程</td>
+            <td>2025/05/02</td>
+            <td class="text-left">銘慧營造股份有限公司, 和晟營造有限公司, 國大營造工程有限公司, 嘉丞營造有限公司, 堉憲營造有限公司, 和碁營造股份有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>1140304</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">113年度白河國中1122地震災後復建工程</td>
+            <td>2025/03/12</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140304" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140304" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>1131015</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">113年度教育部補助偏遠地區學校非山非市學校設施設備計畫-白河國中設施整修工程</td>
+            <td>2024/10/23</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1131015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1131015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>1131023</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">114年全國中等學校運動會藥檢組藥檢接駁專車(含司機)勞務採購</td>
+            <td>2024/10/23</td>
+            <td class="text-left">台安國際小客車租賃有限公司, 尊龍小客車租賃有限公司</td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1131023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1131023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>11309</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">114年全國中等學校運動會-藥檢組採樣站場地器具佈置 (包含檢體保存設備) 』財物採購招標</td>
+            <td>2024/10/08</td>
+            <td class="text-left">圓成有限公司</td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=11309" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=11309" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>11304</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺南市立白河國中113年度校園冷氣安裝微電改工程</td>
+            <td>2024/05/03</td>
+            <td class="text-left">德順益有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=11304" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=11304" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>1121013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺南市立白河國中112年度校園冷氣安裝微電改工程</td>
+            <td>2023/10/19</td>
+            <td class="text-left">冠曄科技工程有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1121013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1121013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>1120927</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">臺南市立白河國中112年度校園冷氣安裝微電改工程</td>
+            <td>2023/10/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120927" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120927" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>1120914</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">112年全國運動會藥檢組採樣站場地佈置及設備採購案</td>
+            <td>2023/09/14</td>
+            <td class="text-left">展顥國際有限公司</td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120914" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120914" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>1120526</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">112年全國運動會藥檢組9人座接駁專車勞務採購案</td>
+            <td>2023/05/29</td>
+            <td class="text-left">尊龍小客車租賃有限公司, 台安國際小客車租賃有限公司</td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120526" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120526" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>1120321</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">112年度補助國民中小學校園通道鋪面路平改善計畫工程</td>
+            <td>2023/03/21</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120321" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120321" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>1101130</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">110年臺南市立白河國民中學中央廚房擴建工程</td>
+            <td>2021/12/23</td>
+            <td class="text-left">佳政工程有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1101130" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1101130" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>1100816</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">110年臺南市立白河國民中學中央廚房擴建工程規劃設計監造勞務採購案</td>
+            <td>2021/09/06</td>
+            <td class="text-left">許峰賓建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1100816" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1100816" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>1090928</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺南市立白河國中工藝教室耐震補強工程</td>
+            <td>2021/01/06</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1090928" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1090928" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (51 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>1151106</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">臺南市白河國民中學115年度運動操場及周邊設施整建工程委託設計監造技術服務</td>
+            <td>2026/11/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1151106" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1151106" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>1150930</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度白河國中九年級校外教學參觀活動</td>
+            <td>2026/10/07</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1150930" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1150930" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>1150924</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度白河國中七、八年級校外教學</td>
+            <td>2026/10/01</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1150924" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1150924" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>1150806</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">白河國中115學年度午餐廚房50Kg桶裝瓦斯採購案</td>
+            <td>2026/08/14</td>
+            <td class="text-left">大安全煤氣行, 丁賀能源有限公司, 光隆液化煤氣行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1150806" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1150806" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>1150605</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺南市立白河國民中學廁所沖水設備汰換成兩段式沖水裝置</td>
+            <td>2026/06/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1150605" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1150605" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>1150513</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">白河國中校園鋪面路平改善工程</td>
+            <td>2026/05/22</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1150513" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1150513" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>1150408</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南市立白河國民中學114學年度七、八年級隔宿戶外教育活動</td>
+            <td>2026/04/10</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1150408" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1150408" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>1140910</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度7月丹娜絲緊急搶救(第一批)</td>
+            <td>2025/09/23</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140910" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140910" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>1140903</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度白河國中九年級校外教學參觀活動</td>
+            <td>2025/09/15</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140903" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140903" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>1130212</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度白河國中七、八年級校外教學</td>
+            <td>2025/09/08</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1130212" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1130212" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>1140212</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度白河國中七、八年級校外教學</td>
+            <td>2025/08/28</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140212" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140212" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>1140730_2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">白河國中114學年度午餐廚房50Kg桶裝瓦斯採購案</td>
+            <td>2025/08/26</td>
+            <td class="text-left">光隆液化煤氣行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140730_2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140730_2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>1140730</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">白河國中114學年度午餐廚房50Kg桶裝瓦斯採購案</td>
+            <td>2025/08/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140730" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140730" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>1140401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度補助白河國民中學校園通道鋪面路平改善工程</td>
+            <td>2025/05/02</td>
+            <td class="text-left">銘慧營造股份有限公司, 和晟營造有限公司, 國大營造工程有限公司, 嘉丞營造有限公司, 堉憲營造有限公司, 和碁營造股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>1140304</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度白河國中1122地震災後復建工程</td>
+            <td>2025/03/12</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140304" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140304" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>1140220</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度白河國中樹木移除（植）及周邊環境 改善</td>
+            <td>2025/03/04</td>
+            <td class="text-left">若水園藝, 一品居工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1140220" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140220" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>1131015</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度教育部補助偏遠地區學校非山非市學校設施設備計畫-白河國中設施整修工程</td>
+            <td>2024/10/23</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1131015" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1131015" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>1131023</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年全國中等學校運動會藥檢組藥檢接駁專車(含司機)勞務採購</td>
+            <td>2024/10/23</td>
+            <td class="text-left">台安國際小客車租賃有限公司, 尊龍小客車租賃有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1131023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1131023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>11309</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年全國中等學校運動會-藥檢組採樣站場地器具佈置 (包含檢體保存設備) 』財物採購招標</td>
+            <td>2024/10/08</td>
+            <td class="text-left">圓成有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=11309" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=11309" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>1131028</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度白河國中九年級校外教學參觀活動勞務採購</td>
+            <td>2024/10/08</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1131028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1131028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>1130910</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度教育部補助偏遠地區學校非山非市學校設施設備計畫-教學電子產品設備等採購案</td>
+            <td>2024/09/10</td>
+            <td class="text-left">明城資訊有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1130910" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1130910" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>1130806</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">白河國中113學年度午餐廚房50Kg桶裝瓦斯採購</td>
+            <td>2024/08/16</td>
+            <td class="text-left">光隆液化煤氣行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1130806" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1130806" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>1130530</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南市立白河國民中學AI機器人套組設備財物採購</td>
+            <td>2024/06/18</td>
+            <td class="text-left">創意機器人科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1130530" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1130530" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>1130312-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度九年級校外教學參觀活動第一次契約變更</td>
+            <td>2024/05/07</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1130312-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1130312-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>11304</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南市立白河國中113年度校園冷氣安裝微電改工程</td>
+            <td>2024/05/03</td>
+            <td class="text-left">德順益有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=11304" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=11304" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>1130312</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度九年級校外教學參觀活動</td>
+            <td>2024/03/12</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1130312" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1130312" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>1121031</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度七、八、九年級隔宿戶外教育活動</td>
+            <td>2023/10/31</td>
+            <td class="text-left">國益旅行社有限公司台南分公司, 大愛旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1121031" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1121031" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>1121013</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南市立白河國中112年度校園冷氣安裝微電改工程</td>
+            <td>2023/10/19</td>
+            <td class="text-left">冠曄科技工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1121013" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1121013" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>1120927</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺南市立白河國中112年度校園冷氣安裝微電改工程</td>
+            <td>2023/10/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120927" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120927" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>1120914</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年全國運動會藥檢組採樣站場地佈置及設備採購案</td>
+            <td>2023/09/14</td>
+            <td class="text-left">展顥國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120914" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120914" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>1120613</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度學校自辦午餐廚房設備及設施改善計畫-廚房設備汰舊換新採購案</td>
+            <td>2023/06/14</td>
+            <td class="text-left">大衛龍企業有限公司, 王鼎實業有限公司, 宇挺工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120613" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120613" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>1120530</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南市立白河國民中學111學年度七、八年級戶外教學活動</td>
+            <td>2023/05/31</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120530" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120530" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>1120526</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年全國運動會藥檢組9人座接駁專車勞務採購案</td>
+            <td>2023/05/29</td>
+            <td class="text-left">尊龍小客車租賃有限公司, 台安國際小客車租賃有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120526" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120526" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>1120321</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度補助國民中小學校園通道鋪面路平改善計畫工程</td>
+            <td>2023/03/21</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120321" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120321" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>1120309</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南市立白河國民中學111學年度七、八年級校外教學隔宿露營活動</td>
+            <td>2023/03/10</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1120309" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1120309" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>11108</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">白河國中111學年度午餐廚房50Kg桶裝瓦斯採購案</td>
+            <td>2022/08/17</td>
+            <td class="text-left">大安全煤氣行, 光隆液化煤氣行, 元景煤氣行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=11108" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=11108" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>1110719</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">111學年度九年級校外教學參觀活動</td>
+            <td>2022/07/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1110719" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1110719" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>1110505</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度七、八年級戶外教學活動</td>
+            <td>2022/05/09</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1110505" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1110505" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>1110413</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南市立白河國民中學111學年度新生服裝採購案</td>
+            <td>2022/04/13</td>
+            <td class="text-left">品行服裝商行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1110413" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1110413" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>11102</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">白河國中辦理推動偏鄉學校中央廚房計畫財物採購案</td>
+            <td>2022/03/15</td>
+            <td class="text-left">大衛龍企業有限公司, 緯成興業有限公司, 越鋼不銹鋼有限公司, 耶恩工業科技有限公司, 凱鑫商廚有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=11102" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=11102" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>1110125</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">臺南市立白河國民中學中央廚房設備採購案</td>
+            <td>2022/01/19</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1110125" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1110125" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>1101230</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">白河國中111年午餐運送服務採購案</td>
+            <td>2021/12/30</td>
+            <td class="text-left">蘇琮淯</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1101230" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1101230" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>1101213</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南市立白河國民中學110學年度學校外訂午餐桶餐勞務採購</td>
+            <td>2021/12/28</td>
+            <td class="text-left">嘉豪團膳便當工廠(合夥)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1101213" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1101213" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>44</td>
+            <td><code>1101130</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年臺南市立白河國民中學中央廚房擴建工程</td>
+            <td>2021/12/23</td>
+            <td class="text-left">佳政工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1101130" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1101130" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>45</td>
+            <td><code>1100816</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年臺南市立白河國民中學中央廚房擴建工程規劃設計監造勞務採購案</td>
+            <td>2021/09/06</td>
+            <td class="text-left">許峰賓建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1100816" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1100816" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>46</td>
+            <td><code>1100812</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年度教育部補助偏遠地區學校及非山非市學校設施設備計畫電腦資訊設備採購</td>
+            <td>2021/08/12</td>
+            <td class="text-left">明城資訊有限公司, 皇羿國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1100812" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1100812" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>47</td>
+            <td><code>1100803</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度白河國中九年級校外教學參觀活動</td>
+            <td>2021/08/06</td>
+            <td class="text-left">國益旅行社有限公司台南分公司, 離憂國際旅行社有限公司, 總倫旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1100803" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1100803" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>48</td>
+            <td><code>1100727</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年度教育部補助偏遠地區學校及非山非市學校設施設備計畫教學及監視設備採購</td>
+            <td>2021/07/30</td>
+            <td class="text-left">豪億科技工程事業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1100727" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1100727" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>49</td>
+            <td><code>1100525</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南市立白河國民中學110學年度新生服裝採購案</td>
+            <td>2021/05/26</td>
+            <td class="text-left">品行服裝商行(獨資), 欣德蔚企業有限公司, 謂勤體育服裝有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1100525" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1100525" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>50</td>
+            <td><code>1100118</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">109學年度七、八年級校外教學隔宿露營</td>
+            <td>2021/01/19</td>
+            <td class="text-left">國益旅行社有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1100118" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1100118" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>51</td>
+            <td><code>1090928</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南市立白河國中工藝教室耐震補強工程</td>
+            <td>2021/01/06</td>
+            <td class="text-left">銘慧營造股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.95.5.81&job_number=1090928" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1090928" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-11-06 08:31:05 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
