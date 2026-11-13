@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】交通部公路局嘉義區監理所 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">交通部公路局嘉義區監理所</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">108 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">107 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">14 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">10 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 5 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">展昇包作業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">3 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (3 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Y11508]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">嘉義區監理所115年度室內外環境清潔勞務委辦案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/12/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11508" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Y11508" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">室內</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Y11404]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">嘉義區監理所114年度室內外環境清潔勞務委辦案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/12/27</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11404" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Y11404" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">室內</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Y11305]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">嘉義區監理所113年度室內外環境清潔勞務委辦案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/12/25</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11305" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Y11305" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">室內</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">宇捷清潔有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">3 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (3 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[TN-11501]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺南監理站115年度室內外環境清潔勞務委辦</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/12/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11501" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=TN-11501" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">室內</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[TN-11401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺南監理站114年度室內外環境清潔勞務委辦</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/12/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=TN-11401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">室內</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[TN-11301]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺南監理站113年度室內外環境清潔勞務委辦</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/12/19</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11301" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=TN-11301" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">室內</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">翔吉環境清潔有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Y11508]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">嘉義區監理所115年度室內外環境清潔勞務委辦案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/12/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11508" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Y11508" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">室內</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Y11404]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">嘉義區監理所114年度室內外環境清潔勞務委辦案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/12/27</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11404" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Y11404" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">室內</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#4</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">樂人空間設計室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-4')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-4" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[UNL-11406]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">雲林監理站交通安全體驗園區統包工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/12/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11406" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=UNL-11406" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Y11311]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">嘉義區監理所文物展設空間設計裝修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11311" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Y11311" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">工程</span><span class="kw-tag">裝修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#5</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">侑信營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-5')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-5" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[TN-11311]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺南監理站車輛檢驗線防水工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/12/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11311" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=TN-11311" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">防水</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[TN-11306]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺南監理站行政大樓廁所整修改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/08/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11306" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=TN-11306" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#6</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">旭特金屬工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-6')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-6" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Y11418]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">嘉義區監理所檢驗大樓檢驗線鐵捲門修繕採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/11/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11418" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Y11418" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">修繕</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#7</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">學以室內裝修設計有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-7')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-7" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[UNL-11406]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">雲林監理站交通安全體驗園區統包工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/12/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11406" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=UNL-11406" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#8</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">懋霆工程顧問有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-8')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-8" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[TN-11310]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">臺南監理站車輛檢驗線防水工程委託設計、監造工作</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/10/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11310" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=TN-11310" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">防水</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#9</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">宏益室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-9')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-9" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Y11311]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">嘉義區監理所文物展設空間設計裝修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11311" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Y11311" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">工程</span><span class="kw-tag">裝修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#10</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">茂祥室內裝修設計工程行</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-10')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-10" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[Y11311]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">嘉義區監理所文物展設空間設計裝修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11311" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=Y11311" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">工程</span><span class="kw-tag">裝修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (14 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>TN-11601</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left font-weight-bold">臺南監理站116年度室內外環境清潔勞務委辦</td>
+            <td>2026/11/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">室內</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>Y11508</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">嘉義區監理所115年度室內外環境清潔勞務委辦案</td>
+            <td>2025/12/23</td>
+            <td class="text-left">翔吉環境清潔有限公司, 展昇包作業</td>
+            <td><span class="kw-tag">室內</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11508" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11508" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>TN-11501</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺南監理站115年度室內外環境清潔勞務委辦</td>
+            <td>2025/12/23</td>
+            <td class="text-left">宇捷清潔有限公司</td>
+            <td><span class="kw-tag">室內</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>Y11418</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">嘉義區監理所檢驗大樓檢驗線鐵捲門修繕採購案</td>
+            <td>2025/11/18</td>
+            <td class="text-left">旭特金屬工程有限公司</td>
+            <td><span class="kw-tag">修繕</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11418" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11418" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>UNL-11406</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">雲林監理站交通安全體驗園區統包工程</td>
+            <td>2024/12/30</td>
+            <td class="text-left">樂人空間設計室內裝修有限公司, 學以室內裝修設計有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11406" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=UNL-11406" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>Y11404</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">嘉義區監理所114年度室內外環境清潔勞務委辦案</td>
+            <td>2024/12/27</td>
+            <td class="text-left">翔吉環境清潔有限公司, 展昇包作業</td>
+            <td><span class="kw-tag">室內</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11404" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11404" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>TN-11311</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺南監理站車輛檢驗線防水工程</td>
+            <td>2024/12/18</td>
+            <td class="text-left">侑信營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">防水</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11311" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11311" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>Y11411</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">114年度雲嘉南公路公共運輸專案辦公室計畫</td>
+            <td>2024/12/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">辦公室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11411" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11411" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>TN-11401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺南監理站114年度室內外環境清潔勞務委辦</td>
+            <td>2024/12/16</td>
+            <td class="text-left">宇捷清潔有限公司</td>
+            <td><span class="kw-tag">室內</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>TN-11310</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺南監理站車輛檢驗線防水工程委託設計、監造工作</td>
+            <td>2024/10/29</td>
+            <td class="text-left">懋霆工程顧問有限公司</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">防水</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11310" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11310" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>TN-11306</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺南監理站行政大樓廁所整修改善工程</td>
+            <td>2024/08/22</td>
+            <td class="text-left">侑信營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11306" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11306" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>Y11311</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">嘉義區監理所文物展設空間設計裝修工程</td>
+            <td>2024/07/02</td>
+            <td class="text-left">樂人空間設計室內裝修有限公司, 宏益室內裝修有限公司, 茂祥室內裝修設計工程行</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">工程</span><span class="kw-tag">裝修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11311" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11311" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>Y11305</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">嘉義區監理所113年度室內外環境清潔勞務委辦案</td>
+            <td>2023/12/25</td>
+            <td class="text-left">展昇包作業</td>
+            <td><span class="kw-tag">室內</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11305" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11305" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>TN-11301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">臺南監理站113年度室內外環境清潔勞務委辦</td>
+            <td>2023/12/19</td>
+            <td class="text-left">宇捷清潔有限公司</td>
+            <td><span class="kw-tag">室內</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (107 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>TN-11601</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">臺南監理站116年度室內外環境清潔勞務委辦</td>
+            <td>2026/11/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>Y11515</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">115-116年印表機回收再利用碳粉匣(開口契約)採購案</td>
+            <td>2026/11/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11515" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11515" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>Y11603</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">116年度嘉義區監理所（含轄站）公路使用養護安全管理費、強制險暨交通違規處分移送強制執行等作業勞務承攬案</td>
+            <td>2026/11/12</td>
+            <td class="text-left">資懿管理顧問有限公司 (Ziyi Management Consulting Co., Ltd.), 華賞實業股份有限公司, 鴻達資源開發事業有限公司, 有限責任新北市機關勞務承攬勞動合作社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11603" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11603" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>Y11602</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">嘉義區監理所116年度開徵及催繳汽機車公路養管費暨違反公路法事件處 分書等7種書表印製作業</td>
+            <td>2026/11/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11602" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11602" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>CYI-11601</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">嘉義市監理站116年度委託公庫派駐代收服務案</td>
+            <td>2026/11/11</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=CYI-11601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CYI-11601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>SY-11601</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">新營監理站116年度委託公庫派駐代收服務</td>
+            <td>2026/11/11</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=SY-11601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SY-11601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>Y11601</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">本所(含轄站)委託處理116年度車輛定期檢驗通知單、車輛逾期檢驗違規舉發通知單及違反強制汽車責任保險法註銷牌照處分書印製作業</td>
+            <td>2026/11/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>Y11605</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年嘉義區監理所資訊設備軟硬體維護案</td>
+            <td>2026/11/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11605" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11605" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>MD-11602</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">麻豆監理站116年度環境清潔服務</td>
+            <td>2026/10/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11602" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11602" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>MD-11601</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">麻豆監理站116年度委託保全收款及解繳服務案</td>
+            <td>2026/10/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>TN-11502</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站電話交換機系統(含線路)1組</td>
+            <td>2026/10/13</td>
+            <td class="text-left">中華電信股份有限公司企業客戶分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>Y11513</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">汽車考驗場監控系統汰換</td>
+            <td>2026/10/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11513" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11513" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>Y11512</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所「115年跨機關結合路老師及高齡者交通安全宣導團計畫宣導品」採購案</td>
+            <td>2026/10/02</td>
+            <td class="text-left">軒彩精品國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11512" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11512" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>UNL-11505</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">雲林監理站電話總機系統設備及話機更新案</td>
+            <td>2026/09/24</td>
+            <td class="text-left">詠豐電子企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11505" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=UNL-11505" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>MD-11504</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">麻豆監理站辦公空間整體環境視覺改善與製作</td>
+            <td>2026/07/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11504" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11504" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>Y11511</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">本所電腦機房不斷電系統(UPS)汰換採購案</td>
+            <td>2026/06/15</td>
+            <td class="text-left">仁聚科技有限公司, 昭松科技股份有限公司, 飛碟企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11511" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11511" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>MD-11503</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">麻豆監理站檢驗線小型車道5噸煞車試驗器及5噸偏滑試驗器汰換</td>
+            <td>2026/06/05</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11503" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11503" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>Y11509</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度本所暨轄站與大埔鄉公所檢驗線標準廢氣分析儀校正氣體及軟硬體設備採購案</td>
+            <td>2026/05/29</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11509" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11509" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>MD-11502</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">麻豆監理站發電機組1台汰換</td>
+            <td>2026/05/11</td>
+            <td class="text-left">京廷機電有限公司, 真光宏遠科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>Y11510</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年白沙屯媽祖北港端交通接駁服務</td>
+            <td>2026/04/07</td>
+            <td class="text-left">高鼎遊覽車客運股份有限公司, 南台遊覽汽車股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11510" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11510" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>Y11507</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所115年度高齡駕駛人換照通知單印製作業</td>
+            <td>2026/03/13</td>
+            <td class="text-left">社團法人中華民國領航弱勢族群創業暨就業發展協會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11507" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11507" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>CYI-11503</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義市監理站委託保全收款及解繳服務案</td>
+            <td>2026/01/30</td>
+            <td class="text-left">台灣保全股份有限公司 (TAIWAN SECURITY CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=CYI-11503" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CYI-11503" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>Y11413</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">嘉義區監理所所本部考驗曳引車1輛採購案</td>
+            <td>2026/01/23</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11413" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11413" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>CYI-11501</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">嘉義市監理站115年度委託公庫派駐代收服務案</td>
+            <td>2026/01/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=CYI-11501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CYI-11501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>Y11419</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所「強化行人能見度計畫-反光棒球帽採購(第2次)」案</td>
+            <td>2025/12/26</td>
+            <td class="text-left">加享團體服裝有限公司, 大傳育樂用品有限公司, 玖九創新力國際有限公司, 神采時尚事業股份有限公司, 帛優企業有限公司, Boyou Enterprise Co., Ltd.</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11419" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11419" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>Y11508</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所115年度室內外環境清潔勞務委辦案</td>
+            <td>2025/12/23</td>
+            <td class="text-left">翔吉環境清潔有限公司, 展昇包作業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11508" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11508" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>TN-11501</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站115年度室內外環境清潔勞務委辦</td>
+            <td>2025/12/23</td>
+            <td class="text-left">宇捷清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>Y11503</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度本所暨轄站車輛檢驗系統維護案</td>
+            <td>2025/12/23</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11503" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11503" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>SY-11502</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新營監理站115年度環境清潔服務</td>
+            <td>2025/12/12</td>
+            <td class="text-left">鑫成工程行, 翔吉環境清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=SY-11502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SY-11502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>Y11504</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所委託保全收款及解繳服務案</td>
+            <td>2025/12/08</td>
+            <td class="text-left">台灣保全股份有限公司 (TAIWAN SECURITY CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11504" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11504" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>Y11505</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">本所115、116年度半責式(P.O.G)電梯保養</td>
+            <td>2025/12/08</td>
+            <td class="text-left">日立永大電梯股份有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11505" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11505" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>Y11506</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年嘉義區監理所資訊設備軟硬體維護案</td>
+            <td>2025/12/08</td>
+            <td class="text-left">羿程科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11506" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11506" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>CYI-11502</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義市監理站115年度環境清潔服務</td>
+            <td>2025/12/08</td>
+            <td class="text-left">凱晟清潔有限公司, 翔吉環境清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=CYI-11502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CYI-11502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>MD-11501</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">麻豆監理站115年度環境清潔服務</td>
+            <td>2025/12/04</td>
+            <td class="text-left">昱威清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>TS-11501</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">東勢監理分站115年度環境清潔維護</td>
+            <td>2025/12/01</td>
+            <td class="text-left">秉洲企業社, 黛昕實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TS-11501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TS-11501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>Y11501</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所115年度開徵及催繳汽機車燃料使用費暨違反公路法事件處分書等7種書表印製作業</td>
+            <td>2025/11/28</td>
+            <td class="text-left">鉅冠印刷股份有限公司, 中華郵政股份有限公司臺北郵局, 東捷資訊服務股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>Y11420</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">各類電腦書表及普通書表印製(開口契約)</td>
+            <td>2025/11/28</td>
+            <td class="text-left">偉翔快速印刷有限公司, 樺暘文具印刷有限公司, 為翔事務用品股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11420" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11420" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>UNL-11502</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">雲林監理站115年度環境清潔維護</td>
+            <td>2025/11/21</td>
+            <td class="text-left">宇捷清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=UNL-11502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>UNL-11501</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">雲林監理站委託保全收款服務案</td>
+            <td>2025/11/21</td>
+            <td class="text-left">台灣保全股份有限公司 (TAIWAN SECURITY CO., LTD.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=UNL-11501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>Y11502</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度嘉義區監理所(含轄站)汽車燃料使用費、強制險暨交通違規處分移送強制執行等作業勞務承攬案</td>
+            <td>2025/11/18</td>
+            <td class="text-left">元辰工程有限公司, 華賞實業股份有限公司, 鴻吉管理顧問股份有限公司, 全晟企業有限公司, 鴻達資源開發事業有限公司, 信達國際管理實業社, 普力茂資訊有限公司 (PRIMORE INFORMATION CO., LTD.), 有限責任新北市原住民機關勞務勞動合作社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>Y11418</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所檢驗大樓檢驗線鐵捲門修繕採購案</td>
+            <td>2025/11/18</td>
+            <td class="text-left">旭特金屬工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11418" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11418" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>UNL-11409</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">雲林監理站行政大樓發電機汰換</td>
+            <td>2025/10/13</td>
+            <td class="text-left">真光宏遠科技有限公司, 京廷機電有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11409" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=UNL-11409" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>Y11417</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所「114年跨機關結合路老師及高齡者交通安全宣導團計畫宣導品」採購案</td>
+            <td>2025/10/09</td>
+            <td class="text-left">軒彩精品國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11417" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11417" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>44</td>
+            <td><code>TN-11404</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站職業考驗小型車1輛</td>
+            <td>2025/09/05</td>
+            <td class="text-left">福昇汽車股份有限公司, 樂天汽車有限公司, 中揚汽車股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11404" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11404" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>45</td>
+            <td><code>Y11416</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年HP M507dn印表機原廠黑色碳粉匣(開口契約)採購案</td>
+            <td>2025/09/04</td>
+            <td class="text-left">宏羚股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11416" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11416" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>46</td>
+            <td><code>Y11412-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所「強化行人能見度計畫-反光棒球帽採購」-反光棒球帽原有規格變更</td>
+            <td>2025/08/26</td>
+            <td class="text-left">億國通路有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11412-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11412-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>47</td>
+            <td><code>CYI-11404</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義市監理站檢驗線大型車道15 噸偏滑試驗器1台採購案</td>
+            <td>2025/08/08</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=CYI-11404" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CYI-11404" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>48</td>
+            <td><code>Y11414</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所所本部檢驗線第二車道15T大型車煞車試驗器總成採購案</td>
+            <td>2025/07/30</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11414" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11414" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>49</td>
+            <td><code>TN-11403</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站車輛檢驗線30公噸地磅1組</td>
+            <td>2025/07/23</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11403" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11403" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>50</td>
+            <td><code>CYI-11403</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義市監理站發電機組1台採購案</td>
+            <td>2025/07/11</td>
+            <td class="text-left">京廷機電有限公司, 昭誠企業社, 真光宏遠科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=CYI-11403" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CYI-11403" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>51</td>
+            <td><code>Y11412</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所「強化行人能見度計畫-反光棒球帽採購」案</td>
+            <td>2025/06/30</td>
+            <td class="text-left">億國通路有限公司, 台帽製帽有限公司, 玖九創新力國際有限公司, 天篷企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11412" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11412" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>52</td>
+            <td><code>TN-11402</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站行政大樓機房備援電力系統1組</td>
+            <td>2025/06/17</td>
+            <td class="text-left">真光宏遠科技有限公司, 世大電機有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>53</td>
+            <td><code>Y11408</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所114年度高齡駕駛人換照通知單印製作業</td>
+            <td>2025/02/27</td>
+            <td class="text-left">社團法人中華民國領航弱勢族群創業暨就業發展協會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11408" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11408" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>54</td>
+            <td><code>MD-11404</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">麻豆監理站委託保全收款及解繳服務案</td>
+            <td>2025/02/12</td>
+            <td class="text-left">立保保全股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11404" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11404" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>55</td>
+            <td><code>MD-11403</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">麻豆監理站委託保全收款及解繳服務案</td>
+            <td>2025/01/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11403" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11403" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>56</td>
+            <td><code>Y11410</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度本所暨轄站車輛檢驗系統維護案</td>
+            <td>2024/12/31</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11410" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11410" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>57</td>
+            <td><code>UNL-11406</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">雲林監理站交通安全體驗園區統包工程</td>
+            <td>2024/12/30</td>
+            <td class="text-left">樂人空間設計室內裝修有限公司, 學以室內裝修設計有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11406" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=UNL-11406" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>58</td>
+            <td><code>Y11404</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所114年度室內外環境清潔勞務委辦案</td>
+            <td>2024/12/27</td>
+            <td class="text-left">翔吉環境清潔有限公司, 展昇包作業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11404" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11404" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>59</td>
+            <td><code>Y11403</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所114、115年度辦公廳舍保全系統服務案</td>
+            <td>2024/12/19</td>
+            <td class="text-left">台灣星堡保全股份有限公司嘉義分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11403" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11403" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>60</td>
+            <td><code>Y11315</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">交通部公路局嘉義區監理所「113年銀髮族交通安全手冊及掛曆教具印製」採購案</td>
+            <td>2024/12/19</td>
+            <td class="text-left">湯承科技印刷股份有限公司, 上校基業有限公司, 帝宏文具印刷有限公司, 偉翔快速印刷有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11315" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11315" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>61</td>
+            <td><code>CYI-11401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義市監理站114年度委託公庫派駐代收服務</td>
+            <td>2024/12/19</td>
+            <td class="text-left">保證責任嘉義市第三信用合作社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=CYI-11401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CYI-11401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>62</td>
+            <td><code>TN-11311</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站車輛檢驗線防水工程</td>
+            <td>2024/12/18</td>
+            <td class="text-left">侑信營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11311" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11311" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>63</td>
+            <td><code>Y11411</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年度雲嘉南公路公共運輸專案辦公室計畫</td>
+            <td>2024/12/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11411" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11411" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>64</td>
+            <td><code>TN-11401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站114年度室內外環境清潔勞務委辦</td>
+            <td>2024/12/16</td>
+            <td class="text-left">宇捷清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>65</td>
+            <td><code>SY-11401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新營監理站114年度委託公庫派駐代收服務</td>
+            <td>2024/12/16</td>
+            <td class="text-left">臺南市新營區農會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=SY-11401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SY-11401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>66</td>
+            <td><code>CYI-11402</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義市監理站114年度環境清潔維護</td>
+            <td>2024/12/13</td>
+            <td class="text-left">凱晟清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=CYI-11402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CYI-11402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>67</td>
+            <td><code>Y11406</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度嘉義區監理所(含轄站)汽車燃料使用費、強制險暨交通違規處分移送強制執行等作業勞務承攬案</td>
+            <td>2024/12/13</td>
+            <td class="text-left">東慧國際諮詢顧問股份有限公司, 達尹企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11406" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11406" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>68</td>
+            <td><code>UNL-11401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">雲林監理站114年度委託公庫派駐代收服務</td>
+            <td>2024/12/12</td>
+            <td class="text-left">雲林縣林內鄉農會信用部</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=UNL-11401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>69</td>
+            <td><code>MD-11402</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">麻豆監理站委託保全收款及解繳服務案</td>
+            <td>2024/12/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>70</td>
+            <td><code>Y11407</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度嘉義區監理所資訊設備軟硬體維護案</td>
+            <td>2024/12/09</td>
+            <td class="text-left">羿程科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11407" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11407" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>71</td>
+            <td><code>TS-11401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">東勢監理分站114年環境清潔維護</td>
+            <td>2024/12/05</td>
+            <td class="text-left">晨昕實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TS-11401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TS-11401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>72</td>
+            <td><code>CYI-11305</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義市監理站檢驗線大、小型車道15 噸軸重計設備汰換採購案</td>
+            <td>2024/12/04</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=CYI-11305" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CYI-11305" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>73</td>
+            <td><code>Y11401</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">嘉義區監理所114年度開徵及催繳汽機車燃料使用費暨違反公路法事件處分書等7種書表印製作業</td>
+            <td>2024/12/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>74</td>
+            <td><code>MD-11401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">麻豆監理站114年度環境清潔服務</td>
+            <td>2024/12/03</td>
+            <td class="text-left">昱威清潔有限公司, 金蒂企業行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>75</td>
+            <td><code>Y11405</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">嘉義區監理所114年度委託公庫派駐代收服務案</td>
+            <td>2024/12/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11405" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11405" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>76</td>
+            <td><code>Y11402</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">本所（含轄站）委託處理114年度車輛定期檢驗、車輛逾期檢驗違規舉發通知單及違反強制汽車責任保險法註銷牌照處分書印製作業</td>
+            <td>2024/12/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>77</td>
+            <td><code>SY-11402</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新營監理站114年度環境清潔服務</td>
+            <td>2024/11/29</td>
+            <td class="text-left">鑫成工程行, 鑫億土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=SY-11402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SY-11402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>78</td>
+            <td><code>UNL-11402</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">雲林監理站114年度環境清潔維護</td>
+            <td>2024/11/28</td>
+            <td class="text-left">昱威清潔有限公司, 晨昕實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=UNL-11402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>79</td>
+            <td><code>Y11314</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所「113年跨機關結合路老師高齡者交通安全宣導團計畫宣導品」採購案</td>
+            <td>2024/11/06</td>
+            <td class="text-left">軒彩精品國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11314" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11314" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>80</td>
+            <td><code>TN-11310</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站車輛檢驗線防水工程委託設計、監造工作</td>
+            <td>2024/10/29</td>
+            <td class="text-left">懋霆工程顧問有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11310" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11310" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>81</td>
+            <td><code>UNL-11308</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">雲林監理站汽車檢驗線地磅設備更新</td>
+            <td>2024/09/27</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11308" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=UNL-11308" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>82</td>
+            <td><code>Y11312</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度印表機碳粉匣(開口契約)採購案</td>
+            <td>2024/08/27</td>
+            <td class="text-left">大擎企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11312" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11312" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>83</td>
+            <td><code>Y11313</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所電梯主鋼索、調速鋼索、主鋼輪等消耗性料件汰換</td>
+            <td>2024/08/23</td>
+            <td class="text-left">日立永大電梯股份有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11313" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11313" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>84</td>
+            <td><code>TN-11306</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站行政大樓廁所整修改善工程</td>
+            <td>2024/08/22</td>
+            <td class="text-left">侑信營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11306" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11306" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>85</td>
+            <td><code>Y11311</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所文物展設空間設計裝修工程</td>
+            <td>2024/07/02</td>
+            <td class="text-left">樂人空間設計室內裝修有限公司, 宏益室內裝修有限公司, 茂祥室內裝修設計工程行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11311" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11311" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>86</td>
+            <td><code>TN-11307</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站行政大樓地下室汽車資料室移動櫃1座</td>
+            <td>2024/06/26</td>
+            <td class="text-left">宗昇倉儲設備有限公司, 仕多利室內裝修有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11307" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11307" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>87</td>
+            <td><code>TN-11308</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站檢驗線第1車道側滑試驗器(5噸)汰換</td>
+            <td>2024/06/26</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11308" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11308" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>88</td>
+            <td><code>Y11310</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年嘉義區監理所(含轄站)微型電動二輪車新領牌照及檢驗作業勞務承攬案</td>
+            <td>2024/05/10</td>
+            <td class="text-left">華賞實業股份有限公司, 佐羿企業有限公司, 合茂物業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11310" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11310" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>89</td>
+            <td><code>Y11309</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所113年度高齡駕駛人換照通知單印製作業</td>
+            <td>2024/04/08</td>
+            <td class="text-left">智光身心障礙福利促進協會, 社團法人中華民國領航弱勢族群創業暨就業發展協會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11309" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11309" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>90</td>
+            <td><code>Y11308</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度嘉義區監理所(含轄站)汽車燃料使用費、強制險暨交通違規處分移送強制執行等作業勞務承攬案</td>
+            <td>2024/02/26</td>
+            <td class="text-left">禾寬企業社, 有限責任新北市原住民機關勞務勞動合作社, 常來實業股份有限公司, 全晟企業有限公司, 羿程科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11308" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11308" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>91</td>
+            <td><code>Y11301</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">113年度嘉義區監理所(含轄站)汽車燃料使用費、強制險暨交通違規處分移送強制執行等作業勞務承攬案</td>
+            <td>2024/02/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>92</td>
+            <td><code>Y11307</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度嘉義區監理所檔案掃描相關作業委外勞務承攬案</td>
+            <td>2024/01/09</td>
+            <td class="text-left">羿程科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11307" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11307" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>93</td>
+            <td><code>Y11303</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度本所暨轄站車輛檢驗系統維護案</td>
+            <td>2023/12/28</td>
+            <td class="text-left">昊逸股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11303" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11303" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>94</td>
+            <td><code>Y11305</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所113年度室內外環境清潔勞務委辦案</td>
+            <td>2023/12/25</td>
+            <td class="text-left">展昇包作業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11305" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11305" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>95</td>
+            <td><code>Y11302</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所113年度開徵及催繳汽機車燃料使用費暨違反公路法事件處分書等7種書表印製作業</td>
+            <td>2023/12/25</td>
+            <td class="text-left">鉅冠印刷股份有限公司, 中華郵政股份有限公司臺北郵局</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11302" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11302" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>96</td>
+            <td><code>TN-11301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站113年度室內外環境清潔勞務委辦</td>
+            <td>2023/12/19</td>
+            <td class="text-left">宇捷清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>97</td>
+            <td><code>TN-11203</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">臺南監理站電動車充電設備建置及營運服務</td>
+            <td>2023/12/19</td>
+            <td class="text-left">台灣碳資產股份有限公司, 遠傳電信股份有限公司系統整合分公司, 華城電能科技股份有限公司, 飛象資訊股份有限公司, 駿成能源科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TN-11203" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TN-11203" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>98</td>
+            <td><code>Y11306</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度嘉義區監理所資訊設備軟硬體維護案</td>
+            <td>2023/12/12</td>
+            <td class="text-left">羿程科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11306" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11306" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>99</td>
+            <td><code>CYI-11302</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義市監理站113年度環境清潔維護</td>
+            <td>2023/12/08</td>
+            <td class="text-left">凱晟清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=CYI-11302" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=CYI-11302" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>100</td>
+            <td><code>Y11304</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">本所113、114年度半責式（P.O.G）電梯保養</td>
+            <td>2023/12/05</td>
+            <td class="text-left">日立永大電梯股份有限公司台南分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11304" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11304" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>101</td>
+            <td><code>TS-11301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">東勢監理分站113年環境清潔服務</td>
+            <td>2023/12/04</td>
+            <td class="text-left">晨昕實業有限公司, 昱威清潔有限公司, 冠潔企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=TS-11301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=TS-11301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>102</td>
+            <td><code>Y11215</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所112年度鼓勵申辦汽燃費電子繳款單及約定扣款等宣導品採購案</td>
+            <td>2023/12/04</td>
+            <td class="text-left">熱血天王企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11215" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11215" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>103</td>
+            <td><code>UNL-11301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">雲林監理站113年度環境清潔維護</td>
+            <td>2023/11/28</td>
+            <td class="text-left">宇捷清潔有限公司, 晨昕實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=UNL-11301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=UNL-11301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>104</td>
+            <td><code>SY-11301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新營監理站113年度環境清潔維護</td>
+            <td>2023/11/22</td>
+            <td class="text-left">鑫成工程行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=SY-11301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SY-11301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>105</td>
+            <td><code>SY-11204</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新營監理站發電機組1台採購案</td>
+            <td>2023/11/21</td>
+            <td class="text-left">真光宏遠科技有限公司, 國喬國際企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=SY-11204" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=SY-11204" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>106</td>
+            <td><code>MD-11301</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">麻豆監理站113年度環境清潔服務</td>
+            <td>2023/11/13</td>
+            <td class="text-left">宇捷清潔有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=MD-11301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=MD-11301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>107</td>
+            <td><code>Y11214</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">嘉義區監理所NEC SV9300全數位網路電話交換機設備擴充案</td>
+            <td>2023/11/09</td>
+            <td class="text-left">國美電訊科技工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.15.3.12&job_number=Y11214" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=Y11214" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-11-13 08:30:24 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
