@@ -220,10 +220,30 @@ async function getGoogleAccessToken() {
   return tokenData.access_token || null;
 }
 
-/** 在指定 Google 日曆建立截標與開標行程 */
+/** 解析環境變數中的設計師日曆對應表 */
+function getTargetCalendarIds(designerName) {
+  const targets = new Set();
+  if (process.env.GOOGLE_CALENDAR_ID) {
+    targets.add(process.env.GOOGLE_CALENDAR_ID.trim());
+  }
+  if (process.env.GOOGLE_DESIGNER_CALENDARS_JSON) {
+    try {
+      const map = JSON.parse(process.env.GOOGLE_DESIGNER_CALENDARS_JSON);
+      const designerCalId = map?.[designerName];
+      if (typeof designerCalId === 'string' && designerCalId.trim()) {
+        targets.add(designerCalId.trim());
+      }
+    } catch (err) {
+      console.warn('[submit-bid] 無法解析 GOOGLE_DESIGNER_CALENDARS_JSON:', err.message);
+    }
+  }
+  return Array.from(targets);
+}
+
+/** 在建築師與對應設計師的 Google 日曆建立截標與開標行程 */
 async function createGoogleCalendarEvents(bid, details) {
-  const calendarId = process.env.GOOGLE_CALENDAR_ID;
-  if (!calendarId) return { ok: false, skipped: true, reason: 'missing_calendar_id' };
+  const targetCalendarIds = getTargetCalendarIds(bid.designer_name);
+  if (targetCalendarIds.length === 0) return { ok: false, skipped: true, reason: 'missing_calendar_id' };
   if (!details.deadline && !details.opening) {
     return { ok: false, skipped: true, reason: 'no_dates_extracted' };
   }
@@ -242,11 +262,8 @@ async function createGoogleCalendarEvents(bid, details) {
     details.url ? `採購網公告：${details.url}` : ''
   ].filter(Boolean).join('\n');
 
-  const tasks = [];
-  const encodedCalId = encodeURIComponent(calendarId);
-  const endpoint = `https://www.googleapis.com/calendar/v3/calendars/${encodedCalId}/events`;
-
-  const pushEvent = async (summary, isoStart, durationMins, location) => {
+  const pushEvent = async (calendarId, summary, isoStart, durationMins, location) => {
+    const endpoint = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events`;
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: {
@@ -269,29 +286,33 @@ async function createGoogleCalendarEvents(bid, details) {
     return res.json();
   };
 
-  if (details.deadline) {
-    tasks.push(pushEvent(
-      `【截標】${bid.agency_name} - ${shortName} (${bid.designer_name})`,
-      details.deadline.isoStart,
-      30,
-      details.agencyAddress
-    ));
-  }
-
-  if (details.opening) {
-    const openLoc = [details.agencyAddress, details.openingLocation].filter(Boolean).join(' / ');
-    tasks.push(pushEvent(
-      `【開標】${bid.agency_name} - ${shortName} (${bid.designer_name})`,
-      details.opening.isoStart,
-      60,
-      openLoc
-    ));
+  const tasks = [];
+  for (const calendarId of targetCalendarIds) {
+    if (details.deadline) {
+      tasks.push(pushEvent(
+        calendarId,
+        `【截標】${bid.agency_name} - ${shortName} (${bid.designer_name})`,
+        details.deadline.isoStart,
+        30,
+        details.agencyAddress
+      ));
+    }
+    if (details.opening) {
+      const openLoc = [details.agencyAddress, details.openingLocation].filter(Boolean).join(' / ');
+      tasks.push(pushEvent(
+        calendarId,
+        `【開標】${bid.agency_name} - ${shortName} (${bid.designer_name})`,
+        details.opening.isoStart,
+        60,
+        openLoc
+      ));
+    }
   }
 
   const results = await Promise.allSettled(tasks);
   const createdCount = results.filter((r) => r.status === 'fulfilled').length;
   const errors = results.filter((r) => r.status === 'rejected').map((r) => r.reason?.message);
-  return { ok: createdCount > 0, createdCount, errors };
+  return { ok: createdCount > 0, createdCount, calendarsTargeted: targetCalendarIds.length, errors };
 }
 
 export default async function handler(req, res) {
