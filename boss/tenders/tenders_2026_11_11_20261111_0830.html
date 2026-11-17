@@ -2191,7 +2191,8 @@
                         tender_name: fullTenderTitle,
                         agency_name: targetAgency || "全省標案機關",
                         designer_name: realName,
-                        budget_amount: parseBudgetNumber(targetBudget)
+                        budget_amount: parseBudgetNumber(targetBudget),
+                        tender_url: targetUrl || ''
                     };
 
                     bidSubmitBtn.disabled = true;
@@ -2209,7 +2210,10 @@
                         const resData = await response.json().catch(() => ({}));
 
                         if (response.status === 201) {
-                            const budgetDisplay = cleanPayload.budget_amount !== null ? `$${cleanPayload.budget_amount.toLocaleString()}` : (targetBudget || '未列出');
+                            const budgetDisplay = cleanPayload.budget_amount !== null ? `${cleanPayload.budget_amount.toLocaleString()}` : (targetBudget || '未列出');
+                            const notif = resData.notifications || {};
+                            const tgBadge = notif.telegram?.ok ? '✅ Telegram已通報' : 'ℹ️ Telegram未啟用/略過';
+                            const calBadge = notif.calendar?.ok ? `✅ 日曆已建(${notif.calendar.createdCount || 1}筆)` : 'ℹ️ 日曆未啟用/略過';
                             statusMsg.innerHTML = `
                                 ✅ <strong>投標意向登記成功！</strong><br>
                                 <strong>案號：</strong>${cleanPayload.tender_id}<br>
@@ -2217,7 +2221,7 @@
                                 <strong>標案：</strong>${cleanPayload.tender_name}<br>
                                 <strong>預算金額：</strong>${budgetDisplay}<br>
                                 <strong>責任設計師：</strong>${selectedDesignerTitle} (${realName})<br>
-                                <span style="font-size:11px; color:#15803d;">(已成功連線建立於毅築案件管理系統)</span>
+                                <span style="font-size:11px; color:#15803d;">(已成功連線建立於毅築案件管理系統 | ${tgBadge} | ${calBadge})</span>
                             `;
                         } else if (response.status === 409 || response.status === 400 || resData.error === 'duplicate_tender_id' || resData.error === 'tender_already_assigned' || resData.error === 'already_exists' || (resData.message && (resData.message.includes('建檔') || resData.message.includes('承接')))) {
                             let designerLabel = '同組設計師';
