@@ -257,14 +257,17 @@ async function createGoogleCalendarEvents(bid, details) {
   const shortName = rawTitle.startsWith(bid.agency_name)
     ? rawTitle.slice(bid.agency_name.length).trim().slice(0, 36) || rawTitle.slice(0, 36)
     : rawTitle.slice(0, 36);
-  const pureAddress = details.agencyAddress ? details.agencyAddress.replace(/\s+/g, '') : '';
+  const cleanAddress = details.agencyAddress
+    ? details.agencyAddress.replace(/\s+/g, '').replace(/^\d{3,6}/, '')
+    : '';
+  const mapLocation = [bid.agency_name, cleanAddress].filter(Boolean).join(' ');
   const baseDesc = [
     `⏰ 截標時間：${details.deadline?.display || '未取得'}`,
     `🔔 開標時間：${details.opening?.display || '未取得'}`,
     details.openingLocation ? `🏛️ 開標地點：${details.openingLocation}` : '',
     `標案案號：${bid.tender_id}`,
     `招標機關：${bid.agency_name}`,
-    `機關地址：${pureAddress || '未取得'}`,
+    `機關地址：${cleanAddress || '未取得'}`,
     `標案名稱：${bid.tender_name}`,
     `預算金額：${budgetText}`,
     `負責設計師：${bid.designer_name}`,
@@ -303,7 +306,7 @@ async function createGoogleCalendarEvents(bid, details) {
         `【截標 ${details.deadline.shortLabel}】${bid.agency_name}｜${shortName} (${bid.designer_name})`,
         details.deadline.isoStart,
         30,
-        pureAddress
+        mapLocation
       ));
     }
     if (details.opening) {
@@ -312,7 +315,7 @@ async function createGoogleCalendarEvents(bid, details) {
         `【開標 ${details.opening.shortLabel}】${bid.agency_name}｜${shortName} (${bid.designer_name})`,
         details.opening.isoStart,
         60,
-        pureAddress
+        mapLocation
       ));
     }
   }
