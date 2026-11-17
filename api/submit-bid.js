@@ -59,6 +59,7 @@ function parseRocDateTime(rocStr) {
 
   return {
     roc: rocStr.trim(),
+    shortLabel: `${month}/${day}${hasTime ? ` ${hour}:${minute}` : ''}`,
     display: `${year}/${month}/${day}${hasTime ? ` ${hour}:${minute}` : ''} (${rocStr.trim()})`,
     isoStart: `${year}-${month}-${day}T${hour}:${minute}:00+08:00`
   };
@@ -252,10 +253,18 @@ async function createGoogleCalendarEvents(bid, details) {
   if (!accessToken) return { ok: false, skipped: true, reason: 'missing_google_credentials' };
 
   const budgetText = bid.budget_amount !== null ? `NT$ ${bid.budget_amount.toLocaleString('en-US')}` : '未列出';
-  const shortName = bid.tender_name.replace(/^[^\s<]+\s*<?/, '').slice(0, 40);
+  const rawTitle = bid.tender_name.replace(/^[^\s<]+\s*<?/, '').trim();
+  const shortName = rawTitle.startsWith(bid.agency_name)
+    ? rawTitle.slice(bid.agency_name.length).trim().slice(0, 36) || rawTitle.slice(0, 36)
+    : rawTitle.slice(0, 36);
+  const pureAddress = details.agencyAddress ? details.agencyAddress.replace(/\s+/g, '') : '';
   const baseDesc = [
+    `⏰ 截標時間：${details.deadline?.display || '未取得'}`,
+    `🔔 開標時間：${details.opening?.display || '未取得'}`,
+    details.openingLocation ? `🏛️ 開標地點：${details.openingLocation}` : '',
     `標案案號：${bid.tender_id}`,
     `招標機關：${bid.agency_name}`,
+    `機關地址：${pureAddress || '未取得'}`,
     `標案名稱：${bid.tender_name}`,
     `預算金額：${budgetText}`,
     `負責設計師：${bid.designer_name}`,
@@ -291,20 +300,19 @@ async function createGoogleCalendarEvents(bid, details) {
     if (details.deadline) {
       tasks.push(pushEvent(
         calendarId,
-        `【截標】${bid.agency_name} - ${shortName} (${bid.designer_name})`,
+        `【截標 ${details.deadline.shortLabel}】${bid.agency_name}｜${shortName} (${bid.designer_name})`,
         details.deadline.isoStart,
         30,
-        details.agencyAddress
+        pureAddress
       ));
     }
     if (details.opening) {
-      const openLoc = [details.agencyAddress, details.openingLocation].filter(Boolean).join(' / ');
       tasks.push(pushEvent(
         calendarId,
-        `【開標】${bid.agency_name} - ${shortName} (${bid.designer_name})`,
+        `【開標 ${details.opening.shortLabel}】${bid.agency_name}｜${shortName} (${bid.designer_name})`,
         details.opening.isoStart,
         60,
-        openLoc
+        pureAddress
       ));
     }
   }
