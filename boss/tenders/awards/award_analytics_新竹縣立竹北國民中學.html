@@ -1,0 +1,3972 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】新竹縣立竹北國民中學 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">新竹縣立竹北國民中學</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">101 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">100 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">42 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">36 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 11 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">吉宸營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">12 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (12 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[115A4]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣立竹北國民中學115年資源回收室道路整修工程採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/11/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115A4" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=115A4" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[115A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">仁愛樓西側老舊廁所整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/04/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=115A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣114年度竹北國民中學化糞池整修工程採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/12/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114A1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣114年度竹北國民中學教室及體育館PU整修工程採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/27</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114A1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114A1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">體育</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣立竹北國民中學「113年4月3日地震」公共設施災損復建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/11/06</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣立竹北國民中學多功能教室(二)整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/15</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113A1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">忠孝樓仁愛樓老舊廁所整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/05/01</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113A1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113A1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A4]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣立竹北國民中學忠孝樓前瀝青刨除鋪設工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/12/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A4" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A4" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹北分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹東分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111A4]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣竹北國中112年全中運拳擊競賽場地環境設施修(整)建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/01/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A4" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111A4" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣竹北國中112年全中運競賽場館(拳擊)整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/10/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">北院建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">8 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (8 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114C8]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">仁愛樓西側老舊廁所整修工程委託規劃設計監造技術服務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/13</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C8" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114C8" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">技術服務</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[113C10]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣立竹北國民中學信義樓拆除重建工程委託設計監造技術服務</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/11/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C10" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=113C10" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112C7]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">忠孝樓信義樓老舊廁所整修工程委託規劃設計監造技術服務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/10/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C7" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112C7" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">技術服務</span><span class="kw-tag">廁所</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111C8]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">竹北國中仁愛樓暨忠孝樓校舍防水隔熱工程委託監造勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/06/23</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C8" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111C8" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111C1-1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣竹北國中112年全中運競賽場館(拳擊)整修工程委託規劃設計監造勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/06/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C1-1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111C1-1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111C1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣竹北國中112年全中運競賽場館(拳擊)整修工程委託規劃設計監造勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/04/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111C1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110C7]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">竹北國中仁愛樓暨忠孝樓校舍防水隔熱工程委託規劃設計勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/10/22</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C7" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110C7" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110C6]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">竹北國中和平樓校舍防水隔熱工程委託規劃設計監造勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/10/21</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C6" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110C6" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">木蘭工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">3 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (3 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">竹北國中校園路面及公共藝術下陷復建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/11/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心竹北分區中心工作場所整建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/11/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110B4]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣立竹北國民中學110年度整建計畫-體育館改善教學環境採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/09/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110B4" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110B4" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">體育</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#4</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">易冠資訊股份有限公司 (E-champion CO., LTD.)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-4')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-4" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[115B4]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">普通班教室大屏及雙層崁入式黑板設備財物採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/08/19</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115B4" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=115B4" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114B4]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">普通班教室大屏及雙層崁入式黑板設備財物採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/07</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114B4" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114B4" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#5</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">上福事務機器企業社</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-5')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-5" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[115B4]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">普通班教室大屏及雙層崁入式黑板設備財物採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/08/19</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115B4" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=115B4" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114B4]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">普通班教室大屏及雙層崁入式黑板設備財物採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/07</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114B4" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114B4" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#6</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">雅崎裝修工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-6')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-6" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹北分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹東分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#7</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">翔品工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-7')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-7" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹北分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹東分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#8</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">錦龍室內裝修股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-8')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-8" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹北分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹東分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#9</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">宏睿電腦科技股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-9')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-9" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112B2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣竹北國民中學特教班教室電腦設備財物採購案(A)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/06/07</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112B2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112B2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112B3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣竹北國民中學特教班教室電腦設備財物採購案(B)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/06/07</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112B3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112B3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#10</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鑫利華營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-10')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-10" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">竹北國中仁愛樓暨忠孝樓校舍防水隔熱工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/12/16</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111A1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">竹北國中和平樓校舍防水隔熱工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/12/07</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111A1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#11</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">昇萌股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-11')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-11" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A2-1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣中小學電力系統改善工程(第1群)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/06/14</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A2-1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A2-1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣中小學電力系統改善工程(第1群)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/07/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#12</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">路戰隊商行</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-12')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-12" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[115A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣立竹北國民中學仁愛樓安全網汰換工程採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/10/02</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=115A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#13</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">佳惠土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-13')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-13" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣114年度竹北國民中學化糞池整修工程採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/12/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#14</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">新陽教具店</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-14')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-14" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">基層運動選手訓練站改善訓練環璄及器材設備整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/20</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#15</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">星宇體育器材企業社</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-15')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-15" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114B3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">114年度補助基層運動選手訓練站改善環境及器材設備財物採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/15</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114B3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114B3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#16</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">承達科技有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-16')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-16" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[114B4]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">普通班教室大屏及雙層崁入式黑板設備財物採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/10/07</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114B4" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=114B4" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">教室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#17</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">朝新營造事業股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-17')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-17" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A5]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣竹北市竹北國中通學步道暨行車安全道路改善計畫工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/01/26</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A5" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A5" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#18</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">世聯營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-18')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-18" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A5]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣竹北市竹北國中通學步道暨行車安全道路改善計畫工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/01/26</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A5" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A5" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#19</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">朝勝營造事業股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-19')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-19" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A5]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣竹北市竹北國中通學步道暨行車安全道路改善計畫工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/01/26</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A5" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A5" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#20</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">巨迪企業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-20')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-20" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹北分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#21</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">力承室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-21')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-21" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹北分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#22</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">禾莘室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-22')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-22" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心-竹東分區中心辦公室修繕工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/08/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#23</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">和鑫工程顧問股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-23')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-23" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[112C5]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣立竹北國民中學通學步道暨行車安全道路改善工程委託設計監造技術服務 勞務採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/07/05</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C5" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=112C5" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#24</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">育山營造工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-24')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-24" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111A1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">竹北國中和平樓校舍防水隔熱工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/12/07</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111A1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#25</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">健楹裝修工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-25')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-25" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[111A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣竹北國中112年全中運競賽場館(拳擊)整修工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/10/24</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=111A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">整修</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#26</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">竑緯室內裝修工程行(獨資)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-26')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-26" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心竹北分區中心工作場所整建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/11/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#27</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">高第實業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-27')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-27" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心竹北分區中心工作場所整建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/11/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#28</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">北昇營造股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-28')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-28" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心竹北分區中心工作場所整建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/11/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#29</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">進鑫工程行(獨資)</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-29')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-29" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心竹北分區中心工作場所整建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/11/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#30</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">康鈜有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-30')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-30" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心竹北分區中心工作場所整建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/11/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#31</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">一二三室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-31')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-31" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A3]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣學生輔導諮商中心竹北分區中心工作場所整建工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/11/12</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A3" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A3" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#32</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">廖欽大建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-32')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-32" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110C6]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">竹北國中和平樓校舍防水隔熱工程委託規劃設計監造勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/10/21</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C6" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110C6" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#33</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">蔡崇和建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-33')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-33" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110C6]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">竹北國中和平樓校舍防水隔熱工程委託規劃設計監造勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/10/21</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C6" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110C6" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#34</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">龍璽室內裝修有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-34')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-34" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110B4]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣立竹北國民中學110年度整建計畫-體育館改善教學環境採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/09/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110B4" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110B4" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">體育</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#35</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">藝鑫工程有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-35')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-35" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣中小學電力系統改善工程(第1群)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/07/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#36</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">宗鈞企業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-36')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-36" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[110A2]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">新竹縣中小學電力系統改善工程(第1群)</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/07/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A2" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=110A2" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (42 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>115C7</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學115年6月豪雨國民中小學校園災害搶險搶修及復原工程委託規劃設計監造技術服務採購</td>
+            <td>2026/11/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115C7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115C7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>115A4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學115年資源回收室道路整修工程採購</td>
+            <td>2026/11/03</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115A4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115A4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>115A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學仁愛樓安全網汰換工程採購</td>
+            <td>2026/10/02</td>
+            <td class="text-left">路戰隊商行</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>115B4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">普通班教室大屏及雙層崁入式黑板設備財物採購</td>
+            <td>2026/08/19</td>
+            <td class="text-left">易冠資訊股份有限公司 (E-champion CO., LTD.), 上福事務機器企業社</td>
+            <td><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115B4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115B4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>115A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">仁愛樓西側老舊廁所整修工程</td>
+            <td>2026/04/30</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>114A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣114年度竹北國民中學化糞池整修工程採購</td>
+            <td>2025/12/31</td>
+            <td class="text-left">吉宸營造有限公司, 佳惠土木包工業</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>114A1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣114年度竹北國民中學教室及體育館PU整修工程採購</td>
+            <td>2025/10/27</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">體育</span><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114A1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114A1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>114A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">基層運動選手訓練站改善訓練環璄及器材設備整修工程</td>
+            <td>2025/10/20</td>
+            <td class="text-left">新陽教具店</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>114B3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">114年度補助基層運動選手訓練站改善環境及器材設備財物採購</td>
+            <td>2025/10/15</td>
+            <td class="text-left">星宇體育器材企業社</td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114B3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114B3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>114C8</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">仁愛樓西側老舊廁所整修工程委託規劃設計監造技術服務採購</td>
+            <td>2025/10/13</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">技術服務</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C8" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C8" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>114B4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">普通班教室大屏及雙層崁入式黑板設備財物採購</td>
+            <td>2025/10/07</td>
+            <td class="text-left">易冠資訊股份有限公司 (E-champion CO., LTD.), 上福事務機器企業社, 承達科技有限公司</td>
+            <td><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114B4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114B4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>113C10</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學信義樓拆除重建工程委託設計監造技術服務</td>
+            <td>2024/11/29</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C10" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C10" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>113A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學「113年4月3日地震」公共設施災損復建工程</td>
+            <td>2024/11/06</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>113C6</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學信義樓拆除重建工程委託設計監造技術服務</td>
+            <td>2024/10/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>113A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學多功能教室(二)整修工程</td>
+            <td>2024/07/15</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>113A1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">忠孝樓仁愛樓老舊廁所整修工程</td>
+            <td>2024/05/01</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113A1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113A1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>112A5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣竹北市竹北國中通學步道暨行車安全道路改善計畫工程</td>
+            <td>2024/01/26</td>
+            <td class="text-left">朝新營造事業股份有限公司, 世聯營造工程有限公司, 朝勝營造事業股份有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112A5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>112A4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學忠孝樓前瀝青刨除鋪設工程</td>
+            <td>2023/12/22</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112A4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>112A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">竹北國中校園路面及公共藝術下陷復建工程</td>
+            <td>2023/11/02</td>
+            <td class="text-left">木蘭工程有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>112C7</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">忠孝樓信義樓老舊廁所整修工程委託規劃設計監造技術服務採購</td>
+            <td>2023/10/02</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span><span class="kw-tag">技術服務</span><span class="kw-tag">廁所</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112C7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>112A1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣學生輔導諮商中心-竹北分區中心辦公室修繕工程</td>
+            <td>2023/08/24</td>
+            <td class="text-left">巨迪企業有限公司, 雅崎裝修工程有限公司, 吉宸營造有限公司, 力承室內裝修有限公司, 翔品工程有限公司, 錦龍室內裝修股份有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112A1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>112A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣學生輔導諮商中心-竹東分區中心辦公室修繕工程</td>
+            <td>2023/08/24</td>
+            <td class="text-left">吉宸營造有限公司, 禾莘室內裝修有限公司, 雅崎裝修工程有限公司, 翔品工程有限公司, 錦龍室內裝修股份有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">修繕</span><span class="kw-tag">辦公室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>112C5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學通學步道暨行車安全道路改善工程委託設計監造技術服務 勞務採購案</td>
+            <td>2023/07/05</td>
+            <td class="text-left">和鑫工程顧問股份有限公司</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">技術服務</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112C5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>112B2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣竹北國民中學特教班教室電腦設備財物採購案(A)</td>
+            <td>2023/06/07</td>
+            <td class="text-left">宏睿電腦科技股份有限公司</td>
+            <td><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112B2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112B2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>112B3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣竹北國民中學特教班教室電腦設備財物採購案(B)</td>
+            <td>2023/06/07</td>
+            <td class="text-left">宏睿電腦科技股份有限公司</td>
+            <td><span class="kw-tag">教室</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112B3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112B3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>111A4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣竹北國中112年全中運拳擊競賽場地環境設施修(整)建工程</td>
+            <td>2023/01/12</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111A4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>111A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">竹北國中仁愛樓暨忠孝樓校舍防水隔熱工程</td>
+            <td>2022/12/16</td>
+            <td class="text-left">鑫利華營造有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>111A1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">竹北國中和平樓校舍防水隔熱工程</td>
+            <td>2022/12/07</td>
+            <td class="text-left">鑫利華營造有限公司, 育山營造工程有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111A1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>111A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣竹北國中112年全中運競賽場館(拳擊)整修工程</td>
+            <td>2022/10/24</td>
+            <td class="text-left">吉宸營造有限公司, 健楹裝修工程有限公司</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>111C8</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">竹北國中仁愛樓暨忠孝樓校舍防水隔熱工程委託監造勞務採購</td>
+            <td>2022/06/23</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C8" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C8" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>111C1-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣竹北國中112年全中運競賽場館(拳擊)整修工程委託規劃設計監造勞務採購</td>
+            <td>2022/06/16</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C1-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C1-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>110A2-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣中小學電力系統改善工程(第1群)</td>
+            <td>2022/06/14</td>
+            <td class="text-left">昇萌股份有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A2-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110A2-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>111C1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣竹北國中112年全中運競賽場館(拳擊)整修工程委託規劃設計監造勞務採購</td>
+            <td>2022/04/22</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">整修</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>110A4</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">竹北國中和平樓校舍防水隔熱工程</td>
+            <td>2022/03/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110A4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>110A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣學生輔導諮商中心竹北分區中心工作場所整建工程</td>
+            <td>2021/11/12</td>
+            <td class="text-left">竑緯室內裝修工程行(獨資), 高第實業有限公司, 木蘭工程有限公司, 北昇營造股份有限公司, 進鑫工程行(獨資), 康鈜有限公司, 一二三室內裝修有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>110C7</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">竹北國中仁愛樓暨忠孝樓校舍防水隔熱工程委託規劃設計勞務採購</td>
+            <td>2021/10/22</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>110C6</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">竹北國中和平樓校舍防水隔熱工程委託規劃設計監造勞務採購</td>
+            <td>2021/10/21</td>
+            <td class="text-left">北院建築師事務所, 廖欽大建築師事務所, 蔡崇和建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">規劃</span><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>110B4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學110年度整建計畫-體育館改善教學環境採購</td>
+            <td>2021/09/03</td>
+            <td class="text-left">木蘭工程有限公司, 龍璽室內裝修有限公司</td>
+            <td><span class="kw-tag">體育</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110B4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110B4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>110B3</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學110年度整建計畫-體育館改善教學環境採購</td>
+            <td>2021/08/11</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">體育</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110B3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110B3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>110B2</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣立竹北國民中學110年度整建計畫-體育館改善教學環境採購</td>
+            <td>2021/08/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">體育</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110B2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110B2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>110A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣中小學電力系統改善工程(第1群)</td>
+            <td>2021/07/29</td>
+            <td class="text-left">昇萌股份有限公司, 藝鑫工程有限公司, 宗鈞企業有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>110A1</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">新竹縣中小學電力系統改善工程(第1群)</td>
+            <td>2021/07/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110A1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (100 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>115C7</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">新竹縣立竹北國民中學115年6月豪雨國民中小學校園災害搶險搶修及復原工程委託規劃設計監造技術服務採購</td>
+            <td>2026/11/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115C7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115C7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>115A4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學115年資源回收室道路整修工程採購</td>
+            <td>2026/11/03</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115A4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115A4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>115C6</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度新竹縣國民中學區域職業試探與體驗示範中心交通車接送勞務採購(開口契約)</td>
+            <td>2026/10/06</td>
+            <td class="text-left">大宇通運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115C6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115C6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>115A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學仁愛樓安全網汰換工程採購</td>
+            <td>2026/10/02</td>
+            <td class="text-left">路戰隊商行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>115B4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">普通班教室大屏及雙層崁入式黑板設備財物採購</td>
+            <td>2026/08/19</td>
+            <td class="text-left">易冠資訊股份有限公司 (E-champion CO., LTD.), 上福事務機器企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115B4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115B4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>115C2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣115學年度竹北國中午餐委外辦理勞務採購</td>
+            <td>2026/07/30</td>
+            <td class="text-left">美麒食品有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115C2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115C2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>115B3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度新竹縣立竹北國民中學燈具汰換節能改善執行計畫採購案</td>
+            <td>2026/07/09</td>
+            <td class="text-left">全日裕實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115B3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115B3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>115C4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度二年級戶外教育活動採購案</td>
+            <td>2026/06/26</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115C4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115C4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>115C3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度一年級戶外教育活動採購案</td>
+            <td>2026/06/04</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115C3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115C3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>115C5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115學年度三年級戶外教育活動採購案</td>
+            <td>2026/05/13</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115C5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115C5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>115A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">仁愛樓西側老舊廁所整修工程</td>
+            <td>2026/04/30</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>115B2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度新竹縣立竹北國民中學廚房配電盤汰換財物採購</td>
+            <td>2026/03/24</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115B2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115B2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>115C1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學信義樓校舍拆除重建-太陽光電設備搬遷勞務採購</td>
+            <td>2026/03/06</td>
+            <td class="text-left">聯合再生能源股份有限公司 (United Renewable Energy Co., Ltd.)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115C1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115C1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>115B1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣115年度竹北國民中學消防設備改善財物採購</td>
+            <td>2026/03/02</td>
+            <td class="text-left">詠大消防安全設備有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=115B1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115B1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>114A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣114年度竹北國民中學化糞池整修工程採購</td>
+            <td>2025/12/31</td>
+            <td class="text-left">吉宸營造有限公司, 佳惠土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>114B5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度飲水機濾材採購案</td>
+            <td>2025/12/29</td>
+            <td class="text-left">賀奕企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114B5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114B5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>114C10</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「新竹縣學生輔導諮商中心E化系統建置計畫」採購案</td>
+            <td>2025/11/17</td>
+            <td class="text-left">很快樂資訊服務股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C10" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C10" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>114A1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣114年度竹北國民中學教室及體育館PU整修工程採購</td>
+            <td>2025/10/27</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114A1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114A1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>114A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">基層運動選手訓練站改善訓練環璄及器材設備整修工程</td>
+            <td>2025/10/20</td>
+            <td class="text-left">新陽教具店</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>114B3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度補助基層運動選手訓練站改善環境及器材設備財物採購</td>
+            <td>2025/10/15</td>
+            <td class="text-left">星宇體育器材企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114B3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114B3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>114C8</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">仁愛樓西側老舊廁所整修工程委託規劃設計監造技術服務採購</td>
+            <td>2025/10/13</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C8" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C8" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>114B4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">普通班教室大屏及雙層崁入式黑板設備財物採購</td>
+            <td>2025/10/07</td>
+            <td class="text-left">易冠資訊股份有限公司 (E-champion CO., LTD.), 上福事務機器企業社, 承達科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114B4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114B4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>114C9</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度新竹縣國民中學區域職業試探與體驗示範中心交通車接送勞務採購(開口契約)</td>
+            <td>2025/10/03</td>
+            <td class="text-left">大宇通運有限公司, 唯航通運股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C9" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C9" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>114C7</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣114學年度竹北國中午餐委外辦理勞務採購</td>
+            <td>2025/06/12</td>
+            <td class="text-left">美麒食品有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>114C3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度二年級戶外教育活動採購案</td>
+            <td>2025/05/28</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>114C4-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度三年級戶外教育活動採購案</td>
+            <td>2025/05/21</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C4-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C4-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>114C6</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度全國學生輔導諮商中心暨業務科科長第1次業務聯繫會議勞務採購案</td>
+            <td>2025/05/19</td>
+            <td class="text-left">承恩餐旅管理顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>114C2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114學年度一年級戶外教育活動採購案</td>
+            <td>2025/05/14</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>114C4</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114學年度三年級戶外教育活動採購案</td>
+            <td>2025/04/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>114C1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣114年度竹北國民中學信義樓拆除重建安置勞務採購</td>
+            <td>2025/04/25</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114C1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114C1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>114B1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣114年度竹北國民中學消防設備改善財物採購</td>
+            <td>2025/02/25</td>
+            <td class="text-left">詠大消防安全設備有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=114B1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114B1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>113B4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114-116年度影印機彩色列印採購案</td>
+            <td>2024/12/27</td>
+            <td class="text-left">皓然企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113B4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113B4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>113B3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度飲水機濾材採購案</td>
+            <td>2024/12/24</td>
+            <td class="text-left">賀奕企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113B3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113B3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>113C10</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學信義樓拆除重建工程委託設計監造技術服務</td>
+            <td>2024/11/29</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C10" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C10" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>113A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學「113年4月3日地震」公共設施災損復建工程</td>
+            <td>2024/11/06</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>113C6</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學信義樓拆除重建工程委託設計監造技術服務</td>
+            <td>2024/10/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>113C8</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度新竹縣國民中學區域職業試探與體驗示範中心交通車接送勞務採購(開口契約)</td>
+            <td>2024/09/30</td>
+            <td class="text-left">大宇通運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C8" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C8" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>113C9</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學（新竹縣學生輔導諮商中心）「過渡性教育措施計畫」勞務採購案</td>
+            <td>2024/09/27</td>
+            <td class="text-left">財團法人利伯他茲教育基金會</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C9" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C9" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>113C7</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學（新竹縣學生輔導諮商中心）「過渡性教育措施計畫」勞 務採購案</td>
+            <td>2024/09/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>113A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學多功能教室(二)整修工程</td>
+            <td>2024/07/15</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>113B2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣113年度竹北國民中學消防設備改善財物採購</td>
+            <td>2024/07/15</td>
+            <td class="text-left">詠大消防安全設備有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113B2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113B2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>113C5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣113學年度竹北國中午餐委外辦理勞務採購</td>
+            <td>2024/06/13</td>
+            <td class="text-left">美麒食品有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>113C3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度二年級戶外教育活動採購案</td>
+            <td>2024/05/20</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>44</td>
+            <td><code>113C4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度一年級戶外教育活動採購案</td>
+            <td>2024/05/13</td>
+            <td class="text-left">世盛旅行社股份有限公司, 唯航國際旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>45</td>
+            <td><code>113C2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113學年度三年級戶外教育活動採購案</td>
+            <td>2024/05/09</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>46</td>
+            <td><code>113A1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">忠孝樓仁愛樓老舊廁所整修工程</td>
+            <td>2024/05/01</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113A1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113A1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>47</td>
+            <td><code>113C1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣竹北國民中學2024年國際教育文化參訪活動</td>
+            <td>2024/04/10</td>
+            <td class="text-left">太平洋世界旅行社股份有限公司, 運通世界旅行社有限公司, 星拓國際旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113C1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113C1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>48</td>
+            <td><code>113B1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度與國外姐妹學校互惠機制教學設備採購案</td>
+            <td>2024/03/15</td>
+            <td class="text-left">致創科技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=113B1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=113B1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>49</td>
+            <td><code>112A5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣竹北市竹北國中通學步道暨行車安全道路改善計畫工程</td>
+            <td>2024/01/26</td>
+            <td class="text-left">朝新營造事業股份有限公司, 世聯營造工程有限公司, 朝勝營造事業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112A5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>50</td>
+            <td><code>112A4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學忠孝樓前瀝青刨除鋪設工程</td>
+            <td>2023/12/22</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112A4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>51</td>
+            <td><code>112B4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度飲水機濾材採購案</td>
+            <td>2023/12/19</td>
+            <td class="text-left">賀奕企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112B4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112B4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>52</td>
+            <td><code>112A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">竹北國中校園路面及公共藝術下陷復建工程</td>
+            <td>2023/11/02</td>
+            <td class="text-left">木蘭工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>53</td>
+            <td><code>112C7</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">忠孝樓信義樓老舊廁所整修工程委託規劃設計監造技術服務採購</td>
+            <td>2023/10/02</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112C7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>54</td>
+            <td><code>112C6</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度新竹縣國民中學區域職業試探與體驗示範中心交通車接送勞務採購(開口契約)</td>
+            <td>2023/09/01</td>
+            <td class="text-left">大宇通運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112C6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>55</td>
+            <td><code>112A1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣學生輔導諮商中心-竹北分區中心辦公室修繕工程</td>
+            <td>2023/08/24</td>
+            <td class="text-left">巨迪企業有限公司, 雅崎裝修工程有限公司, 吉宸營造有限公司, 力承室內裝修有限公司, 翔品工程有限公司, 錦龍室內裝修股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112A1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>56</td>
+            <td><code>112A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣學生輔導諮商中心-竹東分區中心辦公室修繕工程</td>
+            <td>2023/08/24</td>
+            <td class="text-left">吉宸營造有限公司, 禾莘室內裝修有限公司, 雅崎裝修工程有限公司, 翔品工程有限公司, 錦龍室內裝修股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>57</td>
+            <td><code>112C5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學通學步道暨行車安全道路改善工程委託設計監造技術服務 勞務採購案</td>
+            <td>2023/07/05</td>
+            <td class="text-left">和鑫工程顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112C5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>58</td>
+            <td><code>112C4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣112學年度竹北國中午餐委外辦理勞務採購</td>
+            <td>2023/06/15</td>
+            <td class="text-left">美麒食品有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112C4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>59</td>
+            <td><code>112B2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣竹北國民中學特教班教室電腦設備財物採購案(A)</td>
+            <td>2023/06/07</td>
+            <td class="text-left">宏睿電腦科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112B2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112B2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>60</td>
+            <td><code>112B3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣竹北國民中學特教班教室電腦設備財物採購案(B)</td>
+            <td>2023/06/07</td>
+            <td class="text-left">宏睿電腦科技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112B3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112B3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>61</td>
+            <td><code>112C3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度三年級戶外教育活動採購案</td>
+            <td>2023/05/11</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112C3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>62</td>
+            <td><code>112C2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度二年級戶外教育活動採購案</td>
+            <td>2023/05/05</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112C2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>63</td>
+            <td><code>112C1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112學年度一年級戶外教育活動採購案</td>
+            <td>2023/05/03</td>
+            <td class="text-left">世盛旅行社股份有限公司, 唯航國際旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112C1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112C1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>64</td>
+            <td><code>112B1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣竹北國民中學112年度消防設施改善財物採購案</td>
+            <td>2023/04/10</td>
+            <td class="text-left">詠大消防安全設備有限公司, 台灣消防工程股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=112B1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=112B1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>65</td>
+            <td><code>111A4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣竹北國中112年全中運拳擊競賽場地環境設施修(整)建工程</td>
+            <td>2023/01/12</td>
+            <td class="text-left">吉宸營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111A4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>66</td>
+            <td><code>111A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">竹北國中仁愛樓暨忠孝樓校舍防水隔熱工程</td>
+            <td>2022/12/16</td>
+            <td class="text-left">鑫利華營造有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>67</td>
+            <td><code>111A1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">竹北國中和平樓校舍防水隔熱工程</td>
+            <td>2022/12/07</td>
+            <td class="text-left">鑫利華營造有限公司, 育山營造工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111A1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>68</td>
+            <td><code>111B1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度飲水機濾材採購案</td>
+            <td>2022/11/15</td>
+            <td class="text-left">賀奕企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111B1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111B1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>69</td>
+            <td><code>111A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣竹北國中112年全中運競賽場館(拳擊)整修工程</td>
+            <td>2022/10/24</td>
+            <td class="text-left">吉宸營造有限公司, 健楹裝修工程有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>70</td>
+            <td><code>111C10</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111學年度新竹縣國民中學區域職業試探與體驗示範中心交通車接送勞務採購(開口契約)</td>
+            <td>2022/09/13</td>
+            <td class="text-left">大宇通運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C10" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C10" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>71</td>
+            <td><code>111C9</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">竹北國中竹北市通學專車勞務採購(開口契約)</td>
+            <td>2022/07/27</td>
+            <td class="text-left">大宇通運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C9" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C9" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>72</td>
+            <td><code>111C8</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">竹北國中仁愛樓暨忠孝樓校舍防水隔熱工程委託監造勞務採購</td>
+            <td>2022/06/23</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C8" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C8" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>73</td>
+            <td><code>111C1-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣竹北國中112年全中運競賽場館(拳擊)整修工程委託規劃設計監造勞務採購</td>
+            <td>2022/06/16</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C1-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C1-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>74</td>
+            <td><code>110A2-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣中小學電力系統改善工程(第1群)</td>
+            <td>2022/06/14</td>
+            <td class="text-left">昇萌股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A2-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110A2-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>75</td>
+            <td><code>111C6</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣111學年度竹北國中午餐委外辦理勞務採購</td>
+            <td>2022/06/08</td>
+            <td class="text-left">美麒食品有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>76</td>
+            <td><code>111C7</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年未來教育閱讀線上論壇採購案</td>
+            <td>2022/06/08</td>
+            <td class="text-left">遠見天下文化出版股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>77</td>
+            <td><code>111C5</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年未來教育閱讀線上論壇採購案</td>
+            <td>2022/06/02</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>78</td>
+            <td><code>111C4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111學年度三年級戶外教育活動採購案</td>
+            <td>2022/05/25</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>79</td>
+            <td><code>111C3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111學年度二年級戶外教育活動採購案</td>
+            <td>2022/05/19</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>80</td>
+            <td><code>111C2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111學年度一年級戶外教育活動採購案</td>
+            <td>2022/05/18</td>
+            <td class="text-left">世盛旅行社股份有限公司, 唯航國際旅行社有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>81</td>
+            <td><code>111C1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣竹北國中112年全中運競賽場館(拳擊)整修工程委託規劃設計監造勞務採購</td>
+            <td>2022/04/22</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=111C1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=111C1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>82</td>
+            <td><code>110A4</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">竹北國中和平樓校舍防水隔熱工程</td>
+            <td>2022/03/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110A4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>83</td>
+            <td><code>110B5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">飲水機濾材採購案</td>
+            <td>2021/12/01</td>
+            <td class="text-left">賀奕企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110B5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110B5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>84</td>
+            <td><code>110A3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣學生輔導諮商中心竹北分區中心工作場所整建工程</td>
+            <td>2021/11/12</td>
+            <td class="text-left">竑緯室內裝修工程行(獨資), 高第實業有限公司, 木蘭工程有限公司, 北昇營造股份有限公司, 進鑫工程行(獨資), 康鈜有限公司, 一二三室內裝修有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110A3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>85</td>
+            <td><code>110C8</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度新竹縣國民中學區域職業試探與體驗示範中心交通車接送勞務採購(開口契約)</td>
+            <td>2021/10/25</td>
+            <td class="text-left">詮弘通運有限公司, 大宇通運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C8" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C8" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>86</td>
+            <td><code>110C7</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">竹北國中仁愛樓暨忠孝樓校舍防水隔熱工程委託規劃設計勞務採購</td>
+            <td>2021/10/22</td>
+            <td class="text-left">北院建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C7" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C7" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>87</td>
+            <td><code>110C6</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">竹北國中和平樓校舍防水隔熱工程委託規劃設計監造勞務採購</td>
+            <td>2021/10/21</td>
+            <td class="text-left">北院建築師事務所, 廖欽大建築師事務所, 蔡崇和建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C6" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C6" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>88</td>
+            <td><code>110B4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學110年度整建計畫-體育館改善教學環境採購</td>
+            <td>2021/09/03</td>
+            <td class="text-left">木蘭工程有限公司, 龍璽室內裝修有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110B4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110B4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>89</td>
+            <td><code>110C5</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">竹北國中竹北市通學專車勞務採購(開口契約)</td>
+            <td>2021/08/30</td>
+            <td class="text-left">大宇通運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C5" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C5" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>90</td>
+            <td><code>110B3</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學110年度整建計畫-體育館改善教學環境採購</td>
+            <td>2021/08/11</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110B3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110B3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>91</td>
+            <td><code>110B2</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">新竹縣立竹北國民中學110年度整建計畫-體育館改善教學環境採購</td>
+            <td>2021/08/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110B2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110B2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>92</td>
+            <td><code>110A2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣中小學電力系統改善工程(第1群)</td>
+            <td>2021/07/29</td>
+            <td class="text-left">昇萌股份有限公司, 藝鑫工程有限公司, 宗鈞企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110A2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>93</td>
+            <td><code>110A1</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">新竹縣中小學電力系統改善工程(第1群)</td>
+            <td>2021/07/13</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110A1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110A1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>94</td>
+            <td><code>10903C</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣國民中學區域職業試探與體驗示範中心交通車接送勞務採購案(開口契約)</td>
+            <td>2021/07/05</td>
+            <td class="text-left">大宇通運有限公司, 詮弘通運有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=10903C" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=10903C" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>95</td>
+            <td><code>110C4</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">新竹縣110學年度竹北國中午餐委外辦理勞務採購</td>
+            <td>2021/06/07</td>
+            <td class="text-left">美麒食品有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C4" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C4" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>96</td>
+            <td><code>110B1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">提升國中小自然科學領域教學設備採購案</td>
+            <td>2021/05/28</td>
+            <td class="text-left">國教儀器企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110B1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110B1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>97</td>
+            <td><code>110C3</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度三年級戶外教育活動採購案</td>
+            <td>2021/05/14</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C3" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C3" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>98</td>
+            <td><code>110C2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度二年級戶外教育活動採購案</td>
+            <td>2021/05/07</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>99</td>
+            <td><code>110C1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110學年度一年級戶外教育活動採購案</td>
+            <td>2021/05/07</td>
+            <td class="text-left">世盛旅行社股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>100</td>
+            <td><code>110C</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">特殊教育學生交通車維修勞務採購案</td>
+            <td>2021/04/26</td>
+            <td class="text-left">長源汽車股份有限公司新竹分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=3.76.44.96.6&job_number=110C" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=110C" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-11-18 08:30:23 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
