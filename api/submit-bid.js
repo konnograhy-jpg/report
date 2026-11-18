@@ -110,7 +110,13 @@ async function fetchPccTenderDetails(tenderUrl) {
     const openLocMatch = cleanText.match(/開標地點\s+(.+?)(?:\s+是否須繳納押標金|\s+投標文字|$)/);
     const openingLocation = openLocMatch ? openLocMatch[1].trim() : '';
 
-    return { ok: true, agencyAddress, deadline, opening, openingLocation, url: safeUrl };
+    const awardMatch = cleanText.match(/決標方式\s+(.+?)(?:\s+是否電子報價|\s+新增公告傳輸次數|\s+是否複數決標|$)/);
+    const awardMethod = awardMatch ? awardMatch[1].trim() : '';
+
+    const evalMatch = cleanText.match(/(?:評選時間|評選日期|評審時間|評審日期)\s+(\d{2,3}\/\d{1,2}\/\d{1,2}(?:\s+\d{1,2}:\d{2})?)/);
+    const evaluation = evalMatch ? parseRocDateTime(evalMatch[1]) : null;
+
+    return { ok: true, agencyAddress, deadline, opening, evaluation, awardMethod, openingLocation, url: safeUrl };
   } catch (err) {
     return { ok: false, reason: err.message || 'fetch_failed' };
   }
@@ -156,6 +162,12 @@ async function sendTelegramBidNotice(bid, details) {
     `🔔 <b>開標時間：</b>${escapeHtml(details.opening?.display || '未取得')}`
   ];
 
+  if (details.evaluation) {
+    lines.push(`🗓️ <b>評選時間：</b>${escapeHtml(details.evaluation.display)}`);
+  }
+  if (details.awardMethod) {
+    lines.push(`📋 <b>決標方式：</b>${escapeHtml(details.awardMethod)}`);
+  }
   if (details.openingLocation) {
     lines.push(`🏛️ <b>開標地點：</b>${escapeHtml(details.openingLocation)}`);
   }
@@ -245,15 +257,15 @@ function getTargetCalendarIds(designerName) {
 async function createGoogleCalendarEvents(bid, details) {
   const targetCalendarIds = getTargetCalendarIds(bid.designer_name);
   if (targetCalendarIds.length === 0) return { ok: false, skipped: true, reason: 'missing_calendar_id' };
-  if (!details.deadline && !details.opening) {
+  if (!details.deadline && !details.opening && !details.evaluation) {
     return { ok: false, skipped: true, reason: 'no_dates_extracted' };
   }
 
   const accessToken = await getGoogleAccessToken();
   if (!accessToken) return { ok: false, skipped: true, reason: 'missing_google_credentials' };
 
-  const budgetText = bid.budget_amount !== null ? `NT$ ${bid.budget_amount.toLocaleString('en-US')}` : '未列出';
-  const rawTitle = bid.tender_name.replace(/^[^\s<]+\s*<?/, '').trim();
+  const cleanTenderName = bid.tender_name.replace(/\s+/g, ' ').trim();
+  const rawTitle = cleanTenderName.replace(/^\s*-?\s*[^\s<]+\s*<\s*/, '').trim();
   const shortName = rawTitle.startsWith(bid.agency_name)
     ? rawTitle.slice(bid.agency_name.length).trim().slice(0, 36) || rawTitle.slice(0, 36)
     : rawTitle.slice(0, 36);
@@ -264,14 +276,15 @@ async function createGoogleCalendarEvents(bid, details) {
   const baseDesc = [
     `⏰ 截標時間：${details.deadline?.display || '未取得'}`,
     `🔔 開標時間：${details.opening?.display || '未取得'}`,
+    details.evaluation ? `🗓️ 評選時間：${details.evaluation.display}` : '',
+    details.awardMethod ? `📋 決標方式：${details.awardMethod}` : '',
     details.openingLocation ? `🏛️ 開標地點：${details.openingLocation}` : '',
-    `標案案號：${bid.tender_id}`,
     `招標機關：${bid.agency_name}`,
     `機關地址：${cleanAddress || '未取得'}`,
-    `標案名稱：${bid.tender_name}`,
-    `預算金額：${budgetText}`,
-    `負責設計師：${bid.designer_name}`,
-    details.url ? `採購網公告：${details.url}` : ''
+    `標案名稱：${cleanTenderName}`,
+    `標案案號：${bid.tender_id}`,
+    details.url ? `採購網公告：${details.url}` : '',
+    '評選資訊待gpt核實補充'
   ].filter(Boolean).join('\n');
 
   const pushEvent = async (calendarId, summary, isoStart, durationMins, location) => {
@@ -314,6 +327,15 @@ async function createGoogleCalendarEvents(bid, details) {
         calendarId,
         `【開標 ${details.opening.shortLabel}】${bid.agency_name}｜${shortName} (${bid.designer_name})`,
         details.opening.isoStart,
+        60,
+        mapLocation
+      ));
+    }
+    if (details.evaluation) {
+      tasks.push(pushEvent(
+        calendarId,
+        `【評選 ${details.evaluation.shortLabel}】${bid.agency_name}｜${shortName} (${bid.designer_name})`,
+        details.evaluation.isoStart,
         60,
         mapLocation
       ));
