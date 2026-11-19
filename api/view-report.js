@@ -74,11 +74,11 @@ export default async function handler(req, res) {
     res.setHeader('Content-Type', contentType);
     res.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
 
-    // 快取控制：首頁極短快取（30秒內感知新日報），歷史日報長快取（提升載入速度）
-    if (filePath === 'tenders.html') {
+    // 快取控制：首頁與資料庫極短快取（30秒內感知新日報），日報頁短快取（60秒，避免同日覆蓋更新被 CDN 鎖死 24 小時）
+    if (filePath === 'tenders.html' || filePath === 'tenders_data.js') {
       res.setHeader('Cache-Control', 'public, max-age=10, s-maxage=30, stale-while-revalidate=60');
     } else {
-      res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400');
+      res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=60, stale-while-revalidate=120');
     }
 
     // 二進位與文字格式串流
