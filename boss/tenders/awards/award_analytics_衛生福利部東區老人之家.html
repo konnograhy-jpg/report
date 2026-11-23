@@ -1,0 +1,3859 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【決標與招標分析】衛生福利部東區老人之家 近五年事務所相關標案與常客廠商統計</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 24px;
+        }
+
+        .header-unit-badge {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-unit-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1.25;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-blue);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .vendor-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .vendor-card.frequent-card {
+            border-color: var(--accent-amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .vendor-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .rank-num {
+            font-size: 18px;
+            font-weight: 800;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #334155;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #b45309, #78350f); color: white; }
+
+        .vendor-info {
+            flex-grow: 1;
+        }
+
+        .vendor-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .vendor-stats-mini {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .highlight-num {
+            color: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-fire {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .badge-normal {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-danger { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+
+        .vendor-cases-toggle {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .vendor-cases-toggle:hover {
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .vendor-cases-list {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vendor-cases-list.hidden {
+            display: none;
+        }
+
+        .case-item {
+            background: #0f172a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+            font-size: 13px;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .case-num {
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        .case-title {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .case-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            flex-wrap: wrap;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: 4px;
+        }
+
+        .kw-tag {
+            font-size: 10px;
+            background: #334155;
+            color: #38bdf8;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .g0v-btn-sm, .ezbid-btn-sm {
+            text-decoration: none;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .g0v-btn-sm { background: #0284c7; }
+        .ezbid-btn-sm { background: #7c3aed; }
+
+        .g0v-btn, .ezbid-btn {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            margin-right: 4px;
+        }
+        .g0v-btn { background: #0284c7; }
+        .ezbid-btn { background: #7c3aed; }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            margin-bottom: 36px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        th {
+            background: #111827;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(51, 65, 85, 0.5);
+        }
+
+        .text-left { text-align: left; }
+        .font-weight-bold { font-weight: 600; color: #ffffff; }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-sub);
+            font-size: 13px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-unit-badge">🏛️ 政府機關採購分析</div>
+            <h1 class="header-unit-name">衛生福利部東區老人之家</h1>
+            <div class="header-subtitle">近五年 (110-115年度) 事務所相關採購歷史紀錄與常客得標廠商資料矩陣</div>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">五年間採購總案數</div>
+                <div class="metric-value">232 案</div>
+                <div class="metric-desc">包含工程、財物與勞務</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">勞務類別總案數</div>
+                <div class="metric-value">191 案</div>
+                <div class="metric-desc">已過濾純勞務案源</div>
+            </div>
+            <div class="metric-card" style="border-color: var(--accent-amber);">
+                <div class="metric-label">事務所相關標案</div>
+                <div class="metric-value" style="color: #fbbf24;">23 案</div>
+                <div class="metric-desc">關鍵字匹配規劃設計監造</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">累計合作廠商數</div>
+                <div class="metric-value" style="color: var(--accent-emerald);">16 家</div>
+                <div class="metric-desc">常客夥伴 (得標≥2次): 2 家</div>
+            </div>
+        </div>
+
+        <div class="section-title">🏆 合作得標廠商排行榜與歷史關聯矩陣 (以得標次數排序)</div>
+        <div class="vendor-grid">
+            
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-1">#1</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">振輝土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">3 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-1')">
+                <span>📋 查看過往得標細節 (3 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-1" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE-1150701]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">東區老人之家地坪及環境改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2026/09/01</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE-1150701" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE-1150701" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">地坪</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE-1140626]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">活動中心電力系統及環境改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/08/04</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE-1140626" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE-1140626" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE1120401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">長照養護棟外圍院民戶外活動廣場排水改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/06/01</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE1120401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card frequent-card">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-2">#2</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">李林雷</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">2 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-fire">🔥 常客夥伴 (得標≥2次)</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-2')">
+                <span>📋 查看過往得標細節 (2 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-2" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETS11118]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">111年舊養護院區運用規劃專案管理人力</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/01/06</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11118" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETS11118" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">規劃</span></div>
+                </div>
+            </div>
+            
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETS11021-1]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">110年舊養護院區運用規劃專案管理人力勞務採購</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/07/14</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11021-1" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETS11021-1" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">規劃</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-3">#3</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">翊新土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-3')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-3" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE-1140626]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">活動中心電力系統及環境改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/08/04</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE-1140626" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE-1140626" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#4</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鴻誠土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-4')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-4" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE-1140626]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">活動中心電力系統及環境改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2025/08/04</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE-1140626" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE-1140626" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#5</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">東銘土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-5')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-5" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE1130702]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">活動中心屋頂防水隔熱鐵皮浪板、鋁門窗及 管線更新工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1130702" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE1130702" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#6</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">駿宏土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-6')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-6" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE1130702]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">活動中心屋頂防水隔熱鐵皮浪板、鋁門窗及 管線更新工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/07/31</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1130702" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE1130702" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#7</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">連盛營造有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-7')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-7" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE1120701]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">安養棟3樓床位配置調整工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/01/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120701" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE1120701" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#8</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">台盛營造股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-8')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-8" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE1120701]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">安養棟3樓床位配置調整工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2024/01/30</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120701" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE1120701" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#9</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">鑫歆土木包工業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-9')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-9" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE1120401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">長照養護棟外圍院民戶外活動廣場排水改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/06/01</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE1120401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#10</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">源瑞實業有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-10')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-10" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE1120401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">長照養護棟外圍院民戶外活動廣場排水改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/06/01</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE1120401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#11</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">惠勝土木包工業</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-11')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-11" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETE1120401]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">長照養護棟外圍院民戶外活動廣場排水改善工程</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2023/06/01</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120401" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETE1120401" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#12</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">李凱傑建築師事務所</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-12')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-12" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETS1110901]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">「安養棟3樓床位配置調整工程委託設計監造」採購案</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/09/29</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1110901" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETS1110901" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#13</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">立揚工程顧問有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-13')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-13" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETS1110701]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">長照養護棟外圍院民戶外活動廣場排水改善工程委託設計監造</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2022/08/03</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1110701" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETS1110701" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#14</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">沛得適醫療輔具有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-14')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-14" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETP11030]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">生活照顧及運動輔具等4項</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/08/20</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11030" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETP11030" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">運動</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#15</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">財團法人臺灣營建研究院</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-15')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-15" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETS11022]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">舊養護院區採促進民間參與公共建設規劃支持性住宅可行性評估</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/05/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11022" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETS11022" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">規劃</span><span class="kw-tag">可行性</span><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        <div class="vendor-card ">
+            <div class="vendor-card-header">
+                <div class="rank-num rank-4">#16</div>
+                <div class="vendor-info">
+                    <h3 class="vendor-name">台灣博特顧問股份有限公司</h3>
+                    <div class="vendor-stats-mini">
+                        <span>得標次數：<strong class="highlight-num">1 次</strong></span>
+                    </div>
+                </div>
+                <div><span class="badge badge-normal">得標廠商</span></div>
+            </div>
+            <div class="vendor-cases-toggle" onclick="toggleCases('vendor-cases-16')">
+                <span>📋 查看過往得標細節 (1 案)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div id="vendor-cases-16" class="vendor-cases-list hidden">
+                
+            <div class="case-item">
+                <div class="case-header">
+                    <span class="case-num">[ETS11022]</span>
+                    <span class="badge badge-success">🟢 已決標</span>
+                    <span class="case-title">舊養護院區採促進民間參與公共建設規劃支持性住宅可行性評估</span>
+                </div>
+                <div class="case-meta">
+                    <span>📅 公告日期：2021/05/18</span>
+                    <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11022" target="_blank" class="g0v-btn-sm">🌐 g0v/公報</a>
+                    <a href="https://ezbid.tw/?q=ETS11022" target="_blank" class="ezbid-btn-sm">⚡ ezbid 達人</a>
+                    <div class="case-tags"><span class="kw-tag">規劃</span><span class="kw-tag">可行性</span><span class="kw-tag">評估</span></div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="section-title">📐 事務所關鍵字匹配標案明細 (23 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>匹配關鍵字</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>ETS-1150801</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left font-weight-bold">安養棟2樓床位配置調整室內裝修工程委託設計監造</td>
+            <td>2026/11/23</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span><span class="kw-tag">裝修</span><span class="kw-tag">室內</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS-1150801" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS-1150801" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>ETE-1150701</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">東區老人之家地坪及環境改善工程</td>
+            <td>2026/09/01</td>
+            <td class="text-left">振輝土木包工業</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">地坪</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE-1150701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE-1150701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>ETS-1150326</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">東區老⼈之家地坪及環境改善⼯程委託設計監造</td>
+            <td>2026/05/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">地坪</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS-1150326" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS-1150326" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>ETE-1140626</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">活動中心電力系統及環境改善工程</td>
+            <td>2025/08/04</td>
+            <td class="text-left">振輝土木包工業, 翊新土木包工業, 鴻誠土木包工業</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE-1140626" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE-1140626" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>ETS1140201</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">活動中心電力系統及環境改善工程委託設計監造</td>
+            <td>2025/03/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1140201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS1140201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>ETE1130702</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">活動中心屋頂防水隔熱鐵皮浪板、鋁門窗及 管線更新工程</td>
+            <td>2024/07/31</td>
+            <td class="text-left">東銘土木包工業, 駿宏土木包工業</td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1130702" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1130702" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>ETE1130701</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">活動中心屋頂防水隔熱鐵皮浪板、鋁門窗及管線更新工程</td>
+            <td>2024/07/24</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span><span class="kw-tag">防水</span><span class="kw-tag">隔熱</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1130701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1130701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>ETS11321</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">113年舊養護院區運用規劃專案管理人力</td>
+            <td>2024/05/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11321" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11321" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>ETE1120701</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">安養棟3樓床位配置調整工程</td>
+            <td>2024/01/30</td>
+            <td class="text-left">連盛營造有限公司, 台盛營造股份有限公司</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1120701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>ETS11236</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left font-weight-bold">112-113年舊養護院區運用規劃專案管理人力</td>
+            <td>2023/11/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11236" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11236" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>ETS11230</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">112年舊養護院區運用規劃專案管理人力</td>
+            <td>2023/09/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11230" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11230" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>ETE1120501</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">安養棟3樓床位配置調整工程</td>
+            <td>2023/07/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1120501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>ETE1120401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">長照養護棟外圍院民戶外活動廣場排水改善工程</td>
+            <td>2023/06/01</td>
+            <td class="text-left">鑫歆土木包工業有限公司, 振輝土木包工業, 源瑞實業有限公司, 惠勝土木包工業</td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1120401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>ETS11224</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">112年舊養護院區運用規劃專案管理人力</td>
+            <td>2023/05/10</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11224" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11224" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>ETS11207</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">112年舊養護院區運用規劃專案管理人力</td>
+            <td>2022/12/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11207" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11207" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>ETE1110901</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">長照養護棟外圍院民戶外活動廣場排水改善工程</td>
+            <td>2022/11/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1110901" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1110901" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>ETS1110901</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">「安養棟3樓床位配置調整工程委託設計監造」採購案</td>
+            <td>2022/09/29</td>
+            <td class="text-left">李凱傑建築師事務所</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1110901" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS1110901" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>ETS1110701</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">長照養護棟外圍院民戶外活動廣場排水改善工程委託設計監造</td>
+            <td>2022/08/03</td>
+            <td class="text-left">立揚工程顧問有限公司</td>
+            <td><span class="kw-tag">設計</span><span class="kw-tag">監造</span><span class="kw-tag">工程</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1110701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS1110701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>ETS11118</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">111年舊養護院區運用規劃專案管理人力</td>
+            <td>2022/01/06</td>
+            <td class="text-left">李林雷</td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11118" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11118" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>ETP11030</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">生活照顧及運動輔具等4項</td>
+            <td>2021/08/20</td>
+            <td class="text-left">沛得適醫療輔具有限公司</td>
+            <td><span class="kw-tag">運動</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11030" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11030" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>ETS11021-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">110年舊養護院區運用規劃專案管理人力勞務採購</td>
+            <td>2021/07/14</td>
+            <td class="text-left">李林雷</td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11021-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11021-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>ETS11022</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left font-weight-bold">舊養護院區採促進民間參與公共建設規劃支持性住宅可行性評估</td>
+            <td>2021/05/18</td>
+            <td class="text-left">財團法人臺灣營建研究院, 台灣博特顧問股份有限公司</td>
+            <td><span class="kw-tag">規劃</span><span class="kw-tag">可行性</span><span class="kw-tag">評估</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11022" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11022" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>ETS11021</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left font-weight-bold">110年舊養護院區運用規劃專案管理人力勞務採購</td>
+            <td>2021/04/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td><span class="kw-tag">規劃</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">📜 完整勞務類歷史採購總表 (191 案)</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>案號</th>
+                        <th>狀態</th>
+                        <th class="text-left">標案名稱</th>
+                        <th>決標/公告日期</th>
+                        <th class="text-left">得標廠商</th>
+                        <th>驗證連結</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td>1</td>
+            <td><code>ETS-1150801</code></td>
+            <td><span class="badge badge-info">🔵 正在投標中</span></td>
+            <td class="text-left">安養棟2樓床位配置調整室內裝修工程委託設計監造</td>
+            <td>2026/11/23</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS-1150801" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS-1150801" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td><code>ETS11609</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">116年一般事業廢棄物清運處理</td>
+            <td>2026/11/23</td>
+            <td class="text-left">富士環保企業社, 東澤環保有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11609" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11609" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td><code>ETS11606</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">116年度資通安全暨網路及電腦設備維護服務委外</td>
+            <td>2026/11/19</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11606" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11606" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td><code>ETS11606-1</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年度資通安全暨網路及電腦設備維護服務委外</td>
+            <td>2026/11/19</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11606-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11606-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td><code>ETS11613</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">116年度派駐服務人力勞務委外</td>
+            <td>2026/11/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11613" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11613" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td><code>ETS11615</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年度公費院民重病住院看護勞務委外</td>
+            <td>2026/11/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11615" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11615" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td><code>ETS11611-1</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年廚餘清運</td>
+            <td>2026/11/11</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11611-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11611-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td><code>ETS11611</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">116年廚餘清運</td>
+            <td>2026/11/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11611" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11611" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td><code>ETS11612</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年度長期照顧暨管理資訊系統服務委外</td>
+            <td>2026/11/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11612" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11612" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td><code>ETS11607</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年度廚工人力勞務委外</td>
+            <td>2026/10/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11607" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11607" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>11</td>
+            <td><code>ETS11610</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年度健康醫護人員臨場服務</td>
+            <td>2026/10/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11610" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11610" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>12</td>
+            <td><code>11510</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年度資通安全暨網路及電腦設備維護服務委外</td>
+            <td>2026/10/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=11510" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=11510" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>13</td>
+            <td><code>1151021</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年度資通安全暨網路及電腦設備維護服務委外</td>
+            <td>2026/10/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=1151021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1151021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>14</td>
+            <td><code>ETS11604</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116-117年救護車勤務服務</td>
+            <td>2026/10/20</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11604" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11604" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>15</td>
+            <td><code>ETS1150909</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116年度勞工健康醫護人員臨場服務</td>
+            <td>2026/09/10</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1150909" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS1150909" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>16</td>
+            <td><code>ETS11602</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">116年度廚工人力勞務委外</td>
+            <td>2026/09/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11602" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11602" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>17</td>
+            <td><code>ETE-1150701</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">東區老人之家地坪及環境改善工程</td>
+            <td>2026/09/01</td>
+            <td class="text-left">振輝土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE-1150701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE-1150701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>18</td>
+            <td><code>ETS11601</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">116-117年院民理髮</td>
+            <td>2026/08/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11601" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11601" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>19</td>
+            <td><code>ETP11531</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">115年超音波噴霧器及醫療設備</td>
+            <td>2026/07/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11531" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11531" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>20</td>
+            <td><code>ETS11528</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">115年復健/健康促進專業服務業務承攬</td>
+            <td>2026/06/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11528" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11528" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>21</td>
+            <td><code>ETS-1150326</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">東區老⼈之家地坪及環境改善⼯程委託設計監造</td>
+            <td>2026/05/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS-1150326" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS-1150326" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>22</td>
+            <td><code>ETS11527</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">網站建置委託案</td>
+            <td>2026/04/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11527" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11527" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>23</td>
+            <td><code>115NU01</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">醫療器材設備公開徵求</td>
+            <td>2026/04/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=115NU01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=115NU01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>24</td>
+            <td><code>ETP11515</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-116年瓦斯燃料供應</td>
+            <td>2026/03/27</td>
+            <td class="text-left">帝皇瓦斯行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11515" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11515" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>25</td>
+            <td><code>ETS11526</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115-116年營養師/團膳專管人員勞務承攬</td>
+            <td>2026/03/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11526" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11526" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>26</td>
+            <td><code>ETS1150204</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">衛生福利部東區老人之家網站建置案</td>
+            <td>2026/02/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1150204" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS1150204" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>27</td>
+            <td><code>ETS11520</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">115年物理治療業務承攬</td>
+            <td>2026/01/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11520" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11520" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>28</td>
+            <td><code>ETS11516</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年度廚工人力勞務委外</td>
+            <td>2026/01/05</td>
+            <td class="text-left">瑞潔國際有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11516" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11516" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>29</td>
+            <td><code>ETS11514</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">115年營養師勞務承攬</td>
+            <td>2026/01/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11514" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11514" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>30</td>
+            <td><code>114NU02</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">行動式生理量測設備</td>
+            <td>2025/12/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=114NU02" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114NU02" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>31</td>
+            <td><code>ETS11523</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度勞工健康醫護人員臨場服務</td>
+            <td>2025/12/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11523" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11523" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>32</td>
+            <td><code>ETS11521</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年院民膳食桌餐</td>
+            <td>2025/12/19</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11521" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11521" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>33</td>
+            <td><code>114NU01</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">長照養護區及管路區智慧床墊公開徵求</td>
+            <td>2025/12/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=114NU01" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114NU01" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>34</td>
+            <td><code>ETP11513</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115-116年院民紙尿褲等5項兩年單價開口契約</td>
+            <td>2025/12/09</td>
+            <td class="text-left">康那香企業股份有限公司 (KNH ENTERPRISE CO., LTD.), 嬌聯股份有限公司, 宜新醫療器材有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11513" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11513" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>35</td>
+            <td><code>ETS11519</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年廚餘清運處理</td>
+            <td>2025/12/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11519" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11519" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>36</td>
+            <td><code>ETS11503</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度公費院民重病住院看護勞務委外115年後續擴充</td>
+            <td>2025/12/03</td>
+            <td class="text-left">力豪企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11503" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11503" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>37</td>
+            <td><code>ETS11506</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年派駐服務人力勞務委外115年後續擴充</td>
+            <td>2025/12/01</td>
+            <td class="text-left">祥泰環保科技企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11506" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11506" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>38</td>
+            <td><code>ETS11441</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年物理治療業務承攬</td>
+            <td>2025/11/24</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11441" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11441" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>39</td>
+            <td><code>ETP11510</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年院民營養品</td>
+            <td>2025/11/24</td>
+            <td class="text-left">開曄生技有限公司, 佳樂美健康事業股份有限公司, 康平興業股份有限公司, 三多士股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11510" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11510" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>40</td>
+            <td><code>ETP11504</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年院民膳食主副食品</td>
+            <td>2025/11/19</td>
+            <td class="text-left">福元商行, 金濠胜肽實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11504" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11504" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>41</td>
+            <td><code>ETS11502</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">115年公費亡故院⺠殮葬處理</td>
+            <td>2025/11/18</td>
+            <td class="text-left">鑫皇靈葬儀社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11502" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11502" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>42</td>
+            <td><code>ETS1141104</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年-115年廚餘委託清除處理勞務採購案</td>
+            <td>2025/11/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1141104" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS1141104" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>43</td>
+            <td><code>ETS11443</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年長期照顧暨管理資訊系統服務委外</td>
+            <td>2025/11/04</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11443" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11443" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>44</td>
+            <td><code>ETS11505</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年度資通安全暨網路及電腦設備維護服務委外</td>
+            <td>2025/09/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11505" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11505" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>45</td>
+            <td><code>ETS11442</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年舊養護院區專案企劃委外人力</td>
+            <td>2025/09/15</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11442" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11442" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>46</td>
+            <td><code>114082805</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115-116年院民紙尿褲等5項</td>
+            <td>2025/08/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=114082805" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114082805" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>47</td>
+            <td><code>114082807</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">115年醫療衛材1批</td>
+            <td>2025/08/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=114082807" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=114082807" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>48</td>
+            <td><code>ET151</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年舊養護院區專案企劃委外人力</td>
+            <td>2025/08/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ET151" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ET151" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>49</td>
+            <td><code>ETE-1140626</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">活動中心電力系統及環境改善工程</td>
+            <td>2025/08/04</td>
+            <td class="text-left">振輝土木包工業, 翊新土木包工業, 鴻誠土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE-1140626" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE-1140626" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>50</td>
+            <td><code>ETS11439</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年派駐復健治療師服務勞務委外</td>
+            <td>2025/07/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11439" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11439" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>51</td>
+            <td><code>1140620</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">「生活照顧設備等3項」財物採購案</td>
+            <td>2025/06/23</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=1140620" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=1140620" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>52</td>
+            <td><code>ETS11437</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年院民及員工健康檢查</td>
+            <td>2025/06/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11437" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11437" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>53</td>
+            <td><code>ETP11434</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年院民膳食西式早餐類</td>
+            <td>2025/05/20</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11434" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11434" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>54</td>
+            <td><code>ETS11432</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年物理治療業務承攬</td>
+            <td>2025/05/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11432" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11432" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>55</td>
+            <td><code>ETS11433</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年派駐復健治療師服務勞務委外</td>
+            <td>2025/05/16</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11433" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11433" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>56</td>
+            <td><code>ETS1140201</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">活動中心電力系統及環境改善工程委託設計監造</td>
+            <td>2025/03/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1140201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS1140201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>57</td>
+            <td><code>ETP11431</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年院民膳食主副食品-加工品、素食、豆製品、熟食類</td>
+            <td>2025/02/17</td>
+            <td class="text-left">花蓮市農會超市貨品配送中心, 永吉利有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11431" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11431" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>58</td>
+            <td><code>ETS11428</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年派駐復健治療師服務勞務委外</td>
+            <td>2025/02/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11428" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11428" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>59</td>
+            <td><code>ETP11427</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年院民營養品</td>
+            <td>2025/02/04</td>
+            <td class="text-left">三多士股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11427" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11427" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>60</td>
+            <td><code>ETP11425</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年院民膳食西式早餐類</td>
+            <td>2025/01/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11425" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11425" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>61</td>
+            <td><code>ETP11416</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年院民膳食主副食品</td>
+            <td>2024/12/30</td>
+            <td class="text-left">福元商行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11416" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11416" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>62</td>
+            <td><code>ETP11419</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年院民膳食點心類</td>
+            <td>2024/12/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11419" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11419" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>63</td>
+            <td><code>ETP11422</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年院民營養品</td>
+            <td>2024/12/25</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11422" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11422" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>64</td>
+            <td><code>ETS11414</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">113-114年派駐復健治療師服務勞務委外</td>
+            <td>2024/12/24</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11414" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11414" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>65</td>
+            <td><code>ETS11412</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度公費院民重病住院看護勞務委外</td>
+            <td>2024/12/19</td>
+            <td class="text-left">力豪企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11412" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11412" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>66</td>
+            <td><code>ETS11420</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年度勞工健康醫護人員臨場服務</td>
+            <td>2024/12/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11420" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11420" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>67</td>
+            <td><code>ETS11421</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年救護車勤務服務</td>
+            <td>2024/12/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11421" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11421" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>68</td>
+            <td><code>ETS11411</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114-115年救護車勤務服務</td>
+            <td>2024/12/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11411" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11411" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>69</td>
+            <td><code>ETS11410</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度廚工人力勞務委外</td>
+            <td>2024/12/03</td>
+            <td class="text-left">祥泰環保科技企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11410" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11410" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>70</td>
+            <td><code>ETP11417</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年院民膳食雜貨類</td>
+            <td>2024/12/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11417" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11417" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>71</td>
+            <td><code>ETS11413</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">114年物理治療業務承攬</td>
+            <td>2024/11/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11413" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11413" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>72</td>
+            <td><code>ETS11403</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年派駐服務人力勞務委外</td>
+            <td>2024/11/22</td>
+            <td class="text-left">祥泰環保科技企業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11403" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11403" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>73</td>
+            <td><code>ETS11402</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年公費亡故院民殮葬處理</td>
+            <td>2024/11/20</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11402" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11402" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>74</td>
+            <td><code>ETS11401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">114年度一般事業廢棄物清運處理</td>
+            <td>2024/11/19</td>
+            <td class="text-left">東澤環保有限公司, 大正環保企業社, 富士環保企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>75</td>
+            <td><code>ETS11325</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113 年舊養護院區專案企劃委外人力</td>
+            <td>2024/10/30</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11325" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11325" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>76</td>
+            <td><code>ETS11407</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114-115年院民理髮</td>
+            <td>2024/10/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11407" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11407" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>77</td>
+            <td><code>ETS11408</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">114年營養師勞務承攬</td>
+            <td>2024/10/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11408" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11408" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>78</td>
+            <td><code>ETE1130702</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">活動中心屋頂防水隔熱鐵皮浪板、鋁門窗及 管線更新工程</td>
+            <td>2024/07/31</td>
+            <td class="text-left">東銘土木包工業, 駿宏土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1130702" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1130702" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>79</td>
+            <td><code>ETE1130701</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">活動中心屋頂防水隔熱鐵皮浪板、鋁門窗及管線更新工程</td>
+            <td>2024/07/24</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1130701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1130701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>80</td>
+            <td><code>ETS11321</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">113年舊養護院區運用規劃專案管理人力</td>
+            <td>2024/05/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11321" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11321" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>81</td>
+            <td><code>ETS1130501</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年院民及員工健康檢查</td>
+            <td>2024/05/31</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1130501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS1130501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>82</td>
+            <td><code>ETS11320</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">113年物理治療業務承攬</td>
+            <td>2024/05/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11320" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11320" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>83</td>
+            <td><code>ETP11322</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年安老區院民家俱採購案</td>
+            <td>2024/04/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11322" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11322" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>84</td>
+            <td><code>ETP1130201</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">113年衛材及醫療器材1批</td>
+            <td>2024/02/27</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP1130201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP1130201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>85</td>
+            <td><code>ETP1130101</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">長照棟5樓鍋爐及週邊設備</td>
+            <td>2024/02/22</td>
+            <td class="text-left">越方實業有限公司, 進昇土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP1130101" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP1130101" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>86</td>
+            <td><code>ETE1120701</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">安養棟3樓床位配置調整工程</td>
+            <td>2024/01/30</td>
+            <td class="text-left">連盛營造有限公司, 台盛營造股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1120701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>87</td>
+            <td><code>ETP11311-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年院民膳食主副食品</td>
+            <td>2024/01/24</td>
+            <td class="text-left">花蓮市農會超市貨品配送中心</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11311-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11311-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>88</td>
+            <td><code>ETP11317</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年院民營養品</td>
+            <td>2024/01/10</td>
+            <td class="text-left">康平興業股份有限公司, 三多士股份有限公司, 奕瑪國際行銷股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11317" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11317" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>89</td>
+            <td><code>ETS11208</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度公費院民重病住院看護勞務委外</td>
+            <td>2024/01/05</td>
+            <td class="text-left">力豪企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11208" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11208" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>90</td>
+            <td><code>ETP11311-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年院民膳食主副食品</td>
+            <td>2024/01/02</td>
+            <td class="text-left">花蓮市農會超市貨品配送中心, 新利行, 大發果菜行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11311-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11311-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>91</td>
+            <td><code>ETP11311</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年院民膳食主副食品</td>
+            <td>2023/12/22</td>
+            <td class="text-left">金濠胜肽實業有限公司, 欣海豐實業有限公司, 公正商號, 福元商行, 金優吉企業有限公司, 洋貞農水產行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11311" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11311" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>92</td>
+            <td><code>ETS11312</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度公費院民重病住院看護勞務委外113年後續擴充</td>
+            <td>2023/12/20</td>
+            <td class="text-left">力豪企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11312" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11312" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>93</td>
+            <td><code>ETS11307</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113年度廚工人力勞務委外</td>
+            <td>2023/12/19</td>
+            <td class="text-left">宏寬企業行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11307" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11307" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>94</td>
+            <td><code>ETP11309</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">113-114年院民紙尿褲等5項兩年單價開口契約</td>
+            <td>2023/12/18</td>
+            <td class="text-left">維星生技有限公司, 長樂企業社, 康那香企業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11309" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11309" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>95</td>
+            <td><code>ETS11310</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年公費亡故院民殮葬處理</td>
+            <td>2023/11/29</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11310" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11310" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>96</td>
+            <td><code>ETS11306</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度專業服務人力勞務委外113年後續擴充</td>
+            <td>2023/11/22</td>
+            <td class="text-left">宏寬企業行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11306" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11306" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>97</td>
+            <td><code>ETS11236</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112-113年舊養護院區運用規劃專案管理人力</td>
+            <td>2023/11/21</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11236" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11236" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>98</td>
+            <td><code>ETS11303</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">113年度資通安全暨網路及電腦設備維護服務委外</td>
+            <td>2023/10/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11303" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11303" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>99</td>
+            <td><code>ETP11301</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">113年日常及清潔用品</td>
+            <td>2023/10/19</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11301" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11301" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>100</td>
+            <td><code>ETP11232</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112年公務車(9人座含無障礙升降設備)</td>
+            <td>2023/10/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11232" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11232" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>101</td>
+            <td><code>ETS11230</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112年舊養護院區運用規劃專案管理人力</td>
+            <td>2023/09/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11230" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11230" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>102</td>
+            <td><code>ETS11231</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112年院民健康檢查</td>
+            <td>2023/08/23</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11231" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11231" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>103</td>
+            <td><code>ETE1120501</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">安養棟3樓床位配置調整工程</td>
+            <td>2023/07/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120501" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1120501" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>104</td>
+            <td><code>ETE1120401</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">長照養護棟外圍院民戶外活動廣場排水改善工程</td>
+            <td>2023/06/01</td>
+            <td class="text-left">鑫歆土木包工業有限公司, 振輝土木包工業, 源瑞實業有限公司, 惠勝土木包工業</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1120401" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1120401" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>105</td>
+            <td><code>ETS11226</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112年物理治療業務承攬</td>
+            <td>2023/05/23</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11226" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11226" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>106</td>
+            <td><code>ETP11121</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111-112年瓦斯燃料供應</td>
+            <td>2023/05/18</td>
+            <td class="text-left">帝皇瓦斯行(獨資), 花蓮瓦斯廚具行(獨資), 瑞隆煤氣行(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11121" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11121" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>107</td>
+            <td><code>ETS11224</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112年舊養護院區運用規劃專案管理人力</td>
+            <td>2023/05/10</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11224" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11224" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>108</td>
+            <td><code>ETP11225</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112年氧氣製造機及血氧濃度機醫療器材</td>
+            <td>2023/04/06</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11225" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11225" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>109</td>
+            <td><code>ETP11218-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年院民營養品</td>
+            <td>2023/03/15</td>
+            <td class="text-left">美商亞培股份有限公司台灣分公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11218-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11218-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>110</td>
+            <td><code>ETS11220</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112年營養師勞務承攬</td>
+            <td>2023/03/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11220" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11220" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>111</td>
+            <td><code>ETP11219</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年院民紙尿褲等5項</td>
+            <td>2023/02/17</td>
+            <td class="text-left">康那香企業股份有限公司, 維星生技有限公司, 易昇醫療儀器行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11219" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11219" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>112</td>
+            <td><code>ETS11222</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112年醫療衛材1批</td>
+            <td>2023/01/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11222" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11222" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>113</td>
+            <td><code>ETP11218</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年院民營養品</td>
+            <td>2023/01/13</td>
+            <td class="text-left">快樂田生技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11218" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11218" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>114</td>
+            <td><code>ETP11217</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112年醫療衛材1批</td>
+            <td>2023/01/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11217" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11217" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>115</td>
+            <td><code>ETS11206</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度物理治療及營養服務勞務承攬</td>
+            <td>2023/01/09</td>
+            <td class="text-left">林育賢</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11206" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11206" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>116</td>
+            <td><code>ETS11211</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度專業服務人力勞務委外</td>
+            <td>2022/12/28</td>
+            <td class="text-left">宏寬企業行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11211" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11211" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>117</td>
+            <td><code>ETS11207</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">112年舊養護院區運用規劃專案管理人力</td>
+            <td>2022/12/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11207" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11207" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>118</td>
+            <td><code>ETP11210</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年院民膳食主副食品</td>
+            <td>2022/12/15</td>
+            <td class="text-left">公正商號, 花蓮市農會超市貨品配送中心, 洋貞農水產行, 大發果菜行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11210" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11210" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>119</td>
+            <td><code>ETP11134</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年度活動中心堆疊椅(含台車)</td>
+            <td>2022/12/14</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11134" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11134" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>120</td>
+            <td><code>ETP11212</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年院民膳食雜貨類</td>
+            <td>2022/12/13</td>
+            <td class="text-left">詮宏企業社, 盛裕馨有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11212" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11212" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>121</td>
+            <td><code>ETS11216</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112-113年救護車勤務服務</td>
+            <td>2022/11/28</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11216" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11216" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>122</td>
+            <td><code>ETE1110901</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">長照養護棟外圍院民戶外活動廣場排水改善工程</td>
+            <td>2022/11/18</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETE1110901" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETE1110901" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>123</td>
+            <td><code>ETP1111001</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">院舍消防安全偵測設備改善</td>
+            <td>2022/11/14</td>
+            <td class="text-left">東立企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP1111001" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP1111001" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>124</td>
+            <td><code>ETS11209</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112年度勞工健康醫護人員臨場服務</td>
+            <td>2022/11/09</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11209" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11209" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>125</td>
+            <td><code>ETP11132</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">生活照顧醫療設備等3項</td>
+            <td>2022/11/02</td>
+            <td class="text-left">沛得適醫療輔具有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11132" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11132" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>126</td>
+            <td><code>ETS11130-1</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年院民健康檢查</td>
+            <td>2022/10/25</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11130-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11130-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>127</td>
+            <td><code>ETS11205</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112年度資通安全暨網路及電腦設備維護服務委外</td>
+            <td>2022/10/19</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11205" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11205" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>128</td>
+            <td><code>ETS11133</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">111年公費亡故院民殮葬處理第2次採購</td>
+            <td>2022/10/17</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11133" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11133" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>129</td>
+            <td><code>ETS11204</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">112-113年院民理髮</td>
+            <td>2022/10/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11204" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11204" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>130</td>
+            <td><code>ETS11130</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年院民健康檢查</td>
+            <td>2022/10/05</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11130" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11130" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>131</td>
+            <td><code>ETS1110901</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">「安養棟3樓床位配置調整工程委託設計監造」採購案</td>
+            <td>2022/09/29</td>
+            <td class="text-left">李凱傑建築師事務所</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1110901" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS1110901" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>132</td>
+            <td><code>ETS11202</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年公費亡故院民殮葬處理</td>
+            <td>2022/09/26</td>
+            <td class="text-left">美琪禮儀社, 有限責任花蓮縣第十生命禮儀服務勞動合作社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11202" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11202" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>133</td>
+            <td><code>ETS11201</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">112年度一般事業廢棄物清運處理</td>
+            <td>2022/09/14</td>
+            <td class="text-left">大正環保企業社, 東澤環保有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11201" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11201" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>134</td>
+            <td><code>ETS1110701</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">長照養護棟外圍院民戶外活動廣場排水改善工程委託設計監造</td>
+            <td>2022/08/03</td>
+            <td class="text-left">立揚工程顧問有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS1110701" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS1110701" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>135</td>
+            <td><code>ETS11126</code></td>
+            <td><span class="badge badge-warning" style="background:#f59e0b; color:#fff;">🟡 歷史招標</span></td>
+            <td class="text-left">111 年公費亡故院民新冠肺炎確診殮葬處理</td>
+            <td>2022/06/08</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11126" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11126" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>136</td>
+            <td><code>ETS11125</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年救護車勤務服務第2次採購</td>
+            <td>2022/05/31</td>
+            <td class="text-left">全國救護車有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11125" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11125" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>137</td>
+            <td><code>ETP11124</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">安老區衣櫃設備</td>
+            <td>2022/05/17</td>
+            <td class="text-left">金品創新室內裝修設計工作室(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11124" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11124" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>138</td>
+            <td><code>ETP11113-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年院民營養品</td>
+            <td>2022/03/23</td>
+            <td class="text-left">康平興業股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11113-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11113-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>139</td>
+            <td><code>ETP11123</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">瑞智區緊急呼叫設備</td>
+            <td>2022/03/17</td>
+            <td class="text-left">嘉德工程行(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11123" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11123" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>140</td>
+            <td><code>ETP11111-2</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年院民紙尿褲等5項</td>
+            <td>2022/02/25</td>
+            <td class="text-left">康那香企業股份有限公司, 維星生技有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11111-2" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11111-2" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>141</td>
+            <td><code>ETP11111-1</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年院民紙尿褲等5項</td>
+            <td>2022/01/20</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11111-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11111-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>142</td>
+            <td><code>ETS11118</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年舊養護院區運用規劃專案管理人力</td>
+            <td>2022/01/06</td>
+            <td class="text-left">李林雷</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11118" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11118" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>143</td>
+            <td><code>ETS11108-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度公費院民重病住院看護勞務委外</td>
+            <td>2022/01/06</td>
+            <td class="text-left">力豪企業社, 德康企業社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11108-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11108-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>144</td>
+            <td><code>ETP11113</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年院民營養品</td>
+            <td>2022/01/04</td>
+            <td class="text-left">大昌瑞台股份有限公司, 台灣大昌華嘉股份有限公司, 美商亞培股份有限公司台灣分公司, 奕瑪國際行銷股份有限公司, 康平興業股份有限公司, 惠健生技股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11113" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11113" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>145</td>
+            <td><code>ETS11110</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年救護車勤務服務</td>
+            <td>2022/01/03</td>
+            <td class="text-left">全國救護車有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11110" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11110" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>146</td>
+            <td><code>ETP11105</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年院民膳食主副食品</td>
+            <td>2021/12/30</td>
+            <td class="text-left">大發果菜行(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11105" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11105" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>147</td>
+            <td><code>ETS11109-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度資通安全暨網路及電腦設備維護服務委外</td>
+            <td>2021/12/30</td>
+            <td class="text-left">奇盟企業有限公司, 麒翼實業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11109-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11109-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>148</td>
+            <td><code>ETS11117</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度專業服務人力勞務委外</td>
+            <td>2021/12/27</td>
+            <td class="text-left">宏寬企業行</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11117" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11117" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>149</td>
+            <td><code>ETP11106</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年醫療衛材1批</td>
+            <td>2021/12/27</td>
+            <td class="text-left">鴻昌興業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11106" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11106" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>150</td>
+            <td><code>ETP11116</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年院民膳食雜貨類</td>
+            <td>2021/12/24</td>
+            <td class="text-left">詮宏企業社(獨資), 永吉利有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11116" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11116" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>151</td>
+            <td><code>ETP11114</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年院民膳食早餐類</td>
+            <td>2021/12/24</td>
+            <td class="text-left">雷記手工饅頭, 麥德加食品行(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11114" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11114" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>152</td>
+            <td><code>ETS11108</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年度公費院民重病住院看護勞務委外</td>
+            <td>2021/12/22</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11108" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11108" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>153</td>
+            <td><code>ETS11112</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年物理治療業務承攬</td>
+            <td>2021/12/20</td>
+            <td class="text-left">林育賢</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11112" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11112" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>154</td>
+            <td><code>ETS11120</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年公費院民送醫陪診駐點人員</td>
+            <td>2021/12/17</td>
+            <td class="text-left">宏寬企業行(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11120" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11120" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>155</td>
+            <td><code>ETP11115</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年院民膳食桌餐</td>
+            <td>2021/12/16</td>
+            <td class="text-left">豐川菜館(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11115" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11115" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>156</td>
+            <td><code>ETP11119</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年院民膳食點心類</td>
+            <td>2021/12/16</td>
+            <td class="text-left">麥式多歐式麵包(合夥)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11119" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11119" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>157</td>
+            <td><code>ETP11102-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年日常及清潔用品</td>
+            <td>2021/12/15</td>
+            <td class="text-left">原鄉企業社(獨資), 正泰日用品百貨行(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11102-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11102-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>158</td>
+            <td><code>ETS11107</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年營養師勞務承攬</td>
+            <td>2021/12/08</td>
+            <td class="text-left">鄧婷方</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11107" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11107" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>159</td>
+            <td><code>ETS11104</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年公費亡故院民殮葬處理</td>
+            <td>2021/12/07</td>
+            <td class="text-left">美琪禮儀社, 有限責任花蓮縣第十生命禮儀服務勞動合作社</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11104" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11104" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>160</td>
+            <td><code>ETS11103</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年度一般事業廢棄物清運處理</td>
+            <td>2021/12/06</td>
+            <td class="text-left">大正環保企業社(合夥), 東澤環保有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11103" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11103" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>161</td>
+            <td><code>ETP11111</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年院民紙尿褲等5項</td>
+            <td>2021/12/03</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11111" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11111" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>162</td>
+            <td><code>ETS11109</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年度資通安全暨網路及電腦設備維護服務委外</td>
+            <td>2021/11/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11109" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11109" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>163</td>
+            <td><code>ETS11034-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年院民健康檢查</td>
+            <td>2021/11/03</td>
+            <td class="text-left">衛生福利部花蓮醫院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11034-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11034-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>164</td>
+            <td><code>ETP11102</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">111年日常及清潔用品</td>
+            <td>2021/11/01</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11102" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11102" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>165</td>
+            <td><code>ETS11034</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">110年院民健康檢查</td>
+            <td>2021/10/26</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11034" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11034" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>166</td>
+            <td><code>ETS11101</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">111年院民理髮</td>
+            <td>2021/10/15</td>
+            <td class="text-left">黃惠文</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11101" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11101" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>167</td>
+            <td><code>ETP11033</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">錄影監視系統改善</td>
+            <td>2021/10/08</td>
+            <td class="text-left">欣辰通訊有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11033" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11033" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>168</td>
+            <td><code>ETP10908</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">109年院民膳食副食品</td>
+            <td>2021/09/08</td>
+            <td class="text-left">花蓮市農會超市貨品配送中心</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP10908" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP10908" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>169</td>
+            <td><code>ETP11031</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年院民服裝</td>
+            <td>2021/08/30</td>
+            <td class="text-left">台灣原住民梨山工程有限公司, 慶赫有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11031" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11031" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>170</td>
+            <td><code>ETP11032</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年院民寢具</td>
+            <td>2021/08/26</td>
+            <td class="text-left">財團法人桃園市李林樹社會福利基金會附設桃園教養院</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11032" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11032" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>171</td>
+            <td><code>ETP11030</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">生活照顧及運動輔具等4項</td>
+            <td>2021/08/20</td>
+            <td class="text-left">沛得適醫療輔具有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11030" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11030" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>172</td>
+            <td><code>ETP11028</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">洗衣房鍋爐及週邊設備</td>
+            <td>2021/08/11</td>
+            <td class="text-left">國鼎鍋爐有限公司, 進昇土木包工業(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11028" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11028" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>173</td>
+            <td><code>ETP11029</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年氧氣製造機及低週波治療機醫療器材</td>
+            <td>2021/08/04</td>
+            <td class="text-left">鴻昌興業有限公司, 聯杏股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11029" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11029" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>174</td>
+            <td><code>ETS11021-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年舊養護院區運用規劃專案管理人力勞務採購</td>
+            <td>2021/07/14</td>
+            <td class="text-left">李林雷</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11021-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11021-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>175</td>
+            <td><code>ETP11027</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">STS坐站訓練輔具-可調式扶手坐椅</td>
+            <td>2021/07/13</td>
+            <td class="text-left">優能福祉股份有限公司, 怡美企業社(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11027" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11027" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>176</td>
+            <td><code>ETP11010</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年院民營養品</td>
+            <td>2021/06/24</td>
+            <td class="text-left">三多士股份有限公司, 台灣大昌華嘉股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11010" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11010" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>177</td>
+            <td><code>ETP11023-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年公務車採購案</td>
+            <td>2021/05/28</td>
+            <td class="text-left">福昇汽車股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11023-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11023-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>178</td>
+            <td><code>ETS11004</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年照顧服務等勞務承攬</td>
+            <td>2021/05/21</td>
+            <td class="text-left">一把照有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11004" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11004" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>179</td>
+            <td><code>ETS11022</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">舊養護院區採促進民間參與公共建設規劃支持性住宅可行性評估</td>
+            <td>2021/05/18</td>
+            <td class="text-left">財團法人臺灣營建研究院, 台灣博特顧問股份有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11022" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11022" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>180</td>
+            <td><code>ETP11026</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">日常生活設備-單人衣櫃</td>
+            <td>2021/05/06</td>
+            <td class="text-left">桂富實業有限公司, 薩能家具廠(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11026" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11026" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>181</td>
+            <td><code>ETS11018</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年物理治療業務承攬</td>
+            <td>2021/05/04</td>
+            <td class="text-left">林育賢</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11018" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11018" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>182</td>
+            <td><code>ETP11025</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">失智棟寢室傢俱設備</td>
+            <td>2021/04/14</td>
+            <td class="text-left">金品創新室內裝修設計工作室(獨資), 鴻昌興業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11025" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11025" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>183</td>
+            <td><code>ETP11020-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年醫療衛材1批</td>
+            <td>2021/04/12</td>
+            <td class="text-left">鴻昌興業有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11020-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11020-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>184</td>
+            <td><code>ETP11023</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">110年公務車採購案</td>
+            <td>2021/04/12</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11023" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11023" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>185</td>
+            <td><code>ETS11021</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">110年舊養護院區運用規劃專案管理人力勞務採購</td>
+            <td>2021/04/07</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11021" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11021" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>186</td>
+            <td><code>ETP11024</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">洗衣脫水機、烘乾機等2項</td>
+            <td>2021/03/31</td>
+            <td class="text-left">泰威興業股份有限公司, 洗福機械工業有限公司, 鉅祥開發國際有限公司, 希歐機電設備有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11024" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11024" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>187</td>
+            <td><code>ETS11019</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年營養師勞務承攬</td>
+            <td>2021/03/29</td>
+            <td class="text-left">鄧婷方</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS11019" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS11019" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>188</td>
+            <td><code>ETP11020</code></td>
+            <td><span class="badge badge-danger">🔴 無法決標</span></td>
+            <td class="text-left">110年醫療衛材1批</td>
+            <td>2021/03/10</td>
+            <td class="text-left"><span style="color:#94a3b8;">無得標廠商/招標中</span></td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11020" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11020" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>189</td>
+            <td><code>ETP11017</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年院民紙尿褲等5項</td>
+            <td>2021/02/08</td>
+            <td class="text-left">康那香企業股份有限公司, 維星生技有限公司, 雅馨行銷有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11017" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11017" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>190</td>
+            <td><code>ETP11016</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">110年院民膳食早餐</td>
+            <td>2021/02/02</td>
+            <td class="text-left">麥德加食品行(獨資)</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETP11016" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETP11016" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>191</td>
+            <td><code>ETS10901-1</code></td>
+            <td><span class="badge badge-success">🟢 已決標</span></td>
+            <td class="text-left">108年照顧服務等勞務承攬109年後續擴充變更契約</td>
+            <td>2021/01/26</td>
+            <td class="text-left">一把照有限公司</td>
+            <td style="white-space: nowrap;">
+                <a href="https://openfunltd.github.io/pcc-viewer/tender.html?unit_id=A.21.100.4&job_number=ETS10901-1" target="_blank" class="g0v-btn">🌐 g0v</a>
+                <a href="https://ezbid.tw/?q=ETS10901-1" target="_blank" class="ezbid-btn">⚡ ezbid</a>
+            </td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            🤖 報告生成時間：2026-11-23 08:31:12 | 資料來源：政府電子採購網 (web.pcc.gov.tw) & Openfun API | 由 潘朵拉 系統產製
+        </footer>
+    </div>
+
+    <script>
+        function toggleCases(elemId) {
+            const el = document.getElementById(elemId);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
